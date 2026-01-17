@@ -1,95 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
+    /* WashKing Brand Colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 25 60% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 25 60% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 25 60% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary Yellow */
+    --primary: 45 100% 50%;
+    --primary-foreground: 25 60% 20%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Sky Blue */
+    --secondary: 200 85% 55%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Forest Green */
+    --accent: 120 45% 35%;
+    --accent-foreground: 0 0% 100%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Warm Brown */
+    --muted: 25 55% 40%;
+    --muted-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 25 30% 80%;
+    --input: 25 30% 80%;
+    --ring: 45 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 1.5rem;
+
+    /* Custom WashKing tokens */
+    --washking-yellow: 45 100% 50%;
+    --washking-gold: 40 90% 45%;
+    --washking-sky: 200 85% 55%;
+    --washking-sky-light: 200 80% 75%;
+    --washking-green: 120 45% 35%;
+    --washking-green-light: 120 40% 45%;
+    --washking-brown: 25 55% 35%;
+    --washking-brown-light: 25 50% 45%;
+    --washking-cream: 40 60% 95%;
+    --washking-orange: 30 100% 50%;
+
+    /* Gradients */
+    --gradient-sky: linear-gradient(180deg, hsl(200 85% 65%) 0%, hsl(200 85% 55%) 100%);
+    --gradient-yellow: linear-gradient(180deg, hsl(45 100% 55%) 0%, hsl(45 100% 50%) 100%);
+    --gradient-green: linear-gradient(180deg, hsl(120 40% 45%) 0%, hsl(120 45% 35%) 100%);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -101,5 +76,188 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Luckiest Guy', cursive;
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: 'Luckiest Guy', cursive;
+  }
+
+  .font-body {
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .text-shadow {
+    text-shadow: 3px 3px 0 hsl(var(--washking-brown)), 
+                 4px 4px 0 rgba(0,0,0,0.2);
+  }
+
+  .text-shadow-sm {
+    text-shadow: 2px 2px 0 hsl(var(--washking-brown));
+  }
+
+  .text-shadow-white {
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  }
+
+  .bg-sky-gradient {
+    background: linear-gradient(180deg, hsl(200 85% 65%) 0%, hsl(200 85% 55%) 100%);
+  }
+
+  .bg-green-forest {
+    background: linear-gradient(180deg, hsl(120 40% 40%) 0%, hsl(120 45% 30%) 100%);
+  }
+
+  .bg-wood {
+    background-color: hsl(25 55% 35%);
+  }
+
+  .cloud-shape {
+    position: absolute;
+    background: white;
+    border-radius: 9999px;
+  }
+
+  .btn-pill {
+    @apply rounded-full px-6 py-3 font-bold transition-all duration-300;
+  }
+
+  .btn-hero-primary {
+    @apply bg-white text-washking-brown border-4 border-washking-brown rounded-full px-8 py-3 font-display text-lg tracking-wide;
+    @apply hover:scale-105 hover:shadow-lg transition-all duration-300;
+  }
+
+  .btn-hero-secondary {
+    @apply bg-washking-yellow text-washking-brown border-4 border-washking-brown rounded-full px-8 py-3 font-display text-lg tracking-wide;
+    @apply hover:scale-105 hover:shadow-lg transition-all duration-300;
+  }
+
+  .btn-unlimited {
+    @apply bg-washking-brown text-white border-2 border-white rounded-full px-6 py-2 font-display text-sm tracking-wide;
+    @apply hover:bg-washking-brown-light hover:scale-105 transition-all duration-300;
+  }
+
+  .btn-know-more {
+    @apply bg-washking-cream text-washking-brown border-2 border-washking-brown rounded-full px-6 py-3 font-display text-lg;
+    @apply hover:scale-105 hover:shadow-lg transition-all duration-300;
+  }
+
+  .btn-learn-more {
+    @apply bg-white text-washking-brown border-2 border-washking-brown rounded-full px-6 py-3 font-display text-lg;
+    @apply hover:scale-105 hover:shadow-lg transition-all duration-300;
+  }
+
+  .card-feature {
+    @apply bg-white rounded-3xl p-6 text-center shadow-lg border-b-4 border-washking-brown;
+  }
+
+  .card-location {
+    @apply bg-washking-yellow rounded-3xl p-8 text-center shadow-lg;
+  }
+
+  .card-testimonial {
+    @apply bg-washking-green rounded-2xl p-6 text-white border-2 border-white/30;
+  }
+
+  .section-wood {
+    background-color: hsl(25 55% 35%);
+    background-image: url('/src/assets/wood-texture.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .yellow-badge {
+    @apply bg-washking-yellow text-white rounded-full w-12 h-12 flex items-center justify-center font-display text-xl shadow-lg;
+  }
+}
+
+@layer utilities {
+  .text-washking-yellow {
+    color: hsl(var(--washking-yellow));
+  }
+
+  .text-washking-brown {
+    color: hsl(var(--washking-brown));
+  }
+
+  .text-washking-sky {
+    color: hsl(var(--washking-sky));
+  }
+
+  .text-washking-green {
+    color: hsl(var(--washking-green));
+  }
+
+  .bg-washking-yellow {
+    background-color: hsl(var(--washking-yellow));
+  }
+
+  .bg-washking-brown {
+    background-color: hsl(var(--washking-brown));
+  }
+
+  .bg-washking-brown-light {
+    background-color: hsl(var(--washking-brown-light));
+  }
+
+  .bg-washking-sky {
+    background-color: hsl(var(--washking-sky));
+  }
+
+  .bg-washking-sky-light {
+    background-color: hsl(var(--washking-sky-light));
+  }
+
+  .bg-washking-green {
+    background-color: hsl(var(--washking-green));
+  }
+
+  .bg-washking-green-light {
+    background-color: hsl(var(--washking-green-light));
+  }
+
+  .bg-washking-cream {
+    background-color: hsl(var(--washking-cream));
+  }
+
+  .border-washking-brown {
+    border-color: hsl(var(--washking-brown));
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 3s ease-in-out infinite 1s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes cloudFloat {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(20px);
+    }
+  }
+
+  .animate-cloud {
+    animation: cloudFloat 8s ease-in-out infinite;
   }
 }
