@@ -3,7 +3,7 @@ import lionMascot from "@/assets/lion-mascot-hero.png";
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden">
+    <section id="hero" className="relative overflow-hidden">
       <div className="bg-washking-yellow h-8" />
       
       <div className="relative bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] min-h-[600px] lg:min-h-[700px]">

@@ -8,23 +8,31 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const menuItems = [
-    { label: "Home", href: "#" },
+    { label: "Home", href: "#hero" },
     {
       label: "Services",
-      href: "#",
-      dropdown: ["Fleet"],
+      href: "#packages",
+      dropdown: [{ label: "Fleet", href: "#packages" }],
     },
     {
       label: "Locations",
       href: "#locations",
-      dropdown: ["Vineland", "Somerset"],
+      dropdown: [
+        { label: "Vineland", href: "#locations" },
+        { label: "Somerset", href: "#locations" },
+      ],
     },
     {
       label: "About",
       href: "#about",
-      dropdown: ["About WashKing", "FAQ's", "Gallery", "Employment"],
+      dropdown: [
+        { label: "About WashKing", href: "#about" },
+        { label: "FAQ's", href: "#faq" },
+        { label: "Gallery", href: "#testimonials" },
+        { label: "Employment", href: "#footer" },
+      ],
     },
-    { label: "Manage Membership", href: "#" },
+    { label: "Manage Membership", href: "#packages" },
   ];
 
   return (
@@ -62,11 +70,12 @@ const Header = () => {
                   >
                     {item.dropdown.map((subItem) => (
                       <a
-                        key={subItem}
-                        href="#"
+                        key={subItem.label}
+                        href={subItem.href}
+                        onClick={() => setMobileMenuOpen(false)}
                         className="block px-4 py-2 text-washking-brown hover:bg-washking-cream font-body"
                       >
-                        {subItem}
+                        {subItem.label}
                       </a>
                     ))}
                   </motion.div>
@@ -108,6 +117,7 @@ const Header = () => {
                 <a
                   key={item.label}
                   href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="block py-2 font-display text-washking-brown text-sm"
                 >
                   {item.label.toUpperCase()}

@@ -13,7 +13,7 @@ const exploreLinks = [
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden">
+    <footer id="footer" className="relative overflow-hidden">
       {/* Sky to brown transition */}
       <div className="bg-gradient-to-b from-[hsl(200_85%_55%)] to-[hsl(200_85%_60%)] py-8">
         <svg viewBox="0 0 1440 100" className="w-full h-auto -mb-1" preserveAspectRatio="none">
