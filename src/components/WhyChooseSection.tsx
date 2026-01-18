@@ -18,7 +18,7 @@ const features = [
 
 const WhyChooseSection = () => {
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
+    <section id="why-choose" className="relative py-20 lg:py-32 overflow-hidden">
       {/* Green forest background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[hsl(120_40%_40%)] to-[hsl(120_45%_30%)]" />
       

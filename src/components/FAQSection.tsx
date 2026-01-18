@@ -19,7 +19,7 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
+    <section id="faq" className="relative py-20 lg:py-32 overflow-hidden">
       {/* Sky blue background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200_85%_60%)] to-[hsl(200_85%_55%)]" />
       

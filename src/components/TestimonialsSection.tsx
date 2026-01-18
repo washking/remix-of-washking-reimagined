@@ -15,7 +15,7 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
+    <section id="testimonials" className="relative py-20 lg:py-32 overflow-hidden">
       {/* Green forest background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[hsl(120_35%_50%)] to-[hsl(120_40%_40%)]" />
       
