@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import lionMascot from "@/assets/lion-mascot-hero.png";
+import lionMascot from "@/assets/lion-mascot.png";
 
 const HeroSection = () => {
   return (
