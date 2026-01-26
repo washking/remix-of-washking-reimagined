@@ -33,7 +33,7 @@ const Header = () => {
         { label: "Employment", href: "#footer" },
       ],
     },
-    { label: "Manage Membership", href: "#packages" },
+    { label: "Manage Membership", href: "https://customerportal.nxtwash.com/washkingcarwash", external: true },
   ];
 
   return (
@@ -56,6 +56,8 @@ const Header = () => {
               >
                 <a
                   href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
                   className="font-display text-washking-brown text-sm tracking-wide flex items-center gap-1 hover:opacity-80 transition-opacity"
                 >
                   {item.label.toUpperCase()}
@@ -87,7 +89,12 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <a href="#packages" className="btn-unlimited">
+            <a 
+              href="https://customerportal.nxtwash.com/washkingcarwash" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn-unlimited"
+            >
               Go Unlimited
             </a>
           </div>
@@ -124,7 +131,12 @@ const Header = () => {
                   {item.label.toUpperCase()}
                 </a>
               ))}
-              <a href="#packages" className="btn-unlimited mt-4 inline-block">
+              <a 
+                href="https://customerportal.nxtwash.com/washkingcarwash" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn-unlimited mt-4 inline-block"
+              >
                 Go Unlimited
               </a>
             </motion.div>
