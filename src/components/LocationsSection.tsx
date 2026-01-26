@@ -1,14 +1,17 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import woodTexture from "@/assets/wood-texture.jpg";
 
 const locations = [
   {
     name: "VINELAND",
+    slug: "vineland",
     address: "2611 S Main Road",
     city: "Vineland, NJ 08361",
   },
   {
     name: "SOMERSET",
+    slug: "somerset",
     address: "1463 NJ 27",
     city: "Somerset NJ 08873",
   },
@@ -89,14 +92,15 @@ const LocationsSection = () => {
                 <p className="text-washking-brown font-body text-lg mb-6">
                   {location.city}
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-block bg-white text-washking-brown border-2 border-washking-brown rounded-full px-6 py-3 font-display text-lg hover:shadow-lg transition-all"
-                >
-                  See Wash Menu
-                </motion.a>
+                <Link to={`/location/${location.slug}`}>
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-block bg-white text-washking-brown border-2 border-washking-brown rounded-full px-6 py-3 font-display text-lg hover:shadow-lg transition-all"
+                  >
+                    See Wash Menu
+                  </motion.span>
+                </Link>
               </motion.div>
             ))}
           </div>

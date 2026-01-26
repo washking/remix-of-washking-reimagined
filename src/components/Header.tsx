@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/washking-logo.png";
@@ -18,8 +19,8 @@ const Header = () => {
       label: "Locations",
       href: "#locations",
       dropdown: [
-        { label: "Vineland", href: "#locations" },
-        { label: "Somerset", href: "#locations" },
+        { label: "Vineland", href: "/location/vineland" },
+        { label: "Somerset", href: "/location/somerset" },
       ],
     },
     {
