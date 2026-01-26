@@ -5,7 +5,32 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import lionMascot from "@/assets/lion-mascot.png";
 
-const locationData = {
+interface WashPackage {
+  name: string;
+  color: string;
+  textColor: string;
+  singlePrice: string;
+  monthlyPrice: string;
+  includes: string | null;
+  features: string[];
+  note: string | null;
+}
+
+interface LocationInfo {
+  name: string;
+  state: string;
+  address: string;
+  city: string;
+  email: string;
+  hours: {
+    allDays?: string;
+    weekdays?: string;
+    sunday?: string;
+  };
+  packages: WashPackage[];
+}
+
+const locationData: Record<string, LocationInfo> = {
   vineland: {
     name: "Vineland",
     state: "New Jersey",
@@ -15,7 +40,49 @@ const locationData = {
     hours: {
       weekdays: "9:00 AM to 5:30 PM",
       sunday: "9AM - 5PM"
-    }
+    },
+    packages: [
+      {
+        name: "ROYALTY",
+        color: "bg-amber-800",
+        textColor: "text-white",
+        singlePrice: "$30",
+        monthlyPrice: "$59.99",
+        includes: "INCLUDES DIAMOND WASH PLUS:",
+        features: ["INTERIOR VACUUM", "DASH WIPE DOWN", "WINDOW WIPE DOWN", "DOOR JAMS CLEANED", "MATS CLEANED"],
+        note: null
+      },
+      {
+        name: "DIAMOND",
+        color: "bg-yellow-400",
+        textColor: "text-washking-brown",
+        singlePrice: "$16",
+        monthlyPrice: "$34.99",
+        includes: "INCLUDES PLATINUM WASH PLUS:",
+        features: ["LAVA SOAP", "CARNAUBA WAX", "POLYSEALANT", "TIRE SHINE"],
+        note: "*EXTERIOR ONLY"
+      },
+      {
+        name: "PLATINUM",
+        color: "bg-sky-300",
+        textColor: "text-washking-brown",
+        singlePrice: "$14",
+        monthlyPrice: "$29.99",
+        includes: "INCLUDES BRONZE WASH PLUS:",
+        features: ["TRIPLE FOAM", "WHEEL CLEANER 2X", "UNDERCARRIAGE WASH"],
+        note: "*EXTERIOR ONLY"
+      },
+      {
+        name: "BRONZE",
+        color: "bg-green-600",
+        textColor: "text-white",
+        singlePrice: "$10",
+        monthlyPrice: "$24.99",
+        includes: null,
+        features: ["WHITE FOAM", "DRYING AGENT"],
+        note: "*EXTERIOR ONLY"
+      }
+    ]
   },
   somerset: {
     name: "Somerset",
@@ -24,54 +91,42 @@ const locationData = {
     city: "Somerset, NJ 08873",
     email: "washkingsomerset@gmail.com",
     hours: {
-      weekdays: "9:00 AM to 5:30 PM",
-      sunday: "9AM - 5PM"
-    }
+      allDays: "8:00 AM to 7:00 PM"
+    },
+    packages: [
+      {
+        name: "DIAMOND",
+        color: "bg-yellow-400",
+        textColor: "text-washking-brown",
+        singlePrice: "$20",
+        monthlyPrice: "$34.99",
+        includes: "INCLUDES PLATINUM WASH PLUS:",
+        features: ["LAVA SOAP", "CARNAUBA WAX", "POLYSEALANT", "TIRE SHINE"],
+        note: "*EXTERIOR ONLY"
+      },
+      {
+        name: "PLATINUM",
+        color: "bg-sky-300",
+        textColor: "text-washking-brown",
+        singlePrice: "$17",
+        monthlyPrice: "$31.99",
+        includes: "INCLUDES BRONZE WASH PLUS:",
+        features: ["TRIPLE FOAM", "WHEEL CLEANER 2X", "UNDERCARRIAGE WASH"],
+        note: "*EXTERIOR ONLY"
+      },
+      {
+        name: "BRONZE",
+        color: "bg-green-600",
+        textColor: "text-white",
+        singlePrice: "$10",
+        monthlyPrice: "$19.99",
+        includes: null,
+        features: ["WHITE FOAM", "DRYING AGENT"],
+        note: "*EXTERIOR ONLY"
+      }
+    ]
   }
 };
-
-const washPackages = [
-  {
-    name: "ROYALTY",
-    color: "bg-amber-800",
-    textColor: "text-white",
-    singlePrice: "$30",
-    monthlyPrice: "$59.99",
-    includes: "INCLUDES DIAMOND WASH PLUS:",
-    features: ["INTERIOR VACUUM", "DASH WIPE DOWN", "WINDOW WIPE DOWN", "DOOR JAMS CLEANED", "MATS CLEANED"],
-    note: null
-  },
-  {
-    name: "DIAMOND",
-    color: "bg-yellow-400",
-    textColor: "text-washking-brown",
-    singlePrice: "$16",
-    monthlyPrice: "$34.99",
-    includes: "INCLUDES PLATINUM WASH PLUS:",
-    features: ["LAVA SOAP", "CARNAUBA WAX", "POLYSEALANT", "TIRE SHINE"],
-    note: "*EXTERIOR ONLY"
-  },
-  {
-    name: "PLATINUM",
-    color: "bg-sky-300",
-    textColor: "text-washking-brown",
-    singlePrice: "$14",
-    monthlyPrice: "$29.99",
-    includes: "INCLUDES BRONZE WASH PLUS:",
-    features: ["TRIPLE FOAM", "WHEEL CLEANER 2X", "UNDERCARRIAGE WASH"],
-    note: "*EXTERIOR ONLY"
-  },
-  {
-    name: "BRONZE",
-    color: "bg-green-600",
-    textColor: "text-white",
-    singlePrice: "$10",
-    monthlyPrice: "$24.99",
-    includes: null,
-    features: ["WHITE FOAM", "DRYING AGENT"],
-    note: "*EXTERIOR ONLY"
-  }
-];
 
 const memberBenefits = [
   "10% Discount on Detailing Services",
@@ -185,8 +240,8 @@ const LocationPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {washPackages.map((pkg, index) => (
+          <div className={`grid md:grid-cols-2 ${location.packages.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'} gap-6 max-w-7xl mx-auto`}>
+            {location.packages.map((pkg, index) => (
               <motion.div
                 key={pkg.name}
                 initial={{ opacity: 0, y: 30 }}
@@ -323,9 +378,18 @@ const LocationPage = () => {
                   <p className="font-display text-2xl mb-4">
                     Open <span className="text-4xl">7</span> days a week!
                   </p>
-                  <p className="font-display text-xl mb-2">Monday – Saturday:</p>
-                  <p className="font-display text-2xl mb-4">{location.hours.weekdays}</p>
-                  <p className="font-display text-xl">Sunday : {location.hours.sunday}</p>
+                  {location.hours.allDays ? (
+                    <>
+                      <p className="font-display text-xl mb-2">Monday – Sunday:</p>
+                      <p className="font-display text-2xl">{location.hours.allDays}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-display text-xl mb-2">Monday – Saturday:</p>
+                      <p className="font-display text-2xl mb-4">{location.hours.weekdays}</p>
+                      <p className="font-display text-xl">Sunday : {location.hours.sunday}</p>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>
