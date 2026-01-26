@@ -32,7 +32,7 @@ const Header = () => {
         { label: "About WashKing", href: "/about" },
         { label: "FAQ's", href: "/#faq" },
         { label: "Gallery", href: "/#testimonials" },
-        { label: "Employment", href: "/#footer" },
+        { label: "Employment", href: "/employment" },
       ],
     },
     { label: "Manage Membership", href: "https://customerportal.nxtwash.com/washkingcarwash", external: true },
