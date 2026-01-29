@@ -21,7 +21,7 @@ const LocationsSection = () => {
   return (
     <section id="locations" className="relative overflow-hidden">
       {/* Sky with clouds transition */}
-      <div className="bg-gradient-to-b from-[hsl(200_85%_55%)] to-[hsl(200_85%_65%)] py-20">
+      <div className="bg-gradient-to-b from-[hsl(200_85%_55%)] to-[hsl(200_85%_65%)] py-12 lg:py-20">
         {/* Fluffy clouds at bottom */}
         <div className="relative">
           <svg viewBox="0 0 1440 150" className="absolute bottom-0 left-0 w-full h-auto" preserveAspectRatio="none">
@@ -38,16 +38,16 @@ const LocationsSection = () => {
       
       {/* Brown hills transition */}
       <div className="relative">
-        <svg viewBox="0 0 1440 100" className="w-full h-auto -mb-1" preserveAspectRatio="none">
-          <path fill="hsl(25 50% 45%)" d="M0,100 Q360,20 720,60 T1440,40 L1440,100 L0,100 Z" />
-          <path fill="hsl(25 55% 38%)" d="M0,100 Q300,50 600,70 T1200,50 T1440,80 L1440,100 L0,100 Z" />
-          <path fill="hsl(25 55% 35%)" d="M0,100 Q240,60 480,80 T960,60 T1440,90 L1440,100 L0,100 Z" />
+        <svg viewBox="0 0 1440 80" className="w-full h-auto -mb-1" preserveAspectRatio="none">
+          <path fill="hsl(25 50% 45%)" d="M0,80 Q360,20 720,50 T1440,30 L1440,80 L0,80 Z" />
+          <path fill="hsl(25 55% 38%)" d="M0,80 Q300,40 600,60 T1200,40 T1440,70 L1440,80 L0,80 Z" />
+          <path fill="hsl(25 55% 35%)" d="M0,80 Q240,50 480,70 T960,50 T1440,75 L1440,80 L0,80 Z" />
         </svg>
       </div>
 
       {/* Wood texture section */}
       <div 
-        className="relative py-16 lg:py-24"
+        className="relative py-12 lg:py-20"
         style={{
           backgroundImage: `url(${woodTexture})`,
           backgroundSize: 'cover',
@@ -62,18 +62,18 @@ const LocationsSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-12"
+            className="text-center mb-8 lg:mb-12"
           >
-            <h2 className="font-display text-4xl lg:text-6xl text-white text-shadow mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white text-shadow mb-3 lg:mb-4">
               PICK YOUR LOCATION
             </h2>
-            <p className="font-display text-white text-lg tracking-widest">
+            <p className="font-display text-white text-sm sm:text-base lg:text-lg tracking-widest">
               PRICING . ADDRESS. CONTACTS
             </p>
           </motion.div>
 
           {/* Location cards */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 gap-4 lg:gap-8 max-w-3xl mx-auto">
             {locations.map((location, index) => (
               <motion.div
                 key={location.name}
@@ -81,22 +81,22 @@ const LocationsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card-location"
+                className="card-location p-6 lg:p-8"
               >
-                <h3 className="font-display text-washking-brown text-3xl lg:text-4xl mb-4">
+                <h3 className="font-display text-washking-brown text-2xl sm:text-3xl lg:text-4xl mb-3 lg:mb-4">
                   {location.name}
                 </h3>
-                <p className="text-washking-brown font-body text-lg mb-1">
+                <p className="text-washking-brown font-body text-base lg:text-lg mb-0.5 lg:mb-1">
                   {location.address}
                 </p>
-                <p className="text-washking-brown font-body text-lg mb-6">
+                <p className="text-washking-brown font-body text-base lg:text-lg mb-4 lg:mb-6">
                   {location.city}
                 </p>
                 <Link to={`/location/${location.slug}`}>
                   <motion.span
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-block bg-white text-washking-brown border-2 border-washking-brown rounded-full px-6 py-3 font-display text-lg hover:shadow-lg transition-all"
+                    className="inline-block bg-white text-washking-brown border-2 border-washking-brown rounded-full px-5 lg:px-6 py-2.5 lg:py-3 font-display text-base lg:text-lg hover:shadow-lg transition-all"
                   >
                     See Wash Menu
                   </motion.span>

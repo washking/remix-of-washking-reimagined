@@ -157,7 +157,7 @@ const LocationPage = () => {
       {/* Hero Section with Wave */}
       <section className="relative">
         {/* Yellow background */}
-        <div className="bg-washking-yellow pt-12 pb-32 relative">
+        <div className="bg-washking-yellow pt-8 lg:pt-12 pb-24 lg:pb-32 relative">
           <div className="container mx-auto px-4">
             {/* Empty space for wave transition */}
           </div>
@@ -175,25 +175,25 @@ const LocationPage = () => {
       </section>
 
       {/* Blue Sky Section with Location Name */}
-      <section className="bg-washking-sky relative pt-8 pb-40">
+      <section className="bg-washking-sky relative pt-6 lg:pt-8 pb-28 lg:pb-40">
         {/* Floating clouds */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div 
             animate={{ x: [0, 30, 0] }}
             transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-20 left-[10%]"
+            className="absolute top-12 lg:top-20 left-[5%] lg:left-[10%]"
           >
-            <div className="w-48 h-24 bg-white/60 rounded-full" />
-            <div className="w-36 h-20 bg-white/60 rounded-full -mt-12 ml-16" />
+            <div className="w-32 lg:w-48 h-16 lg:h-24 bg-white/60 rounded-full" />
+            <div className="w-24 lg:w-36 h-12 lg:h-20 bg-white/60 rounded-full -mt-8 lg:-mt-12 ml-10 lg:ml-16" />
           </motion.div>
           
           <motion.div 
             animate={{ x: [0, -25, 0] }}
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute top-10 right-[15%]"
+            className="absolute top-6 lg:top-10 right-[10%] lg:right-[15%] hidden sm:block"
           >
-            <div className="w-64 h-32 bg-white/50 rounded-full" />
-            <div className="w-48 h-24 bg-white/50 rounded-full -mt-16 ml-20" />
+            <div className="w-40 lg:w-64 h-20 lg:h-32 bg-white/50 rounded-full" />
+            <div className="w-32 lg:w-48 h-16 lg:h-24 bg-white/50 rounded-full -mt-10 lg:-mt-16 ml-12 lg:ml-20" />
           </motion.div>
         </div>
 
@@ -203,10 +203,10 @@ const LocationPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="font-display text-6xl lg:text-8xl text-white text-shadow mb-2">
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-white text-shadow mb-1 lg:mb-2">
               {location.name}
             </h1>
-            <p className="font-display text-xl lg:text-2xl text-washking-brown tracking-widest">
+            <p className="font-display text-lg sm:text-xl lg:text-2xl text-washking-brown tracking-widest">
               {location.state.toUpperCase()}
             </p>
           </motion.div>
@@ -224,18 +224,18 @@ const LocationPage = () => {
       </section>
 
       {/* Wash Packages Section */}
-      <section className="bg-gradient-to-b from-[hsl(200_80%_92%)] to-white py-16">
+      <section className="bg-gradient-to-b from-[hsl(200_80%_92%)] to-white py-12 lg:py-16">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8 lg:mb-12"
           >
-            <h2 className="font-display text-4xl lg:text-5xl text-washking-brown mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-washking-brown mb-3 lg:mb-4">
               Our wash packages
             </h2>
-            <p className="font-display text-xl text-washking-brown tracking-wide">
+            <p className="font-display text-base sm:text-lg lg:text-xl text-washking-brown tracking-wide">
               Discover the Royal Treatment for Your Vehicle
             </p>
           </motion.div>
@@ -439,18 +439,24 @@ const LocationPage = () => {
               </div>
 
               {/* Social icons */}
-              <div className="flex justify-center gap-4">
+              <div className="flex justify-center gap-3 lg:gap-4">
                 <a 
-                  href="#" 
-                  className="w-14 h-14 bg-washking-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 lg:w-14 lg:h-14 bg-washking-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                  aria-label="Facebook"
                 >
-                  <Facebook className="w-7 h-7 text-white" />
+                  <Facebook className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
                 </a>
                 <a 
-                  href="#" 
-                  className="w-14 h-14 bg-washking-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 lg:w-14 lg:h-14 bg-washking-yellow rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                  aria-label="Instagram"
                 >
-                  <Instagram className="w-7 h-7 text-white" />
+                  <Instagram className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
                 </a>
               </div>
             </motion.div>
