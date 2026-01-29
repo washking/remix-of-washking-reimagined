@@ -12,9 +12,7 @@ const HeroSection = () => {
 
   return (
     <section id="hero" className="relative overflow-hidden">
-      <div className="bg-washking-yellow h-6 lg:h-8" />
-      
-      <div className="relative bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] min-h-[500px] sm:min-h-[550px] lg:min-h-[650px]">
+      <div className="relative bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] min-h-[480px] sm:min-h-[520px] lg:min-h-[600px]">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div 
             animate={{ x: [0, 20, 0] }}

@@ -59,7 +59,7 @@ const AboutPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] overflow-hidden">
+      <section className="relative min-h-[45vh] overflow-hidden">
         {/* Yellow background */}
         <div className="absolute inset-0 bg-washking-yellow" />
         
@@ -98,7 +98,7 @@ const AboutPage = () => {
         </svg>
 
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 pt-32 pb-20 text-center">
+        <div className="relative z-10 container mx-auto px-4 pt-24 pb-14 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ const AboutPage = () => {
       </section>
 
       {/* Who We Are Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 lg:py-16 overflow-hidden">
         {/* Green water/lake background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(170_50%_45%)] to-[hsl(170_45%_40%)]" />
         
@@ -121,7 +121,7 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-12"
+            className="text-center mb-8"
           >
             <h2 className="font-display text-4xl lg:text-5xl">
               <span className="text-[hsl(210_90%_50%)]">WHO</span>{" "}
@@ -129,14 +129,14 @@ const AboutPage = () => {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* Mission Statement Card */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white rounded-3xl p-8 shadow-xl"
+              className="bg-white rounded-3xl p-6 lg:p-8 shadow-xl"
             >
               <h3 className="font-display text-2xl text-[hsl(140_60%_25%)] mb-4 text-center">
                 MISSION STATEMENT
@@ -152,7 +152,7 @@ const AboutPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-white rounded-3xl p-8 shadow-xl"
+              className="bg-white rounded-3xl p-6 lg:p-8 shadow-xl"
             >
               <h3 className="font-display text-2xl text-[hsl(140_60%_25%)] mb-4 text-center">
                 BRAND PROMISE
@@ -166,7 +166,7 @@ const AboutPage = () => {
       </section>
 
       {/* Core Values Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 lg:py-16 overflow-hidden">
         {/* Green leafy background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(120_40%_30%)] to-[hsl(120_35%_25%)]" />
         
@@ -183,7 +183,7 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-12"
+            className="text-center mb-8"
           >
             <h2 className="font-display text-4xl lg:text-5xl text-washking-yellow text-shadow">
               CORE VALUES
@@ -195,9 +195,9 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-3xl p-8 lg:p-12 shadow-2xl"
+            className="bg-white rounded-3xl p-6 lg:p-10 shadow-2xl"
           >
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {coreValues.map((value, index) => (
                 <motion.div
                   key={index}
@@ -227,11 +227,11 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-center mt-12"
+            className="text-center mt-10"
           >
             <Link
               to="/#locations"
-              className="inline-block bg-white text-washking-brown font-display text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="btn-learn-more inline-block"
             >
               View Our Location
             </Link>

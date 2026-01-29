@@ -6,7 +6,7 @@ const AboutSection = () => {
   return (
     <section 
       id="about" 
-      className="relative py-16 lg:py-24"
+      className="relative py-12 lg:py-16"
       style={{
         backgroundImage: `url(${woodTexture})`,
         backgroundSize: 'cover',
@@ -24,11 +24,11 @@ const AboutSection = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-shadow mb-6 lg:mb-8">
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-shadow mb-4 lg:mb-6">
             About us
           </h2>
           
-          <p className="text-white text-base sm:text-lg lg:text-xl leading-relaxed mb-6 lg:mb-8 font-body">
+          <p className="text-white text-base sm:text-lg lg:text-xl leading-relaxed mb-5 lg:mb-6 font-body">
             At WashKing, we're not just redefining the car wash experience; 
             we're infusing it with a personal touch. Our mission is to provide 
             a car wash service that goes beyond the ordinary – one that we 
