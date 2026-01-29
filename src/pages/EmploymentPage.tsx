@@ -60,7 +60,7 @@ const EmploymentPage = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] overflow-hidden">
+      <section className="relative min-h-[40vh] overflow-hidden">
         {/* Yellow background */}
         <div className="absolute inset-0 bg-washking-yellow" />
 
@@ -95,7 +95,7 @@ const EmploymentPage = () => {
         </svg>
 
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 pt-32 pb-20 text-center">
+        <div className="relative z-10 container mx-auto px-4 pt-24 pb-16 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -108,7 +108,7 @@ const EmploymentPage = () => {
       </section>
 
       {/* We're Hiring Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 lg:py-16 overflow-hidden">
         {/* Sky blue background with clouds */}
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_80%_60%)]" />
 
@@ -181,7 +181,7 @@ const EmploymentPage = () => {
       </section>
 
       {/* Application Form Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 lg:py-16 overflow-hidden">
         {/* Green leafy background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(120_40%_35%)] to-[hsl(120_35%_30%)]" />
 
@@ -425,13 +425,13 @@ const EmploymentPage = () => {
               </div>
 
               {/* Submit Button */}
-              <div className="text-center pt-6">
+              <div className="text-center pt-4">
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-white text-[hsl(120_40%_30%)] font-display text-xl px-12 py-4 rounded-full shadow-lg hover:shadow-xl transition-all disabled:opacity-70"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn-submit disabled:opacity-70"
                 >
                   {isSubmitting ? "Submitting..." : "Submit"}
                 </motion.button>

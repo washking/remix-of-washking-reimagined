@@ -129,33 +129,84 @@ html {
     border-radius: 9999px;
   }
 
+  /* Cloud-inspired button base styles */
+  .btn-cloud {
+    @apply relative font-display tracking-wide transition-all duration-300 ease-out;
+    border-radius: 50px;
+    box-shadow: 
+      0 4px 15px -3px rgba(0, 0, 0, 0.1),
+      0 2px 8px -2px rgba(0, 0, 0, 0.05),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-cloud::before {
+    content: '';
+    @apply absolute inset-0 rounded-[50px] opacity-0 transition-opacity duration-300;
+    background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  }
+
+  .btn-cloud:hover::before {
+    @apply opacity-100;
+  }
+
+  .btn-cloud:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 8px 25px -5px rgba(0, 0, 0, 0.15),
+      0 4px 12px -4px rgba(0, 0, 0, 0.08),
+      inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  }
+
+  .btn-cloud:active {
+    transform: translateY(0) scale(0.98);
+  }
+
   .btn-pill {
     @apply rounded-full px-6 py-3 font-bold transition-all duration-300;
   }
 
   .btn-hero-primary {
-    @apply bg-white text-washking-brown border-4 border-washking-brown rounded-full px-8 py-3 font-display text-lg tracking-wide;
-    @apply hover:scale-105 hover:shadow-lg transition-all duration-300;
+    @apply btn-cloud bg-white text-washking-brown px-8 py-3.5 text-lg;
+    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(40 40% 97%) 100%);
+    border: 3px solid hsl(var(--washking-brown));
   }
 
   .btn-hero-secondary {
-    @apply bg-washking-yellow text-washking-brown border-4 border-washking-brown rounded-full px-8 py-3 font-display text-lg tracking-wide;
-    @apply hover:scale-105 hover:shadow-lg transition-all duration-300;
+    @apply btn-cloud text-washking-brown px-8 py-3.5 text-lg;
+    background: linear-gradient(180deg, hsl(45 100% 55%) 0%, hsl(45 100% 48%) 100%);
+    border: 3px solid hsl(var(--washking-brown));
   }
 
   .btn-unlimited {
-    @apply bg-washking-brown text-white border-2 border-white rounded-full px-6 py-2 font-display text-sm tracking-wide;
-    @apply hover:bg-washking-brown-light hover:scale-105 transition-all duration-300;
+    @apply btn-cloud text-white px-7 py-2.5 text-sm;
+    background: linear-gradient(180deg, hsl(25 50% 40%) 0%, hsl(25 55% 32%) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-unlimited:hover {
+    background: linear-gradient(180deg, hsl(25 50% 45%) 0%, hsl(25 55% 38%) 100%);
   }
 
   .btn-know-more {
-    @apply bg-washking-cream text-washking-brown border-2 border-washking-brown rounded-full px-6 py-3 font-display text-lg;
-    @apply hover:scale-105 hover:shadow-lg transition-all duration-300;
+    @apply btn-cloud text-washking-brown px-7 py-3.5 text-lg;
+    background: linear-gradient(180deg, hsl(40 60% 97%) 0%, hsl(40 50% 92%) 100%);
+    border: 2px solid hsl(var(--washking-brown));
   }
 
   .btn-learn-more {
-    @apply bg-white text-washking-brown border-2 border-washking-brown rounded-full px-6 py-3 font-display text-lg;
-    @apply hover:scale-105 hover:shadow-lg transition-all duration-300;
+    @apply btn-cloud text-washking-brown px-7 py-3.5 text-lg;
+    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(40 30% 96%) 100%);
+    border: 2px solid hsl(var(--washking-brown));
+  }
+
+  .btn-submit {
+    @apply btn-cloud text-washking-green px-10 py-4 text-xl;
+    background: linear-gradient(180deg, hsl(40 60% 97%) 0%, hsl(40 50% 90%) 100%);
+    border: 2px solid hsl(var(--washking-green));
+  }
+
+  .btn-submit:hover {
+    background: linear-gradient(180deg, hsl(40 60% 99%) 0%, hsl(40 50% 94%) 100%);
   }
 
   .card-feature {
