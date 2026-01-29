@@ -32,6 +32,7 @@ const Header = () => {
         { label: "About WashKing", href: "/about" },
         { label: "FAQ's", href: "/#faq" },
         { label: "Gallery", href: "/#testimonials" },
+        { label: "Contact Us", href: "/contact" },
         { label: "Employment", href: "/employment" },
       ],
     },
@@ -76,7 +77,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center flex-shrink-0">
-            <img src={logo} alt="WashKing Car Wash" className="h-12 sm:h-14 lg:h-16 w-auto" />
+            <img src={logo} alt="WashKing Car Wash" className="h-14 sm:h-16 lg:h-20 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}

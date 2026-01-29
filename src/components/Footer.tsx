@@ -8,8 +8,8 @@ const exploreLinks = [
   { label: "Home", href: "/" },
   { label: "Wash Packages", href: "/#packages" },
   { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
   { label: "Locations", href: "/#locations" },
-  { label: "Employment", href: "/employment" },
 ];
 
 const Footer = () => {
@@ -88,24 +88,24 @@ const Footer = () => {
               
               <div className="flex gap-3 justify-center md:justify-start">
                 <motion.a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/WashKingVineland/"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-11 h-11 bg-washking-yellow rounded-full flex items-center justify-center"
-                  aria-label="Facebook"
+                  aria-label="Follow us on Facebook"
                 >
                   <Facebook className="w-5 h-5 text-white" />
                 </motion.a>
                 <motion.a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/washkingvineland"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-11 h-11 bg-washking-yellow rounded-full flex items-center justify-center"
-                  aria-label="Instagram"
+                  aria-label="Follow us on Instagram"
                 >
                   <Instagram className="w-5 h-5 text-white" />
                 </motion.a>
@@ -124,16 +124,9 @@ const Footer = () => {
                 <img 
                   src={logo} 
                   alt="WashKing Car Wash" 
-                  className="w-32 lg:w-40 h-auto mb-2"
+                  className="w-36 lg:w-44 h-auto"
                 />
               </Link>
-              <h2 className="font-display text-xl lg:text-2xl">
-                <span className="text-white">WASH</span>
-                <span className="text-washking-yellow">KING</span>
-              </h2>
-              <p className="font-display text-white text-xs lg:text-sm tracking-widest">
-                CAR WASH
-              </p>
             </motion.div>
 
             {/* Right - Explore links */}
