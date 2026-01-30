@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FoamBubbles from "@/components/FoamBubbles";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,6 +19,23 @@ const contactSchema = z.object({
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
+
+// Decorative bubble cluster component
+const BubbleCluster = ({ className = "" }: { className?: string }) => (
+  <div className={`absolute pointer-events-none ${className}`}>
+    <motion.div
+      animate={{ y: [0, -8, 0], scale: [1, 1.05, 1] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      className="relative"
+    >
+      <div className="w-16 h-16 rounded-full bg-white/30 backdrop-blur-sm absolute -top-4 -left-4" />
+      <div className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-sm absolute top-6 left-8" />
+      <div className="w-8 h-8 rounded-full bg-white/25 backdrop-blur-sm absolute -top-2 left-12" />
+      <div className="w-6 h-6 rounded-full bg-white/35 backdrop-blur-sm absolute top-10 -left-2" />
+      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm absolute top-2 left-16" />
+    </motion.div>
+  </div>
+);
 
 const ContactPage = () => {
   const form = useForm<ContactFormValues>({
@@ -40,63 +58,59 @@ const ContactPage = () => {
     <div className="min-h-screen bg-washking-sky">
       <Header />
       
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] py-10 lg:py-14">
-        {/* Cloud decorations */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div 
-            animate={{ x: [0, 15, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-8 left-[5%]"
-          >
-            <div className="w-24 lg:w-36 h-12 lg:h-16 bg-white/60 rounded-full" />
-            <div className="w-16 lg:w-24 h-8 lg:h-12 bg-white/60 rounded-full -mt-6 ml-8" />
-          </motion.div>
-          <motion.div 
-            animate={{ x: [0, -12, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute top-6 right-[10%] hidden sm:block"
-          >
-            <div className="w-32 lg:w-44 h-14 lg:h-20 bg-white/50 rounded-full" />
-            <div className="w-20 lg:w-28 h-10 lg:h-14 bg-white/50 rounded-full -mt-8 ml-12" />
-          </motion.div>
-        </div>
+      {/* Hero Section - Wash Foam Aesthetic */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] py-14 lg:py-18">
+        <FoamBubbles variant="hero" density="medium" />
+        <BubbleCluster className="top-10 left-[5%]" />
+        <BubbleCluster className="top-16 right-[8%]" />
         
         <div className="container mx-auto px-4 relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-center text-shadow"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl text-white text-center text-shadow"
           >
             CONTACT US
           </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-body text-xl lg:text-2xl text-white/90 text-center mt-4 max-w-2xl mx-auto"
+          >
+            We'd love to hear from you
+          </motion.p>
         </div>
       </section>
 
       {/* Business Hours Section */}
-      <section className="relative bg-washking-green py-10 lg:py-12 overflow-hidden">
+      <section className="relative bg-washking-green py-14 lg:py-18 overflow-hidden">
+        <FoamBubbles variant="section" density="low" />
+        <BubbleCluster className="top-10 right-[10%]" />
+        <BubbleCluster className="bottom-10 left-[8%]" />
+        
         <div className="container mx-auto px-4 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-6 lg:mb-10"
+            className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-center mb-10 text-shadow"
           >
             BUSINESS HOURS
           </motion.h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Logo Card */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-washking-sky-light/30 backdrop-blur-sm rounded-3xl p-8 flex items-center justify-center"
+              className="bg-white/15 backdrop-blur-sm rounded-3xl p-10 flex items-center justify-center"
             >
-              <img src={logo} alt="WashKing Logo" className="w-48 lg:w-64 h-auto" />
+              <img src={logo} alt="WashKing Logo" className="w-52 lg:w-72 h-auto" />
             </motion.div>
             
             {/* Hours Card */}
@@ -105,16 +119,16 @@ const ContactPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-washking-sky-light/30 backdrop-blur-sm rounded-3xl p-8 flex flex-col items-center justify-center text-center"
+              className="bg-white/15 backdrop-blur-sm rounded-3xl p-10 flex flex-col items-center justify-center text-center"
             >
-              <p className="font-display text-xl lg:text-2xl text-washking-green mb-4">
+              <p className="font-display text-2xl lg:text-3xl text-white mb-6">
                 We're open 7 days a week!
               </p>
-              <div className="space-y-2 font-body text-lg lg:text-xl text-washking-green font-bold">
-                <p>Monday to Saturday</p>
-                <p className="text-xl lg:text-2xl">9:00 AM to 6:00 PM</p>
-                <p className="mt-4">Sunday</p>
-                <p className="text-xl lg:text-2xl">9:00 AM to 5:00 PM</p>
+              <div className="space-y-3 font-body text-lg lg:text-xl text-white">
+                <p className="font-semibold">Monday to Saturday</p>
+                <p className="text-2xl lg:text-3xl font-bold">9:00 AM to 6:00 PM</p>
+                <p className="font-semibold mt-4">Sunday</p>
+                <p className="text-2xl lg:text-3xl font-bold">9:00 AM to 5:00 PM</p>
               </div>
             </motion.div>
           </div>
@@ -122,16 +136,20 @@ const ContactPage = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section className="relative bg-washking-green py-10 lg:py-12 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-[hsl(200_85%_55%)] to-[hsl(200_85%_60%)] py-14 lg:py-18 overflow-hidden">
+        <FoamBubbles variant="section" density="medium" />
+        <BubbleCluster className="top-16 left-[5%]" />
+        <BubbleCluster className="bottom-20 right-[10%]" />
+        
         <div className="container mx-auto px-4 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-display text-3xl sm:text-4xl lg:text-5xl text-white text-center mb-6 lg:mb-10"
+            className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-center mb-10 text-shadow"
           >
-            CONTACT US
+            SEND US A MESSAGE
           </motion.h2>
           
           <motion.div
@@ -139,23 +157,23 @@ const ContactPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="max-w-3xl mx-auto"
+            className="max-w-3xl mx-auto bg-white/10 backdrop-blur-sm rounded-3xl p-8 lg:p-12"
           >
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-body text-base">
-                          Name <span className="text-red-400">*</span>
+                        <FormLabel className="text-white font-body text-lg">
+                          Name <span className="text-red-300">*</span>
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Name"
-                            className="bg-white border-3 border-washking-brown rounded-[20px] h-13 text-lg font-body shadow-sm"
+                            placeholder="Your Name"
+                            className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                             {...field}
                           />
                         </FormControl>
@@ -169,12 +187,12 @@ const ContactPage = () => {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-body text-base">Phone</FormLabel>
+                        <FormLabel className="text-white font-body text-lg">Phone</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Phone"
+                            placeholder="(000) 000-0000"
                             type="tel"
-                            className="bg-white border-3 border-washking-brown rounded-[20px] h-13 text-lg font-body shadow-sm"
+                            className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                             {...field}
                           />
                         </FormControl>
@@ -189,14 +207,14 @@ const ContactPage = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white font-body text-base">
-                        Email Address <span className="text-red-400">*</span>
+                      <FormLabel className="text-white font-body text-lg">
+                        Email Address <span className="text-red-300">*</span>
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Email Address"
+                          placeholder="your@email.com"
                           type="email"
-                          className="bg-white border-3 border-washking-brown rounded-[20px] h-13 text-lg font-body shadow-sm"
+                          className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                           {...field}
                         />
                       </FormControl>
@@ -210,14 +228,14 @@ const ContactPage = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white font-body text-base">
-                        Message <span className="text-red-400">*</span>
+                      <FormLabel className="text-white font-body text-lg">
+                        Message <span className="text-red-300">*</span>
                       </FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Message"
+                          placeholder="How can we help you?"
                           rows={5}
-                          className="bg-white border-3 border-washking-brown rounded-[20px] text-lg font-body resize-none shadow-sm py-4"
+                          className="bg-white border-3 border-washking-brown rounded-[20px] text-lg font-body resize-none py-4"
                           {...field}
                         />
                       </FormControl>
@@ -227,11 +245,8 @@ const ContactPage = () => {
                 />
                 
                 <div className="text-center pt-4">
-                  <button
-                    type="submit"
-                    className="btn-submit"
-                  >
-                    Submit
+                  <button type="submit" className="btn-cloud btn-submit">
+                    Send Message
                   </button>
                 </div>
               </form>
@@ -241,8 +256,22 @@ const ContactPage = () => {
       </section>
 
       {/* Map Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(200_85%_55%)] to-[hsl(200_85%_60%)] py-8 lg:py-10">
+      <section className="relative overflow-hidden bg-washking-green py-14 lg:py-18">
+        <FoamBubbles variant="section" density="low" />
+        <BubbleCluster className="top-10 left-[8%]" />
+        <BubbleCluster className="bottom-16 right-[12%]" />
+        
         <div className="container mx-auto px-4 relative z-10">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-center mb-10 text-shadow"
+          >
+            FIND US
+          </motion.h2>
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -251,17 +280,17 @@ const ContactPage = () => {
             className="max-w-5xl mx-auto"
           >
             {/* Google Maps Embed */}
-            <div className="rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+            <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12323.823908697876!2d-75.0201754!3d39.4478589!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6d7dcb67cdec3%3A0x8b9c7b687e7a8f95!2sWash%20King!5e0!3m2!1sen!2sus!4v1706540000000!5m2!1sen!2sus"
                 width="100%"
-                height="350"
+                height="400"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="WashKing Car Wash Location"
-                className="w-full h-[280px] sm:h-[350px] lg:h-[380px]"
+                className="w-full h-[300px] sm:h-[380px] lg:h-[420px]"
               />
             </div>
           </motion.div>
@@ -272,18 +301,20 @@ const ContactPage = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="container mx-auto px-4 text-center mt-8"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="container mx-auto px-4 text-center mt-10"
         >
-          <p className="font-body text-lg lg:text-xl text-white mb-1">
-            Need to contact Customer Support?
-          </p>
-          <p className="font-body text-lg lg:text-xl text-white mb-1">
-            Call or Text Us: <a href="tel:8568807679" className="hover:underline font-bold">(856) 880-7679</a>
-          </p>
-          <p className="font-body text-lg lg:text-xl text-white">
-            <a href="mailto:contact@washking.net" className="hover:underline">contact@washking.net</a>
-          </p>
+          <div className="bg-white/15 backdrop-blur-sm rounded-3xl p-8 max-w-2xl mx-auto">
+            <p className="font-display text-2xl lg:text-3xl text-white mb-4">
+              Need Customer Support?
+            </p>
+            <p className="font-body text-xl lg:text-2xl text-white mb-2">
+              Call or Text Us: <a href="tel:8568807679" className="hover:underline font-bold">(856) 880-7679</a>
+            </p>
+            <p className="font-body text-xl lg:text-2xl text-white">
+              Email: <a href="mailto:contact@washking.net" className="hover:underline font-bold">contact@washking.net</a>
+            </p>
+          </div>
         </motion.div>
       </section>
 
