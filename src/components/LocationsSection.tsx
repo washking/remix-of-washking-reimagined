@@ -1,26 +1,49 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import woodTexture from "@/assets/wood-texture.jpg";
+import { Badge } from "@/components/ui/badge";
 
 const locations = [
   {
-    name: "VINELAND",
+    name: "VINELAND MAIN RD",
     slug: "vineland",
-    address: "2611 S Main Road",
+    address: "2611 S Main Rd",
     city: "Vineland, NJ 08361",
+    comingSoon: false,
+  },
+  {
+    name: "VINELAND DANTE",
+    slug: "vineland-dante",
+    address: "2375 Dante Ave",
+    city: "Vineland, NJ",
+    comingSoon: false,
   },
   {
     name: "SOMERSET",
     slug: "somerset",
-    address: "1463 NJ 27",
-    city: "Somerset NJ 08873",
+    address: "1463 NJ-27",
+    city: "Somerset, NJ 08873",
+    comingSoon: false,
+  },
+  {
+    name: "LANDISVILLE",
+    slug: "landisville",
+    address: "305 S Harding Hwy",
+    city: "Landisville, NJ",
+    comingSoon: false,
+  },
+  {
+    name: "CHERRY HILL",
+    slug: "cherry-hill",
+    address: "",
+    city: "Cherry Hill, NJ",
+    comingSoon: true,
   },
 ];
 
 const LocationsSection = () => {
   return (
     <section id="locations" className="relative overflow-hidden">
-      {/* Wood texture section - no sky transition */}
       <div 
         className="relative py-14 lg:py-20"
         style={{
@@ -47,8 +70,7 @@ const LocationsSection = () => {
             </p>
           </motion.div>
 
-          {/* Location cards */}
-          <div className="grid sm:grid-cols-2 gap-6 lg:gap-10 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {locations.map((location, index) => (
               <motion.div
                 key={location.name}
@@ -58,24 +80,32 @@ const LocationsSection = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-washking-yellow rounded-3xl p-8 lg:p-10 text-center shadow-xl"
               >
-                <h3 className="font-display text-washking-brown text-3xl sm:text-4xl lg:text-5xl mb-4">
+                <h3 className="font-display text-washking-brown text-2xl sm:text-3xl lg:text-4xl mb-4">
                   {location.name}
                 </h3>
-                <p className="text-washking-brown font-body text-lg lg:text-xl mb-1">
-                  {location.address}
-                </p>
+                {location.address && (
+                  <p className="text-washking-brown font-body text-lg lg:text-xl mb-1">
+                    {location.address}
+                  </p>
+                )}
                 <p className="text-washking-brown font-body text-lg lg:text-xl mb-6 lg:mb-8">
                   {location.city}
                 </p>
-                <Link to={`/location/${location.slug}`}>
-                  <motion.span
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="btn-cloud inline-block bg-white text-washking-brown border-2 border-washking-brown px-6 lg:px-8 py-3 lg:py-4 font-display text-lg lg:text-xl"
-                  >
-                    See Wash Menu
-                  </motion.span>
-                </Link>
+                {location.comingSoon ? (
+                  <Badge className="bg-washking-brown text-white font-display text-lg px-6 py-3 rounded-full">
+                    Coming Soon
+                  </Badge>
+                ) : (
+                  <Link to={`/location/${location.slug}`}>
+                    <motion.span
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="btn-cloud inline-block bg-white text-washking-brown border-2 border-washking-brown px-6 lg:px-8 py-3 lg:py-4 font-display text-lg lg:text-xl"
+                    >
+                      See Wash Menu
+                    </motion.span>
+                  </Link>
+                )}
               </motion.div>
             ))}
           </div>
