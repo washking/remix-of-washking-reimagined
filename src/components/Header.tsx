@@ -21,8 +21,11 @@ const Header = () => {
       label: "Locations",
       href: "/#locations",
       dropdown: [
-        { label: "Vineland", href: "/location/vineland" },
+        { label: "Vineland Main Rd", href: "/location/vineland" },
+        { label: "Vineland Dante", href: "/location/vineland-dante" },
         { label: "Somerset", href: "/location/somerset" },
+        { label: "Landisville", href: "/location/landisville" },
+        { label: "Cherry Hill", href: "/location/cherry-hill" },
       ],
     },
     {

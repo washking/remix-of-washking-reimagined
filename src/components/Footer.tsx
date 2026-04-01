@@ -78,10 +78,10 @@ const Footer = () => {
                 <div>
                   <h3 className="font-display text-white text-base lg:text-lg">E-MAIL US</h3>
                   <a 
-                    href="mailto:washkingvineland@gmail.com"
+                    href="mailto:contact@washking.net"
                     className="font-body text-white text-xs lg:text-sm tracking-wide hover:underline break-all"
                   >
-                    WASHKINGVINELAND@GMAIL.COM
+                    CONTACT@WASHKING.NET
                   </a>
                 </div>
               </div>
