@@ -7,19 +7,17 @@ const AboutSection = () => {
   return (
     <section 
       id="about" 
-      className="relative py-14 lg:py-20"
+      className="relative py-10 lg:py-20"
       style={{
         backgroundImage: `url(${woodTexture})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      {/* Overlay for better text visibility */}
       <div className="absolute inset-0 bg-[hsl(25_55%_32%)]/85" />
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-          {/* Left content */}
+        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -27,11 +25,11 @@ const AboutSection = () => {
             transition={{ duration: 0.6 }}
             className="lg:w-2/3 text-center lg:text-left"
           >
-            <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white text-shadow mb-6 lg:mb-8">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-7xl text-white text-shadow mb-4 lg:mb-8">
               ABOUT US
             </h2>
             
-            <p className="text-white text-lg sm:text-xl lg:text-2xl leading-relaxed mb-6 lg:mb-8 font-body max-w-2xl">
+            <p className="text-white text-base sm:text-lg lg:text-2xl leading-relaxed mb-5 lg:mb-8 font-body max-w-2xl">
               At WashKing, we're redefining the car wash experience with a personal touch. 
               Our mission is to provide a service we would proudly offer to our own family.
             </p>
@@ -40,23 +38,21 @@ const AboutSection = () => {
               <motion.span
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-know-more inline-block text-lg lg:text-xl px-8 py-4"
+                className="btn-know-more inline-block text-base lg:text-xl px-6 lg:px-8 py-3 lg:py-4"
               >
                 Know More
               </motion.span>
             </Link>
           </motion.div>
 
-          {/* Right content - Decorative foam illustration */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:w-1/3 flex justify-center"
+            className="lg:w-1/3 hidden lg:flex justify-center"
           >
             <div className="relative">
-              {/* Large bubble cluster */}
               <motion.div
                 animate={{ y: [0, -10, 0], scale: [1, 1.05, 1] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}

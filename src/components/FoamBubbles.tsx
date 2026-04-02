@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 
 interface BubbleProps {
   size: number;
+  mobileSize?: number;
   x: string;
   y: string;
   delay: number;
@@ -9,33 +10,48 @@ interface BubbleProps {
   opacity?: number;
 }
 
-const Bubble = ({ size, x, y, delay, duration, opacity = 0.6 }: BubbleProps) => (
-  <motion.div
-    className="absolute rounded-full"
-    style={{
-      width: size,
-      height: size,
-      left: x,
-      top: y,
-      background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,${opacity}) 60%, rgba(200,230,255,${opacity * 0.8}))`,
-      boxShadow: `
-        inset -2px -2px 4px rgba(255,255,255,0.8),
-        inset 2px 2px 4px rgba(200,230,255,0.3),
-        0 2px 8px rgba(0,0,0,0.05)
-      `,
-    }}
-    animate={{
-      y: [0, -15, 0],
-      scale: [1, 1.05, 1],
-    }}
-    transition={{
-      duration,
-      delay,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-  />
-);
+const Bubble = ({ size, mobileSize, x, y, delay, duration, opacity = 0.6 }: BubbleProps) => {
+  const actualMobileSize = mobileSize ?? Math.round(size * 0.6);
+  
+  return (
+    <motion.div
+      className="absolute rounded-full"
+      style={{
+        width: actualMobileSize,
+        height: actualMobileSize,
+        left: x,
+        top: y,
+        background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,${opacity}) 60%, rgba(200,230,255,${opacity * 0.8}))`,
+        boxShadow: `
+          inset -2px -2px 4px rgba(255,255,255,0.8),
+          inset 2px 2px 4px rgba(200,230,255,0.3),
+          0 2px 8px rgba(0,0,0,0.05)
+        `,
+      }}
+      animate={{
+        y: [0, -10, 0],
+        scale: [1, 1.03, 1],
+      }}
+      transition={{
+        duration,
+        delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      {/* Use CSS media query to resize on larger screens */}
+      <style>{`
+        @media (min-width: 1024px) {
+          [data-bubble-id="${x}-${y}"] {
+            width: ${size}px !important;
+            height: ${size}px !important;
+          }
+        }
+      `}</style>
+      <div data-bubble-id={`${x}-${y}`} />
+    </motion.div>
+  );
+};
 
 interface FoamBubblesProps {
   variant?: "hero" | "section" | "light";
@@ -45,33 +61,24 @@ interface FoamBubblesProps {
 const FoamBubbles = ({ variant = "section", density = "medium" }: FoamBubblesProps) => {
   const bubbleConfigs = {
     low: [
-      { size: 60, x: "5%", y: "10%", delay: 0, duration: 4, opacity: 0.5 },
-      { size: 80, x: "85%", y: "15%", delay: 1, duration: 5, opacity: 0.4 },
-      { size: 40, x: "15%", y: "70%", delay: 2, duration: 3.5, opacity: 0.5 },
-      { size: 55, x: "90%", y: "65%", delay: 0.5, duration: 4.5, opacity: 0.45 },
+      { size: 50, x: "5%", y: "10%", delay: 0, duration: 4, opacity: 0.4 },
+      { size: 60, x: "88%", y: "15%", delay: 1, duration: 5, opacity: 0.35 },
+      { size: 35, x: "15%", y: "70%", delay: 2, duration: 3.5, opacity: 0.4 },
     ],
     medium: [
-      { size: 70, x: "3%", y: "8%", delay: 0, duration: 4, opacity: 0.55 },
-      { size: 45, x: "12%", y: "25%", delay: 1.5, duration: 3.5, opacity: 0.5 },
-      { size: 90, x: "88%", y: "12%", delay: 0.8, duration: 5, opacity: 0.45 },
-      { size: 35, x: "92%", y: "35%", delay: 2, duration: 3, opacity: 0.5 },
-      { size: 55, x: "8%", y: "75%", delay: 0.3, duration: 4.2, opacity: 0.5 },
-      { size: 65, x: "85%", y: "70%", delay: 1.2, duration: 4.8, opacity: 0.45 },
-      { size: 30, x: "25%", y: "85%", delay: 2.5, duration: 3.2, opacity: 0.55 },
-      { size: 40, x: "75%", y: "88%", delay: 1.8, duration: 3.8, opacity: 0.5 },
+      { size: 50, x: "3%", y: "8%", delay: 0, duration: 4, opacity: 0.45 },
+      { size: 35, x: "12%", y: "30%", delay: 1.5, duration: 3.5, opacity: 0.4 },
+      { size: 60, x: "90%", y: "12%", delay: 0.8, duration: 5, opacity: 0.35 },
+      { size: 40, x: "85%", y: "70%", delay: 1.2, duration: 4.8, opacity: 0.4 },
+      { size: 30, x: "8%", y: "75%", delay: 0.3, duration: 4.2, opacity: 0.4 },
     ],
     high: [
-      { size: 80, x: "2%", y: "5%", delay: 0, duration: 4.5, opacity: 0.5 },
-      { size: 50, x: "10%", y: "20%", delay: 1, duration: 3.5, opacity: 0.55 },
-      { size: 35, x: "18%", y: "40%", delay: 2.2, duration: 3, opacity: 0.5 },
-      { size: 100, x: "90%", y: "8%", delay: 0.5, duration: 5.5, opacity: 0.4 },
-      { size: 45, x: "95%", y: "30%", delay: 1.8, duration: 3.8, opacity: 0.5 },
-      { size: 60, x: "88%", y: "55%", delay: 0.3, duration: 4.2, opacity: 0.45 },
-      { size: 70, x: "5%", y: "65%", delay: 1.5, duration: 4.8, opacity: 0.5 },
-      { size: 40, x: "15%", y: "82%", delay: 2.8, duration: 3.2, opacity: 0.55 },
-      { size: 55, x: "80%", y: "78%", delay: 0.8, duration: 4, opacity: 0.5 },
-      { size: 30, x: "50%", y: "5%", delay: 2, duration: 3.5, opacity: 0.45 },
-      { size: 25, x: "70%", y: "90%", delay: 1.2, duration: 3, opacity: 0.55 },
+      { size: 60, x: "2%", y: "5%", delay: 0, duration: 4.5, opacity: 0.4 },
+      { size: 40, x: "10%", y: "25%", delay: 1, duration: 3.5, opacity: 0.45 },
+      { size: 70, x: "92%", y: "8%", delay: 0.5, duration: 5.5, opacity: 0.35 },
+      { size: 35, x: "88%", y: "55%", delay: 0.3, duration: 4.2, opacity: 0.4 },
+      { size: 50, x: "5%", y: "65%", delay: 1.5, duration: 4.8, opacity: 0.4 },
+      { size: 25, x: "80%", y: "78%", delay: 0.8, duration: 4, opacity: 0.45 },
     ],
   };
 
@@ -81,7 +88,6 @@ const FoamBubbles = ({ variant = "section", density = "medium" }: FoamBubblesPro
         <Bubble key={index} {...bubble} />
       ))}
       
-      {/* Foam wave at bottom */}
       {variant === "hero" && (
         <svg 
           viewBox="0 0 1440 120" 
