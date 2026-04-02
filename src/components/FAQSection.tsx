@@ -101,11 +101,11 @@ const FAQSection = () => {
                   >
                     <span className="flex items-center gap-3 lg:gap-4">
                       <Plus className="w-5 h-5 lg:w-6 lg:h-6 flex-shrink-0 transition-transform group-data-[state=open]:rotate-45" />
-                      {faq.toUpperCase()}
+                      {faq.question.toUpperCase()}
                     </span>
                   </AccordionTrigger>
                   <AccordionContent className="text-white/90 font-body text-base lg:text-lg pl-8 lg:pl-10 leading-relaxed">
-                    Contact us for more information about our {faq.toLowerCase().replace("?", "")}.
+                    {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
               ))}
