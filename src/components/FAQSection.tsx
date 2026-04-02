@@ -38,11 +38,8 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="relative py-14 lg:py-20 overflow-hidden">
-      {/* Sky blue background */}
+    <section id="faq" className="relative py-10 lg:py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200_85%_60%)] to-[hsl(200_85%_55%)]" />
-      
-      {/* Foam bubbles decoration */}
       <FoamBubbles variant="section" density="low" />
 
       <div className="container mx-auto px-4 relative z-10">
@@ -51,15 +48,14 @@ const FAQSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10 lg:mb-14"
+          className="text-center mb-6 lg:mb-14"
         >
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white text-shadow">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl xl:text-7xl text-white text-shadow">
             ANY QUESTIONS?
           </h2>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-16 max-w-6xl mx-auto">
-          {/* Left - Lion mascot and helper text */}
+        <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-16 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -80,7 +76,6 @@ const FAQSection = () => {
             </p>
           </motion.div>
 
-          {/* Right - FAQ Accordion */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -88,23 +83,23 @@ const FAQSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:w-2/3 w-full"
           >
-            <Accordion type="single" collapsible className="space-y-3 lg:space-y-4">
+            <Accordion type="single" collapsible className="space-y-2 lg:space-y-4">
               {faqs.map((faq, index) => (
                 <AccordionItem 
                   key={index} 
                   value={`item-${index}`}
-                  className="border-b border-white/30 pb-3 lg:pb-4"
+                  className="border-b border-white/30 pb-2 lg:pb-4"
                 >
                   <AccordionTrigger 
                     hideChevron 
-                    className="text-left font-display text-white text-base sm:text-lg lg:text-xl xl:text-2xl tracking-wide hover:no-underline group py-2"
+                    className="text-left font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wide hover:no-underline group py-2"
                   >
-                    <span className="flex items-center gap-3 lg:gap-4">
-                      <Plus className="w-5 h-5 lg:w-6 lg:h-6 flex-shrink-0 transition-transform group-data-[state=open]:rotate-45" />
+                    <span className="flex items-center gap-2 lg:gap-4">
+                      <Plus className="w-4 h-4 lg:w-6 lg:h-6 flex-shrink-0 transition-transform group-data-[state=open]:rotate-45" />
                       {faq.question.toUpperCase()}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-white/90 font-body text-base lg:text-lg pl-8 lg:pl-10 leading-relaxed">
+                  <AccordionContent className="text-white/90 font-body text-sm sm:text-base lg:text-lg pl-6 lg:pl-10 leading-relaxed">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -113,13 +108,12 @@ const FAQSection = () => {
           </motion.div>
         </div>
 
-        {/* Mobile helper text */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-white font-body text-base text-center mt-10 lg:hidden max-w-md mx-auto leading-relaxed"
+          className="text-white font-body text-sm text-center mt-6 lg:hidden max-w-md mx-auto leading-relaxed"
         >
           Have more questions? Feel free to reach out to us! We're here to assist 
           you with all your car care needs.
