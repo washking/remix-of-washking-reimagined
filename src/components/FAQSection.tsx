@@ -10,12 +10,30 @@ import {
 } from "@/components/ui/accordion";
 
 const faqs = [
-  "How do I sign up for WashKing's Unlimited Wash Plans?",
-  "When will I be billed for my WashKing Unlimited Wash Plan?",
-  "What should I do if I get a new license plate or a new car?",
-  "Can I use my WashKing Unlimited Wash Plan on more than one vehicle?",
-  "How do I cancel my WashKing Unlimited Wash Plan?",
-  "What happens when I cancel my WashKing Unlimited Wash Plan?",
+  {
+    question: "How do I sign up for WashKing's Unlimited Wash Plans?",
+    answer: "You can easily sign up for our Unlimited Wash Plans either online through our website, at our onsite pay station, or by speaking with a WashKing team member at our location.",
+  },
+  {
+    question: "When will I be billed for my WashKing Unlimited Wash Plan?",
+    answer: "Your payment card will be automatically charged on the same date each month, ensuring hassle-free billing.",
+  },
+  {
+    question: "What should I do if I get a new license plate or a new car?",
+    answer: "Updating your information is simple. You can do it online through your member portal on our website or by speaking with a WashKing team member at our location.",
+  },
+  {
+    question: "Can I use my WashKing Unlimited Wash Plan on more than one vehicle?",
+    answer: "Our Unlimited Wash Plans are designed for one vehicle per plan. However, we offer a family plan option for multiple vehicles. Contact us to learn more about this convenient option!",
+  },
+  {
+    question: "How do I cancel my WashKing Unlimited Wash Plan?",
+    answer: "Canceling your Unlimited Wash Plan is easy and convenient. You can do it online by logging into your membership portal on our website, by calling our location, or by visiting us in person and notifying a WashKing team member.",
+  },
+  {
+    question: "What happens when I cancel my WashKing Unlimited Wash Plan?",
+    answer: "If you choose to cancel your Unlimited Wash Plan, your membership will end on the day it is canceled, even if there are remaining days in the month. We strive to ensure transparency and flexibility in our cancellation process.",
+  },
 ];
 
 const FAQSection = () => {
@@ -83,11 +101,11 @@ const FAQSection = () => {
                   >
                     <span className="flex items-center gap-3 lg:gap-4">
                       <Plus className="w-5 h-5 lg:w-6 lg:h-6 flex-shrink-0 transition-transform group-data-[state=open]:rotate-45" />
-                      {faq.toUpperCase()}
+                      {faq.question.toUpperCase()}
                     </span>
                   </AccordionTrigger>
                   <AccordionContent className="text-white/90 font-body text-base lg:text-lg pl-8 lg:pl-10 leading-relaxed">
-                    Contact us for more information about our {faq.toLowerCase().replace("?", "")}.
+                    {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
               ))}
