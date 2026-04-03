@@ -63,13 +63,32 @@ const EmploymentPage = () => {
 
   const onSubmit = async (data: EmploymentFormData) => {
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    toast({
-      title: "Application Submitted!",
-      description: "Thank you for your interest. We'll be in touch soon!",
-    });
-    reset();
+    try {
+      const response = await fetch("https://tabbjztcwbohcsvofyvv.supabase.co/functions/v1/receive-enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: "38bd3ca3-cc18-44b6-b7fe-4c8c0ba0e51d",
+          source: "employment_application",
+          ...data,
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to submit");
+      toast({
+        title: "Application Submitted!",
+        description: "Thank you for your interest. We'll be in touch soon!",
+      });
+      reset();
+    } catch (error) {
+      console.error("Employment form error:", error);
+      toast({
+        title: "Submission Failed",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
