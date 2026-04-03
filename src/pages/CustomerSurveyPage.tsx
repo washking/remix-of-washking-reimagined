@@ -55,10 +55,24 @@ const CustomerSurveyPage = () => {
     },
   });
 
-  const onSubmit = (data: SurveyFormValues) => {
-    console.log("Survey submitted:", data);
-    toast.success("Thank you for your feedback!");
-    form.reset();
+  const onSubmit = async (data: SurveyFormValues) => {
+    try {
+      const response = await fetch("https://tabbjztcwbohcsvofyvv.supabase.co/functions/v1/receive-enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: "38bd3ca3-cc18-44b6-b7fe-4c8c0ba0e51d",
+          source: "customer_survey",
+          ...data,
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to submit");
+      toast.success("Thank you for your feedback!");
+      form.reset();
+    } catch (error) {
+      console.error("Survey submission error:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   return (

@@ -60,10 +60,24 @@ const ContactPage = () => {
     },
   });
 
-  const onSubmit = (data: ContactFormValues) => {
-    console.log("Contact form submitted:", data);
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    form.reset();
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      const response = await fetch("https://tabbjztcwbohcsvofyvv.supabase.co/functions/v1/receive-enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: "38bd3ca3-cc18-44b6-b7fe-4c8c0ba0e51d",
+          source: "contact_form",
+          ...data,
+        }),
+      });
+      if (!response.ok) throw new Error("Failed to submit");
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      form.reset();
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   return (
