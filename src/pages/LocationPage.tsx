@@ -158,7 +158,7 @@ const locationData: Record<string, LocationInfo> = {
         name: "PLATINUM",
         color: "bg-sky-300",
         textColor: "text-washking-brown",
-        singlePrice: "$17",
+        singlePrice: "$14",
         monthlyPrice: "$31.99",
         includes: "INCLUDES BRONZE WASH PLUS:",
         features: ["TRIPLE FOAM", "WHEEL CLEANER 2X", "UNDERCARRIAGE WASH"],
