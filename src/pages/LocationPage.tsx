@@ -148,7 +148,7 @@ const locationData: Record<string, LocationInfo> = {
         name: "DIAMOND",
         color: "bg-yellow-400",
         textColor: "text-washking-brown",
-        singlePrice: "$20",
+        singlePrice: "$16",
         monthlyPrice: "$34.99",
         includes: "INCLUDES PLATINUM WASH PLUS:",
         features: ["LAVA SOAP", "CARNAUBA WAX", "POLYSEALANT", "TIRE SHINE"],
