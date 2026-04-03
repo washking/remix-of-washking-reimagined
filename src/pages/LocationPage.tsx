@@ -52,7 +52,7 @@ const locationData: Record<string, LocationInfo> = {
         name: "ROYALTY",
         color: "bg-amber-800",
         textColor: "text-white",
-        singlePrice: "$30",
+        singlePrice: "$29",
         monthlyPrice: "$59.99",
         includes: "INCLUDES DIAMOND WASH PLUS:",
         features: ["INTERIOR VACUUM", "DASH WIPE DOWN", "WINDOW WIPE DOWN", "DOOR JAMS CLEANED", "MATS CLEANED"],
