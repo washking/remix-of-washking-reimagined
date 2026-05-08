@@ -79,6 +79,7 @@ const CustomerSurveyPage = () => {
       if (!webchilyOk && !formspreeOk) throw new Error("Both submissions failed");
       toast.success("Thank you for your feedback!");
       form.reset();
+      navigate("/thank-you?source=customer_survey");
     } catch (error) {
       console.error("Survey submission error:", error);
       toast.error("Something went wrong. Please try again.");
