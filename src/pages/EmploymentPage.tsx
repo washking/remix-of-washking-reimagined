@@ -64,7 +64,7 @@ const EmploymentPage = () => {
   const onSubmit = async (data: EmploymentFormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://tabbjztcwbohcsvofyvv.supabase.co/functions/v1/receive-enquiry", {
+      const webchilyReq = fetch("https://tabbjztcwbohcsvofyvv.supabase.co/functions/v1/receive-enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -73,7 +73,15 @@ const EmploymentPage = () => {
           ...data,
         }),
       });
-      if (!response.ok) throw new Error("Failed to submit");
+      const formspreeReq = fetch("https://formspree.io/f/xbdwzrdw", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ _subject: "New WashKing Employment Application", source: "employment_application", ...data }),
+      });
+      const [webchilyRes, formspreeRes] = await Promise.allSettled([webchilyReq, formspreeReq]);
+      const webchilyOk = webchilyRes.status === "fulfilled" && webchilyRes.value.ok;
+      const formspreeOk = formspreeRes.status === "fulfilled" && formspreeRes.value.ok;
+      if (!webchilyOk && !formspreeOk) throw new Error("Both submissions failed");
       toast({
         title: "Application Submitted!",
         description: "Thank you for your interest. We'll be in touch soon!",
