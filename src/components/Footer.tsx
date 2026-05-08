@@ -154,8 +154,20 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-center mt-6 pt-4 border-t border-white/20"
           >
-            <p className="text-white/70 font-body text-xs lg:text-sm">
-              © {new Date().getFullYear()} WashKing Car Wash. All rights reserved.
+            <p className="text-white/70 font-body text-xs lg:text-sm flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+              <span>© {new Date().getFullYear()} WashKing Car Wash. All rights reserved.</span>
+              <span className="hidden sm:inline text-white/40">|</span>
+              <span>
+                Web design &amp; developed by{" "}
+                <a
+                  href="https://www.webchily.design/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-washking-yellow hover:underline"
+                >
+                  Webchily
+                </a>
+              </span>
             </p>
           </motion.div>
         </div>
