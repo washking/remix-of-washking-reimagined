@@ -62,7 +62,7 @@ const ContactPage = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
-      const response = await fetch("https://tabbjztcwbohcsvofyvv.supabase.co/functions/v1/receive-enquiry", {
+      const webchilyReq = fetch("https://tabbjztcwbohcsvofyvv.supabase.co/functions/v1/receive-enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -71,7 +71,15 @@ const ContactPage = () => {
           ...data,
         }),
       });
-      if (!response.ok) throw new Error("Failed to submit");
+      const formspreeReq = fetch("https://formspree.io/f/xbdwzrdw", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ _subject: "New WashKing Contact Enquiry", source: "contact_form", ...data }),
+      });
+      const [webchilyRes, formspreeRes] = await Promise.allSettled([webchilyReq, formspreeReq]);
+      const webchilyOk = webchilyRes.status === "fulfilled" && webchilyRes.value.ok;
+      const formspreeOk = formspreeRes.status === "fulfilled" && formspreeRes.value.ok;
+      if (!webchilyOk && !formspreeOk) throw new Error("Both submissions failed");
       toast.success("Message sent successfully! We'll get back to you soon.");
       form.reset();
     } catch (error) {
