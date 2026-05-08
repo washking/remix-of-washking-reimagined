@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const employmentSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(50, "First name must be less than 50 characters"),
@@ -48,6 +49,7 @@ const BubbleCluster = ({ className = "" }: { className?: string }) => (
 
 const EmploymentPage = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -87,6 +89,7 @@ const EmploymentPage = () => {
         description: "Thank you for your interest. We'll be in touch soon!",
       });
       reset();
+      navigate("/thank-you?source=employment_application");
     } catch (error) {
       console.error("Employment form error:", error);
       toast({

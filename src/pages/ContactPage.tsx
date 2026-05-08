@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 import logo from "@/assets/washking-logo.png";
 
 const locationOptions = [
@@ -48,6 +49,7 @@ const BubbleCluster = ({ className = "" }: { className?: string }) => (
 );
 
 const ContactPage = () => {
+  const navigate = useNavigate();
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -82,6 +84,7 @@ const ContactPage = () => {
       if (!webchilyOk && !formspreeOk) throw new Error("Both submissions failed");
       toast.success("Message sent successfully! We'll get back to you soon.");
       form.reset();
+      navigate("/thank-you?source=contact_form");
     } catch (error) {
       console.error("Form submission error:", error);
       toast.error("Something went wrong. Please try again.");
