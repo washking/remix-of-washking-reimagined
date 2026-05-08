@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const locationOptions = [
   "WashKing Vineland Main Rd",
@@ -44,6 +45,7 @@ const BubbleCluster = ({ className = "" }: { className?: string }) => (
 );
 
 const CustomerSurveyPage = () => {
+  const navigate = useNavigate();
   const form = useForm<SurveyFormValues>({
     resolver: zodResolver(surveySchema),
     defaultValues: {
