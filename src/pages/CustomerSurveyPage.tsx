@@ -68,7 +68,7 @@ const CustomerSurveyPage = () => {
           ...data,
         }),
       });
-      const formspreeReq = fetch("https://formspree.io/f/xbdwzrdw", {
+      const formspreeReq = fetch("https://formspree.io/f/mrejrbgy", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ _subject: "New WashKing Customer Survey", source: "customer_survey", ...data }),

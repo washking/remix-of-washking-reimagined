@@ -75,7 +75,7 @@ const EmploymentPage = () => {
           ...data,
         }),
       });
-      const formspreeReq = fetch("https://formspree.io/f/xbdwzrdw", {
+      const formspreeReq = fetch("https://formspree.io/f/mrejrbgy", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ _subject: "New WashKing Employment Application", source: "employment_application", ...data }),
