@@ -1,45 +1,35 @@
+## Plan: Temporary "Cloud Migration in Progress" Suspension Page
 
+Add a friendly maintenance/suspension screen as the home route while keeping the existing site fully intact so it can be restored with a single flag flip.
 
-# Update Wash Package Pricing
+### Approach
 
-**File to modify:** `src/pages/LocationPage.tsx`
+1. **Create `src/pages/MaintenancePage.tsx`**
+   - Full-screen branded page using existing WashKing design system (sky-blue gradient, foam bubbles, lion mascot, yellow accents, rounded display fonts).
+   - Headline: "We'll be right back!"
+   - Subtext: "WashKing is upgrading to a new cloud platform. Our website is temporarily suspended while migration is in progress. Thank you for your patience."
+   - Secondary info: link to email `contact@washking.net` and external portal button `https://customerportal.nxtwash.com/washkingcarwash` so members can still access wash services.
+   - Reuse `FoamBubbles` and `lion-mascot` asset for on-brand feel.
+   - Animated mascot + sparkles via framer-motion (consistent with ThankYouPage).
 
-All pricing changes are concentrated in the `locationData` object (lines 38–232).
+2. **Add a single toggle in `src/App.tsx`**
+   ```ts
+   const MAINTENANCE_MODE = true; // set to false to restore the live site
+   ```
+   - When `true`: every route renders `<MaintenancePage />` (catch-all `*`), so `/`, `/contact`, `/about`, etc. all show the suspension screen.
+   - When `false`: the existing `<Routes>` block is used exactly as today — no other files touched, fully reversible.
 
----
+3. **Reversibility**
+   - No existing pages, components, or content are modified or removed.
+   - All current routes (`/`, `/location/:slug`, `/about`, `/employment`, `/contact`, `/customer-survey`, `/thank-you`) remain in code.
+   - Restoring the site = change `MAINTENANCE_MODE` to `false` (one-line edit).
 
-## Pricing Updates
+### Files
 
-### Single Wash Prices (all locations except Somerset — no Royalty there)
-| Package | Price |
-|---------|-------|
-| Royalty | $29 + tax |
-| Diamond | $16 + tax |
-| Platinum | $14 + tax |
-| Bronze | $10 + tax |
+- **Create:** `src/pages/MaintenancePage.tsx`
+- **Edit:** `src/App.tsx` (add flag + conditional Routes block)
 
-### Monthly Memberships by Location
+### Out of scope
 
-**Vineland Main Rd:**
-- Royalty: $59.99 — Diamond: $34.99 — Platinum: $31.99 — Bronze: $19.99
-
-**Somerset (no Royalty):**
-- Diamond: $34.99 — Platinum: $31.99 — Bronze: $19.99
-
-**Vineland Dante & Landisville:**
-- Diamond: $39.99 — Platinum: $34.99 — Bronze: $24.99
-
----
-
-## Changes per location in `locationData`
-
-1. **vineland** (line 50–91): Update Royalty single from `$30` → `$29`. Update Platinum monthly from `$29.99` → `$31.99`. Update Bronze monthly from `$24.99` → `$19.99`.
-
-2. **vineland-dante** (line 103–134): Update Diamond monthly from `$34.99` → `$39.99`. Update Platinum monthly from `$29.99` → `$34.99`. Update Bronze monthly from `$24.99` → `$24.99` (already correct).
-
-3. **somerset** (line 146–177): Update Diamond single from `$20` → `$16`. Update Platinum single from `$17` → `$14`. Keep Bronze single at `$10`. Keep all monthly prices as-is (already correct).
-
-4. **landisville** (line 189–220): Update Diamond monthly from `$34.99` → `$39.99`. Update Platinum monthly from `$29.99` → `$34.99`. Keep Bronze monthly at `$24.99` (already correct).
-
-No other files need changes — pricing is only defined in `LocationPage.tsx`.
-
+- No SEO/robots changes (page is still indexable; can add later if migration runs long).
+- No backend or CRM changes — forms remain wired but inaccessible while the flag is on.
