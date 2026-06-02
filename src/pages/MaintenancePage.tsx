@@ -17,7 +17,7 @@ const MaintenancePage = () => {
         >
           <Cloud className="h-5 w-5 text-white" />
           <span className="font-display text-sm sm:text-base text-white tracking-wide">
-            CLOUD MIGRATION IN PROGRESS
+            TEMPORARILY UNAVAILABLE
           </span>
         </motion.div>
 
@@ -44,7 +44,7 @@ const MaintenancePage = () => {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="font-display text-base sm:text-lg lg:text-xl text-white/95 max-w-2xl mb-2 text-shadow-white tracking-wide"
         >
-          WashKing is upgrading to a new cloud platform.
+          Our hosting service is currently paused.
         </motion.p>
         <motion.p
           initial={{ opacity: 0 }}
@@ -52,7 +52,7 @@ const MaintenancePage = () => {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="text-sm sm:text-base text-white/90 max-w-2xl mb-10"
         >
-          Our website is temporarily suspended while migration is in progress.
+          Our website is temporarily suspended while we renew our cloud hosting.
           Thank you for your patience — we appreciate your support!
         </motion.p>
 
