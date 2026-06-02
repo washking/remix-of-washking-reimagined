@@ -17,7 +17,7 @@ const MaintenancePage = () => {
         >
           <Cloud className="h-5 w-5 text-white" />
           <span className="font-display text-sm sm:text-base text-white tracking-wide">
-            CLOUD MIGRATION IN PROGRESS
+            TEMPORARILY UNAVAILABLE
           </span>
         </motion.div>
 
