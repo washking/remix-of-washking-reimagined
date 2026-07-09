@@ -4,10 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "@/assets/washking-logo.png";
 import woodTexture from "@/assets/wood-texture.jpg";
 
-const exploreLinks = [
+const exploreLinks1 = [
   { label: "Home", href: "/" },
-  { label: "Wash Packages", href: "/#packages" },
   { label: "About Us", href: "/about" },
+];
+
+const exploreLinks2 = [
+  { label: "Wash Packages", href: "/#packages" },
   { label: "Contact Us", href: "/contact" },
   { label: "Locations", href: "/#locations" },
 ];
