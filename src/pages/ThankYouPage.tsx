@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Home, Sparkles } from "lucide-react";
+import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FoamBubbles from "@/components/FoamBubbles";
@@ -46,6 +47,12 @@ const ThankYouPage = () => {
 
   return (
     <div className="min-h-screen bg-washking-sky flex flex-col">
+      <Seo
+        title="Thank You | WashKing Car Wash"
+        description="Thanks for reaching out to WashKing Car Wash. We'll be in touch soon."
+        path="/thank-you"
+        noIndex
+      />
       <Header />
 
       <section className="relative flex-1 overflow-hidden bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] py-16 lg:py-24">

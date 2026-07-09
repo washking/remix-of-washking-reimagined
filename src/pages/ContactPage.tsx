@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FoamBubbles from "@/components/FoamBubbles";
@@ -93,6 +94,11 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-washking-sky">
+      <Seo
+        title="Contact WashKing Car Wash | Vineland & Somerset, NJ"
+        description="Get in touch with WashKing Car Wash. Questions about memberships, locations, or services? Contact our Vineland and Somerset, NJ team today."
+        path="/contact"
+      />
       <Header />
       
       {/* Hero Section */}

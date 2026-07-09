@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FoamBubbles from "@/components/FoamBubbles";
@@ -104,6 +105,11 @@ const EmploymentPage = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <Seo
+        title="Careers at WashKing Car Wash | Now Hiring in NJ"
+        description="Join the WashKing Car Wash team. Explore current job openings at our Vineland, Somerset, and South Jersey car wash locations."
+        path="/employment"
+      />
       <Header />
 
       {/* Hero Section - Wash Foam Aesthetic */}
