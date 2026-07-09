@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 import { SITE_URL } from "@/lib/site";
 
 interface SeoProps {
@@ -24,7 +24,7 @@ export default function Seo({ title, description, path, noIndex, jsonLd }: SeoPr
   // fallback for social scrapers that don't execute JS (Facebook, X). We manage
   // only the JS-crawler-relevant tags here to avoid duplicate meta/link tags.
   return (
-    <Helmet>
+    <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
@@ -35,6 +35,6 @@ export default function Seo({ title, description, path, noIndex, jsonLd }: SeoPr
           {JSON.stringify(block)}
         </script>
       ))}
-    </Helmet>
+    </Head>
   );
 }

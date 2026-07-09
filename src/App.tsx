@@ -1,9 +1,10 @@
+import type { RouteRecord } from "vite-react-ssg";
+import { Outlet } from "react-router-dom";
+import { ClientOnly } from "vite-react-ssg";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import LocationPage from "./pages/LocationPage";
@@ -16,29 +17,41 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <HelmetProvider>
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/location/:locationSlug" element={<LocationPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/employment" element={<EmploymentPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/customer-survey" element={<CustomerSurveyPage />} />
-          <Route path="/thank-you" element={<ThankYouPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-  </HelmetProvider>
-);
+// Location slugs that get pre-rendered to static HTML (mirrors locationData in LocationPage).
+const LOCATION_SLUGS = ["vineland", "vineland-dante", "somerset", "landisville", "cherry-hill"];
 
-export default App;
+function Layout() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        {/* Toasts are client-only UI (fired by user interactions); skip them during SSG. */}
+        <ClientOnly>{() => (<><Toaster /><Sonner /></>)}</ClientOnly>
+        <ScrollToTop />
+        <Outlet />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+}
+
+export const routes: RouteRecord[] = [
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { index: true, element: <Index /> },
+      {
+        path: "location/:locationSlug",
+        element: <LocationPage />,
+        getStaticPaths: () => LOCATION_SLUGS.map((slug) => `location/${slug}`),
+      },
+      { path: "about", element: <AboutPage /> },
+      { path: "employment", element: <EmploymentPage /> },
+      { path: "contact", element: <ContactPage /> },
+      { path: "customer-survey", element: <CustomerSurveyPage /> },
+      { path: "thank-you", element: <ThankYouPage /> },
+      { path: "*", element: <NotFound /> },
+    ],
+  },
+];
+
+export default routes;
