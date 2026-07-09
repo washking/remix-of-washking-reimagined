@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check, Mail, Facebook, Instagram } from "lucide-react";
+import Seo from "@/components/Seo";
+import { autoWashSchema } from "@/lib/structuredData";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FoamBubbles from "@/components/FoamBubbles";
@@ -261,6 +263,12 @@ const LocationPage = () => {
   if (!location) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <Seo
+          title="Location Not Found | WashKing Car Wash"
+          description="This WashKing Car Wash location could not be found. Explore our other South Jersey locations."
+          path="/location"
+          noIndex
+        />
         <div className="text-center">
           <h1 className="font-display text-4xl text-washking-brown mb-4">Location Not Found</h1>
           <Link to="/" className="btn-hero-primary">Go Home</Link>
@@ -273,6 +281,11 @@ const LocationPage = () => {
   if (location.comingSoon) {
     return (
       <div className="min-h-screen overflow-x-hidden">
+        <Seo
+          title={`${location.name} Car Wash — Coming Soon | WashKing`}
+          description={`WashKing Car Wash is coming soon to ${location.city}. Unlimited monthly wash plans and full-service detailing on the way.`}
+          path={`/location/${locationSlug}`}
+        />
         <Header />
         <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] py-20 lg:py-32">
           <FoamBubbles variant="hero" density="medium" />
@@ -308,6 +321,13 @@ const LocationPage = () => {
     <div className="min-h-screen overflow-x-hidden">
       <Header />
       
+      <Seo
+        title={`${location.name} Car Wash | WashKing ${location.city.replace(/\s*\d{5}$/, "")}`}
+        description={`WashKing ${location.name} car wash at ${location.address}, ${location.city}. Unlimited monthly wash plans, express exterior wash and full-service detailing.`}
+        path={`/location/${locationSlug}`}
+        jsonLd={autoWashSchema(locationSlug ?? "", location)}
+      />
+
       {/* Hero Section */}
       <section className="relative">
         <div className="bg-washking-yellow pt-8 lg:pt-12 pb-24 lg:pb-32 relative">

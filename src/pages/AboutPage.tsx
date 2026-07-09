@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Car, Users, TrendingUp, UsersRound, Cpu, Shield, CheckCircle, Database, ArrowUpRight, Sparkles } from "lucide-react";
+import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FoamBubbles from "@/components/FoamBubbles";
@@ -90,8 +91,13 @@ const BubbleCluster = ({ className = "" }: { className?: string }) => (
 const AboutPage = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <Seo
+        title="About WashKing | Family-Owned Car Wash in Vineland & Somerset, NJ"
+        description="Learn about WashKing Car Wash — a family-owned, technology-driven car wash serving Vineland, Somerset, Landisville and South Jersey with unlimited wash plans."
+        path="/about"
+      />
       <Header />
-      
+
       {/* Hero Section */}
       <section className="relative min-h-[40vh] overflow-hidden">
         {/* Sky blue background matching wash-foam aesthetic */}

@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import Seo from "@/components/Seo";
 import lionMascot from "@/assets/lion-mascot.png";
 
 const NotFound = () => {
@@ -11,6 +12,12 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] relative overflow-hidden">
+      <Seo
+        title="Page Not Found | WashKing Car Wash"
+        description="The page you're looking for doesn't exist. Return to WashKing Car Wash."
+        path="/404"
+        noIndex
+      />
       {/* Cloud decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10">

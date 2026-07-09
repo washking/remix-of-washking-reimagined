@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FoamBubbles from "@/components/FoamBubbles";
@@ -88,6 +89,12 @@ const CustomerSurveyPage = () => {
 
   return (
     <div className="min-h-screen bg-washking-sky">
+      <Seo
+        title="Customer Survey | WashKing Car Wash"
+        description="Share your WashKing Car Wash experience. Your feedback helps us deliver the best car wash service in South Jersey."
+        path="/customer-survey"
+        noIndex
+      />
       <Header />
 
       {/* Hero */}
