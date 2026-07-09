@@ -3,3 +3,4 @@ import routes from "./App";
 import "./index.css";
 
 export const createRoot = ViteReactSSG({ routes });
+
