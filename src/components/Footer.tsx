@@ -45,7 +45,7 @@ const Footer = () => {
 
   return (
     <footer id="footer" className="relative overflow-hidden">
-      {/* Wood texture footer - no sky gap */}
+      {/* Wood texture footer */}
       <div 
         className="relative py-8 lg:py-14"
         style={{
@@ -57,14 +57,32 @@ const Footer = () => {
         <div className="absolute inset-0 bg-[hsl(25_55%_32%)]/80" />
         
         <div className="container mx-auto px-4 relative z-10">
+          {/* Logo - full width centered on all sizes */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex justify-center mb-6"
+          >
+            <Link to="/">
+              <img 
+                src={logo} 
+                alt="WashKing Car Wash" 
+                className="w-28 lg:w-44 h-auto"
+              />
+            </Link>
+          </motion.div>
+
+          {/* Two-column link grid + email/social on desktop */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-12 items-start">
-            {/* Left - Email & Social */}
+            {/* Mobile: Email & Social appears after links via order */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-center md:text-left"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="order-3 md:order-1 text-center md:text-left"
             >
               <div className="flex items-center gap-3 mb-4 justify-center md:justify-start">
                 <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-full border-2 border-white flex items-center justify-center flex-shrink-0">
@@ -107,47 +125,58 @@ const Footer = () => {
               </div>
             </motion.div>
 
-            {/* Center - Logo */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex flex-col items-center"
-            >
-              <Link to="/">
-                <img 
-                  src={logo} 
-                  alt="WashKing Car Wash" 
-                  className="w-28 lg:w-44 h-auto"
-                />
-              </Link>
-            </motion.div>
-
-            {/* Right - Explore links */}
+            {/* Center - Two divided link columns on mobile, single column on desktop */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-center md:text-right"
+              className="order-1 md:order-2 text-center"
             >
-              <h3 className="font-display text-washking-yellow text-lg lg:text-2xl mb-2 border-b-2 border-washking-yellow pb-1.5 inline-block">
-                EXPLORE
-              </h3>
-              <nav className="space-y-1">
-                {exploreLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="block text-white font-body text-xs lg:text-base hover:text-washking-yellow transition-colors py-0.5"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
+              {/* Mobile: 2-column grid for links */}
+              <div className="grid grid-cols-2 gap-4 md:block">
+                {/* Section 1: EXPLORE */}
+                <div className="text-center">
+                  <h3 className="font-display text-washking-yellow text-base lg:text-2xl mb-2 border-b-2 border-washking-yellow pb-1 inline-block">
+                    EXPLORE
+                  </h3>
+                  <nav className="space-y-1">
+                    {exploreLinks1.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        onClick={(e) => handleNavClick(e, link.href)}
+                        className="block text-white font-body text-sm lg:text-base hover:text-washking-yellow transition-colors py-0.5"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </nav>
+                </div>
+
+                {/* Section 2 */}
+                <div className="text-center md:text-center">
+                  <h3 className="font-display text-washking-yellow text-base lg:text-2xl mb-2 border-b-2 border-washking-yellow pb-1 inline-block md:hidden">
+                    &nbsp;
+                  </h3>
+                  <nav className="space-y-1 md:mt-0">
+                    {exploreLinks2.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        onClick={(e) => handleNavClick(e, link.href)}
+                        className="block text-white font-body text-sm lg:text-base hover:text-washking-yellow transition-colors py-0.5"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </nav>
+                </div>
+              </div>
             </motion.div>
+
+            {/* Right spacer on desktop to balance 3-column layout */}
+            <div className="hidden md:block order-3" />
           </div>
 
           <motion.div
