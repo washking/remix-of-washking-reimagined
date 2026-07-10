@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { track } from "@/lib/analytics";
 import logo from "@/assets/washking-logo.png";
 
 const locationOptions = [
@@ -85,6 +86,7 @@ const ContactPage = () => {
       if (!webchilyOk && !formspreeOk) throw new Error("Both submissions failed");
       toast.success("Message sent successfully! We'll get back to you soon.");
       form.reset();
+      track("form_submit", { form: "contact" });
       navigate("/thank-you?source=contact_form");
     } catch (error) {
       console.error("Form submission error:", error);

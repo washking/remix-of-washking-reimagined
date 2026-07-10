@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { track } from "@/lib/analytics";
 
 const locationOptions = [
   "WashKing Vineland Main Rd",
@@ -80,6 +81,7 @@ const CustomerSurveyPage = () => {
       if (!webchilyOk && !formspreeOk) throw new Error("Both submissions failed");
       toast.success("Thank you for your feedback!");
       form.reset();
+      track("form_submit", { form: "survey" });
       navigate("/thank-you?source=customer_survey");
     } catch (error) {
       console.error("Survey submission error:", error);
