@@ -6,6 +6,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "./components/ScrollToTop";
+import Analytics from "./components/Analytics";
 import Index from "./pages/Index";
 import LocationPage from "./pages/LocationPage";
 import AboutPage from "./pages/AboutPage";
@@ -27,6 +28,7 @@ function Layout() {
         {/* Toasts are client-only UI (fired by user interactions); skip them during SSG. */}
         <ClientOnly>{() => (<><Toaster /><Sonner /></>)}</ClientOnly>
         <ScrollToTop />
+        <Analytics />
         <Outlet />
       </TooltipProvider>
     </QueryClientProvider>
