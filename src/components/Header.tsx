@@ -170,6 +170,8 @@ const Header = () => {
           <div className="hidden lg:flex items-center gap-2 shrink-0">
             <a
               href="/contact"
+              data-analytics="contact_open"
+              data-analytics-source="desktop_header"
               onClick={(event) => handleNavClick(event, "/contact")}
               className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-4 xl:px-5 py-2 text-sm whitespace-nowrap flex items-center gap-1.5"
             >
@@ -178,6 +180,8 @@ const Header = () => {
             </a>
             <a
               href={MEMBERSHIP_PORTAL}
+              data-analytics="membership_cta"
+              data-analytics-source="desktop_header"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-unlimited whitespace-nowrap"
@@ -189,6 +193,8 @@ const Header = () => {
           <div className="flex items-center gap-1.5 lg:hidden">
             <a
               href="/contact"
+              data-analytics="contact_open"
+              data-analytics-source="mobile_header"
               onClick={(event) => handleNavClick(event, "/contact")}
               className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-3 py-1.5 text-xs whitespace-nowrap flex items-center gap-1"
             >
@@ -253,6 +259,8 @@ const Header = () => {
 
                 <a
                   href={MEMBERSHIP_PORTAL}
+                  data-analytics="membership_cta"
+                  data-analytics-source="mobile_menu"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-unlimited mt-4 block w-full text-center"

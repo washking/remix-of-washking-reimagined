@@ -6,6 +6,8 @@ import {
   LOCATIONS,
   LOCATION_SLUGS,
   OPEN_LOCATIONS,
+  PACKAGE_CATALOG_VERIFIED_ON,
+  getBreakEvenVisits,
   getDirectionsUrl,
   getLocationFormLabel,
 } from "@/lib/locations";
@@ -26,10 +28,47 @@ describe("WashKing location registry", () => {
       expect(location.address).not.toBe("");
       expect(location.city).not.toBe("");
       expect(location.packages.length).toBeGreaterThan(0);
+      expect(location.portalLocationName).toBeTruthy();
+      expect(location.serviceType).not.toBe("coming-soon");
       expect(location.mapEmbed).toMatch(/^https:\/\//);
       expect(getDirectionsUrl(location)).toMatch(/^https:\/\/www\.google\.com\/maps\/dir/);
       expect(Number.isFinite(location.lat)).toBe(true);
       expect(Number.isFinite(location.lng)).toBe(true);
+    });
+  });
+
+  it("matches the verified NXTWash recurring membership catalog", () => {
+    expect(PACKAGE_CATALOG_VERIFIED_ON).toBe("2026-07-11");
+
+    const vineland = LOCATIONS.find((location) => location.slug === "vineland")!;
+    const somerset = LOCATIONS.find((location) => location.slug === "somerset")!;
+    const dante = LOCATIONS.find((location) => location.slug === "vineland-dante")!;
+    const landisville = LOCATIONS.find((location) => location.slug === "landisville")!;
+
+    for (const location of [vineland, somerset]) {
+      expect(location.packages.find((plan) => plan.name === "BRONZE")?.monthlyPrice).toBe("$19.99");
+      expect(location.packages.find((plan) => plan.name === "PLATINUM")?.features).toContain("TRIPLE FOAM POLISH");
+      expect(location.packages.find((plan) => plan.name === "DIAMOND")?.features).toContain("GRAPHENE WAX");
+    }
+
+    for (const location of [dante, landisville]) {
+      expect(location.packages.find((plan) => plan.name === "BRONZE")?.monthlyPrice).toBe("$24.99");
+      expect(location.packages.find((plan) => plan.name === "PLATINUM")?.features).toContain("CLEAR COAT PROTECTANT");
+      expect(location.packages.find((plan) => plan.name === "DIAMOND")?.features).toContain("HOT LAVA");
+    }
+  });
+
+  it("keeps location-only perks at Vineland Main and uses honest break-even ranges", () => {
+    const vineland = LOCATIONS.find((location) => location.slug === "vineland")!;
+    expect(vineland.memberPerks.length).toBeGreaterThan(0);
+
+    OPEN_LOCATIONS.filter((location) => location.slug !== "vineland").forEach((location) => {
+      expect(location.memberPerks).toEqual([]);
+    });
+
+    OPEN_LOCATIONS.flatMap((location) => location.packages).forEach((plan) => {
+      expect(getBreakEvenVisits(plan)).toBeGreaterThanOrEqual(2);
+      expect(getBreakEvenVisits(plan)).toBeLessThanOrEqual(3);
     });
   });
 

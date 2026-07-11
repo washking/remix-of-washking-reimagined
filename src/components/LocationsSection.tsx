@@ -86,6 +86,9 @@ const LocationsSection = () => (
                   <div className={`grid ${directionsUrl ? "grid-cols-2" : "grid-cols-1"} gap-2`}>
                     <Link
                       to={`/location/${location.slug}`}
+                      data-analytics="location_select"
+                      data-analytics-source="homepage_locations"
+                      data-location-slug={location.slug}
                       className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-3 py-2.5 font-display text-sm text-center"
                     >
                       {comingSoon ? "Opening Details" : "View Washes"}
@@ -93,6 +96,9 @@ const LocationsSection = () => (
                     {directionsUrl && (
                       <a
                         href={directionsUrl}
+                        data-analytics="directions_click"
+                        data-analytics-source="homepage_locations"
+                        data-location-slug={location.slug}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn-cloud bg-washking-brown text-white border-2 border-washking-brown px-3 py-2.5 font-display text-sm text-center flex items-center justify-center gap-1.5"

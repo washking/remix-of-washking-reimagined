@@ -4,7 +4,7 @@ import FoamBubbles from "./FoamBubbles";
 
 const benefits = [
   "Visit daily for one monthly low price!",
-  "Wash as often as you like, costing less than 2 washes.",
+  "Most plans pay for themselves after 2-3 visits per month.",
   "Hassle-free entry with License Plate Recognition.",
   "Automatic Monthly Recharge on your anniversary.",
   "No contracts — cancel anytime!",
