@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import carWashIllustration from "@/assets/car-wash-illustration.png";
+import { OPEN_LOCATIONS } from "@/lib/locations";
 import FoamBubbles from "./FoamBubbles";
 
 const benefits = [
@@ -29,14 +31,14 @@ const PackagesSection = () => {
             className="lg:w-1/2"
           >
             <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl text-white text-shadow mb-2 lg:mb-4">
-              UNLIMITED WASH
+              UNLIMITED WASH CLUB
             </h2>
             <h3 className="font-display text-2xl sm:text-3xl lg:text-5xl text-washking-yellow text-shadow mb-4 lg:mb-8">
-              PACKAGES
+              HOW IT WORKS
             </h3>
             
             <p className="font-body text-white text-base sm:text-lg lg:text-2xl mb-6 lg:mb-10 text-shadow-white leading-relaxed">
-              Visit once a day, every day for one monthly low price!
+              Turn repeat visits into one predictable monthly price.
             </p>
 
             <div className="space-y-3 lg:space-y-5">
@@ -64,6 +66,26 @@ const PackagesSection = () => {
                   </p>
                 </motion.div>
               ))}
+            </div>
+
+            <div className="mt-7 lg:mt-10">
+              <p className="mb-3 font-body text-sm font-bold text-white">
+                Compare plans and pricing at your location:
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
+                {OPEN_LOCATIONS.map((location) => (
+                  <Link
+                    key={location.slug}
+                    to={`/location/${location.slug}`}
+                    data-analytics="location_select"
+                    data-analytics-source="homepage_unlimited"
+                    data-location-slug={location.slug}
+                    className="rounded-full border-2 border-white bg-white px-4 py-2 font-body text-sm font-extrabold text-washking-brown transition-colors hover:bg-washking-cream"
+                  >
+                    {location.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </motion.div>
 

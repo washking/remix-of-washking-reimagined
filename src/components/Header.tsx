@@ -24,7 +24,7 @@ const locationLinks: SubmenuItem[] = LOCATIONS.map((washLocation) => ({
 
 const menuItems: MenuItem[] = [
   { label: "Home", href: "/" },
-  { label: "Wash Packages", href: "/#packages" },
+  { label: "Plans & Pricing", href: "/#locations" },
   { label: "Locations", href: "/#locations", dropdown: locationLinks },
   {
     label: "About",

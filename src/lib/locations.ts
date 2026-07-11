@@ -319,6 +319,62 @@ export const getHoursSummary = (location: WashKingLocation) => {
   return "Hours unavailable";
 };
 
+const timeToMinutes = (time: string) => {
+  const match = time.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!match) return null;
+
+  let hour = Number.parseInt(match[1], 10);
+  const minute = Number.parseInt(match[2], 10);
+  const meridiem = match[3].toUpperCase();
+  if (meridiem === "PM" && hour !== 12) hour += 12;
+  if (meridiem === "AM" && hour === 12) hour = 0;
+  return hour * 60 + minute;
+};
+
+const currentNewJerseyTime = (date: Date) => {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(date);
+  const value = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((part) => part.type === type)?.value;
+  const hour = Number.parseInt(value("hour") || "", 10);
+  const minute = Number.parseInt(value("minute") || "", 10);
+
+  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return null;
+  return { weekday: value("weekday"), minutes: hour * 60 + minute };
+};
+
+export const getLocationOpenStatus = (
+  location: WashKingLocation,
+  at = new Date(),
+) => {
+  if (location.status !== "open") return null;
+  if (location.hours.is24Hours) return { isOpen: true, label: "Open 24 hours" };
+
+  const now = currentNewJerseyTime(at);
+  if (!now) return null;
+
+  const range =
+    location.hours.allDays ||
+    (now.weekday === "Sun" ? location.hours.sunday : location.hours.weekdays);
+  if (!range) return null;
+
+  const [opensAt, closesAt] = range.split(/\s+to\s+/i);
+  const opens = timeToMinutes(opensAt || "");
+  const closes = timeToMinutes(closesAt || "");
+  if (opens === null || closes === null) return null;
+
+  const isOpen =
+    closes > opens
+      ? now.minutes >= opens && now.minutes < closes
+      : now.minutes >= opens || now.minutes < closes;
+  return { isOpen, label: isOpen ? "Open now" : "Closed now" };
+};
+
 export const getStartingMonthlyPrice = (location: WashKingLocation) =>
   location.packages.reduce((minimum, washPackage) => {
     const price = Number.parseFloat(washPackage.monthlyPrice.replace(/[^0-9.]/g, ""));

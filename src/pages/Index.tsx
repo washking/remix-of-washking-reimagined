@@ -2,10 +2,9 @@ import Seo from "@/components/Seo";
 import { organizationSchema } from "@/lib/structuredData";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import WhyChooseSection from "@/components/WhyChooseSection";
 import PackagesSection from "@/components/PackagesSection";
 import LocationsSection from "@/components/LocationsSection";
+import ProofSection from "@/components/ProofSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
@@ -22,10 +21,9 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <AboutSection />
-        <WhyChooseSection />
-        <PackagesSection />
         <LocationsSection />
+        <PackagesSection />
+        <ProofSection />
         <TestimonialsSection />
         <FAQSection />
       </main>
