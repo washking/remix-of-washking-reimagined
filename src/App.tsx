@@ -60,6 +60,10 @@ export const routes: RouteRecord[] = [
         lazy: async () => ({ Component: (await import("./pages/CustomerSurveyPage")).default }),
       },
       {
+        path: "privacy",
+        lazy: async () => ({ Component: (await import("./pages/PrivacyPage")).default }),
+      },
+      {
         path: "thank-you",
         lazy: async () => ({ Component: (await import("./pages/ThankYouPage")).default }),
       },

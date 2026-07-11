@@ -137,7 +137,7 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
 
                 <div className="mt-7 grid gap-3">
                   <Link
-                    to="/contact"
+                    to={`/contact?location=${location.slug}&topic=opening-updates`}
                     className="btn-cloud text-center bg-washking-brown text-white border-2 border-washking-brown px-4 py-3 font-display text-base"
                   >
                     Contact WashKing

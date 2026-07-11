@@ -270,17 +270,6 @@ html {
     @apply bg-washking-yellow rounded-3xl p-8 text-center shadow-lg;
   }
 
-  .card-testimonial {
-    @apply bg-washking-green rounded-2xl p-6 text-white border-2 border-white/30;
-  }
-
-  .section-wood {
-    background-color: hsl(25 55% 35%);
-    background-image: url('/src/assets/wood-texture.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-
   .yellow-badge {
     @apply bg-washking-yellow text-white rounded-full w-12 h-12 flex items-center justify-center font-display text-xl shadow-lg;
   }

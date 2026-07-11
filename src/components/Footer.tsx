@@ -189,6 +189,14 @@ const Footer = () => {
             <p className="text-white/70 font-body text-xs lg:text-sm flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
               <span>© {new Date().getFullYear()} WashKing Car Wash. All rights reserved.</span>
               <span className="hidden sm:inline text-white/40">|</span>
+              <a
+                href="/privacy"
+                onClick={(event) => handleNavClick(event, "/privacy")}
+                className="font-semibold text-white hover:text-washking-yellow hover:underline"
+              >
+                Privacy Notice
+              </a>
+              <span className="hidden sm:inline text-white/40">|</span>
               <span>
                 Web design &amp; developed by{" "}
                 <a

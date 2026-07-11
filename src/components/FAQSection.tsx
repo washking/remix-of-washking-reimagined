@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: "Can I use my WashKing Unlimited Wash Plan on more than one vehicle?",
-    answer: "Our Unlimited Wash Plans are designed for one vehicle per plan. However, we offer a family plan option for multiple vehicles. Contact us to learn more about this convenient option!",
+    answer: "Each Unlimited Wash Plan is connected to one vehicle and its license plate. Contact us if you need help choosing coverage for another vehicle.",
   },
   {
     question: "How do I cancel my WashKing Unlimited Wash Plan?",
