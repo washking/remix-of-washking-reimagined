@@ -11,8 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { MapPin } from "lucide-react";
 import { track } from "@/lib/analytics";
+import LocationsMap from "@/components/LocationsMap";
+import { LOCATIONS } from "@/lib/locations";
 
 const locationOptions = [
   "WashKing Vineland Main Rd",
@@ -294,6 +297,64 @@ const ContactPage = () => {
               </form>
             </Form>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Locations Map Section */}
+      <section className="relative overflow-hidden bg-washking-green py-14 lg:py-18">
+        <FoamBubbles variant="section" density="low" />
+        <BubbleCluster className="top-10 left-[8%]" />
+        <BubbleCluster className="bottom-16 right-[12%]" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-center mb-4 text-shadow"
+          >
+            FIND US
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-body text-white/90 text-lg lg:text-xl text-center mb-10 max-w-2xl mx-auto"
+          >
+            Full-service car washes across South Jersey — find the location nearest you.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30"
+          >
+            <LocationsMap />
+          </motion.div>
+
+          <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {LOCATIONS.map((loc) => (
+              <Link
+                key={loc.slug}
+                to={`/location/${loc.slug}`}
+                className="bg-white/15 backdrop-blur-sm rounded-2xl p-5 text-white hover:bg-white/25 transition-colors flex items-start gap-3"
+              >
+                <MapPin className="w-6 h-6 text-washking-yellow flex-shrink-0 mt-0.5" />
+                <span>
+                  <span className="font-display text-lg block">{loc.name}</span>
+                  <span className="font-body text-sm text-white/85 block">
+                    {loc.address ? `${loc.address}, ` : ""}
+                    {loc.city}
+                    {loc.comingSoon && " — Coming soon"}
+                  </span>
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
