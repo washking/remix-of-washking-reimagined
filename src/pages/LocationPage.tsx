@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Check, Mail, Facebook, Instagram } from "lucide-react";
+import { Check, Mail, Facebook, Instagram, MapPin, Clock, Navigation, Sparkles } from "lucide-react";
 import Seo from "@/components/Seo";
 import { autoWashSchema } from "@/lib/structuredData";
 import Header from "@/components/Header";
@@ -287,29 +287,103 @@ const LocationPage = () => {
           path={`/location/${locationSlug}`}
         />
         <Header />
-        <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] py-20 lg:py-32">
-          <FoamBubbles variant="hero" density="medium" />
-          <BubbleCluster className="top-10 left-[5%]" />
-          <BubbleCluster className="top-16 right-[8%]" />
-          <div className="container mx-auto px-4 relative z-10 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl text-white text-shadow mb-4">
-                {location.name}
-              </h1>
-              <Badge className="bg-washking-yellow text-washking-brown font-display text-2xl px-8 py-4 rounded-full mb-8">
-                Coming Soon
-              </Badge>
-              <p className="font-body text-xl lg:text-2xl text-white/90 mt-6 max-w-2xl mx-auto">
-                We're excited to bring WashKing to {location.city}! Stay tuned for updates.
-              </p>
-              <p className="font-body text-lg text-white/80 mt-4">
-                Contact us: <a href="mailto:contact@washking.net" className="underline font-bold">contact@washking.net</a>
-              </p>
-            </motion.div>
+
+        {/* Hero — coming soon, matching the open-location card layout */}
+        <section className="relative">
+          {/* Slim yellow-to-blue wave transition */}
+          <div className="bg-washking-yellow h-8 lg:h-12 relative">
+            <div className="absolute bottom-0 left-0 right-0">
+              <svg viewBox="0 0 1440 200" className="w-full h-auto" preserveAspectRatio="none">
+                <path fill="hsl(200 85% 60%)" d="M0,200 L0,100 Q360,180 720,100 T1440,120 L1440,200 Z" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-b from-[hsl(200_85%_60%)] to-washking-sky relative pt-4 lg:pt-8 pb-28 lg:pb-40">
+            <FoamBubbles variant="section" density="low" />
+
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+                {/* Left: name + hook */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center lg:text-left"
+                >
+                  <p className="font-display text-washking-brown text-sm sm:text-base tracking-[0.25em] mb-2">
+                    {location.state.toUpperCase()}
+                  </p>
+                  <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl text-white text-shadow mb-4">
+                    {location.name}
+                  </h1>
+                  <p className="font-body font-bold text-white text-xl sm:text-2xl lg:text-3xl text-shadow-white">
+                    A new WashKing is on the way to {location.city}.
+                  </p>
+                </motion.div>
+
+                {/* Right: coming-soon info card */}
+                <div className="bg-white rounded-3xl shadow-2xl p-6 lg:p-8 w-full max-w-md mx-auto lg:mx-0 lg:ml-auto text-left">
+                  <Badge className="bg-washking-yellow text-washking-brown font-display text-lg px-5 py-2 rounded-full mb-5">
+                    Coming Soon
+                  </Badge>
+
+                  <div className="space-y-4">
+                    {/* Location */}
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
+                        <MapPin className="w-5 h-5 text-washking-brown" />
+                      </div>
+                      <div>
+                        <p className="font-display text-washking-brown/70 text-xs tracking-widest">LOCATION</p>
+                        <p className="font-body text-washking-brown font-bold leading-snug">{location.city}</p>
+                      </div>
+                    </div>
+                    {/* Contact */}
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
+                        <Mail className="w-5 h-5 text-washking-brown" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-display text-washking-brown/70 text-xs tracking-widest">CONTACT</p>
+                        <a
+                          href={`mailto:${location.email}`}
+                          className="font-body text-washking-brown font-bold hover:underline break-all"
+                        >
+                          {location.email}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="mt-6 space-y-3">
+                    <Link
+                      to="/contact"
+                      className="btn-cloud block text-center bg-washking-brown text-white border-2 border-washking-brown px-4 py-3 font-display text-base"
+                    >
+                      Send Us a Message
+                    </Link>
+                    <Link
+                      to="/#locations"
+                      className="btn-cloud block text-center bg-washking-cream text-washking-brown border-2 border-washking-brown px-4 py-3 font-display text-base"
+                    >
+                      View Open Locations
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Cloud wave */}
+            <div className="absolute bottom-0 left-0 right-0">
+              <svg viewBox="0 0 1440 120" className="w-full h-auto" preserveAspectRatio="none">
+                <ellipse cx="200" cy="100" rx="250" ry="80" fill="hsl(200 80% 85%)" />
+                <ellipse cx="500" cy="110" rx="300" ry="70" fill="hsl(200 80% 90%)" />
+                <ellipse cx="900" cy="95" rx="350" ry="90" fill="hsl(200 80% 85%)" />
+                <ellipse cx="1300" cy="105" rx="280" ry="75" fill="hsl(200 80% 90%)" />
+              </svg>
+            </div>
           </div>
         </section>
         <Footer />
@@ -317,10 +391,32 @@ const LocationPage = () => {
     );
   }
 
+  // At-a-glance summary derived from the location's own data.
+  const hoursSummary = location.hours.is24Hours
+    ? "Open 24 hours · 7 days a week"
+    : location.hours.allDays
+      ? `Open 7 days · ${location.hours.allDays}`
+      : location.hours.weekdays
+        ? `Mon–Sat ${location.hours.weekdays}${location.hours.sunday ? ` · Sun ${location.hours.sunday}` : ""}`
+        : "See hours below";
+
+  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+    `WashKing ${location.name}, ${location.address}, ${location.city}`,
+  )}`;
+
+  const startingPrice = location.packages.reduce((min, p) => {
+    const n = parseFloat(p.monthlyPrice.replace(/[^0-9.]/g, ""));
+    return Number.isFinite(n) && n < min ? n : min;
+  }, Infinity);
+
+  const scrollToPlans = () => {
+    document.getElementById("wash-plans")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Header />
-      
+
       <Seo
         title={`${location.name} Car Wash | WashKing ${location.city.replace(/\s*\d{5}$/, "")}`}
         description={`WashKing ${location.name} car wash at ${location.address}, ${location.city}. Unlimited monthly wash plans, express exterior wash and full-service detailing.`}
@@ -328,50 +424,139 @@ const LocationPage = () => {
         jsonLd={autoWashSchema(locationSlug ?? "", location)}
       />
 
-      {/* Hero Section */}
+      {/* Hero — location name + at-a-glance info card */}
       <section className="relative">
-        <div className="bg-washking-yellow pt-8 lg:pt-12 pb-24 lg:pb-32 relative">
-          <div className="container mx-auto px-4" />
-        </div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 200" className="w-full h-auto" preserveAspectRatio="none">
-            <path fill="hsl(200 85% 55%)" d="M0,200 L0,100 Q360,180 720,100 T1440,120 L1440,200 Z" />
-          </svg>
-        </div>
-      </section>
-
-      {/* Blue Sky Section */}
-      <section className="bg-washking-sky relative pt-6 lg:pt-8 pb-28 lg:pb-40">
-        <FoamBubbles variant="section" density="low" />
-        <BubbleCluster className="top-10 right-[10%]" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-white text-shadow mb-1 lg:mb-2">
-              {location.name}
-            </h1>
-            <p className="font-display text-lg sm:text-xl lg:text-2xl text-washking-brown tracking-widest">
-              {location.state.toUpperCase()}
-            </p>
-          </motion.div>
+        {/* Slim yellow-to-blue wave transition */}
+        <div className="bg-washking-yellow h-8 lg:h-12 relative">
+          <div className="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 200" className="w-full h-auto" preserveAspectRatio="none">
+              <path fill="hsl(200 85% 60%)" d="M0,200 L0,100 Q360,180 720,100 T1440,120 L1440,200 Z" />
+            </svg>
+          </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" className="w-full h-auto" preserveAspectRatio="none">
-            <ellipse cx="200" cy="100" rx="250" ry="80" fill="hsl(200 80% 85%)" />
-            <ellipse cx="500" cy="110" rx="300" ry="70" fill="hsl(200 80% 90%)" />
-            <ellipse cx="900" cy="95" rx="350" ry="90" fill="hsl(200 80% 85%)" />
-            <ellipse cx="1300" cy="105" rx="280" ry="75" fill="hsl(200 80% 90%)" />
-          </svg>
+        {/* Blue hero body */}
+        <div className="bg-gradient-to-b from-[hsl(200_85%_60%)] to-washking-sky relative pt-4 lg:pt-8 pb-28 lg:pb-40">
+          <FoamBubbles variant="section" density="low" />
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+              {/* Left: name + membership hook */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-center lg:text-left"
+              >
+                <p className="font-display text-washking-brown text-sm sm:text-base tracking-[0.25em] mb-2">
+                  {location.state.toUpperCase()}
+                </p>
+                <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl text-white text-shadow mb-4">
+                  {location.name}
+                </h1>
+                {Number.isFinite(startingPrice) && (
+                  <p className="font-body font-bold text-white text-xl sm:text-2xl lg:text-3xl text-shadow-white">
+                    Unlimited Wash Club from{" "}
+                    <span className="font-display text-washking-yellow whitespace-nowrap text-3xl sm:text-4xl lg:text-5xl">
+                      ${startingPrice.toFixed(2)}/mo
+                    </span>
+                  </p>
+                )}
+              </motion.div>
+
+              {/* Right: at-a-glance info card — rendered instantly (no fade) since it holds the key info */}
+              <div className="bg-white rounded-3xl shadow-2xl p-6 lg:p-8 w-full max-w-md mx-auto lg:mx-0 lg:ml-auto text-left">
+                <div className="space-y-4">
+                  {/* Address */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5 text-washking-brown" />
+                    </div>
+                    <div>
+                      <p className="font-display text-washking-brown/70 text-xs tracking-widest">ADDRESS</p>
+                      <p className="font-body text-washking-brown font-bold leading-snug">{location.address}</p>
+                      <p className="font-body text-washking-brown/80 leading-snug">{location.city}</p>
+                    </div>
+                  </div>
+                  {/* Hours */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5 text-washking-brown" />
+                    </div>
+                    <div>
+                      <p className="font-display text-washking-brown/70 text-xs tracking-widest">HOURS</p>
+                      <p className="font-body text-washking-brown font-bold leading-snug">{hoursSummary}</p>
+                    </div>
+                  </div>
+                  {/* Contact */}
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
+                      <Mail className="w-5 h-5 text-washking-brown" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-display text-washking-brown/70 text-xs tracking-widest">CONTACT</p>
+                      <a
+                        href={`mailto:${location.email}`}
+                        className="font-body text-washking-brown font-bold hover:underline break-all"
+                      >
+                        {location.email}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="mt-6 space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <a
+                      href={directionsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-cloud flex items-center justify-center gap-2 bg-washking-brown text-white border-2 border-washking-brown px-4 py-3 font-display text-base"
+                    >
+                      <Navigation className="w-4 h-4" /> Directions
+                    </a>
+                    <button
+                      type="button"
+                      onClick={scrollToPlans}
+                      className="btn-cloud flex items-center justify-center gap-2 bg-washking-cream text-washking-brown border-2 border-washking-brown px-4 py-3 font-display text-base"
+                    >
+                      <Sparkles className="w-4 h-4" /> See Plans
+                    </button>
+                  </div>
+                  <a
+                    href="https://customerportal.nxtwash.com/washkingcarwash"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-cloud block text-center bg-gradient-to-b from-[hsl(45_100%_55%)] to-[hsl(45_100%_48%)] text-washking-brown border-2 border-washking-brown px-4 py-3 font-display text-lg"
+                  >
+                    Go Unlimited
+                  </a>
+                  <Link
+                    to="/contact"
+                    className="block text-center font-body text-washking-brown/70 text-sm hover:text-washking-brown hover:underline"
+                  >
+                    Questions? Send us a message →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Cloud wave into the packages section */}
+          <div className="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" className="w-full h-auto" preserveAspectRatio="none">
+              <ellipse cx="200" cy="100" rx="250" ry="80" fill="hsl(200 80% 85%)" />
+              <ellipse cx="500" cy="110" rx="300" ry="70" fill="hsl(200 80% 90%)" />
+              <ellipse cx="900" cy="95" rx="350" ry="90" fill="hsl(200 80% 85%)" />
+              <ellipse cx="1300" cy="105" rx="280" ry="75" fill="hsl(200 80% 90%)" />
+            </svg>
+          </div>
         </div>
       </section>
 
       {/* Wash Packages */}
-      <section className="bg-gradient-to-b from-[hsl(200_80%_92%)] to-white py-12 lg:py-16">
+      <section id="wash-plans" className="bg-gradient-to-b from-[hsl(200_80%_92%)] to-white py-12 lg:py-16 scroll-mt-4">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -467,7 +652,7 @@ const LocationPage = () => {
       </section>
 
       {/* Hours of Operation */}
-      <section className="bg-washking-yellow py-16 relative overflow-hidden">
+      <section className="bg-washking-yellow py-8 lg:py-10 relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0">
           <svg viewBox="0 0 1440 60" className="w-full h-auto" preserveAspectRatio="none">
             <path fill="hsl(45 100% 60%)" d="M0,60 Q360,20 720,40 T1440,30 L1440,0 L0,0 Z" opacity="0.5" />
@@ -475,27 +660,27 @@ const LocationPage = () => {
         </div>
 
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-8">
-            <motion.div
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8 lg:gap-10 max-w-4xl mx-auto">
+            <motion.img
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="lg:w-1/3"
-            >
-              <img src={lionMascot} alt="WashKing Mascot" className="w-64 lg:w-80 h-auto drop-shadow-2xl" />
-            </motion.div>
+              src={lionMascot}
+              alt="WashKing Mascot"
+              className="w-32 sm:w-40 lg:w-48 h-auto drop-shadow-2xl shrink-0"
+            />
 
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="lg:w-2/3"
+              className="text-center sm:text-left"
             >
-              <h2 className="font-display text-4xl lg:text-5xl text-washking-brown mb-8">
+              <h2 className="font-display text-3xl lg:text-4xl text-washking-brown mb-4">
                 Hours of Operation
               </h2>
               
-              <div className="bg-washking-green rounded-3xl p-8 text-white max-w-md relative overflow-hidden">
+              <div className="bg-washking-green rounded-3xl px-6 py-5 text-white max-w-md relative overflow-hidden">
                 <div className="absolute right-0 bottom-0 w-1/2 h-full opacity-30 bg-gradient-to-l from-green-800 to-transparent" />
                 <div className="relative z-10">
                   {location.hours.is24Hours ? (
