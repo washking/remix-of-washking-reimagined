@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/washking-logo.png";
 
@@ -35,7 +35,6 @@ const Header = () => {
         { label: "About WashKing", href: "/about" },
         { label: "FAQ's", href: "/#faq" },
         { label: "Gallery", href: "/#testimonials" },
-        { label: "Contact Us", href: "/contact" },
         { label: "Employment", href: "/employment" },
       ],
     },
@@ -137,11 +136,19 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block flex-shrink-0">
-            <a 
-              href="https://customerportal.nxtwash.com/washkingcarwash" 
-              target="_blank" 
+          {/* CTA Buttons */}
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+            <a
+              href="/contact"
+              onClick={(e) => handleNavClick(e, "/contact")}
+              className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-4 xl:px-5 py-2 text-sm whitespace-nowrap flex items-center gap-1.5"
+            >
+              <Mail className="w-4 h-4" />
+              Contact Us
+            </a>
+            <a
+              href="https://customerportal.nxtwash.com/washkingcarwash"
+              target="_blank"
               rel="noopener noreferrer"
               className="btn-unlimited whitespace-nowrap"
             >
@@ -149,18 +156,28 @@ const Header = () => {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 -mr-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-washking-brown" />
-            ) : (
-              <Menu className="w-6 h-6 text-washking-brown" />
-            )}
-          </button>
+          {/* Mobile actions */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <a
+              href="/contact"
+              onClick={(e) => handleNavClick(e, "/contact")}
+              className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-3 py-1.5 text-xs whitespace-nowrap flex items-center gap-1"
+            >
+              <Mail className="w-4 h-4" />
+              Contact
+            </a>
+            <button
+              className="p-2 -mr-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6 text-washking-brown" />
+              ) : (
+                <Menu className="w-6 h-6 text-washking-brown" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
