@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import {
   Check,
   Clock,
+  ExternalLink,
   Mail,
   MapPin,
   Navigation,
@@ -17,8 +18,11 @@ import { autoWashSchema } from "@/lib/structuredData";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
   getDirectionsUrl,
+  getBreakEvenVisits,
   getHoursSummary,
+  getIncludedFeatures,
   getLocationBySlug,
+  getPackagesByMonthlyPrice,
   getStartingMonthlyPrice,
   UNLIMITED_MEMBER_BENEFITS,
   type WashKingLocation,
@@ -219,13 +223,15 @@ const LocationPage = () => {
   const directionsUrl = getDirectionsUrl(location);
   const startingPrice = getStartingMonthlyPrice(location);
   const memberBenefits = [...UNLIMITED_MEMBER_BENEFITS, ...location.memberPerks];
+  const orderedPackages = getPackagesByMonthlyPrice(location);
+  const portalLocationName = location.portalLocationName || `WashKing ${location.name}`;
 
   const scrollToPlans = () => {
     document.getElementById("wash-plans")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden pb-24 md:pb-0">
       <Seo
         title={`${location.name} Car Wash | WashKing ${location.city.replace(/\s*\d{5}$/, "")}`}
         description={`Visit WashKing ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
@@ -355,17 +361,47 @@ const LocationPage = () => {
               </p>
             </div>
 
-            <div className={`grid md:grid-cols-2 ${location.packages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-6 max-w-7xl mx-auto`}>
-              {location.packages.map((washPackage, index) => (
-                <motion.article
-                  key={washPackage.name}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: index * 0.08 }}
-                  className={`${washPackage.color} rounded-3xl overflow-hidden shadow-xl flex flex-col`}
-                >
+            <div className="mx-auto mb-8 flex max-w-4xl flex-col items-center justify-between gap-4 rounded-2xl border border-washking-brown/15 bg-white p-5 text-center shadow-sm sm:flex-row sm:text-left">
+              <p className="font-body text-sm text-washking-brown sm:text-base">
+                Membership checkout opens our NXTWash plan portal. Confirm{" "}
+                <strong>{portalLocationName}</strong> when prompted.
+              </p>
+              <a
+                href={MEMBERSHIP_PORTAL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics="membership_cta"
+                data-analytics-source="location_plan_intro"
+                data-location-slug={location.slug}
+                className="inline-flex shrink-0 items-center gap-2 font-body text-sm font-extrabold text-washking-brown underline underline-offset-4"
+              >
+                Member login
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </div>
+
+            <div className={`grid md:grid-cols-2 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-6 max-w-7xl mx-auto`}>
+              {orderedPackages.map((washPackage, index) => {
+                const breakEvenVisits = getBreakEvenVisits(washPackage);
+                const includedFeatures = getIncludedFeatures(location, washPackage.name);
+                const visibleFeatures = washPackage.features.slice(0, 4);
+                const additionalFeatureCount = washPackage.features.length - visibleFeatures.length;
+
+                return (
+                  <motion.article
+                    key={washPackage.name}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.35, delay: index * 0.08 }}
+                    className={`${washPackage.color} rounded-3xl overflow-hidden shadow-xl flex flex-col`}
+                  >
                   <div className="p-6 text-center">
+                    {index === 0 && (
+                      <p className={`mb-2 font-body text-xs font-extrabold uppercase ${washPackage.textColor}`}>
+                        Lowest monthly price
+                      </p>
+                    )}
                     <h3 className={`font-display text-3xl ${washPackage.textColor} mb-2`}>
                       {washPackage.name}
                     </h3>
@@ -382,6 +418,11 @@ const LocationPage = () => {
                       <span className="font-body text-xs"> + tax</span>
                     </p>
                     <p className="text-white font-body text-sm">per month</p>
+                    {breakEvenVisits && (
+                      <p className="mt-2 font-body text-xs font-extrabold text-white">
+                        Pays for itself by visit {breakEvenVisits}
+                      </p>
+                    )}
                   </div>
 
                   <div className="px-6 pb-6 pt-5 flex flex-col flex-1">
@@ -391,18 +432,39 @@ const LocationPage = () => {
                       </p>
                     )}
                     <ul className="space-y-2 mb-5 flex-1">
-                      {washPackage.features.map((feature) => (
+                      {visibleFeatures.map((feature) => (
                         <li key={feature} className={`flex items-start gap-2 ${washPackage.textColor}`}>
                           <Check className="w-5 h-5 shrink-0" aria-hidden="true" />
                           <span className="font-body font-semibold text-sm">{feature}</span>
                         </li>
                       ))}
+                      {additionalFeatureCount > 0 && (
+                        <li className={`font-body text-sm font-extrabold ${washPackage.textColor}`}>
+                          + {additionalFeatureCount} more upgrades
+                        </li>
+                      )}
                     </ul>
                     {washPackage.note && (
                       <p className={`text-xs ${washPackage.textColor} opacity-80 mb-4`}>
                         {washPackage.note}
                       </p>
                     )}
+
+                    <details className={`mb-5 border-t border-current/20 pt-3 ${washPackage.textColor}`}>
+                      <summary className="cursor-pointer font-body text-sm font-extrabold">
+                        See all {includedFeatures.length} included{" "}
+                        {includedFeatures.length === 1 ? "feature" : "features"}
+                      </summary>
+                      <ul className="mt-3 space-y-2">
+                        {includedFeatures.map((feature) => (
+                          <li key={feature} className="flex items-start gap-2">
+                            <Check className="h-4 w-4 shrink-0" aria-hidden="true" />
+                            <span className="font-body text-xs font-semibold">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+
                     <a
                       href={MEMBERSHIP_PORTAL}
                       data-analytics="plan_select"
@@ -411,14 +473,19 @@ const LocationPage = () => {
                       data-plan-name={washPackage.name}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-cloud bg-washking-cream text-washking-brown border-2 border-washking-brown px-5 py-2.5 font-display text-base text-center"
+                      className="btn-cloud flex items-center justify-center gap-2 bg-washking-cream text-washking-brown border-2 border-washking-brown px-5 py-2.5 font-display text-base text-center"
                       aria-label={`Join the ${washPackage.name} unlimited wash plan`}
                     >
-                      Join Unlimited
+                      Choose {washPackage.name}
+                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
                     </a>
+                    <p className={`mt-2 text-center font-body text-xs ${washPackage.textColor}`}>
+                      Confirm {portalLocationName} in NXTWash
+                    </p>
                   </div>
-                </motion.article>
-              ))}
+                  </motion.article>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -496,6 +563,45 @@ const LocationPage = () => {
           </div>
         </section>
       </main>
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-washking-brown/20 bg-white/95 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-2xl backdrop-blur md:hidden">
+        <div className="mx-auto grid max-w-md grid-cols-3 gap-2">
+          {directionsUrl && (
+            <a
+              href={directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-analytics="directions_click"
+              data-analytics-source="mobile_location_bar"
+              data-location-slug={location.slug}
+              className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-brown px-2 font-body text-xs font-extrabold text-white"
+            >
+              <Navigation className="h-4 w-4" aria-hidden="true" />
+              Directions
+            </a>
+          )}
+          <button
+            type="button"
+            onClick={scrollToPlans}
+            className="flex min-h-12 items-center justify-center gap-1 rounded-lg border-2 border-washking-brown bg-white px-2 font-body text-xs font-extrabold text-washking-brown"
+          >
+            <Sparkles className="h-4 w-4" aria-hidden="true" />
+            Plans
+          </button>
+          <a
+            href={MEMBERSHIP_PORTAL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics="membership_cta"
+            data-analytics-source="mobile_location_bar"
+            data-location-slug={location.slug}
+            className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-yellow px-2 font-body text-xs font-extrabold text-washking-brown"
+          >
+            Join
+            <ExternalLink className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
 
       <Footer />
     </div>

@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 import lionMascot from "@/assets/lion-mascot.png";
 import FoamBubbles from "./FoamBubbles";
+import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
   Accordion,
   AccordionContent,
@@ -105,6 +107,27 @@ const FAQSection = () => {
                 </AccordionItem>
               ))}
             </Accordion>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={MEMBERSHIP_PORTAL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics="membership_cta"
+                data-analytics-source="faq"
+                className="btn-cloud border-2 border-washking-brown bg-washking-yellow px-5 py-3 text-center font-display text-sm text-washking-brown"
+              >
+                Manage Membership
+              </a>
+              <Link
+                to="/contact"
+                data-analytics="contact_open"
+                data-analytics-source="faq"
+                className="btn-cloud border-2 border-washking-brown bg-white px-5 py-3 text-center font-display text-sm text-washking-brown"
+              >
+                Contact Support
+              </Link>
+            </div>
           </motion.div>
         </div>
 

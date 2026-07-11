@@ -3,6 +3,7 @@ import { Facebook, Instagram, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "@/assets/washking-logo.png";
 import woodTexture from "@/assets/wood-texture.jpg";
+import { MEMBERSHIP_PORTAL } from "@/lib/site";
 
 const exploreLinks1 = [
   { label: "Home", href: "/" },
@@ -123,6 +124,17 @@ const Footer = () => {
                   <Instagram className="w-5 h-5 text-white" />
                 </motion.a>
               </div>
+
+              <a
+                href={MEMBERSHIP_PORTAL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics="membership_cta"
+                data-analytics-source="footer"
+                className="mt-4 inline-block font-body text-sm font-bold text-washking-yellow hover:underline"
+              >
+                Manage Membership
+              </a>
             </motion.div>
 
             {/* Center - Two divided link columns on mobile, single column on desktop */}
