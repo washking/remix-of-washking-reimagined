@@ -391,3 +391,28 @@ export const getBreakEvenVisits = (washPackage: WashPackage) => {
 
   return Math.ceil(monthlyPrice / singlePrice);
 };
+
+const monthlyPriceValue = (washPackage: WashPackage) =>
+  Number.parseFloat(washPackage.monthlyPrice.replace(/[^0-9.]/g, ""));
+
+export const getPackagesByMonthlyPrice = (location: WashKingLocation) =>
+  [...location.packages].sort(
+    (left, right) => monthlyPriceValue(left) - monthlyPriceValue(right),
+  );
+
+export const getIncludedFeatures = (
+  location: WashKingLocation,
+  packageName: string,
+) => {
+  const packages = getPackagesByMonthlyPrice(location);
+  const packageIndex = packages.findIndex((washPackage) => washPackage.name === packageName);
+  if (packageIndex < 0) return [];
+
+  return Array.from(
+    new Set(
+      packages
+        .slice(0, packageIndex + 1)
+        .flatMap((washPackage) => washPackage.features),
+    ),
+  );
+};

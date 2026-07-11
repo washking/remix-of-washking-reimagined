@@ -9,6 +9,7 @@ import { MEMBERSHIP_PORTAL } from "@/lib/site";
 type SubmenuItem = {
   label: string;
   href: string;
+  external?: boolean;
 };
 
 type MenuItem = {
@@ -34,6 +35,7 @@ const menuItems: MenuItem[] = [
       { label: "FAQs", href: "/#faq" },
       { label: "Customer Stories", href: "/#testimonials" },
       { label: "Employment", href: "/employment" },
+      { label: "Manage Membership", href: MEMBERSHIP_PORTAL, external: true },
     ],
   },
 ];
@@ -149,15 +151,30 @@ const Header = () => {
                     >
                       <div className="bg-white rounded-2xl shadow-2xl py-2 min-w-[230px] border border-gray-100 overflow-hidden" role="menu">
                         {item.dropdown.map((subItem) => (
-                          <a
-                            key={subItem.href}
-                            href={subItem.href}
-                            onClick={(event) => handleNavClick(event, subItem.href)}
-                            className="block px-5 py-3 font-body text-sm text-washking-brown hover:bg-washking-cream transition-colors"
-                            role="menuitem"
-                          >
-                            {subItem.label}
-                          </a>
+                          subItem.external ? (
+                            <a
+                              key={subItem.label}
+                              href={subItem.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              data-analytics="membership_cta"
+                              data-analytics-source="desktop_navigation"
+                              className="block px-5 py-3 font-body text-sm text-washking-brown hover:bg-washking-cream transition-colors"
+                              role="menuitem"
+                            >
+                              {subItem.label}
+                            </a>
+                          ) : (
+                            <a
+                              key={subItem.href}
+                              href={subItem.href}
+                              onClick={(event) => handleNavClick(event, subItem.href)}
+                              className="block px-5 py-3 font-body text-sm text-washking-brown hover:bg-washking-cream transition-colors"
+                              role="menuitem"
+                            >
+                              {subItem.label}
+                            </a>
+                          )
                         ))}
                       </div>
                     </motion.div>
@@ -242,14 +259,28 @@ const Header = () => {
                       {item.dropdown && (
                         <div className="pl-3 border-l-2 border-washking-brown/20 ml-3 grid grid-cols-1 sm:grid-cols-2 gap-0.5">
                           {item.dropdown.map((subItem) => (
-                            <a
-                              key={subItem.href}
-                              href={subItem.href}
-                              onClick={(event) => handleNavClick(event, subItem.href)}
-                              className="block py-2 px-3 font-body text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
-                            >
-                              {subItem.label}
-                            </a>
+                            subItem.external ? (
+                              <a
+                                key={subItem.label}
+                                href={subItem.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-analytics="membership_cta"
+                                data-analytics-source="mobile_navigation"
+                                className="block py-2 px-3 font-body text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
+                              >
+                                {subItem.label}
+                              </a>
+                            ) : (
+                              <a
+                                key={subItem.href}
+                                href={subItem.href}
+                                onClick={(event) => handleNavClick(event, subItem.href)}
+                                className="block py-2 px-3 font-body text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
+                              >
+                                {subItem.label}
+                              </a>
+                            )
                           ))}
                         </div>
                       )}

@@ -9,8 +9,10 @@ import {
   PACKAGE_CATALOG_VERIFIED_ON,
   getBreakEvenVisits,
   getDirectionsUrl,
+  getIncludedFeatures,
   getLocationFormLabel,
   getLocationOpenStatus,
+  getPackagesByMonthlyPrice,
 } from "@/lib/locations";
 import { autoWashSchema } from "@/lib/structuredData";
 
@@ -90,6 +92,25 @@ describe("WashKing location registry", () => {
     expect(getLocationOpenStatus(vineland, new Date("2026-07-12T21:30:00Z"))?.isOpen).toBe(false);
     expect(getLocationOpenStatus(dante, new Date("2026-07-13T06:00:00Z"))?.isOpen).toBe(true);
     expect(getLocationOpenStatus(cherryHill)).toBeNull();
+  });
+
+  it("orders plans entry-level first and expands inherited features", () => {
+    const vineland = LOCATIONS.find((location) => location.slug === "vineland")!;
+    const orderedPlans = getPackagesByMonthlyPrice(vineland);
+
+    expect(orderedPlans.map((plan) => plan.name)).toEqual([
+      "BRONZE",
+      "PLATINUM",
+      "DIAMOND",
+      "ROYALTY",
+    ]);
+    expect(orderedPlans.map(getBreakEvenVisits)).toEqual([2, 3, 3, 3]);
+
+    const royaltyFeatures = getIncludedFeatures(vineland, "ROYALTY");
+    expect(royaltyFeatures).toContain("WASH AND DRY");
+    expect(royaltyFeatures).toContain("GRAPHENE WAX");
+    expect(royaltyFeatures).toContain("INTERIOR VACUUM");
+    expect(new Set(royaltyFeatures).size).toBe(royaltyFeatures.length);
   });
 
   it("does not expose open-location actions for Cherry Hill", () => {
