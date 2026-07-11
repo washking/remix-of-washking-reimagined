@@ -15,11 +15,9 @@ import ContactPage from "./pages/ContactPage";
 import CustomerSurveyPage from "./pages/CustomerSurveyPage";
 import ThankYouPage from "./pages/ThankYouPage";
 import NotFound from "./pages/NotFound";
+import { LOCATION_SLUGS } from "./lib/locations";
 
 const queryClient = new QueryClient();
-
-// Location slugs that get pre-rendered to static HTML (mirrors locationData in LocationPage).
-const LOCATION_SLUGS = ["vineland", "vineland-dante", "somerset", "landisville", "cherry-hill"];
 
 function Layout() {
   return (

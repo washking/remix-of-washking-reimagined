@@ -92,8 +92,8 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Seo
-        title="About WashKing | Family-Owned Car Wash in Vineland & Somerset, NJ"
-        description="Learn about WashKing Car Wash — a family-owned, technology-driven car wash serving Vineland, Somerset, Landisville and South Jersey with unlimited wash plans."
+        title="About WashKing | Family-Owned New Jersey Car Wash"
+        description="Learn about WashKing Car Wash, a family-owned business with four open New Jersey locations and Cherry Hill coming soon."
         path="/about"
       />
       <Header />

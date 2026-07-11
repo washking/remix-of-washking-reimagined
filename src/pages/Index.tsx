@@ -14,8 +14,8 @@ const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Seo
-        title="Washking – Best Full-Service Car Wash in Vineland, NJ"
-        description="Washking offers premium full-service car wash and unlimited membership plans across Vineland, Somerset, Landisville and South Jersey. Fast, friendly, family-owned."
+        title="WashKing Car Wash | Four New Jersey Locations"
+        description="Visit WashKing at four open New Jersey car wash locations, with Cherry Hill coming soon. Explore wash packages and unlimited monthly plans."
         path="/"
         jsonLd={organizationSchema()}
       />

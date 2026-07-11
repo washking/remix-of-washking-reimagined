@@ -109,7 +109,7 @@ const EmploymentPage = () => {
     <div className="min-h-screen overflow-x-hidden">
       <Seo
         title="Careers at WashKing Car Wash | Now Hiring in NJ"
-        description="Join the WashKing Car Wash team. Explore current job openings at our Vineland, Somerset, and South Jersey car wash locations."
+        description="Join the WashKing Car Wash team. Explore opportunities across our four open New Jersey car wash locations."
         path="/employment"
       />
       <Header />
