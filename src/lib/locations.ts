@@ -94,7 +94,7 @@ const exteriorPackages = ({
   },
   {
     name: "BRONZE",
-    color: "bg-green-600",
+    color: "bg-washking-green",
     textColor: "text-white",
     singlePrice: "$10",
     monthlyPrice: bronze,
@@ -157,7 +157,7 @@ const premiumExteriorPackages = (): WashPackage[] => [
   },
   {
     name: "BRONZE",
-    color: "bg-green-600",
+    color: "bg-washking-green",
     textColor: "text-white",
     singlePrice: "$10",
     monthlyPrice: "$24.99",

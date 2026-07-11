@@ -2,6 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Seo from "@/components/Seo";
 import lionMascot from "@/assets/lion-mascot.png";
+import lionMascotAvif from "@/assets/lion-mascot.avif";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const NotFound = () => {
   const location = useLocation();
@@ -11,7 +13,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] relative overflow-hidden">
+    <main id="main-content" tabIndex={-1} className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] relative overflow-hidden">
       <Seo
         title="Page Not Found | WashKing Car Wash"
         description="The page you're looking for doesn't exist. Return to WashKing Car Wash."
@@ -31,9 +33,13 @@ const NotFound = () => {
       </div>
       
       <div className="text-center relative z-10 px-4">
-        <img 
+        <OptimizedImage
+          avifSrc={lionMascotAvif}
           src={lionMascot} 
           alt="WashKing Lion" 
+          width={1132}
+          height={1920}
+          decoding="async"
           className="w-32 h-auto mx-auto mb-6"
           style={{ mixBlendMode: 'multiply' }}
         />
@@ -48,7 +54,7 @@ const NotFound = () => {
           Return to Home
         </Link>
       </div>
-    </div>
+    </main>
   );
 };
 

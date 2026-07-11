@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
+import { ClientOnly } from "vite-react-ssg";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,11 +9,13 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FoamBubbles from "@/components/FoamBubbles";
 import lionMascot from "@/assets/lion-mascot.png";
+import lionMascotAvif from "@/assets/lion-mascot.avif";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import { useNavigate } from "react-router-dom";
 import { track } from "@/lib/analytics";
 
@@ -106,16 +109,19 @@ const EmploymentPage = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen overflow-x-hidden">
       <Seo
         title="Careers at WashKing Car Wash | Now Hiring in NJ"
         description="Join the WashKing Car Wash team. Explore opportunities across our four open New Jersey car wash locations."
         path="/employment"
       />
       <Header />
+      <ClientOnly>{() => <Toaster />}</ClientOnly>
+      <main id="main-content" tabIndex={-1}>
 
       {/* Hero Section - Wash Foam Aesthetic */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] py-16 lg:py-20">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] py-16 lg:py-20">
         <FoamBubbles variant="hero" density="medium" />
         
         {/* Additional bubble clusters */}
@@ -124,7 +130,7 @@ const EmploymentPage = () => {
         
         <div className="container mx-auto px-4 relative z-10">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="font-display text-5xl sm:text-6xl lg:text-7xl text-white text-center text-shadow"
@@ -132,7 +138,7 @@ const EmploymentPage = () => {
             CAREERS
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-body text-xl lg:text-2xl text-white/90 text-center mt-4 max-w-2xl mx-auto"
@@ -152,24 +158,31 @@ const EmploymentPage = () => {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             {/* Lion mascot */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={false}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               className="lg:w-1/3"
             >
-              <motion.img
-                src={lionMascot}
-                alt="WashKing Lion"
-                className="w-64 lg:w-80 h-auto drop-shadow-2xl mx-auto"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              />
+              <picture>
+                <source srcSet={lionMascotAvif} type="image/avif" />
+                <motion.img
+                  src={lionMascot}
+                  alt="WashKing Lion"
+                  width={1132}
+                  height={1920}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-64 lg:w-80 h-auto drop-shadow-2xl mx-auto"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </picture>
             </motion.div>
 
             {/* Hiring info */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={false}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -198,14 +211,14 @@ const EmploymentPage = () => {
       </section>
 
       {/* Application Form Section */}
-      <section className="relative py-14 lg:py-20 overflow-hidden bg-gradient-to-b from-[hsl(200_85%_55%)] to-[hsl(200_85%_60%)]">
+      <section className="relative py-14 lg:py-20 overflow-hidden bg-gradient-to-b from-[hsl(202_72%_34%)] to-[hsl(202_68%_40%)]">
         <FoamBubbles variant="section" density="medium" />
         <BubbleCluster className="top-10 left-[5%]" />
         <BubbleCluster className="bottom-20 right-[8%]" />
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
@@ -220,7 +233,7 @@ const EmploymentPage = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -238,11 +251,13 @@ const EmploymentPage = () => {
               {/* First Name & Last Name */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <Label className="text-white font-body text-lg mb-2 block">
+                  <Label htmlFor="employment-first-name" className="text-white font-body text-lg mb-2 block">
                     First Name <span className="text-red-300">*</span>
                   </Label>
                   <Input
+                    id="employment-first-name"
                     {...register("firstName")}
+                    aria-required="true"
                     placeholder="First Name"
                     className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                   />
@@ -251,11 +266,13 @@ const EmploymentPage = () => {
                   )}
                 </div>
                 <div>
-                  <Label className="text-white font-body text-lg mb-2 block">
+                  <Label htmlFor="employment-last-name" className="text-white font-body text-lg mb-2 block">
                     Last Name <span className="text-red-300">*</span>
                   </Label>
                   <Input
+                    id="employment-last-name"
                     {...register("lastName")}
+                    aria-required="true"
                     placeholder="Last Name"
                     className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                   />
@@ -267,11 +284,13 @@ const EmploymentPage = () => {
 
               {/* Message */}
               <div>
-                <Label className="text-white font-body text-lg mb-2 block">
+                <Label htmlFor="employment-message" className="text-white font-body text-lg mb-2 block">
                   Message <span className="text-red-300">*</span>
                 </Label>
                 <Textarea
+                  id="employment-message"
                   {...register("message")}
+                  aria-required="true"
                   placeholder="Tell us about yourself..."
                   rows={5}
                   className="bg-white border-3 border-washking-brown rounded-[20px] text-lg font-body resize-none py-4"
@@ -284,11 +303,13 @@ const EmploymentPage = () => {
               {/* City & State */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <Label className="text-white font-body text-lg mb-2 block">
+                  <Label htmlFor="employment-city" className="text-white font-body text-lg mb-2 block">
                     City <span className="text-red-300">*</span>
                   </Label>
                   <Input
+                    id="employment-city"
                     {...register("city")}
+                    aria-required="true"
                     placeholder="City"
                     className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                   />
@@ -297,11 +318,13 @@ const EmploymentPage = () => {
                   )}
                 </div>
                 <div>
-                  <Label className="text-white font-body text-lg mb-2 block">
+                  <Label htmlFor="employment-state" className="text-white font-body text-lg mb-2 block">
                     State <span className="text-red-300">*</span>
                   </Label>
                   <Input
+                    id="employment-state"
                     {...register("state")}
+                    aria-required="true"
                     placeholder="State"
                     className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                   />
@@ -313,8 +336,9 @@ const EmploymentPage = () => {
 
               {/* Postal */}
               <div>
-                <Label className="text-white font-body text-lg mb-2 block">Postal Code</Label>
+                <Label htmlFor="employment-postal" className="text-white font-body text-lg mb-2 block">Postal Code</Label>
                 <Input
+                  id="employment-postal"
                   {...register("postal")}
                   placeholder="Postal Code"
                   className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
@@ -327,12 +351,14 @@ const EmploymentPage = () => {
               {/* Email & Phone */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <Label className="text-white font-body text-lg mb-2 block">
+                  <Label htmlFor="employment-email" className="text-white font-body text-lg mb-2 block">
                     Email <span className="text-red-300">*</span>
                   </Label>
                   <Input
+                    id="employment-email"
                     {...register("email")}
                     type="email"
+                    aria-required="true"
                     placeholder="Email Address"
                     className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                   />
@@ -341,9 +367,11 @@ const EmploymentPage = () => {
                   )}
                 </div>
                 <div>
-                  <Label className="text-white font-body text-lg mb-2 block">Phone Number</Label>
+                  <Label htmlFor="employment-phone" className="text-white font-body text-lg mb-2 block">Phone Number</Label>
                   <Input
+                    id="employment-phone"
                     {...register("phone")}
+                    type="tel"
                     placeholder="(000) 000-0000"
                     className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body"
                   />
@@ -361,6 +389,7 @@ const EmploymentPage = () => {
                     Have you ever applied at WashKing before?
                   </Label>
                   <RadioGroup
+                    aria-label="Have you ever applied at WashKing before?"
                     onValueChange={(value) => setValue("appliedBefore", value as "yes" | "no")}
                     className="flex gap-6"
                   >
@@ -388,6 +417,7 @@ const EmploymentPage = () => {
                     Can present employer be contacted?
                   </Label>
                   <RadioGroup
+                    aria-label="Can present employer be contacted?"
                     onValueChange={(value) => setValue("canContactEmployer", value as "yes" | "no")}
                     className="flex gap-6"
                   >
@@ -416,6 +446,7 @@ const EmploymentPage = () => {
                   Do you have reliable transportation?
                 </Label>
                 <RadioGroup
+                  aria-label="Do you have reliable transportation?"
                   onValueChange={(value) => setValue("hasTransportation", value as "yes" | "no")}
                   className="flex gap-6"
                 >
@@ -454,8 +485,10 @@ const EmploymentPage = () => {
         </div>
       </section>
 
-      <Footer />
-    </div>
+      </main>
+        <Footer />
+      </div>
+    </MotionConfig>
   );
 };
 

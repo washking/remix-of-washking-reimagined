@@ -1,8 +1,9 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import carWashIllustration from "@/assets/car-wash-illustration.png";
+import carWashIllustrationAvif from "@/assets/car-wash-illustration.avif";
 import { OPEN_LOCATIONS } from "@/lib/locations";
 import FoamBubbles from "./FoamBubbles";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const benefits = [
   "Visit daily for one monthly low price!",
@@ -18,16 +19,12 @@ const PackagesSection = () => {
       id="packages" 
       className="relative py-10 lg:py-20 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200_85%_60%)] to-[hsl(200_85%_55%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)]" />
       <FoamBubbles variant="section" density="low" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+          <div
             className="lg:w-1/2"
           >
             <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl text-white text-shadow mb-2 lg:mb-4">
@@ -43,12 +40,8 @@ const PackagesSection = () => {
 
             <div className="space-y-3 lg:space-y-5">
               {benefits.map((benefit, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="flex items-center gap-3 lg:gap-4"
                 >
                   <div 
@@ -64,7 +57,7 @@ const PackagesSection = () => {
                   <p className="text-white font-body text-sm sm:text-base lg:text-xl">
                     {benefit}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -87,23 +80,22 @@ const PackagesSection = () => {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+          <div
             className="lg:w-1/2 flex justify-center"
           >
-            <motion.img
+            <OptimizedImage
+              avifSrc={carWashIllustrationAvif}
               src={carWashIllustration}
               alt="Car being washed with bubbles"
+              width={801}
+              height={451}
+              loading="lazy"
+              decoding="async"
               className="w-48 sm:w-64 lg:max-w-lg h-auto drop-shadow-2xl"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

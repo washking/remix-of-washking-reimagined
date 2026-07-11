@@ -1,9 +1,12 @@
-import { motion } from "framer-motion";
 import { Facebook, Instagram, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "@/assets/washking-logo.png";
+import logoAvif from "@/assets/washking-logo.avif";
 import woodTexture from "@/assets/wood-texture.jpg";
+import woodTextureAvif from "@/assets/wood-texture.avif";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
+import OptimizedImage from "@/components/OptimizedImage";
+import { backgroundImageSet } from "@/lib/media";
 
 const exploreLinks1 = [
   { label: "Home", href: "/" },
@@ -50,7 +53,7 @@ const Footer = () => {
       <div 
         className="relative py-8 lg:py-14"
         style={{
-          backgroundImage: `url(${woodTexture})`,
+          backgroundImage: backgroundImageSet(woodTextureAvif, woodTexture),
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -59,30 +62,27 @@ const Footer = () => {
         
         <div className="container mx-auto px-4 relative z-10">
           {/* Logo - full width centered on all sizes */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <div
             className="flex justify-center mb-6"
           >
             <Link to="/">
-              <img 
+              <OptimizedImage
+                avifSrc={logoAvif}
                 src={logo} 
                 alt="WashKing Car Wash" 
+                width={500}
+                height={511}
+                loading="lazy"
+                decoding="async"
                 className="w-28 lg:w-44 h-auto"
               />
             </Link>
-          </motion.div>
+          </div>
 
           {/* Two-column link grid + email/social on desktop */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-12 items-start">
             {/* Mobile: Email & Social appears after links via order */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+            <div
               className="order-3 md:order-1 text-center md:text-left"
             >
               <div className="flex items-center gap-3 mb-4 justify-center md:justify-start">
@@ -101,28 +101,24 @@ const Footer = () => {
               </div>
               
               <div className="flex gap-3 justify-center md:justify-start">
-                <motion.a
+                <a
                   href="https://www.facebook.com/WashKingVineland/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-washking-yellow rounded-full flex items-center justify-center"
+                  className="w-11 h-11 bg-washking-yellow rounded-full flex items-center justify-center"
                   aria-label="Follow us on Facebook"
                 >
-                  <Facebook className="w-5 h-5 text-white" />
-                </motion.a>
-                <motion.a
+                  <Facebook className="w-5 h-5 text-washking-brown" />
+                </a>
+                <a
                   href="https://www.instagram.com/washkingvineland"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-washking-yellow rounded-full flex items-center justify-center"
+                  className="w-11 h-11 bg-washking-yellow rounded-full flex items-center justify-center"
                   aria-label="Follow us on Instagram"
                 >
-                  <Instagram className="w-5 h-5 text-white" />
-                </motion.a>
+                  <Instagram className="w-5 h-5 text-washking-brown" />
+                </a>
               </div>
 
               <a
@@ -135,14 +131,10 @@ const Footer = () => {
               >
                 Manage Membership
               </a>
-            </motion.div>
+            </div>
 
             {/* Center - Two divided link columns on mobile, single column on desktop */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+            <div
               className="order-1 md:order-2 text-center"
             >
               {/* Mobile: 2-column grid for links */}
@@ -168,9 +160,9 @@ const Footer = () => {
 
                 {/* Section 2 */}
                 <div className="text-center md:text-center">
-                  <h3 className="font-display text-washking-yellow text-base lg:text-2xl mb-2 border-b-2 border-washking-yellow pb-1 inline-block md:hidden">
+                  <div aria-hidden="true" className="font-display text-washking-yellow text-base lg:text-2xl mb-2 border-b-2 border-washking-yellow pb-1 inline-block md:hidden">
                     &nbsp;
-                  </h3>
+                  </div>
                   <nav className="space-y-1 md:mt-0">
                     {exploreLinks2.map((link) => (
                       <a
@@ -185,17 +177,13 @@ const Footer = () => {
                   </nav>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Right spacer on desktop to balance 3-column layout */}
             <div className="hidden md:block order-3" />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          <div
             className="text-center mt-6 pt-4 border-t border-white/20"
           >
             <p className="text-white/70 font-body text-xs lg:text-sm flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
@@ -213,7 +201,7 @@ const Footer = () => {
                 </a>
               </span>
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </footer>
