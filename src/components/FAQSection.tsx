@@ -1,8 +1,9 @@
-import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import lionMascot from "@/assets/lion-mascot.png";
+import lionMascotAvif from "@/assets/lion-mascot.avif";
 import FoamBubbles from "./FoamBubbles";
+import OptimizedImage from "@/components/OptimizedImage";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
   Accordion,
@@ -41,48 +42,39 @@ const faqs = [
 const FAQSection = () => {
   return (
     <section id="faq" className="relative py-10 lg:py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200_85%_60%)] to-[hsl(200_85%_55%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)]" />
       <FoamBubbles variant="section" density="low" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <div
           className="text-center mb-6 lg:mb-14"
         >
           <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl xl:text-7xl text-white text-shadow">
             ANY QUESTIONS?
           </h2>
-        </motion.div>
+        </div>
 
         <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-16 max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+          <div
             className="lg:w-1/3 text-center lg:text-left hidden lg:block"
           >
-            <motion.img
+            <OptimizedImage
+              avifSrc={lionMascotAvif}
               src={lionMascot}
               alt="WashKing Lion"
+              width={1132}
+              height={1920}
+              loading="lazy"
+              decoding="async"
               className="w-48 lg:w-64 xl:w-72 h-auto mx-auto lg:mx-0 drop-shadow-2xl mb-6"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             />
             <p className="text-white font-body text-base lg:text-lg xl:text-xl leading-relaxed">
               Have more questions? Feel free to reach out to us! We're here to assist 
               you with all your car care needs.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <div
             className="lg:w-2/3 w-full"
           >
             <Accordion type="single" collapsible className="space-y-2 lg:space-y-4">
@@ -128,19 +120,15 @@ const FAQSection = () => {
                 Contact Support
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+        <p
           className="text-white font-body text-sm text-center mt-6 lg:hidden max-w-md mx-auto leading-relaxed"
         >
           Have more questions? Feel free to reach out to us! We're here to assist 
           you with all your car care needs.
-        </motion.p>
+        </p>
       </div>
     </section>
   );

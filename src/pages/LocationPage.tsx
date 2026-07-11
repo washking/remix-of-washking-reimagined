@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
 import {
   Check,
   Clock,
@@ -48,7 +48,7 @@ const WaveTransition = () => (
     <div className="absolute bottom-0 left-0 right-0">
       <svg viewBox="0 0 1440 200" className="w-full h-auto" preserveAspectRatio="none">
         <path
-          fill="hsl(200 85% 60%)"
+          fill="hsl(202 68% 40%)"
           d="M0,200 L0,100 Q360,180 720,100 T1440,120 L1440,200 Z"
         />
       </svg>
@@ -68,7 +68,8 @@ const CloudTransition = () => (
 );
 
 const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
-  <div className="min-h-screen overflow-x-hidden">
+  <MotionConfig reducedMotion="user">
+    <div className="min-h-screen overflow-x-hidden">
     <Seo
       title={`${location.name} Car Wash - Coming Soon | WashKing`}
       description={`WashKing Car Wash is coming soon to ${location.city}. Follow the new location and contact our team for updates.`}
@@ -76,17 +77,17 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
     />
     <Header />
 
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <section className="relative">
         <WaveTransition />
-        <div className="bg-gradient-to-b from-[hsl(200_85%_60%)] to-washking-sky relative pt-5 lg:pt-10 pb-28 lg:pb-40">
+        <div className="bg-gradient-to-b from-[hsl(202_68%_40%)] to-washking-sky relative pt-5 lg:pt-10 pb-28 lg:pb-40">
           <FoamBubbles variant="section" density="low" />
           <BubbleCluster className="top-16 left-[6%]" />
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 className="text-center lg:text-left"
@@ -157,8 +158,9 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
       </section>
     </main>
 
-    <Footer />
-  </div>
+      <Footer />
+    </div>
+  </MotionConfig>
 );
 
 const HoursDetails = ({ location }: { location: WashKingLocation }) => {
@@ -204,7 +206,7 @@ const LocationPage = () => {
           noIndex
         />
         <Header />
-        <main className="container mx-auto px-4 py-24 text-center">
+        <main id="main-content" tabIndex={-1} className="container mx-auto px-4 py-24 text-center">
           <h1 className="font-display text-4xl text-white text-shadow mb-4">Location Not Found</h1>
           <Link to="/#locations" className="btn-hero-primary inline-block">
             View Locations
@@ -231,7 +233,8 @@ const LocationPage = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden pb-24 md:pb-0">
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen overflow-x-hidden pb-24 md:pb-0">
       <Seo
         title={`${location.name} Car Wash | WashKing ${location.city.replace(/\s*\d{5}$/, "")}`}
         description={`Visit WashKing ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
@@ -240,17 +243,17 @@ const LocationPage = () => {
       />
       <Header />
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className="relative">
           <WaveTransition />
-          <div className="bg-gradient-to-b from-[hsl(200_85%_60%)] to-washking-sky relative pt-5 lg:pt-10 pb-28 lg:pb-40">
+          <div className="bg-gradient-to-b from-[hsl(202_68%_40%)] to-washking-sky relative pt-5 lg:pt-10 pb-28 lg:pb-40">
             <FoamBubbles variant="section" density="low" />
             <BubbleCluster className="top-14 right-[8%]" />
 
             <div className="container mx-auto px-4 relative z-10">
               <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
                 <motion.div
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={false}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                   className="text-center lg:text-left"
@@ -390,7 +393,7 @@ const LocationPage = () => {
                 return (
                   <motion.article
                     key={washPackage.name}
-                    initial={{ opacity: 0, y: 24 }}
+                    initial={false}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.35, delay: index * 0.08 }}
@@ -545,7 +548,7 @@ const LocationPage = () => {
               </div>
 
               {location.mapEmbed && (
-                <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30">
                   <iframe
                     src={location.mapEmbed}
                     width="100%"
@@ -553,10 +556,25 @@ const LocationPage = () => {
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
+                    tabIndex={-1}
                     referrerPolicy="no-referrer-when-downgrade"
                     title={`Map for WashKing ${location.name}`}
-                    className="w-full h-[320px] lg:h-[420px]"
+                    className="pointer-events-none w-full h-[320px] lg:h-[420px]"
                   />
+                  {directionsUrl && (
+                    <a
+                      href={directionsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-analytics="directions_click"
+                      data-analytics-source="location_map"
+                      data-location-slug={location.slug}
+                      className="absolute left-3 top-3 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-4 py-2 font-body text-sm font-extrabold text-washking-brown shadow-lg"
+                    >
+                      Open in Maps
+                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
               )}
             </div>
@@ -603,8 +621,9 @@ const LocationPage = () => {
         </div>
       </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </MotionConfig>
   );
 };
 

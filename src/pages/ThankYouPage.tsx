@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Home, Sparkles } from "lucide-react";
 import Seo from "@/components/Seo";
@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FoamBubbles from "@/components/FoamBubbles";
 import lionMascot from "@/assets/lion-mascot.png";
+import lionMascotAvif from "@/assets/lion-mascot.avif";
 
 const sourceContent: Record<string, { title: string; subtitle: string; message: string }> = {
   contact_form: {
@@ -46,7 +47,8 @@ const ThankYouPage = () => {
   const content = sourceContent[source] || sourceContent.contact_form;
 
   return (
-    <div className="min-h-screen bg-washking-sky flex flex-col">
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen bg-washking-sky flex flex-col">
       <Seo
         title="Thank You | WashKing Car Wash"
         description="Thanks for reaching out to WashKing Car Wash. We'll be in touch soon."
@@ -54,8 +56,9 @@ const ThankYouPage = () => {
         noIndex
       />
       <Header />
+      <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
 
-      <section className="relative flex-1 overflow-hidden bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] py-16 lg:py-24">
+      <section className="relative flex-1 overflow-hidden bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] py-16 lg:py-24">
         <FoamBubbles variant="hero" density="medium" />
         <BubbleCluster className="top-12 left-[6%]" />
         <BubbleCluster className="top-20 right-[8%]" />
@@ -64,7 +67,7 @@ const ThankYouPage = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="max-w-3xl mx-auto bg-white/15 backdrop-blur-sm rounded-3xl p-8 sm:p-12 lg:p-16 text-center shadow-2xl border-2 border-white/30"
@@ -82,22 +85,28 @@ const ThankYouPage = () => {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex justify-center mb-6"
             >
-              <motion.img
-                src={lionMascot}
-                alt="WashKing Lion"
-                className="w-32 sm:w-40 h-auto drop-shadow-2xl"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              />
+              <picture>
+                <source srcSet={lionMascotAvif} type="image/avif" />
+                <motion.img
+                  src={lionMascot}
+                  alt="WashKing Lion"
+                  width={1132}
+                  height={1920}
+                  decoding="async"
+                  className="w-32 sm:w-40 h-auto drop-shadow-2xl"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </picture>
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-shadow mb-4"
@@ -106,7 +115,7 @@ const ThankYouPage = () => {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
               className="font-display text-xl sm:text-2xl lg:text-3xl text-washking-yellow mb-6 flex items-center justify-center gap-2"
@@ -117,7 +126,7 @@ const ThankYouPage = () => {
             </motion.p>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
               className="font-body text-lg sm:text-xl text-white/95 max-w-2xl mx-auto mb-10 leading-relaxed"
@@ -126,7 +135,7 @@ const ThankYouPage = () => {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
@@ -146,8 +155,10 @@ const ThankYouPage = () => {
         </div>
       </section>
 
-      <Footer />
-    </div>
+      </main>
+        <Footer />
+      </div>
+    </MotionConfig>
   );
 };
 

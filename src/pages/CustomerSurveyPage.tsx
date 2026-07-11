@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
+import { ClientOnly } from "vite-react-ssg";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -11,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { useNavigate } from "react-router-dom";
 import { track } from "@/lib/analytics";
 import {
@@ -90,7 +92,8 @@ const CustomerSurveyPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-washking-sky">
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen bg-washking-sky">
       <Seo
         title="Customer Survey | WashKing Car Wash"
         description="Share feedback about your visit to one of WashKing Car Wash's four open New Jersey locations."
@@ -98,15 +101,17 @@ const CustomerSurveyPage = () => {
         noIndex
       />
       <Header />
+      <ClientOnly>{() => <SonnerToaster />}</ClientOnly>
+      <main id="main-content" tabIndex={-1}>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(200_85%_65%)] to-[hsl(200_85%_55%)] py-14 lg:py-18">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] py-14 lg:py-18">
         <FoamBubbles variant="hero" density="medium" />
         <BubbleCluster className="top-10 left-[5%]" />
         <BubbleCluster className="top-16 right-[8%]" />
         <div className="container mx-auto px-4 relative z-10">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="font-display text-5xl sm:text-6xl lg:text-7xl text-white text-center text-shadow"
@@ -114,7 +119,7 @@ const CustomerSurveyPage = () => {
             CUSTOMER SURVEY
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-body text-xl lg:text-2xl text-white/90 text-center mt-4 max-w-2xl mx-auto"
@@ -125,14 +130,14 @@ const CustomerSurveyPage = () => {
       </section>
 
       {/* Survey Form */}
-      <section className="relative bg-gradient-to-b from-[hsl(200_85%_55%)] to-[hsl(200_85%_60%)] py-14 lg:py-18 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-[hsl(202_72%_34%)] to-[hsl(202_68%_40%)] py-14 lg:py-18 overflow-hidden">
         <FoamBubbles variant="section" density="medium" />
         <BubbleCluster className="top-16 left-[5%]" />
         <BubbleCluster className="bottom-20 right-[10%]" />
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -276,8 +281,10 @@ const CustomerSurveyPage = () => {
         </div>
       </section>
 
-      <Footer />
-    </div>
+      </main>
+        <Footer />
+      </div>
+    </MotionConfig>
   );
 };
 

@@ -19,7 +19,7 @@ const Index = () => {
         jsonLd={organizationSchema()}
       />
       <Header />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <HeroSection />
         <LocationsSection />
         <PackagesSection />

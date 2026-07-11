@@ -1,35 +1,31 @@
 import type { RouteRecord } from "vite-react-ssg";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import { ClientOnly } from "vite-react-ssg";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "./components/ScrollToTop";
 import Analytics from "./components/Analytics";
-import Index from "./pages/Index";
-import LocationPage from "./pages/LocationPage";
-import AboutPage from "./pages/AboutPage";
-import EmploymentPage from "./pages/EmploymentPage";
-import ContactPage from "./pages/ContactPage";
-import CustomerSurveyPage from "./pages/CustomerSurveyPage";
-import ThankYouPage from "./pages/ThankYouPage";
-import NotFound from "./pages/NotFound";
 import { LOCATION_SLUGS } from "./lib/locations";
-
-const queryClient = new QueryClient();
 
 function Layout() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        {/* Toasts are client-only UI (fired by user interactions); skip them during SSG. */}
-        <ClientOnly>{() => (<><Toaster /><Sonner /></>)}</ClientOnly>
-        <ScrollToTop />
-        <Analytics />
+    <>
+      <a
+        href="#main-content"
+        className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-lg bg-washking-brown px-4 py-3 font-body font-extrabold text-white shadow-xl transition-transform focus:translate-y-0"
+      >
+        Skip to main content
+      </a>
+      <ScrollToTop />
+      <Analytics />
+      <Suspense
+        fallback={(
+          <div className="flex min-h-screen items-center justify-center bg-washking-sky" role="status">
+            <span className="font-body font-bold text-white">Loading page...</span>
+          </div>
+        )}
+      >
         <Outlet />
-      </TooltipProvider>
-    </QueryClientProvider>
+      </Suspense>
+    </>
   );
 }
 
@@ -38,18 +34,39 @@ export const routes: RouteRecord[] = [
     path: "/",
     element: <Layout />,
     children: [
-      { index: true, element: <Index /> },
+      {
+        index: true,
+        lazy: async () => ({ Component: (await import("./pages/Index")).default }),
+      },
       {
         path: "location/:locationSlug",
-        element: <LocationPage />,
+        lazy: async () => ({ Component: (await import("./pages/LocationPage")).default }),
         getStaticPaths: () => LOCATION_SLUGS.map((slug) => `location/${slug}`),
       },
-      { path: "about", element: <AboutPage /> },
-      { path: "employment", element: <EmploymentPage /> },
-      { path: "contact", element: <ContactPage /> },
-      { path: "customer-survey", element: <CustomerSurveyPage /> },
-      { path: "thank-you", element: <ThankYouPage /> },
-      { path: "*", element: <NotFound /> },
+      {
+        path: "about",
+        lazy: async () => ({ Component: (await import("./pages/AboutPage")).default }),
+      },
+      {
+        path: "employment",
+        lazy: async () => ({ Component: (await import("./pages/EmploymentPage")).default }),
+      },
+      {
+        path: "contact",
+        lazy: async () => ({ Component: (await import("./pages/ContactPage")).default }),
+      },
+      {
+        path: "customer-survey",
+        lazy: async () => ({ Component: (await import("./pages/CustomerSurveyPage")).default }),
+      },
+      {
+        path: "thank-you",
+        lazy: async () => ({ Component: (await import("./pages/ThankYouPage")).default }),
+      },
+      {
+        path: "*",
+        lazy: async () => ({ Component: (await import("./pages/NotFound")).default }),
+      },
     ],
   },
 ];

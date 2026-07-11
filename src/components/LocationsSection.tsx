@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Clock, MapPin, Navigation, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import woodTexture from "@/assets/wood-texture.jpg";
+import woodTextureAvif from "@/assets/wood-texture.avif";
+import { backgroundImageSet } from "@/lib/media";
 import {
   COMING_SOON_LOCATIONS,
   OPEN_LOCATIONS,
@@ -48,11 +49,7 @@ const LocationCard = ({
   const startingPrice = getStartingMonthlyPrice(location);
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.35, delay: index * 0.06 }}
+    <article
       className="flex h-full flex-col rounded-2xl bg-washking-yellow p-5 shadow-xl lg:p-6"
     >
       <div className="mb-4 flex items-start justify-between gap-3">
@@ -114,7 +111,7 @@ const LocationCard = ({
           </a>
         )}
       </div>
-    </motion.article>
+    </article>
   );
 };
 
@@ -134,7 +131,7 @@ const LocationsSection = () => {
       <div
         className="relative py-12 lg:py-20"
         style={{
-          backgroundImage: `url(${woodTexture})`,
+          backgroundImage: backgroundImageSet(woodTextureAvif, woodTexture),
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

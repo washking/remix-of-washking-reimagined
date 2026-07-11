@@ -77,7 +77,15 @@ const LocationsMapInner = () => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const map = L.map(containerRef.current, { scrollWheelZoom: false });
+    const compactViewport = window.matchMedia("(max-width: 767px)").matches;
+    const map = L.map(containerRef.current, {
+      scrollWheelZoom: false,
+      dragging: !compactViewport,
+      touchZoom: !compactViewport,
+      doubleClickZoom: !compactViewport,
+      boxZoom: !compactViewport,
+      keyboard: !compactViewport,
+    });
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);

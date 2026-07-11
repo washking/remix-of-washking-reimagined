@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Mail, Menu, X } from "lucide-react";
 import logo from "@/assets/washking-logo.png";
+import logoAvif from "@/assets/washking-logo.avif";
+import OptimizedImage from "@/components/OptimizedImage";
 import { LOCATIONS } from "@/lib/locations";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 
@@ -95,9 +96,13 @@ const Header = () => {
             className="flex items-center shrink-0"
             aria-label="WashKing home"
           >
-            <img
+            <OptimizedImage
+              avifSrc={logoAvif}
               src={logo}
               alt="WashKing Car Wash"
+              width={500}
+              height={511}
+              decoding="async"
               className="h-16 sm:h-18 lg:h-24 w-auto drop-shadow-sm"
             />
           </a>
@@ -122,7 +127,6 @@ const Header = () => {
                     onFocus={() => setActiveDropdown(item.label)}
                     className="font-display text-washking-brown text-xs xl:text-sm flex items-center gap-1 hover:bg-white/40 rounded-full transition-colors px-3 xl:px-4 py-2"
                     aria-expanded={activeDropdown === item.label}
-                    aria-haspopup="menu"
                   >
                     {item.label.toUpperCase()}
                     <ChevronDown
@@ -140,16 +144,9 @@ const Header = () => {
                   </a>
                 )}
 
-                <AnimatePresence>
-                  {item.dropdown && activeDropdown === item.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                      transition={{ duration: 0.16 }}
-                      className="absolute top-full left-0 pt-2 z-50"
-                    >
-                      <div className="bg-white rounded-2xl shadow-2xl py-2 min-w-[230px] border border-gray-100 overflow-hidden" role="menu">
+                {item.dropdown && activeDropdown === item.label && (
+                    <div className="absolute top-full left-0 pt-2 z-50">
+                      <div className="bg-white rounded-2xl shadow-2xl py-2 min-w-[230px] border border-gray-100 overflow-hidden">
                         {item.dropdown.map((subItem) => (
                           subItem.external ? (
                             <a
@@ -160,7 +157,6 @@ const Header = () => {
                               data-analytics="membership_cta"
                               data-analytics-source="desktop_navigation"
                               className="block px-5 py-3 font-body text-sm text-washking-brown hover:bg-washking-cream transition-colors"
-                              role="menuitem"
                             >
                               {subItem.label}
                             </a>
@@ -170,16 +166,14 @@ const Header = () => {
                               href={subItem.href}
                               onClick={(event) => handleNavClick(event, subItem.href)}
                               className="block px-5 py-3 font-body text-sm text-washking-brown hover:bg-washking-cream transition-colors"
-                              role="menuitem"
                             >
                               {subItem.label}
                             </a>
                           )
                         ))}
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    </div>
+                )}
               </div>
             ))}
           </nav>
@@ -213,14 +207,14 @@ const Header = () => {
               data-analytics="contact_open"
               data-analytics-source="mobile_header"
               onClick={(event) => handleNavClick(event, "/contact")}
-              className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-3 py-1.5 text-xs whitespace-nowrap flex items-center gap-1"
+              className="btn-cloud min-h-11 bg-white text-washking-brown border-2 border-washking-brown px-3 py-2 text-xs whitespace-nowrap flex items-center gap-1"
             >
               <Mail className="w-4 h-4" aria-hidden="true" />
               Contact
             </a>
             <button
               type="button"
-              className="p-2 -mr-2"
+              className="flex min-h-11 min-w-11 items-center justify-center p-2 -mr-2"
               onClick={() => setMobileMenuOpen((open) => !open)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
@@ -235,14 +229,9 @@ const Header = () => {
           </div>
         </div>
 
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
+        {mobileMenuOpen && (
+            <div
               id="mobile-navigation"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.18 }}
               className="lg:hidden mt-3 border-t border-washking-brown/20 overflow-hidden"
             >
               <div className="max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain pt-3 pb-4 pr-1">
@@ -299,9 +288,8 @@ const Header = () => {
                   Go Unlimited
                 </a>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
+        )}
       </div>
     </header>
   );

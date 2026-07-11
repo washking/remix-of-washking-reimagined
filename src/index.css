@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;600;700;800&display=swap');
-
 html {
   scroll-behavior: smooth;
 }
@@ -25,11 +23,11 @@ html {
     --primary-foreground: 25 60% 20%;
 
     /* Sky Blue */
-    --secondary: 200 85% 55%;
+    --secondary: 202 72% 38%;
     --secondary-foreground: 0 0% 100%;
 
     /* Forest Green */
-    --accent: 120 45% 35%;
+    --accent: 120 42% 30%;
     --accent-foreground: 0 0% 100%;
 
     /* Warm Brown */
@@ -48,17 +46,17 @@ html {
     /* Custom WashKing tokens */
     --washking-yellow: 45 100% 50%;
     --washking-gold: 40 90% 45%;
-    --washking-sky: 200 85% 55%;
-    --washking-sky-light: 200 80% 75%;
-    --washking-green: 120 45% 35%;
-    --washking-green-light: 120 40% 45%;
-    --washking-brown: 25 55% 35%;
-    --washking-brown-light: 25 50% 45%;
+    --washking-sky: 202 72% 38%;
+    --washking-sky-light: 202 60% 90%;
+    --washking-green: 120 42% 30%;
+    --washking-green-light: 120 38% 38%;
+    --washking-brown: 25 60% 28%;
+    --washking-brown-light: 25 50% 38%;
     --washking-cream: 40 60% 95%;
     --washking-orange: 30 100% 50%;
 
     /* Gradients */
-    --gradient-sky: linear-gradient(180deg, hsl(200 85% 65%) 0%, hsl(200 85% 55%) 100%);
+    --gradient-sky: linear-gradient(180deg, hsl(202 68% 40%) 0%, hsl(202 72% 34%) 100%);
     --gradient-yellow: linear-gradient(180deg, hsl(45 100% 55%) 0%, hsl(45 100% 50%) 100%);
     --gradient-green: linear-gradient(180deg, hsl(120 40% 45%) 0%, hsl(120 45% 35%) 100%);
 
@@ -106,6 +104,12 @@ html {
   p {
     line-height: 1.75;
   }
+
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 3px solid hsl(var(--washking-yellow));
+    outline-offset: 3px;
+    box-shadow: 0 0 0 2px hsl(var(--washking-brown));
+  }
 }
 
 @layer components {
@@ -131,7 +135,7 @@ html {
   }
 
   .bg-sky-gradient {
-    background: linear-gradient(180deg, hsl(200 85% 65%) 0%, hsl(200 85% 55%) 100%);
+    background: var(--gradient-sky);
   }
 
   .bg-green-forest {
@@ -363,5 +367,26 @@ html {
 
   .animate-cloud {
     animation: cloudFloat 8s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-delay: 0s !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    .btn-cloud:hover,
+    .btn-cloud:active {
+      transform: none;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Car, Users, TrendingUp, UsersRound, Cpu, Shield, CheckCircle, Database, ArrowUpRight, Sparkles } from "lucide-react";
 import Seo from "@/components/Seo";
@@ -90,18 +90,20 @@ const BubbleCluster = ({ className = "" }: { className?: string }) => (
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen overflow-x-hidden">
       <Seo
         title="About WashKing | Family-Owned New Jersey Car Wash"
         description="Learn about WashKing Car Wash, a family-owned business with four open New Jersey locations and Cherry Hill coming soon."
         path="/about"
       />
       <Header />
+      <main id="main-content" tabIndex={-1}>
 
       {/* Hero Section */}
       <section className="relative min-h-[40vh] overflow-hidden">
         {/* Sky blue background matching wash-foam aesthetic */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200_85%_60%)] to-[hsl(200_80%_55%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)]" />
         
         {/* Foam bubbles */}
         <FoamBubbles variant="hero" density="medium" />
@@ -109,7 +111,7 @@ const AboutPage = () => {
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 pt-28 pb-16 text-center">
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="font-display text-5xl sm:text-6xl lg:text-7xl text-white text-shadow"
@@ -131,7 +133,7 @@ const AboutPage = () => {
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             {/* Left side - Bubble cluster for balance */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={false}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -142,7 +144,7 @@ const AboutPage = () => {
 
             {/* Center content */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
@@ -156,7 +158,7 @@ const AboutPage = () => {
               <div className="space-y-6">
                 {/* Mission Statement Card */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={false}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
@@ -172,7 +174,7 @@ const AboutPage = () => {
 
                 {/* Brand Promise Card */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={false}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
@@ -190,7 +192,7 @@ const AboutPage = () => {
 
             {/* Right side - Bubble cluster for balance */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={false}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -212,7 +214,7 @@ const AboutPage = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
@@ -224,7 +226,7 @@ const AboutPage = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -234,7 +236,7 @@ const AboutPage = () => {
               {coreValues.map((value, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={false}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
@@ -264,7 +266,7 @@ const AboutPage = () => {
 
           {/* View Our Location Button */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -280,8 +282,10 @@ const AboutPage = () => {
         </div>
       </section>
 
-      <Footer />
-    </div>
+      </main>
+        <Footer />
+      </div>
+    </MotionConfig>
   );
 };
 
