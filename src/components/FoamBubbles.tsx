@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
 
 interface BubbleProps {
   size: number;
@@ -12,44 +12,28 @@ interface BubbleProps {
 
 const Bubble = ({ size, mobileSize, x, y, delay, duration, opacity = 0.6 }: BubbleProps) => {
   const actualMobileSize = mobileSize ?? Math.round(size * 0.6);
-  
+
+  const bubbleStyle = {
+    "--foam-bubble-mobile-size": `${actualMobileSize}px`,
+    "--foam-bubble-desktop-size": `${size}px`,
+    "--foam-bubble-duration": `${duration}s`,
+    "--foam-bubble-delay": `${delay}s`,
+    left: x,
+    top: y,
+    background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,${opacity}) 60%, rgba(200,230,255,${opacity * 0.8}))`,
+    boxShadow: `
+      inset -2px -2px 4px rgba(255,255,255,0.8),
+      inset 2px 2px 4px rgba(200,230,255,0.3),
+      0 2px 8px rgba(0,0,0,0.05)
+    `,
+  } as CSSProperties;
+
   return (
-    <motion.div
-      className="absolute rounded-full"
-      style={{
-        width: actualMobileSize,
-        height: actualMobileSize,
-        left: x,
-        top: y,
-        background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,${opacity}) 60%, rgba(200,230,255,${opacity * 0.8}))`,
-        boxShadow: `
-          inset -2px -2px 4px rgba(255,255,255,0.8),
-          inset 2px 2px 4px rgba(200,230,255,0.3),
-          0 2px 8px rgba(0,0,0,0.05)
-        `,
-      }}
-      animate={{
-        y: [0, -10, 0],
-        scale: [1, 1.03, 1],
-      }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    >
-      {/* Use CSS media query to resize on larger screens */}
-      <style>{`
-        @media (min-width: 1024px) {
-          [data-bubble-id="${x}-${y}"] {
-            width: ${size}px !important;
-            height: ${size}px !important;
-          }
-        }
-      `}</style>
-      <div data-bubble-id={`${x}-${y}`} />
-    </motion.div>
+    <div
+      className="foam-bubble absolute rounded-full"
+      style={bubbleStyle}
+      aria-hidden="true"
+    />
   );
 };
 
@@ -85,7 +69,7 @@ const FoamBubbles = ({ variant = "section", density = "medium" }: FoamBubblesPro
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {bubbleConfigs[density].map((bubble, index) => (
-        <Bubble key={index} {...bubble} />
+        <Bubble key={`${bubble.x}-${bubble.y}-${index}`} {...bubble} />
       ))}
       
       {variant === "hero" && (

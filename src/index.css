@@ -148,6 +148,36 @@ html {
     border-radius: 9999px;
   }
 
+  .foam-bubble {
+    width: var(--foam-bubble-mobile-size);
+    height: var(--foam-bubble-mobile-size);
+    animation: foam-bubble-float var(--foam-bubble-duration) ease-in-out var(--foam-bubble-delay) infinite;
+    will-change: transform;
+  }
+
+  @media (min-width: 1024px) {
+    .foam-bubble {
+      width: var(--foam-bubble-desktop-size);
+      height: var(--foam-bubble-desktop-size);
+    }
+  }
+
+  @keyframes foam-bubble-float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+
+    50% {
+      transform: translateY(-10px) scale(1.03);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .foam-bubble {
+      animation: none;
+    }
+  }
+
   /* Cloud-inspired button base styles */
   .btn-cloud {
     @apply relative font-display tracking-wide transition-all duration-300 ease-out;
