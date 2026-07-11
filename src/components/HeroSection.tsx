@@ -31,9 +31,9 @@ const HeroSection = () => {
               </h2>
 
               <div className="space-y-1.5 lg:space-y-3 mb-6 lg:mb-10">
-                <p className="font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wider text-shadow-white">PASSIONATE ABOUT CAR WASHING.</p>
+                <p className="font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wider text-shadow-white">FULL-SERVICE CAR WASH.</p>
                 <p className="font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wider text-shadow-white">ROOTED IN FAMILY VALUES.</p>
-                <p className="font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wider text-shadow-white">COMMITTED TO EXCELLENCE.</p>
+                <p className="font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wider text-shadow-white">SERVING ALL OF SOUTH JERSEY.</p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
