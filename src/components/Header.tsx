@@ -1,129 +1,160 @@
-import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, Mail } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, Mail, Menu, X } from "lucide-react";
 import logo from "@/assets/washking-logo.png";
+import { LOCATIONS } from "@/lib/locations";
+import { MEMBERSHIP_PORTAL } from "@/lib/site";
+
+type SubmenuItem = {
+  label: string;
+  href: string;
+};
+
+type MenuItem = {
+  label: string;
+  href: string;
+  dropdown?: SubmenuItem[];
+};
+
+const locationLinks: SubmenuItem[] = LOCATIONS.map((washLocation) => ({
+  label: `${washLocation.name}${washLocation.status === "coming-soon" ? " - Coming Soon" : ""}`,
+  href: `/location/${washLocation.slug}`,
+}));
+
+const menuItems: MenuItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Wash Packages", href: "/#packages" },
+  { label: "Locations", href: "/#locations", dropdown: locationLinks },
+  {
+    label: "About",
+    href: "/about",
+    dropdown: [
+      { label: "About WashKing", href: "/about" },
+      { label: "FAQs", href: "/#faq" },
+      { label: "Customer Stories", href: "/#testimonials" },
+      { label: "Employment", href: "/employment" },
+    ],
+  },
+];
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
-  const location = useLocation();
+  const route = useLocation();
 
-  const menuItems = [
-    { label: "Home", href: "/" },
-    {
-      label: "Services",
-      href: "/#packages",
-      dropdown: [{ label: "Fleet", href: "/#packages" }],
-    },
-    {
-      label: "Locations",
-      href: "/#locations",
-      dropdown: [
-        { label: "Vineland Main Rd", href: "/location/vineland" },
-        { label: "Vineland Dante", href: "/location/vineland-dante" },
-        { label: "Somerset", href: "/location/somerset" },
-        { label: "Landisville", href: "/location/landisville" },
-        { label: "Cherry Hill", href: "/location/cherry-hill" },
-      ],
-    },
-    {
-      label: "About",
-      href: "/about",
-      dropdown: [
-        { label: "About WashKing", href: "/about" },
-        { label: "FAQ's", href: "/#faq" },
-        { label: "Gallery", href: "/#testimonials" },
-        { label: "Employment", href: "/employment" },
-      ],
-    },
-    { label: "Manage Membership", href: "https://customerportal.nxtwash.com/washkingcarwash", external: true },
-  ];
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setActiveDropdown(null);
+  }, [route.pathname, route.hash]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, external?: boolean) => {
-    if (external) return;
-    
-    e.preventDefault();
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  const handleNavClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
     setMobileMenuOpen(false);
     setActiveDropdown(null);
 
     if (href.startsWith("/#")) {
       const hash = href.substring(1);
-      if (location.pathname === "/") {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+      if (route.pathname === "/") {
+        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
       } else {
         navigate("/");
-        setTimeout(() => {
-          const element = document.querySelector(hash);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
+        window.setTimeout(() => {
+          document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
-    } else if (href === "/") {
-      navigate("/");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      navigate(href);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
+
+    navigate(href);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <header className="bg-washking-yellow relative z-50 shadow-md">
       <div className="container mx-auto px-4 py-3 lg:py-4">
-        <div className="flex items-center justify-between gap-4">
-          {/* Logo */}
-          <Link to="/" className="flex items-center flex-shrink-0">
-            <img src={logo} alt="WashKing Car Wash" className="h-16 sm:h-18 lg:h-24 w-auto drop-shadow-sm" />
-          </Link>
+        <div className="flex items-center justify-between gap-3">
+          <a
+            href="/"
+            onClick={(event) => handleNavClick(event, "/")}
+            className="flex items-center shrink-0"
+            aria-label="WashKing home"
+          >
+            <img
+              src={logo}
+              alt="WashKing Car Wash"
+              className="h-16 sm:h-18 lg:h-24 w-auto drop-shadow-sm"
+            />
+          </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-2 bg-white/20 backdrop-blur-sm rounded-full px-2 py-1.5">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-white/20 backdrop-blur-sm rounded-full px-2 py-1.5" aria-label="Primary navigation">
             {menuItems.map((item) => (
               <div
                 key={item.label}
                 className="relative"
                 onMouseEnter={() => item.dropdown && setActiveDropdown(item.label)}
-                onMouseLeave={() => setActiveDropdown(null)}
+                onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) {
+                    setActiveDropdown(null);
+                  }
+                }}
               >
-                <a
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href, item.external)}
-                  target={item.external ? "_blank" : undefined}
-                  rel={item.external ? "noopener noreferrer" : undefined}
-                  className="font-display text-washking-brown text-xs xl:text-sm tracking-wide flex items-center gap-1 hover:bg-white/40 rounded-full transition-all duration-200 px-3 xl:px-4 py-2"
-                >
-                  {item.label.toUpperCase()}
-                  {item.dropdown && (
-                    <ChevronDown className={`w-3 h-3 xl:w-4 xl:h-4 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
-                  )}
-                </a>
-                
+                {item.dropdown ? (
+                  <button
+                    type="button"
+                    onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
+                    onFocus={() => setActiveDropdown(item.label)}
+                    className="font-display text-washking-brown text-xs xl:text-sm flex items-center gap-1 hover:bg-white/40 rounded-full transition-colors px-3 xl:px-4 py-2"
+                    aria-expanded={activeDropdown === item.label}
+                    aria-haspopup="menu"
+                  >
+                    {item.label.toUpperCase()}
+                    <ChevronDown
+                      className={`w-3 h-3 xl:w-4 xl:h-4 transition-transform ${activeDropdown === item.label ? "rotate-180" : ""}`}
+                      aria-hidden="true"
+                    />
+                  </button>
+                ) : (
+                  <a
+                    href={item.href}
+                    onClick={(event) => handleNavClick(event, item.href)}
+                    className="font-display text-washking-brown text-xs xl:text-sm block hover:bg-white/40 rounded-full transition-colors px-3 xl:px-4 py-2"
+                  >
+                    {item.label.toUpperCase()}
+                  </a>
+                )}
+
                 <AnimatePresence>
                   {item.dropdown && activeDropdown === item.label && (
                     <motion.div
-                      initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                      initial={{ opacity: 0, y: -8, scale: 0.98 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -8, scale: 0.95 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                      transition={{ duration: 0.16 }}
                       className="absolute top-full left-0 pt-2 z-50"
                     >
-                      <div className="bg-white rounded-2xl shadow-2xl py-2 min-w-[200px] border border-gray-100 overflow-hidden">
-                        {item.dropdown.map((subItem, index) => (
+                      <div className="bg-white rounded-2xl shadow-2xl py-2 min-w-[230px] border border-gray-100 overflow-hidden" role="menu">
+                        {item.dropdown.map((subItem) => (
                           <a
-                            key={subItem.label}
+                            key={subItem.href}
                             href={subItem.href}
-                            onClick={(e) => handleNavClick(e, subItem.href)}
-                            className={`block px-5 py-3 font-body text-sm cursor-pointer transition-all duration-200 ${
-                              index === 0 
-                                ? "bg-gradient-to-r from-washking-brown to-washking-brown-light text-white hover:brightness-110" 
-                                : "text-washking-brown hover:bg-washking-cream hover:pl-6"
-                            }`}
+                            onClick={(event) => handleNavClick(event, subItem.href)}
+                            className="block px-5 py-3 font-body text-sm text-washking-brown hover:bg-washking-cream transition-colors"
+                            role="menuitem"
                           >
                             {subItem.label}
                           </a>
@@ -136,18 +167,17 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-2 shrink-0">
             <a
               href="/contact"
-              onClick={(e) => handleNavClick(e, "/contact")}
+              onClick={(event) => handleNavClick(event, "/contact")}
               className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-4 xl:px-5 py-2 text-sm whitespace-nowrap flex items-center gap-1.5"
             >
-              <Mail className="w-4 h-4" />
+              <Mail className="w-4 h-4" aria-hidden="true" />
               Contact Us
             </a>
             <a
-              href="https://customerportal.nxtwash.com/washkingcarwash"
+              href={MEMBERSHIP_PORTAL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-unlimited whitespace-nowrap"
@@ -156,77 +186,80 @@ const Header = () => {
             </a>
           </div>
 
-          {/* Mobile actions */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-1.5 lg:hidden">
             <a
               href="/contact"
-              onClick={(e) => handleNavClick(e, "/contact")}
+              onClick={(event) => handleNavClick(event, "/contact")}
               className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-3 py-1.5 text-xs whitespace-nowrap flex items-center gap-1"
             >
-              <Mail className="w-4 h-4" />
+              <Mail className="w-4 h-4" aria-hidden="true" />
               Contact
             </a>
             <button
+              type="button"
               className="p-2 -mr-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => setMobileMenuOpen((open) => !open)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-washking-brown" />
+                <X className="w-6 h-6 text-washking-brown" aria-hidden="true" />
               ) : (
-                <Menu className="w-6 h-6 text-washking-brown" />
+                <Menu className="w-6 h-6 text-washking-brown" aria-hidden="true" />
               )}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
+              id="mobile-navigation"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="lg:hidden mt-4 pb-4 border-t border-washking-brown/20 pt-4"
+              transition={{ duration: 0.18 }}
+              className="lg:hidden mt-3 border-t border-washking-brown/20 overflow-hidden"
             >
-              <nav className="space-y-1">
-                {menuItems.map((item) => (
-                  <div key={item.label}>
-                    <a
-                      href={item.href}
-                      onClick={(e) => handleNavClick(e, item.href, item.external)}
-                      target={item.external ? "_blank" : undefined}
-                      rel={item.external ? "noopener noreferrer" : undefined}
-                      className="block py-3 px-2 font-display text-washking-brown text-base rounded-lg hover:bg-washking-brown/10 transition-colors"
-                    >
-                      {item.label.toUpperCase()}
-                    </a>
-                    {item.dropdown && (
-                      <div className="pl-4 border-l-2 border-washking-brown/20 ml-4 space-y-1">
-                        {item.dropdown.map((subItem) => (
-                          <a
-                            key={subItem.label}
-                            href={subItem.href}
-                            onClick={(e) => handleNavClick(e, subItem.href)}
-                            className="block py-2.5 px-3 font-body text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
-                          >
-                            {subItem.label}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </nav>
-              <a 
-                href="https://customerportal.nxtwash.com/washkingcarwash" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn-unlimited mt-4 inline-block w-full text-center"
-              >
-                Go Unlimited
-              </a>
+              <div className="max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain pt-3 pb-4 pr-1">
+                <nav className="space-y-1" aria-label="Mobile navigation">
+                  {menuItems.map((item) => (
+                    <div key={item.label}>
+                      <a
+                        href={item.href}
+                        onClick={(event) => handleNavClick(event, item.href)}
+                        className="block py-2.5 px-2 font-display text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
+                      >
+                        {item.label.toUpperCase()}
+                      </a>
+                      {item.dropdown && (
+                        <div className="pl-3 border-l-2 border-washking-brown/20 ml-3 grid grid-cols-1 sm:grid-cols-2 gap-0.5">
+                          {item.dropdown.map((subItem) => (
+                            <a
+                              key={subItem.href}
+                              href={subItem.href}
+                              onClick={(event) => handleNavClick(event, subItem.href)}
+                              className="block py-2 px-3 font-body text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
+                            >
+                              {subItem.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </nav>
+
+                <a
+                  href={MEMBERSHIP_PORTAL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-unlimited mt-4 block w-full text-center"
+                >
+                  Go Unlimited
+                </a>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

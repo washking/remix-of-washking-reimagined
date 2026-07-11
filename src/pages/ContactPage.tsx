@@ -12,24 +12,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
-import { MapPin } from "lucide-react";
+import { MapPin, Navigation } from "lucide-react";
 import { track } from "@/lib/analytics";
 import LocationsMap from "@/components/LocationsMap";
-import { LOCATIONS } from "@/lib/locations";
+import {
+  LOCATIONS,
+  OPEN_LOCATIONS,
+  getDirectionsUrl,
+  getLocationFormLabel,
+  getLocationFormValue,
+} from "@/lib/locations";
 
-const locationOptions = [
-  "WashKing Vineland Main Rd",
-  "WashKing Vineland Dante",
-  "WashKing Somerset",
-  "WashKing Landisville",
-  "WashKing Cherry Hill",
-] as const;
+const contactLocationValues = new Set(LOCATIONS.map(getLocationFormValue));
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
   phone: z.string().trim().min(1, "Phone number is required").max(20, "Phone must be less than 20 characters"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
-  location: z.string().min(1, "Please select a location"),
+  location: z.string().refine((value) => contactLocationValues.has(value), "Please select a location"),
   plateNumber: z.string().max(20, "Plate number must be less than 20 characters").optional(),
   message: z.string().trim().min(1, "Message is required").max(1000, "Message must be less than 1000 characters"),
 });
@@ -65,6 +65,7 @@ const ContactPage = () => {
       message: "",
     },
   });
+  const isSubmitting = form.formState.isSubmitting;
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
@@ -99,8 +100,8 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-washking-sky">
       <Seo
-        title="Contact WashKing Car Wash | Vineland & Somerset, NJ"
-        description="Get in touch with WashKing Car Wash. Questions about memberships, locations, or services? Contact our Vineland and Somerset, NJ team today."
+        title="Contact WashKing Car Wash | New Jersey Locations"
+        description="Contact WashKing Car Wash about memberships, wash packages or any of our New Jersey locations. Four locations are open and Cherry Hill is coming soon."
         path="/contact"
       />
       <Header />
@@ -229,16 +230,20 @@ const ContactPage = () => {
                       <FormLabel className="text-white font-body text-lg">
                         Location <span className="text-red-300">*</span>
                       </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body">
                             <SelectValue placeholder="Select a location" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {locationOptions.map((loc) => (
-                            <SelectItem key={loc} value={loc} className="font-body text-lg">
-                              {loc}
+                          {LOCATIONS.map((location) => (
+                            <SelectItem
+                              key={location.slug}
+                              value={getLocationFormValue(location)}
+                              className="font-body text-lg"
+                            >
+                              {getLocationFormLabel(location)}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -290,8 +295,12 @@ const ContactPage = () => {
                 />
                 
                 <div className="text-center pt-4">
-                  <button type="submit" className="btn-cloud btn-submit">
-                    Send Message
+                  <button
+                    type="submit"
+                    className="btn-cloud btn-submit disabled:cursor-not-allowed disabled:opacity-60"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </form>
@@ -323,7 +332,7 @@ const ContactPage = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="font-body text-white/90 text-lg lg:text-xl text-center mb-10 max-w-2xl mx-auto"
           >
-            Full-service car washes across South Jersey — find the location nearest you.
+            {OPEN_LOCATIONS.length} locations are open across New Jersey. Cherry Hill is coming soon.
           </motion.p>
 
           <motion.div
@@ -337,23 +346,52 @@ const ContactPage = () => {
           </motion.div>
 
           <div className="max-w-5xl mx-auto mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {LOCATIONS.map((loc) => (
-              <Link
-                key={loc.slug}
-                to={`/location/${loc.slug}`}
-                className="bg-white/15 backdrop-blur-sm rounded-2xl p-5 text-white hover:bg-white/25 transition-colors flex items-start gap-3"
-              >
-                <MapPin className="w-6 h-6 text-washking-yellow flex-shrink-0 mt-0.5" />
-                <span>
-                  <span className="font-display text-lg block">{loc.name}</span>
-                  <span className="font-body text-sm text-white/85 block">
-                    {loc.address ? `${loc.address}, ` : ""}
-                    {loc.city}
-                    {loc.comingSoon && " — Coming soon"}
-                  </span>
-                </span>
-              </Link>
-            ))}
+            {LOCATIONS.map((location) => {
+              const directionsUrl = getDirectionsUrl(location);
+              const comingSoon = location.status === "coming-soon";
+
+              return (
+                <article
+                  key={location.slug}
+                  className="bg-white/15 backdrop-blur-sm rounded-2xl p-5 text-white flex flex-col gap-4"
+                >
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-6 h-6 text-washking-yellow shrink-0 mt-0.5" aria-hidden="true" />
+                    <div>
+                      <h3 className="font-display text-lg">{location.name}</h3>
+                      <p className="font-body text-sm text-white/85">
+                        {location.address ? `${location.address}, ` : ""}
+                        {location.city}
+                      </p>
+                      {comingSoon && (
+                        <p className="font-display text-xs text-washking-yellow mt-1">COMING SOON</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className={`grid ${directionsUrl ? "grid-cols-2" : "grid-cols-1"} gap-2 mt-auto`}>
+                    <Link
+                      to={`/location/${location.slug}`}
+                      className="font-display text-sm bg-white text-washking-brown rounded-full px-3 py-2 text-center hover:bg-washking-cream transition-colors"
+                    >
+                      {comingSoon ? "Opening Details" : "View Location"}
+                    </Link>
+                    {directionsUrl && (
+                      <a
+                        href={directionsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-display text-sm border-2 border-white rounded-full px-3 py-2 text-center flex items-center justify-center gap-1.5 hover:bg-white/10 transition-colors"
+                        aria-label={`Get directions to WashKing ${location.name}`}
+                      >
+                        <Navigation className="w-4 h-4" aria-hidden="true" />
+                        Directions
+                      </a>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -8,26 +8,17 @@ import {
   OG_IMAGE,
   SOCIAL_LINKS,
 } from "./site";
+import type { LocationHours, WashKingLocation } from "./locations";
 
-type LocationHours = {
-  allDays?: string;
-  weekdays?: string;
-  sunday?: string;
-  is24Hours?: boolean;
-};
-
-// Structurally compatible with the LocationInfo objects in LocationPage.
-export type SchemaLocation = {
-  name: string;
-  address: string;
-  city: string;
-  email?: string;
-  hours: LocationHours;
-  comingSoon?: boolean;
-};
-
-const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-const ALL_DAYS = [...WEEKDAYS, "Saturday", "Sunday"];
+const MONDAY_TO_SATURDAY = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+const ALL_DAYS = [...MONDAY_TO_SATURDAY, "Sunday"];
 
 // "9:00 AM" -> "09:00"; returns "" if it can't parse.
 function to24h(time: string): string {
@@ -73,7 +64,7 @@ function openingHours(hours: LocationHours) {
   }
   if (hours.weekdays) {
     const r = parseRange(hours.weekdays);
-    if (r) out.push(spec(WEEKDAYS, r.opens, r.closes));
+    if (r) out.push(spec(MONDAY_TO_SATURDAY, r.opens, r.closes));
   }
   if (hours.sunday) {
     const r = parseRange(hours.sunday);
@@ -103,9 +94,8 @@ export function organizationSchema() {
   };
 }
 
-export function autoWashSchema(slug: string, loc: SchemaLocation) {
-  // Skip locations without a street address (e.g. "coming soon").
-  if (!loc.address) return null;
+export function autoWashSchema(slug: string, loc: WashKingLocation) {
+  if (loc.status !== "open" || !loc.address) return null;
   const { locality, region, postalCode } = parseCity(loc.city);
 
   const schema: Record<string, unknown> = {
@@ -115,6 +105,7 @@ export function autoWashSchema(slug: string, loc: SchemaLocation) {
     url: `${SITE_URL}/location/${slug}`,
     image: OG_IMAGE,
     email: loc.email || CONTACT_EMAIL,
+    priceRange: "10-60 USD",
     address: {
       "@type": "PostalAddress",
       streetAddress: loc.address,
@@ -122,6 +113,11 @@ export function autoWashSchema(slug: string, loc: SchemaLocation) {
       addressRegion: region,
       ...(postalCode ? { postalCode } : {}),
       addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: loc.lat,
+      longitude: loc.lng,
     },
     parentOrganization: {
       "@type": "Organization",

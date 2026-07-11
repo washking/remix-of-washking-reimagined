@@ -13,19 +13,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { track } from "@/lib/analytics";
+import {
+  OPEN_LOCATIONS,
+  getLocationFormLabel,
+  getLocationFormValue,
+} from "@/lib/locations";
 
-const locationOptions = [
-  "WashKing Vineland Main Rd",
-  "WashKing Vineland Dante",
-  "WashKing Somerset",
-  "WashKing Landisville",
-  "WashKing Cherry Hill",
-] as const;
+const surveyLocationValues = new Set(OPEN_LOCATIONS.map(getLocationFormValue));
 
 const surveySchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email address").max(255),
-  location: z.string().min(1, "Please select a location"),
+  location: z.string().refine((value) => surveyLocationValues.has(value), "Please select a location"),
   rating: z.string().min(1, "Please select a rating"),
   feedback: z.string().trim().min(1, "Feedback is required").max(2000),
 });
@@ -58,6 +57,7 @@ const CustomerSurveyPage = () => {
       feedback: "",
     },
   });
+  const isSubmitting = form.formState.isSubmitting;
 
   const onSubmit = async (data: SurveyFormValues) => {
     try {
@@ -93,7 +93,7 @@ const CustomerSurveyPage = () => {
     <div className="min-h-screen bg-washking-sky">
       <Seo
         title="Customer Survey | WashKing Car Wash"
-        description="Share your WashKing Car Wash experience. Your feedback helps us deliver the best car wash service in South Jersey."
+        description="Share feedback about your visit to one of WashKing Car Wash's four open New Jersey locations."
         path="/customer-survey"
         noIndex
       />
@@ -190,16 +190,20 @@ const CustomerSurveyPage = () => {
                       <FormLabel className="text-white font-body text-lg">
                         Location <span className="text-red-300">*</span>
                       </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body">
                             <SelectValue placeholder="Select a location" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {locationOptions.map((loc) => (
-                            <SelectItem key={loc} value={loc} className="font-body text-lg">
-                              {loc}
+                          {OPEN_LOCATIONS.map((location) => (
+                            <SelectItem
+                              key={location.slug}
+                              value={getLocationFormValue(location)}
+                              className="font-body text-lg"
+                            >
+                              {getLocationFormLabel(location)}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -217,18 +221,18 @@ const CustomerSurveyPage = () => {
                       <FormLabel className="text-white font-body text-lg">
                         How would you rate your experience? <span className="text-red-300">*</span>
                       </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                           <SelectTrigger className="bg-white border-3 border-washking-brown rounded-[20px] h-14 text-lg font-body">
                             <SelectValue placeholder="Select a rating" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="5" className="font-body text-lg">⭐⭐⭐⭐⭐ Excellent</SelectItem>
-                          <SelectItem value="4" className="font-body text-lg">⭐⭐⭐⭐ Great</SelectItem>
-                          <SelectItem value="3" className="font-body text-lg">⭐⭐⭐ Good</SelectItem>
-                          <SelectItem value="2" className="font-body text-lg">⭐⭐ Fair</SelectItem>
-                          <SelectItem value="1" className="font-body text-lg">⭐ Poor</SelectItem>
+                          <SelectItem value="5" className="font-body text-lg">5 - Excellent</SelectItem>
+                          <SelectItem value="4" className="font-body text-lg">4 - Great</SelectItem>
+                          <SelectItem value="3" className="font-body text-lg">3 - Good</SelectItem>
+                          <SelectItem value="2" className="font-body text-lg">2 - Fair</SelectItem>
+                          <SelectItem value="1" className="font-body text-lg">1 - Poor</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage className="text-red-300" />
@@ -258,8 +262,12 @@ const CustomerSurveyPage = () => {
                 />
 
                 <div className="text-center pt-4">
-                  <button type="submit" className="btn-cloud btn-submit">
-                    Submit Feedback
+                  <button
+                    type="submit"
+                    className="btn-cloud btn-submit disabled:cursor-not-allowed disabled:opacity-60"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Submitting..." : "Submit Feedback"}
                   </button>
                 </div>
               </form>
