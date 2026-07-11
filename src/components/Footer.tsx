@@ -10,7 +10,7 @@ const exploreLinks1 = [
 ];
 
 const exploreLinks2 = [
-  { label: "Wash Packages", href: "/#packages" },
+  { label: "Plans & Pricing", href: "/#locations" },
   { label: "Contact Us", href: "/contact" },
   { label: "Locations", href: "/#locations" },
 ];

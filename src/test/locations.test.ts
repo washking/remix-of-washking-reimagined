@@ -10,6 +10,7 @@ import {
   getBreakEvenVisits,
   getDirectionsUrl,
   getLocationFormLabel,
+  getLocationOpenStatus,
 } from "@/lib/locations";
 import { autoWashSchema } from "@/lib/structuredData";
 
@@ -70,6 +71,25 @@ describe("WashKing location registry", () => {
       expect(getBreakEvenVisits(plan)).toBeGreaterThanOrEqual(2);
       expect(getBreakEvenVisits(plan)).toBeLessThanOrEqual(3);
     });
+  });
+
+  it("calculates open status in the New Jersey time zone", () => {
+    const vineland = LOCATIONS.find((location) => location.slug === "vineland")!;
+    const dante = LOCATIONS.find((location) => location.slug === "vineland-dante")!;
+    const cherryHill = LOCATIONS.find((location) => location.slug === "cherry-hill")!;
+
+    expect(getLocationOpenStatus(vineland, new Date("2026-07-13T14:00:00Z"))).toEqual({
+      isOpen: true,
+      label: "Open now",
+    });
+    expect(getLocationOpenStatus(vineland, new Date("2026-07-13T23:00:00Z"))).toEqual({
+      isOpen: false,
+      label: "Closed now",
+    });
+    expect(getLocationOpenStatus(vineland, new Date("2026-07-12T20:30:00Z"))?.isOpen).toBe(true);
+    expect(getLocationOpenStatus(vineland, new Date("2026-07-12T21:30:00Z"))?.isOpen).toBe(false);
+    expect(getLocationOpenStatus(dante, new Date("2026-07-13T06:00:00Z"))?.isOpen).toBe(true);
+    expect(getLocationOpenStatus(cherryHill)).toBeNull();
   });
 
   it("does not expose open-location actions for Cherry Hill", () => {

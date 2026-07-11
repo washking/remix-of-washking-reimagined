@@ -1,122 +1,194 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, MapPin, Navigation } from "lucide-react";
+import { Clock, MapPin, Navigation, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import woodTexture from "@/assets/wood-texture.jpg";
-import { Badge } from "@/components/ui/badge";
 import {
-  LOCATIONS,
+  COMING_SOON_LOCATIONS,
   OPEN_LOCATIONS,
   getDirectionsUrl,
   getHoursSummary,
+  getLocationOpenStatus,
+  getStartingMonthlyPrice,
+  type WashKingLocation,
 } from "@/lib/locations";
 
-const LocationsSection = () => (
-  <section id="locations" className="relative overflow-hidden scroll-mt-6">
-    <div
-      className="relative py-10 lg:py-20"
-      style={{
-        backgroundImage: `url(${woodTexture})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+const OpenStatus = ({
+  location,
+  currentTime,
+}: {
+  location: WashKingLocation;
+  currentTime: Date | null;
+}) => {
+  const status = currentTime ? getLocationOpenStatus(location, currentTime) : null;
+
+  return (
+    <span
+      className={`inline-flex min-h-7 items-center rounded-full px-3 py-1 font-body text-xs font-extrabold ${
+        status?.isOpen
+          ? "bg-washking-green text-white"
+          : "bg-washking-brown text-white"
+      }`}
     >
-      <div className="absolute inset-0 bg-[hsl(25_55%_32%)]/75" />
+      {status?.label || "See today's hours"}
+    </span>
+  );
+};
 
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8 lg:mb-14"
+const LocationCard = ({
+  location,
+  index,
+  currentTime,
+}: {
+  location: WashKingLocation;
+  index: number;
+  currentTime: Date | null;
+}) => {
+  const directionsUrl = getDirectionsUrl(location);
+  const startingPrice = getStartingMonthlyPrice(location);
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.35, delay: index * 0.06 }}
+      className="flex h-full flex-col rounded-2xl bg-washking-yellow p-5 shadow-xl lg:p-6"
+    >
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white">
+          <MapPin className="h-6 w-6 text-washking-brown" aria-hidden="true" />
+        </div>
+        <OpenStatus location={location} currentTime={currentTime} />
+      </div>
+
+      <h3 className="mb-2 font-display text-2xl text-washking-brown lg:text-3xl">
+        {location.name}
+      </h3>
+      <p className="mb-4 flex items-start gap-2 font-body text-sm font-bold text-washking-brown">
+        <Sparkles className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+        <span>{location.serviceLabel}</span>
+      </p>
+
+      <div className="space-y-3 border-t border-washking-brown/20 pt-4">
+        <p className="font-body text-sm text-washking-brown">
+          <span className="block font-bold">{location.address}</span>
+          <span>{location.city}</span>
+        </p>
+        <p className="flex items-start gap-2 font-body text-sm text-washking-brown">
+          <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+          <span>{getHoursSummary(location)}</span>
+        </p>
+      </div>
+
+      {Number.isFinite(startingPrice) && (
+        <p className="mt-4 font-body text-sm font-bold text-washking-brown">
+          Unlimited from{" "}
+          <span className="font-display text-xl">${startingPrice.toFixed(2)}/mo</span>
+        </p>
+      )}
+
+      <div className="mt-auto grid gap-2 pt-5">
+        <Link
+          to={`/location/${location.slug}`}
+          data-analytics="location_select"
+          data-analytics-source="homepage_locations"
+          data-location-slug={location.slug}
+          className="btn-cloud border-2 border-washking-brown bg-white px-3 py-2.5 text-center font-display text-sm text-washking-brown"
         >
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl xl:text-7xl text-white text-shadow mb-3">
-            PICK YOUR LOCATION
-          </h2>
-          <p className="font-body text-white text-base sm:text-lg lg:text-xl max-w-2xl mx-auto">
-            {OPEN_LOCATIONS.length} locations open across New Jersey. Cherry Hill is coming soon.
-          </p>
-        </motion.div>
+          Plans &amp; Pricing
+        </Link>
+        {directionsUrl && (
+          <a
+            href={directionsUrl}
+            data-analytics="directions_click"
+            data-analytics-source="homepage_locations"
+            data-location-slug={location.slug}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-cloud flex items-center justify-center gap-1.5 border-2 border-washking-brown bg-washking-brown px-3 py-2.5 text-center font-display text-sm text-white"
+            aria-label={`Get directions to WashKing ${location.name}`}
+          >
+            <Navigation className="h-4 w-4" aria-hidden="true" />
+            Directions
+          </a>
+        )}
+      </div>
+    </motion.article>
+  );
+};
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-7 max-w-6xl mx-auto">
-          {LOCATIONS.map((location, index) => {
-            const directionsUrl = getDirectionsUrl(location);
-            const comingSoon = location.status === "coming-soon";
+const LocationsSection = () => {
+  const comingSoon = COMING_SOON_LOCATIONS[0];
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
-            return (
-              <motion.article
+  useEffect(() => {
+    const update = () => setCurrentTime(new Date());
+    update();
+    const interval = window.setInterval(update, 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return (
+    <section id="locations" className="relative scroll-mt-6 overflow-hidden">
+      <div
+        className="relative py-12 lg:py-20"
+        style={{
+          backgroundImage: `url(${woodTexture})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-[hsl(25_55%_32%)]/80" />
+
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="mb-9 text-center lg:mb-12">
+            <p className="mb-2 font-body text-sm font-extrabold uppercase text-washking-yellow">
+              Hours, services, prices, and directions
+            </p>
+            <h2 className="mb-3 font-display text-4xl text-white text-shadow sm:text-5xl lg:text-6xl">
+              FIND YOUR WASHKING
+            </h2>
+            <p className="mx-auto max-w-2xl font-body text-base text-white sm:text-lg">
+              Choose one of our {OPEN_LOCATIONS.length} open New Jersey locations to compare washes and plan your visit.
+            </p>
+          </div>
+
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {OPEN_LOCATIONS.map((location, index) => (
+              <LocationCard
                 key={location.slug}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.07 }}
-                className={`bg-washking-yellow rounded-3xl p-5 lg:p-7 shadow-xl flex flex-col min-h-[300px] ${
-                  index === LOCATIONS.length - 1 ? "sm:col-span-2 lg:col-span-1 sm:max-w-lg lg:max-w-none sm:w-full sm:mx-auto" : ""
-                }`}
-              >
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="w-11 h-11 rounded-full bg-white flex items-center justify-center shrink-0">
-                    <MapPin className="w-6 h-6 text-washking-brown" aria-hidden="true" />
-                  </div>
-                  {comingSoon && (
-                    <Badge className="bg-washking-brown text-white font-display text-xs px-3 py-1.5 rounded-full">
-                      Coming Soon
-                    </Badge>
-                  )}
-                </div>
+                location={location}
+                index={index}
+                currentTime={currentTime}
+              />
+            ))}
+          </div>
 
-                <h3 className="font-display text-washking-brown text-2xl lg:text-3xl mb-3">
-                  {location.name}
-                </h3>
-                <p className="text-washking-brown font-body text-base">
-                  {location.address || location.city}
+          {comingSoon && (
+            <div className="mx-auto mt-10 flex max-w-5xl flex-col items-center justify-between gap-5 border-t border-white/25 pt-8 text-center sm:flex-row sm:text-left">
+              <div>
+                <p className="mb-1 font-display text-sm text-washking-yellow">COMING SOON</p>
+                <h3 className="font-display text-3xl text-white">{comingSoon.name}</h3>
+                <p className="font-body text-white/90">
+                  A new WashKing is on the way to {comingSoon.city}.
                 </p>
-                {location.address && (
-                  <p className="text-washking-brown/80 font-body text-sm mb-4">{location.city}</p>
-                )}
-
-                <div className="mt-auto">
-                  {!comingSoon && (
-                    <p className="font-body text-sm text-washking-brown flex items-start gap-2 mb-5">
-                      <Clock className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
-                      <span>{getHoursSummary(location)}</span>
-                    </p>
-                  )}
-
-                  <div className={`grid ${directionsUrl ? "grid-cols-2" : "grid-cols-1"} gap-2`}>
-                    <Link
-                      to={`/location/${location.slug}`}
-                      data-analytics="location_select"
-                      data-analytics-source="homepage_locations"
-                      data-location-slug={location.slug}
-                      className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-3 py-2.5 font-display text-sm text-center"
-                    >
-                      {comingSoon ? "Opening Details" : "View Washes"}
-                    </Link>
-                    {directionsUrl && (
-                      <a
-                        href={directionsUrl}
-                        data-analytics="directions_click"
-                        data-analytics-source="homepage_locations"
-                        data-location-slug={location.slug}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-cloud bg-washking-brown text-white border-2 border-washking-brown px-3 py-2.5 font-display text-sm text-center flex items-center justify-center gap-1.5"
-                        aria-label={`Get directions to WashKing ${location.name}`}
-                      >
-                        <Navigation className="w-4 h-4" aria-hidden="true" />
-                        Directions
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </motion.article>
-            );
-          })}
+              </div>
+              <Link
+                to={`/location/${comingSoon.slug}`}
+                data-analytics="location_select"
+                data-analytics-source="homepage_coming_soon"
+                data-location-slug={comingSoon.slug}
+                className="btn-cloud shrink-0 border-2 border-washking-brown bg-washking-yellow px-6 py-3 font-display text-sm text-washking-brown"
+              >
+                Opening Details
+              </Link>
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default LocationsSection;

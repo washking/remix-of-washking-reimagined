@@ -2,11 +2,12 @@ import { motion } from "framer-motion";
 import lionMascot from "@/assets/lion-mascot.png";
 import FoamBubbles from "./FoamBubbles";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
+import { OPEN_LOCATIONS } from "@/lib/locations";
 
 const HeroSection = () => {
-  const scrollToPackages = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const scrollToLocations = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const element = document.querySelector("#packages");
+    const element = document.querySelector("#locations");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -26,20 +27,32 @@ const HeroSection = () => {
               className="lg:w-1/2 text-center lg:text-left"
             >
               <p className="font-display text-white text-sm sm:text-base lg:text-xl tracking-wider text-shadow-white mb-2">
-                NEW JERSEY CAR WASH
+                FAMILY-OWNED NEW JERSEY CAR WASH
               </p>
               <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-washking-yellow text-shadow mb-4 lg:mb-8">
                 WASHKING
               </h1>
 
-              <div className="space-y-1.5 lg:space-y-3 mb-6 lg:mb-10">
-                <p className="font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wider text-shadow-white">FOUR LOCATIONS OPEN.</p>
-                <p className="font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wider text-shadow-white">CHERRY HILL COMING SOON.</p>
-                <p className="font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wider text-shadow-white">FAMILY-OWNED. FAST. FRIENDLY.</p>
+              <div className="mb-6 lg:mb-10 max-w-xl mx-auto lg:mx-0">
+                <p className="font-body font-bold text-white text-base sm:text-lg lg:text-xl leading-relaxed text-shadow-white">
+                  Find your nearest WashKing, check today's hours, compare wash plans, and get directions.
+                </p>
+                <p className="font-display text-washking-yellow text-sm sm:text-base lg:text-lg tracking-wider text-shadow mt-3">
+                  {OPEN_LOCATIONS.length} LOCATIONS OPEN | CHERRY HILL COMING SOON
+                </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <motion.a 
+                <motion.a
+                  href="#locations"
+                  onClick={scrollToLocations}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-hero-secondary text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-4"
+                >
+                  FIND A LOCATION
+                </motion.a>
+                <motion.a
                   href={MEMBERSHIP_PORTAL}
                   data-analytics="membership_cta"
                   data-analytics-source="homepage_hero"
@@ -50,15 +63,6 @@ const HeroSection = () => {
                   className="btn-hero-primary text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-4"
                 >
                   GO UNLIMITED
-                </motion.a>
-                <motion.a 
-                  href="#packages" 
-                  onClick={scrollToPackages}
-                  whileHover={{ scale: 1.05 }} 
-                  whileTap={{ scale: 0.95 }} 
-                  className="btn-hero-secondary text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-4"
-                >
-                  VIEW WASHES
                 </motion.a>
               </div>
             </motion.div>
