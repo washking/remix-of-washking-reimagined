@@ -10,7 +10,7 @@ describe("performance guardrails", () => {
     const app = source("src/App.tsx");
 
     expect(app).not.toContain('from "./pages/');
-    expect(app.match(/lazy: async/g)).toHaveLength(8);
+    expect(app.match(/lazy: async/g)).toHaveLength(9);
     expect(app).not.toContain("QueryClientProvider");
   });
 
@@ -18,10 +18,11 @@ describe("performance guardrails", () => {
     const sharedFiles = [
       "src/components/Header.tsx",
       "src/components/Footer.tsx",
+      "src/components/FormPageHero.tsx",
       "src/components/HeroSection.tsx",
       "src/components/LocationsSection.tsx",
       "src/components/PackagesSection.tsx",
-      "src/components/TestimonialsSection.tsx",
+      "src/components/TrustStatsSection.tsx",
       "src/components/FAQSection.tsx",
     ];
 
@@ -31,7 +32,6 @@ describe("performance guardrails", () => {
   it("ships substantially smaller AVIF alternatives for repeated assets", () => {
     const assets = [
       ["src/assets/lion-mascot.avif", "src/assets/lion-mascot.png"],
-      ["src/assets/wooden-sign.avif", "src/assets/wooden-sign.png"],
       ["src/assets/wood-texture.avif", "src/assets/wood-texture.jpg"],
       ["src/assets/car-wash-illustration.avif", "src/assets/car-wash-illustration.png"],
     ];

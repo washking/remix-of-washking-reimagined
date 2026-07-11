@@ -70,6 +70,7 @@ describe("accessibility guardrails", () => {
       "ContactPage.tsx",
       "CustomerSurveyPage.tsx",
       "EmploymentPage.tsx",
+      "PrivacyPage.tsx",
       "ThankYouPage.tsx",
       "NotFound.tsx",
     ];

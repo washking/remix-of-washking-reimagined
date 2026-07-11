@@ -12,17 +12,17 @@ const sourceContent: Record<string, { title: string; subtitle: string; message: 
   contact_form: {
     title: "MESSAGE RECEIVED!",
     subtitle: "Thanks for reaching out to WashKing",
-    message: "We've received your message and our team will get back to you as soon as possible. Keep an eye on your inbox!",
+    message: "Your message has been delivered to the WashKing team for review.",
   },
   customer_survey: {
     title: "FEEDBACK SUBMITTED!",
     subtitle: "Thank you for helping us shine brighter",
-    message: "Your feedback means the world to us. We use every response to make the WashKing experience even better for you.",
+    message: "Your feedback has been delivered to the WashKing team and will help us understand your visit.",
   },
   employment_application: {
     title: "APPLICATION SENT!",
     subtitle: "Welcome to the WashKing journey",
-    message: "Thanks for applying! Our hiring team will review your application and reach out if there's a great fit.",
+    message: "Your application has been delivered to the WashKing hiring team for review.",
   },
 };
 
@@ -51,7 +51,7 @@ const ThankYouPage = () => {
       <div className="min-h-screen bg-washking-sky flex flex-col">
       <Seo
         title="Thank You | WashKing Car Wash"
-        description="Thanks for reaching out to WashKing Car Wash. We'll be in touch soon."
+        description="Your website form has been submitted to WashKing Car Wash."
         path="/thank-you"
         noIndex
       />

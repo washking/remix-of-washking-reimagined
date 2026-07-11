@@ -34,7 +34,7 @@ const menuItems: MenuItem[] = [
     dropdown: [
       { label: "About WashKing", href: "/about" },
       { label: "FAQs", href: "/#faq" },
-      { label: "Customer Stories", href: "/#testimonials" },
+      { label: "At a Glance", href: "/#at-a-glance" },
       { label: "Employment", href: "/employment" },
       { label: "Manage Membership", href: MEMBERSHIP_PORTAL, external: true },
     ],
