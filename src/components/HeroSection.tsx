@@ -41,6 +41,8 @@ const HeroSection = () => {
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <motion.a 
                   href={MEMBERSHIP_PORTAL}
+                  data-analytics="membership_cta"
+                  data-analytics-source="homepage_hero"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }} 

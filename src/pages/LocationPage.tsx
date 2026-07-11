@@ -20,15 +20,9 @@ import {
   getHoursSummary,
   getLocationBySlug,
   getStartingMonthlyPrice,
+  UNLIMITED_MEMBER_BENEFITS,
   type WashKingLocation,
 } from "@/lib/locations";
-
-const memberBenefits = [
-  "10% Discount on Detailing Services",
-  "10% Discount on Royalty Wash Packages",
-  "Discounted Family Plan Rates (Up to 5 Cars)",
-  "Seasonal Promotions and Discounts",
-];
 
 const BubbleCluster = ({ className = "" }: { className?: string }) => (
   <div className={`absolute pointer-events-none ${className}`} aria-hidden="true">
@@ -224,6 +218,7 @@ const LocationPage = () => {
   const hoursSummary = getHoursSummary(location);
   const directionsUrl = getDirectionsUrl(location);
   const startingPrice = getStartingMonthlyPrice(location);
+  const memberBenefits = [...UNLIMITED_MEMBER_BENEFITS, ...location.memberPerks];
 
   const scrollToPlans = () => {
     document.getElementById("wash-plans")?.scrollIntoView({ behavior: "smooth" });
@@ -310,6 +305,9 @@ const LocationPage = () => {
                     {directionsUrl && (
                       <a
                         href={directionsUrl}
+                        data-analytics="directions_click"
+                        data-analytics-source="location_hero"
+                        data-location-slug={location.slug}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn-cloud bg-washking-brown text-white border-2 border-washking-brown px-3 py-3 font-display text-sm flex items-center justify-center gap-2"
@@ -328,6 +326,9 @@ const LocationPage = () => {
                     </button>
                     <a
                       href={MEMBERSHIP_PORTAL}
+                      data-analytics="membership_cta"
+                      data-analytics-source="location_hero"
+                      data-location-slug={location.slug}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-unlimited col-span-2 text-center"
@@ -404,6 +405,10 @@ const LocationPage = () => {
                     )}
                     <a
                       href={MEMBERSHIP_PORTAL}
+                      data-analytics="plan_select"
+                      data-analytics-source="location_plan_card"
+                      data-location-slug={location.slug}
+                      data-plan-name={washPackage.name}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-cloud bg-washking-cream text-washking-brown border-2 border-washking-brown px-5 py-2.5 font-display text-base text-center"
@@ -459,6 +464,9 @@ const LocationPage = () => {
                 {directionsUrl && (
                   <a
                     href={directionsUrl}
+                    data-analytics="directions_click"
+                    data-analytics-source="location_visit_section"
+                    data-location-slug={location.slug}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-cloud mt-5 inline-flex bg-washking-yellow text-washking-brown border-2 border-washking-brown px-5 py-3 font-display text-base items-center gap-2"

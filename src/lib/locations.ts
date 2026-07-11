@@ -1,6 +1,10 @@
 import { CONTACT_EMAIL } from "./site";
 
 export type LocationStatus = "open" | "coming-soon";
+export type LocationServiceType =
+  | "full-service-and-exterior"
+  | "exterior-only"
+  | "coming-soon";
 
 export interface LocationHours {
   allDays?: string;
@@ -28,12 +32,25 @@ export interface WashKingLocation {
   city: string;
   email: string;
   status: LocationStatus;
+  serviceType: LocationServiceType;
+  serviceLabel: string;
+  portalLocationName: string | null;
+  memberPerks: string[];
   lat: number;
   lng: number;
   hours: LocationHours;
   mapEmbed: string;
   packages: WashPackage[];
 }
+
+export const UNLIMITED_MEMBER_BENEFITS = [
+  "Wash once a day for one monthly price",
+  "License plate recognition for faster entry",
+  "Automatic monthly renewal",
+  "No long-term contract - cancel anytime",
+] as const;
+
+export const PACKAGE_CATALOG_VERIFIED_ON = "2026-07-11";
 
 type ExteriorMonthlyPrices = {
   diamond: string;
@@ -53,7 +70,16 @@ const exteriorPackages = ({
     singlePrice: "$16",
     monthlyPrice: diamond,
     includes: "INCLUDES PLATINUM WASH PLUS:",
-    features: ["LAVA SOAP", "CARNAUBA WAX", "POLYSEALANT", "TIRE SHINE"],
+    features: [
+      "PRESOAK 2X",
+      "BUG BUSTER",
+      "LAVA SOAP",
+      "CLEARCOAT PROTECTANT",
+      "CERAMIC SHIELD",
+      "GRAPHENE WAX",
+      "TIRE SHINE",
+      "BUFF N SHINE",
+    ],
     note: "*EXTERIOR ONLY",
   },
   {
@@ -63,7 +89,7 @@ const exteriorPackages = ({
     singlePrice: "$14",
     monthlyPrice: platinum,
     includes: "INCLUDES BRONZE WASH PLUS:",
-    features: ["TRIPLE FOAM", "WHEEL CLEANER 2X", "UNDERCARRIAGE WASH"],
+    features: ["UNDERBODY BLAST", "WHEEL CLEANER 2X", "TRIPLE FOAM POLISH", "TIRE SHINE"],
     note: "*EXTERIOR ONLY",
   },
   {
@@ -73,7 +99,7 @@ const exteriorPackages = ({
     singlePrice: "$10",
     monthlyPrice: bronze,
     includes: null,
-    features: ["WHITE FOAM", "DRYING AGENT"],
+    features: ["WASH AND DRY"],
     note: "*EXTERIOR ONLY",
   },
 ];
@@ -89,22 +115,62 @@ const royaltyPackage: WashPackage = {
     "INTERIOR VACUUM",
     "DASH WIPE DOWN",
     "WINDOW WIPE DOWN",
-    "DOOR JAMS CLEANED",
+    "DOOR JAMBS CLEANED",
     "MATS CLEANED",
   ],
   note: null,
 };
 
+const premiumExteriorPackages = (): WashPackage[] => [
+  {
+    name: "DIAMOND",
+    color: "bg-yellow-400",
+    textColor: "text-washking-brown",
+    singlePrice: "$16",
+    monthlyPrice: "$39.99",
+    includes: "INCLUDES PLATINUM WASH PLUS:",
+    features: [
+      "HOT PRESOAK 2X",
+      "BUG BUSTER",
+      "SEALANT",
+      "HOT LAVA",
+      "CERAMIC SHIELD",
+      "GRAPHENE",
+      "DRYING AGENT",
+    ],
+    note: "*EXTERIOR ONLY",
+  },
+  {
+    name: "PLATINUM",
+    color: "bg-sky-300",
+    textColor: "text-washking-brown",
+    singlePrice: "$14",
+    monthlyPrice: "$34.99",
+    includes: "INCLUDES BRONZE WASH PLUS:",
+    features: [
+      "UNDERCARRIAGE",
+      "WHEEL CLEANER",
+      "TRI COLOR POLISH",
+      "CLEAR COAT PROTECTANT",
+    ],
+    note: "*EXTERIOR ONLY",
+  },
+  {
+    name: "BRONZE",
+    color: "bg-green-600",
+    textColor: "text-white",
+    singlePrice: "$10",
+    monthlyPrice: "$24.99",
+    includes: null,
+    features: ["WASH AND DRY"],
+    note: "*EXTERIOR ONLY",
+  },
+];
+
 const standardExteriorPrices: ExteriorMonthlyPrices = {
   diamond: "$34.99",
   platinum: "$31.99",
   bronze: "$19.99",
-};
-
-const premiumExteriorPrices: ExteriorMonthlyPrices = {
-  diamond: "$39.99",
-  platinum: "$34.99",
-  bronze: "$24.99",
 };
 
 export const LOCATIONS: WashKingLocation[] = [
@@ -116,6 +182,15 @@ export const LOCATIONS: WashKingLocation[] = [
     city: "Vineland, NJ 08361",
     email: CONTACT_EMAIL,
     status: "open",
+    serviceType: "full-service-and-exterior",
+    serviceLabel: "Full-service and exterior washes",
+    portalLocationName: "Wash King Vineland",
+    memberPerks: [
+      "10% discount on detailing services",
+      "10% discount on Royalty wash packages",
+      "Discounted family plan rates for up to 5 cars",
+      "Seasonal promotions and discounts",
+    ],
     lat: 39.4478,
     lng: -75.0202,
     hours: {
@@ -134,12 +209,16 @@ export const LOCATIONS: WashKingLocation[] = [
     city: "Vineland, NJ",
     email: CONTACT_EMAIL,
     status: "open",
+    serviceType: "exterior-only",
+    serviceLabel: "Exterior-only wash packages",
+    portalLocationName: "Wash King - Dante",
+    memberPerks: [],
     lat: 39.479,
     lng: -75.01,
     hours: { is24Hours: true },
     mapEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.5!2d-75.03!3d39.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDI4JzEyLjAiTiA3NcKwMDEnNDguMCJX!5e0!3m2!1sen!2sus!4v1706540000000!5m2!1sen!2sus",
-    packages: exteriorPackages(premiumExteriorPrices),
+    packages: premiumExteriorPackages(),
   },
   {
     slug: "somerset",
@@ -149,6 +228,10 @@ export const LOCATIONS: WashKingLocation[] = [
     city: "Somerset, NJ 08873",
     email: CONTACT_EMAIL,
     status: "open",
+    serviceType: "exterior-only",
+    serviceLabel: "Exterior-only wash packages",
+    portalLocationName: "Wash King Somerset",
+    memberPerks: [],
     lat: 40.5015,
     lng: -74.4832,
     hours: { allDays: "8:00 AM to 7:00 PM" },
@@ -164,12 +247,16 @@ export const LOCATIONS: WashKingLocation[] = [
     city: "Landisville, NJ",
     email: CONTACT_EMAIL,
     status: "open",
+    serviceType: "exterior-only",
+    serviceLabel: "Exterior-only wash packages",
+    portalLocationName: "Wash King - Landisville",
+    memberPerks: [],
     lat: 39.5265,
     lng: -74.9682,
     hours: { is24Hours: true },
     mapEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.5!2d-75.07!3d39.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDMxJzEyLjAiTiA3NcKwMDQnMTIuMCJX!5e0!3m2!1sen!2sus!4v1706540000000!5m2!1sen!2sus",
-    packages: exteriorPackages(premiumExteriorPrices),
+    packages: premiumExteriorPackages(),
   },
   {
     slug: "cherry-hill",
@@ -179,6 +266,10 @@ export const LOCATIONS: WashKingLocation[] = [
     city: "Cherry Hill, NJ",
     email: CONTACT_EMAIL,
     status: "coming-soon",
+    serviceType: "coming-soon",
+    serviceLabel: "Service details coming soon",
+    portalLocationName: null,
+    memberPerks: [],
     lat: 39.9348,
     lng: -75.0307,
     hours: {},
@@ -233,3 +324,14 @@ export const getStartingMonthlyPrice = (location: WashKingLocation) =>
     const price = Number.parseFloat(washPackage.monthlyPrice.replace(/[^0-9.]/g, ""));
     return Number.isFinite(price) && price < minimum ? price : minimum;
   }, Number.POSITIVE_INFINITY);
+
+export const getBreakEvenVisits = (washPackage: WashPackage) => {
+  const singlePrice = Number.parseFloat(washPackage.singlePrice.replace(/[^0-9.]/g, ""));
+  const monthlyPrice = Number.parseFloat(washPackage.monthlyPrice.replace(/[^0-9.]/g, ""));
+
+  if (!Number.isFinite(singlePrice) || singlePrice <= 0 || !Number.isFinite(monthlyPrice)) {
+    return null;
+  }
+
+  return Math.ceil(monthlyPrice / singlePrice);
+};

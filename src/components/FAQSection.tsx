@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     question: "How do I cancel my WashKing Unlimited Wash Plan?",
-    answer: "Canceling your Unlimited Wash Plan is easy and convenient. You can do it online by logging into your membership portal on our website, by calling our location, or by visiting us in person and notifying a WashKing team member.",
+    answer: "You can cancel online through the membership portal or visit an open WashKing location and speak with a team member. You can also send us a message through the contact page if you need help.",
   },
   {
     question: "What happens when I cancel my WashKing Unlimited Wash Plan?",
