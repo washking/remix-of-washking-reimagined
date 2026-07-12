@@ -22,7 +22,7 @@ import {
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import { OPEN_LOCATIONS, getStartingMonthlyPrice } from "@/lib/locations";
 
-const HERO_ROTATION_DELAY = 7_000;
+const HERO_ROTATION_DELAY = 4_000;
 
 const heroSlides = [
   {

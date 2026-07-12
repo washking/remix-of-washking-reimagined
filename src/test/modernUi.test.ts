@@ -24,6 +24,7 @@ describe("modern UI guardrails", () => {
     expect(hero).toContain('opts={{ loop: true, align: "start" }}');
     expect(hero).toContain('window.matchMedia("(prefers-reduced-motion: reduce)")');
     expect(hero).toContain('document.visibilityState === "visible"');
+    expect(hero).toContain("const HERO_ROTATION_DELAY = 4_000");
     expect(hero).toContain("Pause automatic hero images");
     expect(hero).toContain("autoplayTimeoutRef");
     expect(hero).toContain("carouselApi?.scrollTo(nextIndex, true)");
