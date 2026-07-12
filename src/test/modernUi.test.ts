@@ -8,16 +8,16 @@ describe("modern UI guardrails", () => {
   it("uses the lion-only header mark and supplied car logo in the hero", () => {
     const brandLogo = source("src/components/BrandLogo.tsx");
     const hero = source("src/components/HeroSection.tsx");
-    const logo = hero.indexOf('className="hero-logo-enter');
+    const media = hero.indexOf('className="hero-media-enter');
     const eyebrow = hero.indexOf("FAMILY-OWNED NEW JERSEY CAR WASH");
 
     expect(brandLogo).toContain('from "@/assets/lion-mascot.png"');
-    expect(brandLogo).toContain("isFooter ? logo : lionMascot");
-    expect(hero).toContain('from "@/assets/washking-hero-logo.png"');
+    expect(brandLogo).toContain('from "@/assets/washking-hero-logo.png"');
+    expect(hero).toContain('from "@/assets/washking-wash-tunnel-hero.jpg"');
     expect(hero).toContain('<h1 className="sr-only">WASH KING CAR WASH</h1>');
-    expect(hero).toContain('className="hero-logo-float');
-    expect(logo).toBeGreaterThan(-1);
-    expect(logo).toBeLessThan(eyebrow);
+    expect(hero).not.toContain("hero-logo-float");
+    expect(media).toBeGreaterThan(-1);
+    expect(media).toBeLessThan(eyebrow);
   });
 
   it("uses one modern type family across the site", () => {

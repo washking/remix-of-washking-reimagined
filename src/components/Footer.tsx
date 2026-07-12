@@ -44,14 +44,16 @@ const Footer = () => {
 
   return (
     <footer id="footer" className="overflow-hidden bg-washking-brown">
+      <div className="border-b-4 border-washking-yellow bg-white py-5 sm:py-6">
+        <div className="container mx-auto flex justify-center px-4">
+          <Link to="/" aria-label="Wash King home">
+            <BrandLogo variant="footer" />
+          </Link>
+        </div>
+      </div>
+
       <div className="py-9 lg:py-12">
         <div className="container mx-auto max-w-6xl px-4">
-          <div className="mb-7 flex justify-center md:justify-start">
-            <Link to="/">
-              <BrandLogo variant="footer" />
-            </Link>
-          </div>
-
           <div className="grid items-start gap-8 md:grid-cols-2 lg:gap-16">
             <div className="order-2 text-center md:order-1 md:text-left">
               <div className="flex items-center gap-3 mb-4 justify-center md:justify-start">

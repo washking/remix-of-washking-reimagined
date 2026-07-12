@@ -107,33 +107,16 @@ html {
     font-family: 'Nunito', sans-serif;
   }
 
-  .hero-logo-enter {
-    animation: hero-logo-enter 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    transform-origin: center;
+  .hero-media-enter {
+    animation: hero-media-enter 450ms ease-out both;
   }
 
-  .hero-logo-float {
-    animation: hero-logo-float 5.5s ease-in-out 700ms infinite;
-    will-change: transform;
-  }
-
-  @keyframes hero-logo-enter {
+  @keyframes hero-media-enter {
     from {
       opacity: 0;
-      transform: translateY(10px) scale(0.97);
     }
     to {
       opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @keyframes hero-logo-float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-4px);
     }
   }
 
@@ -271,10 +254,8 @@ html {
       transform: none;
     }
 
-    .hero-logo-enter,
-    .hero-logo-float {
+    .hero-media-enter {
       animation: none;
-      transform: none;
     }
   }
 }
