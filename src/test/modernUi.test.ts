@@ -137,6 +137,10 @@ describe("modern UI guardrails", () => {
     expect(locations).toContain("bg-washking-yellow p-5");
     expect(plans).toContain("max-w-7xl gap-10");
     expect(plans).toContain("border-2 border-t-[8px]");
+    expect(plans).toContain("getPackagesByMonthlyPriceDescending(location)");
+    expect(plans).toContain("PLAN_PRICE_CLASSES");
+    expect(plans).toContain("Top exterior wash");
+    expect(plans).toContain("Most complete wash");
   });
 
   it("keeps the contact form prominent beside membership management", () => {

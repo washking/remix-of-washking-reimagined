@@ -20,7 +20,7 @@ import {
   getHoursSummary,
   getIncludedFeatures,
   getLocationBySlug,
-  getPackagesByMonthlyPrice,
+  getPackagesByMonthlyPriceDescending,
   getStartingMonthlyPrice,
   UNLIMITED_MEMBER_BENEFITS,
   type WashKingLocation,
@@ -31,6 +31,18 @@ const PLAN_ACCENT_CLASSES: Record<string, string> = {
   PLATINUM: "border-t-washking-sky",
   DIAMOND: "border-t-washking-yellow",
   ROYALTY: "border-t-washking-brown",
+};
+
+const PLAN_PRICE_CLASSES: Record<string, string> = {
+  BRONZE: "border-washking-green/20 bg-green-50",
+  PLATINUM: "border-washking-sky/20 bg-washking-sky-light",
+  DIAMOND: "border-washking-gold/25 bg-yellow-100",
+  ROYALTY: "border-amber-800/20 bg-amber-100",
+};
+
+const PLAN_CALLOUTS: Record<string, string> = {
+  DIAMOND: "Top exterior wash",
+  ROYALTY: "Most complete wash",
 };
 
 const sentenceCase = (value: string) => {
@@ -181,7 +193,7 @@ const LocationPage = () => {
   const directionsUrl = getDirectionsUrl(location);
   const startingPrice = getStartingMonthlyPrice(location);
   const memberBenefits = [...UNLIMITED_MEMBER_BENEFITS, ...location.memberPerks];
-  const orderedPackages = getPackagesByMonthlyPrice(location);
+  const orderedPackages = getPackagesByMonthlyPriceDescending(location);
   const portalLocationName = location.portalLocationName || `Wash King ${location.name}`;
 
   const scrollToPlans = () => {
@@ -333,7 +345,7 @@ const LocationPage = () => {
             </div>
 
             <div className={`mx-auto grid max-w-7xl gap-10 md:grid-cols-2 md:gap-7 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} lg:gap-6`}>
-              {orderedPackages.map((washPackage, index) => {
+              {orderedPackages.map((washPackage) => {
                 const breakEvenVisits = getBreakEvenVisits(washPackage);
                 const includedFeatures = getIncludedFeatures(location, washPackage.name);
                 const visibleFeatures = washPackage.features.slice(0, 4);
@@ -344,22 +356,22 @@ const LocationPage = () => {
                     key={washPackage.name}
                     className={`flex flex-col overflow-hidden rounded-lg border-2 border-t-[8px] border-gray-300 bg-white shadow-md md:border md:border-x-gray-200 md:border-b-gray-200 md:border-t-[6px] md:shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
                   >
-                    <div className="p-6 pb-5 text-center">
-                      {index === 0 && (
-                        <p className="mb-2 font-body text-xs font-bold text-washking-sky">
-                          Lowest monthly price
+                    <div className={`${washPackage.color} ${washPackage.textColor} min-h-36 p-6 pb-5 text-center`}>
+                      {PLAN_CALLOUTS[washPackage.name] && (
+                        <p className="mb-2 font-body text-xs font-extrabold uppercase">
+                          {PLAN_CALLOUTS[washPackage.name]}
                         </p>
                       )}
-                      <h3 className="font-display text-2xl text-washking-brown">
+                      <h3 className="font-display text-2xl">
                         {sentenceCase(washPackage.name)}
                       </h3>
-                      <p className="mt-2 font-body text-sm text-gray-600">
+                      <p className="mt-2 font-body text-sm font-semibold opacity-85">
                         Single wash{" "}
-                        <span className="font-bold text-washking-brown">{washPackage.singlePrice}</span>
+                        <span className="font-extrabold">{washPackage.singlePrice}</span>
                       </p>
                     </div>
 
-                    <div className="border-y border-washking-sky/15 bg-washking-sky-light px-4 py-4 text-center">
+                    <div className={`border-y px-4 py-4 text-center ${PLAN_PRICE_CLASSES[washPackage.name] || "border-gray-200 bg-gray-50"}`}>
                       <p className="font-body text-xs font-bold text-washking-sky">Unlimited membership</p>
                       <p className="mt-1 font-display text-3xl text-washking-brown">
                         {washPackage.monthlyPrice}

@@ -400,6 +400,11 @@ export const getPackagesByMonthlyPrice = (location: WashKingLocation) =>
     (left, right) => monthlyPriceValue(left) - monthlyPriceValue(right),
   );
 
+export const getPackagesByMonthlyPriceDescending = (location: WashKingLocation) =>
+  [...location.packages].sort(
+    (left, right) => monthlyPriceValue(right) - monthlyPriceValue(left),
+  );
+
 export const getIncludedFeatures = (
   location: WashKingLocation,
   packageName: string,

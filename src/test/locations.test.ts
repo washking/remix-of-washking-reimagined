@@ -13,6 +13,7 @@ import {
   getLocationFormLabel,
   getLocationOpenStatus,
   getPackagesByMonthlyPrice,
+  getPackagesByMonthlyPriceDescending,
 } from "@/lib/locations";
 import { autoWashSchema } from "@/lib/structuredData";
 
@@ -103,6 +104,12 @@ describe("Wash King location registry", () => {
       "PLATINUM",
       "DIAMOND",
       "ROYALTY",
+    ]);
+    expect(getPackagesByMonthlyPriceDescending(vineland).map((plan) => plan.name)).toEqual([
+      "ROYALTY",
+      "DIAMOND",
+      "PLATINUM",
+      "BRONZE",
     ]);
     expect(orderedPlans.map(getBreakEvenVisits)).toEqual([2, 3, 3, 3]);
 
