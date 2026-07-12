@@ -24,6 +24,41 @@ describe("modern UI guardrails", () => {
     });
   });
 
+  it("uses the spaced Wash King name in customer-facing copy", () => {
+    const customerFacingFiles = [
+      "index.html",
+      "src/lib/site.ts",
+      "src/lib/locations.ts",
+      "src/components/BrandLogo.tsx",
+      "src/components/Header.tsx",
+      "src/components/HeroSection.tsx",
+      "src/components/LocationsSection.tsx",
+      "src/components/LocationsMapInner.tsx",
+      "src/components/ProofSection.tsx",
+      "src/components/TrustStatsSection.tsx",
+      "src/components/FAQSection.tsx",
+      "src/components/Footer.tsx",
+      "src/pages/Index.tsx",
+      "src/pages/AboutPage.tsx",
+      "src/pages/ContactPage.tsx",
+      "src/pages/CustomerSurveyPage.tsx",
+      "src/pages/EmploymentPage.tsx",
+      "src/pages/LocationPage.tsx",
+      "src/pages/NotFound.tsx",
+      "src/pages/PrivacyPage.tsx",
+      "src/pages/ThankYouPage.tsx",
+    ];
+
+    customerFacingFiles.forEach((file) => {
+      const copy = source(file)
+        .replaceAll("WashKingLocation", "")
+        .replaceAll("WashKingVineland", "")
+        .replaceAll("CONTACT@WASHKING.NET", "");
+
+      expect(copy).not.toMatch(/\b(?:WashKing|WASHKING|Washking)\b/);
+    });
+  });
+
   it("keeps legacy decorative treatments off customer-facing surfaces", () => {
     const surfaces = [
       "src/components/Header.tsx",

@@ -31,14 +31,14 @@ const ProofSection = () => (
               Built for everyday convenience
             </p>
             <h2 className="font-display text-3xl text-white sm:text-4xl">
-              WHY WASHKING
+              WHY WASH KING
             </h2>
           </div>
           <Link
             to="/about"
             className="btn-cloud border border-white bg-white px-6 py-3 text-sm text-washking-brown"
           >
-            About WashKing
+            About Wash King
           </Link>
         </div>
 

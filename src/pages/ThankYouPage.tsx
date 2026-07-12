@@ -10,18 +10,18 @@ import OptimizedImage from "@/components/OptimizedImage";
 const sourceContent: Record<string, { title: string; subtitle: string; message: string }> = {
   contact_form: {
     title: "MESSAGE RECEIVED!",
-    subtitle: "Thanks for reaching out to WashKing",
-    message: "Your message has been delivered to the WashKing team for review.",
+    subtitle: "Thanks for reaching out to Wash King",
+    message: "Your message has been delivered to the Wash King team for review.",
   },
   customer_survey: {
     title: "FEEDBACK SUBMITTED!",
     subtitle: "Thank you for helping us shine brighter",
-    message: "Your feedback has been delivered to the WashKing team and will help us understand your visit.",
+    message: "Your feedback has been delivered to the Wash King team and will help us understand your visit.",
   },
   employment_application: {
     title: "APPLICATION SENT!",
-    subtitle: "Welcome to the WashKing journey",
-    message: "Your application has been delivered to the WashKing hiring team for review.",
+    subtitle: "Welcome to the Wash King journey",
+    message: "Your application has been delivered to the Wash King hiring team for review.",
   },
 };
 
@@ -33,8 +33,8 @@ const ThankYouPage = () => {
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <Seo
-        title="Thank You | WashKing Car Wash"
-        description="Your website form has been submitted to WashKing Car Wash."
+        title="Thank You | Wash King Car Wash"
+        description="Your website form has been submitted to Wash King Car Wash."
         path="/thank-you"
         noIndex
       />
@@ -47,7 +47,7 @@ const ThankYouPage = () => {
             <OptimizedImage
               avifSrc={lionMascotAvif}
               src={lionMascot}
-              alt="WashKing Lion"
+              alt="Wash King Lion"
               width={1132}
               height={1920}
               decoding="async"

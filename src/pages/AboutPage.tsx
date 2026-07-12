@@ -65,8 +65,8 @@ const coreValues = [
 const AboutPage = () => (
   <div className="min-h-screen bg-white">
     <Seo
-      title="About WashKing | Family-Owned New Jersey Car Wash"
-      description="Learn about WashKing Car Wash, a family-owned business with four open New Jersey locations and Cherry Hill coming soon."
+      title="About Wash King | Family-Owned New Jersey Car Wash"
+      description="Learn about Wash King Car Wash, a family-owned business with four open New Jersey locations and Cherry Hill coming soon."
       path="/about"
     />
     <Header />
@@ -74,7 +74,7 @@ const AboutPage = () => (
       <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-14">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-display text-4xl text-white sm:text-5xl">
-            ABOUT WASHKING
+            ABOUT WASH KING
           </h1>
         </div>
       </section>

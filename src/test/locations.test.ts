@@ -16,7 +16,7 @@ import {
 } from "@/lib/locations";
 import { autoWashSchema } from "@/lib/structuredData";
 
-describe("WashKing location registry", () => {
+describe("Wash King location registry", () => {
   it("contains four open locations and Cherry Hill coming soon", () => {
     expect(LOCATIONS).toHaveLength(5);
     expect(OPEN_LOCATIONS).toHaveLength(4);

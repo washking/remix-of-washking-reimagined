@@ -36,7 +36,7 @@ const HeroSection = () => {
 
           <div className="mt-5 max-w-xl">
             <p className="font-body text-base font-bold leading-relaxed text-white sm:text-lg lg:text-xl">
-              Find your nearest WashKing, check today's hours, compare wash plans, and get directions.
+              Find your nearest Wash King, check today's hours, compare wash plans, and get directions.
             </p>
             <p className="mt-3 font-body text-sm font-extrabold uppercase text-washking-yellow sm:text-base">
               {OPEN_LOCATIONS.length} LOCATIONS OPEN | CHERRY HILL COMING SOON

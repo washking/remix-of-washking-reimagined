@@ -91,7 +91,7 @@ const ContactPage = () => {
     try {
       await submitWebsiteForm({
         source: "contact_form",
-        subject: "New WashKing Contact Enquiry",
+        subject: "New Wash King Contact Enquiry",
         data: {
           ...data,
           plateNumber: isMembershipContactTopic(data.topic)
@@ -99,7 +99,7 @@ const ContactPage = () => {
             : undefined,
         },
       });
-      toast.success("Message sent. Thank you for contacting WashKing.");
+      toast.success("Message sent. Thank you for contacting Wash King.");
       form.reset();
       track("form_submit", { form: "contact" });
       navigate("/thank-you?source=contact_form");
@@ -112,8 +112,8 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-        title="Contact WashKing Car Wash | New Jersey Locations"
-        description="Contact WashKing Car Wash about memberships, wash packages or any of our New Jersey locations. Four locations are open and Cherry Hill is coming soon."
+        title="Contact Wash King Car Wash | New Jersey Locations"
+        description="Contact Wash King Car Wash about memberships, wash packages or any of our New Jersey locations. Four locations are open and Cherry Hill is coming soon."
         path="/contact"
       />
       <Header />
@@ -121,7 +121,7 @@ const ContactPage = () => {
       <main id="main-content" tabIndex={-1}>
         <FormPageHero
           eyebrow="Customer support"
-          title="CONTACT WASHKING"
+          title="CONTACT WASH KING"
           description="Choose a topic and location so your request reaches the right team."
           icon={MessageSquareText}
         />

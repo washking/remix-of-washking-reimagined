@@ -13,8 +13,8 @@ const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Seo
-        title="WashKing Car Wash | Four New Jersey Locations"
-        description="Visit WashKing at four open New Jersey car wash locations, with Cherry Hill coming soon. Explore wash packages and unlimited monthly plans."
+        title="Wash King Car Wash | Four New Jersey Locations"
+        description="Visit Wash King at four open New Jersey car wash locations, with Cherry Hill coming soon. Explore wash packages and unlimited monthly plans."
         path="/"
         jsonLd={organizationSchema()}
       />

@@ -7,8 +7,8 @@ import { CONTACT_EMAIL, MEMBERSHIP_PORTAL } from "@/lib/site";
 const PrivacyPage = () => (
   <div className="min-h-screen overflow-x-hidden bg-white">
     <Seo
-      title="Privacy Notice | WashKing Car Wash"
-      description="Learn what information WashKing's website collects through forms and website analytics, how it is used, and which services receive it."
+      title="Privacy Notice | Wash King Car Wash"
+      description="Learn what information Wash King's website collects through forms and website analytics, how it is used, and which services receive it."
       path="/privacy"
     />
     <Header />
@@ -32,7 +32,7 @@ const PrivacyPage = () => (
           <div className="mx-auto flex max-w-4xl items-start gap-4">
             <ShieldCheck className="mt-1 h-7 w-7 shrink-0 text-washking-brown" aria-hidden="true" />
             <p className="font-body text-base font-bold leading-relaxed text-washking-brown sm:text-lg">
-              WashKing receives information you choose to send through website forms. The site also records limited usage signals tied to random browser identifiers so the team can understand which pages and actions are useful.
+              Wash King receives information you choose to send through website forms. The site also records limited usage signals tied to random browser identifiers so the team can understand which pages and actions are useful.
             </p>
           </div>
         </div>
@@ -95,7 +95,7 @@ const PrivacyPage = () => (
                     Form information is used to respond to customer questions, review feedback, assist with membership requests, and evaluate employment applications. Website analytics are used to understand website performance and improve customer journeys.
                   </p>
                   <p>
-                    Contact, survey, and employment submissions are delivered through Formspree and a Webchily-managed Supabase function. Website analytics are delivered to a separate WashKing Supabase endpoint. A form is sent to both delivery services so a temporary provider outage is less likely to lose the message.
+                    Contact, survey, and employment submissions are delivered through Formspree and a Webchily-managed Supabase function. Website analytics are delivered to a separate Wash King Supabase endpoint. A form is sent to both delivery services so a temporary provider outage is less likely to lose the message.
                   </p>
                   <p>
                     Membership purchases and account management open the external NXTWash customer portal. Information entered there is handled by that service under its own terms and privacy practices. You can open the{" "}
@@ -126,9 +126,9 @@ const PrivacyPage = () => (
                     You can clear the site's random identifiers by clearing local and session storage in your browser. You can also use the site without submitting a contact, survey, or employment form.
                   </p>
                   <p>
-                    To ask about information WashKing received through a website form, or to request a correction or deletion, email{" "}
+                    To ask about information Wash King received through a website form, or to request a correction or deletion, email{" "}
                     <a
-                      href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("WashKing website privacy request")}`}
+                      href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Wash King website privacy request")}`}
                       className="font-bold text-washking-sky underline underline-offset-4"
                     >
                       {CONTACT_EMAIL}

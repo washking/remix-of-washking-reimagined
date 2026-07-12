@@ -29,8 +29,8 @@ import {
 const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
   <div className="min-h-screen overflow-x-hidden bg-gray-50">
     <Seo
-      title={`${location.name} Car Wash - Coming Soon | WashKing`}
-      description={`WashKing Car Wash is coming soon to ${location.city}. Follow the new location and contact our team for updates.`}
+      title={`${location.name} Car Wash - Coming Soon | Wash King`}
+      description={`Wash King Car Wash is coming soon to ${location.city}. Follow the new location and contact our team for updates.`}
       path={`/location/${location.slug}`}
     />
     <Header />
@@ -47,7 +47,7 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
                 {location.name}
               </h1>
               <p className="mx-auto max-w-xl font-body text-xl font-bold text-white sm:text-2xl lg:mx-0">
-                A new WashKing is on the way to {location.city}.
+                A new Wash King is on the way to {location.city}.
               </p>
             </div>
 
@@ -88,7 +88,7 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
                   to={`/contact?location=${location.slug}&topic=opening-updates`}
                   className="btn-cloud border border-washking-brown bg-washking-brown px-4 py-3 text-center font-body text-base font-extrabold text-white"
                 >
-                  Contact WashKing
+                  Contact Wash King
                 </Link>
                 <Link
                   to="/#locations"
@@ -144,8 +144,8 @@ const LocationPage = () => {
     return (
       <div className="min-h-screen bg-gray-50">
         <Seo
-          title="Location Not Found | WashKing Car Wash"
-          description="This WashKing Car Wash location could not be found. Explore our New Jersey locations."
+          title="Location Not Found | Wash King Car Wash"
+          description="This Wash King Car Wash location could not be found. Explore our New Jersey locations."
           path="/location"
           noIndex
         />
@@ -170,7 +170,7 @@ const LocationPage = () => {
   const startingPrice = getStartingMonthlyPrice(location);
   const memberBenefits = [...UNLIMITED_MEMBER_BENEFITS, ...location.memberPerks];
   const orderedPackages = getPackagesByMonthlyPrice(location);
-  const portalLocationName = location.portalLocationName || `WashKing ${location.name}`;
+  const portalLocationName = location.portalLocationName || `Wash King ${location.name}`;
 
   const scrollToPlans = () => {
     document.getElementById("wash-plans")?.scrollIntoView({ behavior: "smooth" });
@@ -179,8 +179,8 @@ const LocationPage = () => {
   return (
     <div className="min-h-screen overflow-x-hidden bg-gray-50 pb-24 md:pb-0">
       <Seo
-        title={`${location.name} Car Wash | WashKing ${location.city.replace(/\s*\d{5}$/, "")}`}
-        description={`Visit WashKing ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
+        title={`${location.name} Car Wash | Wash King ${location.city.replace(/\s*\d{5}$/, "")}`}
+        description={`Visit Wash King ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
         path={`/location/${location.slug}`}
         jsonLd={autoWashSchema(location.slug, location)}
       />
@@ -483,7 +483,7 @@ const LocationPage = () => {
                     loading="lazy"
                     tabIndex={-1}
                     referrerPolicy="no-referrer-when-downgrade"
-                    title={`Map for WashKing ${location.name}`}
+                    title={`Map for Wash King ${location.name}`}
                     className="pointer-events-none w-full h-[320px] lg:h-[420px]"
                   />
                   {directionsUrl && (

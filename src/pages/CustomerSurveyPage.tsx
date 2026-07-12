@@ -83,7 +83,7 @@ const CustomerSurveyPage = () => {
     try {
       await submitWebsiteForm({
         source: "customer_survey",
-        subject: "New WashKing Customer Survey",
+        subject: "New Wash King Customer Survey",
         data,
       });
       toast.success("Thank you. Your feedback was submitted.");
@@ -99,8 +99,8 @@ const CustomerSurveyPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-        title="Customer Survey | WashKing Car Wash"
-        description="Share feedback about your visit to one of WashKing Car Wash's four open New Jersey locations."
+        title="Customer Survey | Wash King Car Wash"
+        description="Share feedback about your visit to one of Wash King Car Wash's four open New Jersey locations."
         path="/customer-survey"
         noIndex
       />
@@ -110,7 +110,7 @@ const CustomerSurveyPage = () => {
         <FormPageHero
           eyebrow="Customer feedback"
           title="TELL US ABOUT YOUR VISIT"
-          description="Share your experience with the WashKing team."
+          description="Share your experience with the Wash King team."
           icon={ClipboardCheck}
         />
 

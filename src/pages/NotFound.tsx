@@ -15,8 +15,8 @@ const NotFound = () => {
   return (
     <main id="main-content" tabIndex={-1} className="flex min-h-screen items-center justify-center bg-gray-50">
       <Seo
-        title="Page Not Found | WashKing Car Wash"
-        description="The page you're looking for doesn't exist. Return to WashKing Car Wash."
+        title="Page Not Found | Wash King Car Wash"
+        description="The page you're looking for doesn't exist. Return to Wash King Car Wash."
         path="/404"
         noIndex
       />
@@ -24,7 +24,7 @@ const NotFound = () => {
         <OptimizedImage
           avifSrc={lionMascotAvif}
           src={lionMascot} 
-          alt="WashKing Lion" 
+          alt="Wash King Lion"
           width={1132}
           height={1920}
           decoding="async"

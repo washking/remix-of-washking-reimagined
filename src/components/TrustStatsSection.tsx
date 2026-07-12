@@ -58,7 +58,7 @@ const TrustStatsSection = () => (
             Current location facts
           </p>
           <h2 className="font-display text-4xl text-washking-brown sm:text-5xl">
-            WASHKING AT A GLANCE
+            WASH KING AT A GLANCE
           </h2>
           <p className="mt-3 font-body text-base leading-relaxed text-gray-700 sm:text-lg">
             Pick the service and hours that fit your visit, then view that location for exact plans and directions.

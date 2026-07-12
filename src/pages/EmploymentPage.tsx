@@ -101,10 +101,10 @@ const EmploymentPage = () => {
     try {
       await submitWebsiteForm({
         source: "employment_application",
-        subject: "New WashKing Employment Application",
+        subject: "New Wash King Employment Application",
         data,
       });
-      toast.success("Application submitted. Thank you for your interest in WashKing.");
+      toast.success("Application submitted. Thank you for your interest in Wash King.");
       reset();
       track("form_submit", { form: "employment" });
       navigate("/thank-you?source=employment_application");
@@ -117,8 +117,8 @@ const EmploymentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-        title="Careers at WashKing Car Wash | Now Hiring in NJ"
-        description="Apply to join the WashKing Car Wash team at one of our four open New Jersey locations."
+        title="Careers at Wash King Car Wash | Now Hiring in NJ"
+        description="Apply to join the Wash King Car Wash team at one of our four open New Jersey locations."
         path="/employment"
       />
       <Header />
@@ -126,7 +126,7 @@ const EmploymentPage = () => {
       <main id="main-content" tabIndex={-1}>
         <FormPageHero
           eyebrow="Careers"
-          title="JOIN THE WASHKING TEAM"
+          title="JOIN THE WASH KING TEAM"
           description="Tell us where you would like to work and a little about yourself."
           icon={BriefcaseBusiness}
         />
@@ -323,7 +323,7 @@ const EmploymentPage = () => {
                       required
                       maxLength={1000}
                       rows={7}
-                      placeholder="Share relevant experience, availability, or why you would like to join WashKing."
+                      placeholder="Share relevant experience, availability, or why you would like to join Wash King."
                       {...register("message")}
                       aria-invalid={Boolean(errors.message)}
                       aria-describedby={errors.message ? "employment-message-error" : undefined}
@@ -340,7 +340,7 @@ const EmploymentPage = () => {
                   <div className="grid gap-6 md:grid-cols-3">
                     <YesNoField
                       id="employment-applied-before"
-                      label="Applied to WashKing before?"
+                      label="Applied to Wash King before?"
                       value={watch("appliedBefore")}
                       error={errors.appliedBefore?.message}
                       onChange={(value) => setValue("appliedBefore", value, { shouldValidate: true })}

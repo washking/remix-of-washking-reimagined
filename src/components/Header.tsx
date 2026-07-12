@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronDown, Mail, Menu, X } from "lucide-react";
-import logo from "@/assets/washking-logo.png";
-import logoAvif from "@/assets/washking-logo.avif";
-import OptimizedImage from "@/components/OptimizedImage";
+import BrandLogo from "@/components/BrandLogo";
 import { LOCATIONS } from "@/lib/locations";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 
@@ -32,7 +30,7 @@ const menuItems: MenuItem[] = [
     label: "About",
     href: "/about",
     dropdown: [
-      { label: "About WashKing", href: "/about" },
+      { label: "About Wash King", href: "/about" },
       { label: "FAQs", href: "/#faq" },
       { label: "At a Glance", href: "/#at-a-glance" },
       { label: "Employment", href: "/employment" },
@@ -94,17 +92,9 @@ const Header = () => {
             href="/"
             onClick={(event) => handleNavClick(event, "/")}
             className="flex items-center shrink-0"
-            aria-label="WashKing home"
+            aria-label="Wash King home"
           >
-            <OptimizedImage
-              avifSrc={logoAvif}
-              src={logo}
-              alt="WashKing Car Wash"
-              width={500}
-              height={511}
-              decoding="async"
-              className="h-14 w-auto sm:h-16"
-            />
+            <BrandLogo />
           </a>
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">

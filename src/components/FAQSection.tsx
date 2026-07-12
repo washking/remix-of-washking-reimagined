@@ -13,27 +13,27 @@ import {
 
 const faqs = [
   {
-    question: "How do I sign up for WashKing's Unlimited Wash Plans?",
-    answer: "You can easily sign up for our Unlimited Wash Plans either online through our website, at our onsite pay station, or by speaking with a WashKing team member at our location.",
+    question: "How do I sign up for Wash King's Unlimited Wash Plans?",
+    answer: "You can easily sign up for our Unlimited Wash Plans either online through our website, at our onsite pay station, or by speaking with a Wash King team member at our location.",
   },
   {
-    question: "When will I be billed for my WashKing Unlimited Wash Plan?",
+    question: "When will I be billed for my Wash King Unlimited Wash Plan?",
     answer: "Your payment card will be automatically charged on the same date each month, ensuring hassle-free billing.",
   },
   {
     question: "What should I do if I get a new license plate or a new car?",
-    answer: "Updating your information is simple. You can do it online through your member portal on our website or by speaking with a WashKing team member at our location.",
+    answer: "Updating your information is simple. You can do it online through your member portal on our website or by speaking with a Wash King team member at our location.",
   },
   {
-    question: "Can I use my WashKing Unlimited Wash Plan on more than one vehicle?",
+    question: "Can I use my Wash King Unlimited Wash Plan on more than one vehicle?",
     answer: "Each Unlimited Wash Plan is connected to one vehicle and its license plate. Contact us if you need help choosing coverage for another vehicle.",
   },
   {
-    question: "How do I cancel my WashKing Unlimited Wash Plan?",
-    answer: "You can cancel online through the membership portal or visit an open WashKing location and speak with a team member. You can also send us a message through the contact page if you need help.",
+    question: "How do I cancel my Wash King Unlimited Wash Plan?",
+    answer: "You can cancel online through the membership portal or visit an open Wash King location and speak with a team member. You can also send us a message through the contact page if you need help.",
   },
   {
-    question: "What happens when I cancel my WashKing Unlimited Wash Plan?",
+    question: "What happens when I cancel my Wash King Unlimited Wash Plan?",
     answer: "If you choose to cancel your Unlimited Wash Plan, your membership will end on the day it is canceled, even if there are remaining days in the month. We strive to ensure transparency and flexibility in our cancellation process.",
   },
 ];
@@ -57,7 +57,7 @@ const FAQSection = () => {
             <OptimizedImage
               avifSrc={lionMascotAvif}
               src={lionMascot}
-              alt="WashKing Lion"
+              alt="Wash King Lion"
               width={1132}
               height={1920}
               loading="lazy"

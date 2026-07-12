@@ -99,7 +99,7 @@ const LocationCard = ({
             target="_blank"
             rel="noopener noreferrer"
             className="btn-cloud flex items-center justify-center gap-1.5 border border-washking-brown bg-washking-brown px-3 py-2.5 text-center text-sm text-white"
-            aria-label={`Get directions to WashKing ${location.name}`}
+            aria-label={`Get directions to Wash King ${location.name}`}
           >
             <Navigation className="h-4 w-4" aria-hidden="true" />
             Directions
@@ -129,7 +129,7 @@ const LocationsSection = () => {
               Hours, services, prices, and directions
             </p>
             <h2 className="mb-3 font-display text-3xl text-washking-brown sm:text-4xl lg:text-5xl">
-              FIND YOUR WASHKING
+              FIND YOUR WASH KING
             </h2>
             <p className="mx-auto max-w-2xl font-body text-base text-gray-600 sm:text-lg">
               Choose one of our {OPEN_LOCATIONS.length} open New Jersey locations to compare washes and plan your visit.
@@ -152,7 +152,7 @@ const LocationsSection = () => {
                 <p className="mb-1 font-body text-sm font-extrabold text-washking-sky">COMING SOON</p>
                 <h3 className="font-display text-2xl text-washking-brown">{comingSoon.name}</h3>
                 <p className="font-body text-gray-700">
-                  A new WashKing is on the way to {comingSoon.city}.
+                  A new Wash King is on the way to {comingSoon.city}.
                 </p>
               </div>
               <Link

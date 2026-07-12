@@ -95,7 +95,7 @@ const LocationsMapInner = () => {
       L.marker([location.lat, location.lng], {
         icon: makeIcon(comingSoon),
         title: `${location.name}${comingSoon ? " - Coming Soon" : ""}`,
-        alt: `WashKing ${location.name}`,
+        alt: `Wash King ${location.name}`,
       })
         .addTo(map)
         .bindPopup(makePopup(location));
@@ -114,7 +114,7 @@ const LocationsMapInner = () => {
       ref={containerRef}
       className="h-full w-full"
       role="region"
-      aria-label="Map of five WashKing locations across New Jersey, including Cherry Hill coming soon"
+      aria-label="Map of five Wash King locations across New Jersey, including Cherry Hill coming soon"
     />
   );
 };

@@ -1,9 +1,7 @@
 import { Facebook, Instagram, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "@/assets/washking-logo.png";
-import logoAvif from "@/assets/washking-logo.avif";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
-import OptimizedImage from "@/components/OptimizedImage";
+import BrandLogo from "@/components/BrandLogo";
 
 const exploreLinks1 = [
   { label: "Home", href: "/" },
@@ -50,16 +48,7 @@ const Footer = () => {
         <div className="container mx-auto max-w-6xl px-4">
           <div className="mb-7 flex justify-center md:justify-start">
             <Link to="/">
-              <OptimizedImage
-                avifSrc={logoAvif}
-                src={logo} 
-                alt="WashKing Car Wash" 
-                width={500}
-                height={511}
-                loading="lazy"
-                decoding="async"
-                className="h-auto w-24 lg:w-32"
-              />
+              <BrandLogo variant="footer" />
             </Link>
           </div>
 
@@ -159,7 +148,7 @@ const Footer = () => {
             className="text-center mt-6 pt-4 border-t border-white/20"
           >
             <p className="text-white/70 font-body text-xs lg:text-sm flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-              <span>© {new Date().getFullYear()} WashKing Car Wash. All rights reserved.</span>
+              <span>© {new Date().getFullYear()} Wash King Car Wash. All rights reserved.</span>
               <span className="hidden sm:inline text-white/40">|</span>
               <a
                 href="/privacy"
