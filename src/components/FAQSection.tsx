@@ -13,16 +13,20 @@ import {
 
 const faqs = [
   {
+    question: "How often can I use an Unlimited Wash Plan?",
+    answer: "Unlimited members can wash their registered vehicle once a day for one monthly price.",
+  },
+  {
     question: "How do I sign up for Wash King's Unlimited Wash Plans?",
-    answer: "You can easily sign up for our Unlimited Wash Plans either online through our website, at our onsite pay station, or by speaking with a Wash King team member at our location.",
+    answer: "Join through the online membership portal, at an onsite pay station, or with help from a Wash King team member.",
   },
   {
     question: "When will I be billed for my Wash King Unlimited Wash Plan?",
-    answer: "Your payment card will be automatically charged on the same date each month, ensuring hassle-free billing.",
+    answer: "Your payment card is charged automatically on the same date each month.",
   },
   {
     question: "What should I do if I get a new license plate or a new car?",
-    answer: "Updating your information is simple. You can do it online through your member portal on our website or by speaking with a Wash King team member at our location.",
+    answer: "Update your vehicle in the member portal or ask a Wash King team member for help at an open location.",
   },
   {
     question: "Can I use my Wash King Unlimited Wash Plan on more than one vehicle?",
@@ -30,24 +34,28 @@ const faqs = [
   },
   {
     question: "How do I cancel my Wash King Unlimited Wash Plan?",
-    answer: "You can cancel online through the membership portal or visit an open Wash King location and speak with a team member. You can also send us a message through the contact page if you need help.",
+    answer: "Cancel through the membership portal or visit an open Wash King location and speak with a team member. Contact support if you need help finding your account.",
   },
   {
     question: "What happens when I cancel my Wash King Unlimited Wash Plan?",
-    answer: "If you choose to cancel your Unlimited Wash Plan, your membership will end on the day it is canceled, even if there are remaining days in the month. We strive to ensure transparency and flexibility in our cancellation process.",
+    answer: "Your membership ends on the day it is canceled, even if days remain in the current billing month.",
   },
 ];
 
+const supportCopy = "Need account help? Use the phone number connected to your membership so our team can find it quickly.";
+
 const FAQSection = () => {
   return (
-    <section id="faq" className="bg-gray-50 py-12 lg:py-16">
+    <section id="faq" className="scroll-mt-24 bg-gray-50 py-12 lg:py-16">
       <div className="container mx-auto px-4">
-        <div
-          className="text-center mb-6 lg:mb-14"
-        >
-          <h2 className="font-display text-3xl text-washking-brown sm:text-4xl lg:text-5xl">
-            ANY QUESTIONS?
+        <div className="mb-9 text-center lg:mb-12">
+          <p className="section-eyebrow mb-2">Unlimited membership</p>
+          <h2 className="section-title">
+            Questions, answered
           </h2>
+          <p className="section-copy mx-auto mt-3 max-w-2xl">
+            The essentials about joining, billing, vehicles, and cancellation.
+          </p>
         </div>
 
         <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-16 max-w-6xl mx-auto">
@@ -57,7 +65,7 @@ const FAQSection = () => {
             <OptimizedImage
               avifSrc={lionMascotAvif}
               src={lionMascot}
-              alt="Wash King Lion"
+              alt="Wash King lion mascot"
               width={1132}
               height={1920}
               loading="lazy"
@@ -65,31 +73,30 @@ const FAQSection = () => {
               className="mx-auto mb-6 h-auto w-32 lg:mx-0 lg:w-40"
             />
             <p className="font-body text-base leading-relaxed text-gray-700 lg:text-lg">
-              Have more questions? Feel free to reach out to us! We're here to assist 
-              you with all your car care needs.
+              {supportCopy}
             </p>
           </div>
 
           <div
             className="lg:w-2/3 w-full"
           >
-            <Accordion type="single" collapsible className="space-y-2 lg:space-y-4">
+            <Accordion type="single" collapsible className="space-y-2.5">
               {faqs.map((faq, index) => (
                 <AccordionItem
                   key={index} 
                   value={`item-${index}`}
-                  className="border-b border-gray-300 pb-2 lg:pb-4"
+                  className="rounded-lg border border-gray-200 bg-white px-4 shadow-sm sm:px-5"
                 >
                   <AccordionTrigger 
                     hideChevron 
-                    className="group py-3 text-left font-body text-sm font-extrabold text-washking-brown hover:no-underline sm:text-base lg:text-lg"
+                    className="group py-4 text-left font-body text-sm font-bold text-washking-brown hover:no-underline sm:text-base"
                   >
                     <span className="flex items-center gap-2 lg:gap-4">
                       <Plus className="h-4 w-4 flex-shrink-0 text-washking-sky transition-transform group-data-[state=open]:rotate-45 lg:h-5 lg:w-5" />
-                      {faq.question.toUpperCase()}
+                      {faq.question}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="pl-6 font-body text-sm leading-relaxed text-gray-700 sm:text-base lg:pl-9">
+                  <AccordionContent className="pl-6 pr-2 font-body text-sm leading-relaxed text-gray-700 sm:text-base lg:pl-9">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -103,7 +110,7 @@ const FAQSection = () => {
                 rel="noopener noreferrer"
                 data-analytics="membership_cta"
                 data-analytics-source="faq"
-                className="btn-cloud border border-washking-brown bg-washking-yellow px-5 py-3 text-center text-sm text-washking-brown"
+                className="btn-secondary px-5 text-center"
               >
                 Manage Membership
               </a>
@@ -111,7 +118,7 @@ const FAQSection = () => {
                 to="/contact"
                 data-analytics="contact_open"
                 data-analytics-source="faq"
-                className="btn-cloud border border-washking-brown bg-white px-5 py-3 text-center text-sm text-washking-brown"
+                className="btn-outline px-5 text-center"
               >
                 Contact Support
               </Link>
@@ -122,8 +129,7 @@ const FAQSection = () => {
         <p
           className="mx-auto mt-6 max-w-md text-center font-body text-sm leading-relaxed text-gray-700 lg:hidden"
         >
-          Have more questions? Feel free to reach out to us! We're here to assist 
-          you with all your car care needs.
+          {supportCopy}
         </p>
       </div>
     </section>

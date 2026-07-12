@@ -17,48 +17,48 @@ import Footer from "@/components/Footer";
 const coreValues = [
   {
     icon: Car,
-    title: "Relentless Pursuit of Cleanliness",
-    description: "Every vehicle receives meticulous attention, leaving it spotless and shining like new.",
+    title: "A consistently clean car",
+    description: "We focus on the details that make a wash feel worth the visit.",
   },
   {
     icon: Users,
-    title: "Exceptional Customer Service",
-    description: "We place our customers at the heart of everything we do. Your satisfaction drives us to be the best.",
+    title: "Service that feels personal",
+    description: "Customers stay at the center of every decision and every interaction.",
   },
   {
     icon: TrendingUp,
-    title: "Cultivating Growth",
-    description: "A place where skills are honed, talents are nurtured, and innovation is encouraged.",
+    title: "A team that keeps growing",
+    description: "We develop skills, encourage new ideas, and help our people do their best work.",
   },
   {
     icon: UsersRound,
-    title: "Community Engagement",
-    description: "Deeply invested in local initiatives and charitable causes in every community we serve.",
+    title: "Connected to our communities",
+    description: "We support local initiatives in the New Jersey communities we serve.",
   },
   {
     icon: Cpu,
-    title: "Cutting-Edge Technology",
-    description: "Advanced systems ensure your car receives the most thorough and efficient wash available.",
+    title: "Technology that saves time",
+    description: "Modern systems help make each arrival, wash, and membership visit more efficient.",
   },
   {
     icon: Shield,
-    title: "Proactive Maintenance",
-    description: "Regular checks ensure everything is in top working order, keeping services reliable and consistent.",
+    title: "Equipment you can count on",
+    description: "Routine checks help keep service reliable and the wash experience consistent.",
   },
   {
     icon: CheckCircle,
-    title: "Premium Products",
-    description: "High-quality, environmentally friendly products safe for your vehicle and effective at achieving a pristine finish.",
+    title: "Products chosen with care",
+    description: "We choose quality wash products for an effective clean and polished finish.",
   },
   {
     icon: Database,
-    title: "Data-Driven Performance",
-    description: "We track every aspect of our operation to continuously improve the experience for our customers.",
+    title: "Always improving",
+    description: "We use operational insights and customer feedback to make each location better.",
   },
   {
     icon: ArrowUpRight,
-    title: "Streamlined Operations",
-    description: "Optimized processes provide quick, effective washes without compromising on quality.",
+    title: "A smoother visit",
+    description: "Thoughtful processes keep the wash moving without compromising on quality.",
   },
 ] as const;
 
@@ -73,9 +73,15 @@ const AboutPage = () => (
     <main id="main-content" tabIndex={-1}>
       <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-14">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="font-display text-4xl text-white sm:text-5xl">
-            ABOUT WASH KING
+          <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
+            Family-owned in New Jersey
+          </p>
+          <h1 className="font-display text-3xl text-white sm:text-4xl">
+            About Wash King
           </h1>
+          <p className="mx-auto mt-3 max-w-2xl font-body text-base leading-relaxed text-white/90 sm:text-lg">
+            Car care built around quality, convenience, and the way we would want our own family treated.
+          </p>
         </div>
       </section>
 
@@ -83,26 +89,25 @@ const AboutPage = () => (
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-5xl">
             <h2 className="mb-8 text-center font-display text-3xl text-washking-brown sm:text-4xl">
-              <span className="text-washking-sky">WHO</span>{" "}
-              <span>WE ARE</span>
+              Who we are
             </h2>
 
             <div className="grid gap-5 md:grid-cols-2">
               <article className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
-                <h3 className="mb-4 font-body text-lg font-extrabold text-washking-green lg:text-xl">
-                  MISSION STATEMENT
+                <h3 className="mb-4 font-display text-lg text-washking-green lg:text-xl">
+                  Our mission
                 </h3>
                 <p className="font-body text-base leading-relaxed text-gray-700 lg:text-lg">
-                  To challenge, disrupt and redefine all industry norms — making car washing fast, easy, and enjoyable for everyone.
+                  Make car washing fast, easy, and enjoyable while raising the standard for quality and service.
                 </p>
               </article>
 
               <article className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
-                <h3 className="mb-4 font-body text-lg font-extrabold text-washking-green lg:text-xl">
-                  BRAND PROMISE
+                <h3 className="mb-4 font-display text-lg text-washking-green lg:text-xl">
+                  Our promise
                 </h3>
                 <p className="font-body text-base leading-relaxed text-gray-700 lg:text-lg">
-                  Car washing is our Passion. Family is at our Core. Only the Best for Family.
+                  Car washing is our passion. Family is at our core, and we bring that same care to every customer and vehicle.
                 </p>
               </article>
             </div>
@@ -112,9 +117,12 @@ const AboutPage = () => (
 
       <section className="bg-gray-50 py-12 lg:py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-9 text-center font-display text-3xl text-washking-brown sm:text-4xl">
-            CORE VALUES
+          <h2 className="mb-3 text-center font-display text-3xl text-washking-brown sm:text-4xl">
+            What guides us
           </h2>
+          <p className="mx-auto mb-9 max-w-2xl text-center font-body text-base leading-relaxed text-gray-600 sm:text-lg">
+            The standards behind each wash, each location, and each customer interaction.
+          </p>
 
           <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-3">
             {coreValues.map((value) => (
@@ -122,7 +130,7 @@ const AboutPage = () => (
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-washking-sky-light text-washking-sky">
                   <value.icon className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <h3 className="mb-2 font-body text-lg font-extrabold text-washking-green">
+                <h3 className="mb-2 font-display text-lg text-washking-green">
                   {value.title}
                 </h3>
                 <p className="font-body text-base leading-relaxed text-gray-600">
@@ -135,9 +143,9 @@ const AboutPage = () => (
           <div className="mt-10 text-center">
             <Link
               to="/#locations"
-              className="btn-cloud inline-block border border-washking-brown bg-washking-yellow px-7 py-3 text-base text-washking-brown"
+              className="btn-secondary px-7 text-base"
             >
-              View Our Location
+              Explore locations
             </Link>
           </div>
         </div>

@@ -54,13 +54,13 @@ const TrustStatsSection = () => (
     <div className="container mx-auto px-4">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 max-w-3xl">
-          <p className="mb-2 font-body text-sm font-extrabold uppercase text-washking-sky">
-            Current location facts
+          <p className="section-eyebrow mb-2">
+            Plan with the facts
           </p>
-          <h2 className="font-display text-4xl text-washking-brown sm:text-5xl">
-            WASH KING AT A GLANCE
+          <h2 className="section-title">
+            Wash King at a glance
           </h2>
-          <p className="mt-3 font-body text-base leading-relaxed text-gray-700 sm:text-lg">
+          <p className="section-copy mt-3">
             Pick the service and hours that fit your visit, then view that location for exact plans and directions.
           </p>
         </div>

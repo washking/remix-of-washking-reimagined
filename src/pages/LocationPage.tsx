@@ -26,8 +26,20 @@ import {
   type WashKingLocation,
 } from "@/lib/locations";
 
+const PLAN_ACCENT_CLASSES: Record<string, string> = {
+  BRONZE: "border-t-washking-green",
+  PLATINUM: "border-t-washking-sky",
+  DIAMOND: "border-t-washking-yellow",
+  ROYALTY: "border-t-washking-brown",
+};
+
+const sentenceCase = (value: string) => {
+  const normalized = value.replace(/^\*/, "").trim().toLowerCase();
+  return normalized ? `${normalized[0].toUpperCase()}${normalized.slice(1)}` : "";
+};
+
 const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
-  <div className="min-h-screen overflow-x-hidden bg-gray-50">
+  <div className="min-h-screen bg-gray-50">
     <Seo
       title={`${location.name} Car Wash - Coming Soon | Wash King`}
       description={`Wash King Car Wash is coming soon to ${location.city}. Follow the new location and contact our team for updates.`}
@@ -40,10 +52,10 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
         <div className="container mx-auto px-4">
           <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
             <div className="text-center lg:text-left">
-              <p className="mb-2 font-body text-sm font-extrabold uppercase text-washking-yellow">
-                {location.state.toUpperCase()}
+              <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
+                {location.state}
               </p>
-              <h1 className="mb-4 font-display text-4xl text-white sm:text-5xl lg:text-6xl">
+              <h1 className="mb-4 font-display text-3xl text-white sm:text-4xl lg:text-5xl">
                 {location.name}
               </h1>
               <p className="mx-auto max-w-xl font-body text-xl font-bold text-white sm:text-2xl lg:mx-0">
@@ -52,8 +64,8 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
             </div>
 
             <div className="mx-auto w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
-              <Badge className="mb-6 rounded-lg bg-washking-yellow px-4 py-2 font-body text-sm font-extrabold text-washking-brown">
-                Coming Soon
+              <Badge className="mb-6 rounded-lg bg-washking-yellow px-4 py-2 font-body text-sm font-bold text-washking-brown">
+                Coming soon
               </Badge>
 
               <div className="space-y-5">
@@ -62,7 +74,7 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
                     <MapPin className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="font-body text-xs font-extrabold text-washking-brown/70">LOCATION</p>
+                    <p className="font-body text-xs font-bold text-washking-brown/70">Location</p>
                     <p className="font-body font-bold text-washking-brown">{location.city}</p>
                   </div>
                 </div>
@@ -72,7 +84,7 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
                     <Mail className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                   </div>
                   <div className="min-w-0">
-                    <p className="font-body text-xs font-extrabold text-washking-brown/70">UPDATES</p>
+                    <p className="font-body text-xs font-bold text-washking-brown/70">Opening updates</p>
                     <a
                       href={`mailto:${location.email}?subject=${encodeURIComponent(`${location.name} opening updates`)}`}
                       className="break-all font-body font-bold text-washking-brown hover:underline"
@@ -86,15 +98,15 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
               <div className="mt-7 grid gap-3">
                 <Link
                   to={`/contact?location=${location.slug}&topic=opening-updates`}
-                  className="btn-cloud border border-washking-brown bg-washking-brown px-4 py-3 text-center font-body text-base font-extrabold text-white"
+                  className="btn-primary px-4 text-center text-base"
                 >
-                  Contact Wash King
+                  Ask about opening updates
                 </Link>
                 <Link
                   to="/#locations"
-                  className="btn-cloud border border-washking-brown bg-white px-4 py-3 text-center font-body text-base font-extrabold text-washking-brown"
+                  className="btn-outline px-4 text-center text-base"
                 >
-                  View Open Locations
+                  View open locations
                 </Link>
               </div>
             </div>
@@ -111,8 +123,8 @@ const HoursDetails = ({ location }: { location: WashKingLocation }) => {
   if (location.hours.is24Hours) {
     return (
       <>
-        <p className="font-display text-2xl mb-2">We never close</p>
-        <p className="font-display text-3xl">Open 24/7</p>
+        <p className="mb-2 font-body text-sm font-bold text-white/75">Daily hours</p>
+        <p className="font-display text-3xl">Open 24 hours</p>
       </>
     );
   }
@@ -120,7 +132,7 @@ const HoursDetails = ({ location }: { location: WashKingLocation }) => {
   if (location.hours.allDays) {
     return (
       <>
-        <p className="font-display text-xl mb-2">Monday - Sunday</p>
+        <p className="mb-2 font-body text-sm font-bold text-white/75">Monday - Sunday</p>
         <p className="font-display text-2xl">{location.hours.allDays}</p>
       </>
     );
@@ -128,9 +140,9 @@ const HoursDetails = ({ location }: { location: WashKingLocation }) => {
 
   return (
     <>
-      <p className="font-display text-lg mb-1">Monday - Saturday</p>
-      <p className="font-display text-2xl mb-4">{location.hours.weekdays}</p>
-      <p className="font-display text-lg mb-1">Sunday</p>
+      <p className="mb-1 font-body text-sm font-bold text-white/75">Monday - Saturday</p>
+      <p className="mb-4 font-display text-2xl">{location.hours.weekdays}</p>
+      <p className="mb-1 font-body text-sm font-bold text-white/75">Sunday</p>
       <p className="font-display text-2xl">{location.hours.sunday}</p>
     </>
   );
@@ -152,7 +164,7 @@ const LocationPage = () => {
         <Header />
         <main id="main-content" tabIndex={-1} className="container mx-auto px-4 py-24 text-center">
           <h1 className="mb-4 font-display text-4xl text-washking-brown">Location Not Found</h1>
-          <Link to="/#locations" className="btn-hero-primary inline-block border border-washking-brown">
+          <Link to="/#locations" className="btn-secondary inline-flex">
             View Locations
           </Link>
         </main>
@@ -177,7 +189,7 @@ const LocationPage = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-gray-50 pb-24 md:pb-0">
+    <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
       <Seo
         title={`${location.name} Car Wash | Wash King ${location.city.replace(/\s*\d{5}$/, "")}`}
         description={`Visit Wash King ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
@@ -191,10 +203,10 @@ const LocationPage = () => {
           <div className="container mx-auto px-4">
             <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
               <div className="text-center lg:text-left">
-                <p className="mb-2 font-body text-sm font-extrabold uppercase text-washking-yellow">
-                  {location.state.toUpperCase()}
+                <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
+                  {location.state}
                 </p>
-                <h1 className="mb-4 font-display text-4xl text-white sm:text-5xl lg:text-6xl">
+                <h1 className="mb-4 font-display text-3xl text-white sm:text-4xl lg:text-5xl">
                   {location.name}
                 </h1>
                 {Number.isFinite(startingPrice) && (
@@ -214,7 +226,7 @@ const LocationPage = () => {
                       <MapPin className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="font-body text-xs font-extrabold text-washking-brown/70">ADDRESS</p>
+                      <p className="font-body text-xs font-bold text-washking-brown/70">Address</p>
                       <p className="font-body font-bold text-washking-brown">{location.address}</p>
                       <p className="font-body text-washking-brown/80">{location.city}</p>
                     </div>
@@ -225,7 +237,7 @@ const LocationPage = () => {
                       <Clock className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="font-body text-xs font-extrabold text-washking-brown/70">HOURS</p>
+                      <p className="font-body text-xs font-bold text-washking-brown/70">Hours</p>
                       <p className="font-body font-bold text-washking-brown">{hoursSummary}</p>
                     </div>
                   </div>
@@ -235,7 +247,7 @@ const LocationPage = () => {
                       <Mail className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                     </div>
                     <div className="min-w-0">
-                      <p className="font-body text-xs font-extrabold text-washking-brown/70">CONTACT</p>
+                      <p className="font-body text-xs font-bold text-washking-brown/70">Contact</p>
                       <a href={`mailto:${location.email}`} className="break-all font-body font-bold text-washking-brown hover:underline">
                         {location.email}
                       </a>
@@ -252,7 +264,7 @@ const LocationPage = () => {
                       data-location-slug={location.slug}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-cloud flex items-center justify-center gap-2 border border-washking-brown bg-washking-brown px-3 py-3 font-body text-sm font-extrabold text-white"
+                      className="btn-primary gap-2 px-3"
                     >
                       <Navigation className="h-4 w-4" aria-hidden="true" />
                       Directions
@@ -261,7 +273,7 @@ const LocationPage = () => {
                   <button
                     type="button"
                     onClick={scrollToPlans}
-                    className="btn-cloud flex items-center justify-center gap-2 border border-washking-brown bg-white px-3 py-3 font-body text-sm font-extrabold text-washking-brown"
+                    className="btn-outline gap-2 px-3"
                   >
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
                     View Plans
@@ -275,7 +287,7 @@ const LocationPage = () => {
                     rel="noopener noreferrer"
                     className="btn-unlimited col-span-2 text-center"
                   >
-                    Go Unlimited
+                    Join Unlimited
                   </a>
                 </div>
               </div>
@@ -283,20 +295,21 @@ const LocationPage = () => {
           </div>
         </section>
 
-        <section id="wash-plans" className="scroll-mt-8 bg-gray-50 py-12 lg:py-16">
+        <section id="wash-plans" className="scroll-mt-24 bg-gray-50 py-12 lg:py-16">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-9 lg:mb-12">
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-washking-brown mb-3">
-                Wash Packages
+            <div className="mb-9 text-center lg:mb-12">
+              <p className="section-eyebrow mb-2">Compare your options</p>
+              <h2 className="section-title mb-3">
+                Wash plans and pricing
               </h2>
-              <p className="font-body text-base sm:text-lg text-washking-brown max-w-2xl mx-auto">
+              <p className="section-copy mx-auto max-w-2xl">
                 Choose a single wash or save with an unlimited monthly plan at {location.name}.
               </p>
             </div>
 
             <div className="mx-auto mb-8 flex max-w-4xl flex-col items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-5 text-center shadow-sm sm:flex-row sm:text-left">
               <p className="font-body text-sm text-washking-brown sm:text-base">
-                Membership checkout opens our NXTWash plan portal. Confirm{" "}
+                Online checkout opens our secure NXTWash membership portal. Choose{" "}
                 <strong>{portalLocationName}</strong> when prompted.
               </p>
               <a
@@ -306,14 +319,14 @@ const LocationPage = () => {
                 data-analytics="membership_cta"
                 data-analytics-source="location_plan_intro"
                 data-location-slug={location.slug}
-                className="inline-flex shrink-0 items-center gap-2 font-body text-sm font-extrabold text-washking-brown underline underline-offset-4"
+                className="inline-flex shrink-0 items-center gap-2 font-body text-sm font-bold text-washking-brown underline underline-offset-4"
               >
-                Member login
+                Manage an existing plan
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
 
-            <div className={`grid md:grid-cols-2 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-6 max-w-7xl mx-auto`}>
+            <div className={`mx-auto grid max-w-7xl gap-6 md:grid-cols-2 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
               {orderedPackages.map((washPackage, index) => {
                 const breakEvenVisits = getBreakEvenVisits(washPackage);
                 const includedFeatures = getIncludedFeatures(location, washPackage.name);
@@ -323,95 +336,95 @@ const LocationPage = () => {
                 return (
                   <article
                     key={washPackage.name}
-                    className={`${washPackage.color} flex flex-col overflow-hidden rounded-lg border border-washking-brown/15 shadow-sm`}
+                    className={`flex flex-col overflow-hidden rounded-lg border border-t-[6px] border-gray-200 bg-white shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
                   >
-                  <div className="p-6 text-center">
-                    {index === 0 && (
-                      <p className={`mb-2 font-body text-xs font-extrabold uppercase ${washPackage.textColor}`}>
-                        Lowest monthly price
-                      </p>
-                    )}
-                    <h3 className={`font-display text-3xl ${washPackage.textColor} mb-2`}>
-                      {washPackage.name}
-                    </h3>
-                    <p className={`font-display text-2xl ${washPackage.textColor}`}>
-                      {washPackage.singlePrice}
-                      <span className="font-body text-sm"> / single wash</span>
-                    </p>
-                  </div>
-
-                  <div className="border-y border-washking-brown/20 bg-washking-brown px-4 py-4 text-center">
-                    <p className="text-white font-display text-sm">UNLIMITED WASH CLUB</p>
-                    <p className="text-white font-display text-3xl">
-                      {washPackage.monthlyPrice}
-                      <span className="font-body text-xs"> + tax</span>
-                    </p>
-                    <p className="text-white font-body text-sm">per month</p>
-                    {breakEvenVisits && (
-                      <p className="mt-2 font-body text-xs font-extrabold text-white">
-                        Pays for itself by visit {breakEvenVisits}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="px-6 pb-6 pt-5 flex flex-col flex-1">
-                    {washPackage.includes && (
-                      <p className={`font-display text-sm ${washPackage.textColor} mb-3 text-center`}>
-                        {washPackage.includes}
-                      </p>
-                    )}
-                    <ul className="space-y-2 mb-5 flex-1">
-                      {visibleFeatures.map((feature) => (
-                        <li key={feature} className={`flex items-start gap-2 ${washPackage.textColor}`}>
-                          <Check className="w-5 h-5 shrink-0" aria-hidden="true" />
-                          <span className="font-body font-semibold text-sm">{feature}</span>
-                        </li>
-                      ))}
-                      {additionalFeatureCount > 0 && (
-                        <li className={`font-body text-sm font-extrabold ${washPackage.textColor}`}>
-                          + {additionalFeatureCount} more upgrades
-                        </li>
+                    <div className="p-6 pb-5 text-center">
+                      {index === 0 && (
+                        <p className="mb-2 font-body text-xs font-bold text-washking-sky">
+                          Lowest monthly price
+                        </p>
                       )}
-                    </ul>
-                    {washPackage.note && (
-                      <p className={`text-xs ${washPackage.textColor} opacity-80 mb-4`}>
-                        {washPackage.note}
+                      <h3 className="font-display text-2xl text-washking-brown">
+                        {sentenceCase(washPackage.name)}
+                      </h3>
+                      <p className="mt-2 font-body text-sm text-gray-600">
+                        Single wash{" "}
+                        <span className="font-bold text-washking-brown">{washPackage.singlePrice}</span>
                       </p>
-                    )}
+                    </div>
 
-                    <details className={`mb-5 border-t border-current/20 pt-3 ${washPackage.textColor}`}>
-                      <summary className="cursor-pointer font-body text-sm font-extrabold">
-                        See all {includedFeatures.length} included{" "}
-                        {includedFeatures.length === 1 ? "feature" : "features"}
-                      </summary>
-                      <ul className="mt-3 space-y-2">
-                        {includedFeatures.map((feature) => (
-                          <li key={feature} className="flex items-start gap-2">
-                            <Check className="h-4 w-4 shrink-0" aria-hidden="true" />
-                            <span className="font-body text-xs font-semibold">{feature}</span>
+                    <div className="border-y border-washking-sky/15 bg-washking-sky-light px-4 py-4 text-center">
+                      <p className="font-body text-xs font-bold text-washking-sky">Unlimited membership</p>
+                      <p className="mt-1 font-display text-3xl text-washking-brown">
+                        {washPackage.monthlyPrice}
+                        <span className="font-body text-xs font-bold">/month + tax</span>
+                      </p>
+                      {breakEvenVisits && (
+                        <p className="mt-2 font-body text-xs font-bold text-washking-brown/75">
+                          Covers its cost by visit {breakEvenVisits}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
+                      {washPackage.includes && (
+                        <p className="mb-3 text-center font-body text-sm font-bold text-washking-brown">
+                          Includes the previous plan, plus:
+                        </p>
+                      )}
+                      <ul className="mb-5 flex-1 space-y-2">
+                        {visibleFeatures.map((feature) => (
+                          <li key={feature} className="flex items-start gap-2 text-washking-brown">
+                            <Check className="h-5 w-5 shrink-0 text-washking-green" aria-hidden="true" />
+                            <span className="font-body text-sm font-semibold">{sentenceCase(feature)}</span>
                           </li>
                         ))}
+                        {additionalFeatureCount > 0 && (
+                          <li className="font-body text-sm font-bold text-washking-sky">
+                            + {additionalFeatureCount} more upgrades
+                          </li>
+                        )}
                       </ul>
-                    </details>
+                      {washPackage.note && (
+                        <p className="mb-4 font-body text-xs font-bold text-gray-500">
+                          {sentenceCase(washPackage.note)}
+                        </p>
+                      )}
 
-                    <a
-                      href={MEMBERSHIP_PORTAL}
-                      data-analytics="plan_select"
-                      data-analytics-source="location_plan_card"
-                      data-location-slug={location.slug}
-                      data-plan-name={washPackage.name}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-cloud flex items-center justify-center gap-2 border border-washking-brown bg-white px-5 py-2.5 text-center font-body text-base font-extrabold text-washking-brown"
-                      aria-label={`Join the ${washPackage.name} unlimited wash plan`}
-                    >
-                      Choose {washPackage.name}
-                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                    </a>
-                    <p className={`mt-2 text-center font-body text-xs ${washPackage.textColor}`}>
-                      Confirm {portalLocationName} in NXTWash
-                    </p>
-                  </div>
+                      {includedFeatures.length > visibleFeatures.length && (
+                        <details className="mb-5 border-t border-gray-200 pt-3 text-washking-brown">
+                          <summary className="cursor-pointer font-body text-sm font-bold">
+                            See all {includedFeatures.length} included features
+                          </summary>
+                          <ul className="mt-3 space-y-2">
+                            {includedFeatures.map((feature) => (
+                              <li key={feature} className="flex items-start gap-2">
+                                <Check className="h-4 w-4 shrink-0 text-washking-green" aria-hidden="true" />
+                                <span className="font-body text-xs font-semibold">{sentenceCase(feature)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </details>
+                      )}
+
+                      <a
+                        href={MEMBERSHIP_PORTAL}
+                        data-analytics="plan_select"
+                        data-analytics-source="location_plan_card"
+                        data-location-slug={location.slug}
+                        data-plan-name={washPackage.name}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary gap-2 px-4 text-center text-sm"
+                        aria-label={`Join the ${sentenceCase(washPackage.name)} unlimited wash plan`}
+                      >
+                        Join {sentenceCase(washPackage.name)} Unlimited
+                        <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                      </a>
+                      <p className="mt-2 text-center font-body text-xs text-gray-500">
+                        Choose {portalLocationName} and {sentenceCase(washPackage.name)} in the portal
+                      </p>
+                    </div>
                   </article>
                 );
               })}
@@ -421,14 +434,17 @@ const LocationPage = () => {
 
         <section className="bg-washking-yellow py-12 lg:py-16">
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] items-center gap-8">
+            <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
-                <p className="mb-2 font-body text-sm font-extrabold text-washking-brown/70">MEMBERSHIP</p>
+                <p className="mb-2 font-body text-sm font-bold text-washking-brown/70">Membership benefits</p>
                 <h2 className="font-display text-3xl text-washking-brown lg:text-4xl">
-                  Why Become a Member?
+                  More value in every month
                 </h2>
+                <p className="mt-3 font-body text-base leading-relaxed text-washking-brown/80">
+                  Built for drivers who like keeping a clean car without buying each wash separately.
+                </p>
               </div>
-              <ul className="grid sm:grid-cols-2 gap-4">
+              <ul className="grid gap-4 sm:grid-cols-2">
                 {memberBenefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3 text-washking-brown">
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-washking-brown">
@@ -444,11 +460,11 @@ const LocationPage = () => {
 
         <section className="bg-white py-14 lg:py-20">
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-12 items-center">
+            <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
               <div>
-                <p className="mb-2 font-body text-sm font-extrabold text-washking-sky">PLAN YOUR VISIT</p>
+                <p className="section-eyebrow mb-2">Plan your visit</p>
                 <h2 className="mb-6 font-display text-3xl text-washking-brown lg:text-4xl">
-                  Hours and Directions
+                  Hours and directions
                 </h2>
                 <div className="rounded-lg bg-washking-green p-7 text-white">
                   <HoursDetails location={location} />
@@ -464,7 +480,7 @@ const LocationPage = () => {
                     data-location-slug={location.slug}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-cloud mt-5 inline-flex items-center gap-2 border border-washking-brown bg-washking-yellow px-5 py-3 font-body text-base font-extrabold text-washking-brown"
+                    className="btn-secondary mt-5 gap-2 text-base"
                   >
                     <Navigation className="w-5 h-5" aria-hidden="true" />
                     Get Directions
@@ -494,7 +510,7 @@ const LocationPage = () => {
                       data-analytics="directions_click"
                       data-analytics-source="location_map"
                       data-location-slug={location.slug}
-                      className="absolute left-3 top-3 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-4 py-2 font-body text-sm font-extrabold text-washking-brown shadow-lg"
+                      className="absolute left-3 top-3 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-4 py-2 font-body text-sm font-bold text-washking-brown shadow-lg"
                     >
                       Open in Maps
                       <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -517,7 +533,7 @@ const LocationPage = () => {
               data-analytics="directions_click"
               data-analytics-source="mobile_location_bar"
               data-location-slug={location.slug}
-              className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-brown px-2 font-body text-xs font-extrabold text-white"
+              className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-brown px-2 font-body text-xs font-bold text-white"
             >
               <Navigation className="h-4 w-4" aria-hidden="true" />
               Directions
@@ -526,7 +542,7 @@ const LocationPage = () => {
           <button
             type="button"
             onClick={scrollToPlans}
-            className="flex min-h-12 items-center justify-center gap-1 rounded-lg border border-washking-brown bg-white px-2 font-body text-xs font-extrabold text-washking-brown"
+            className="flex min-h-12 items-center justify-center gap-1 rounded-lg border border-washking-brown bg-white px-2 font-body text-xs font-bold text-washking-brown"
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             Plans
@@ -538,7 +554,7 @@ const LocationPage = () => {
             data-analytics="membership_cta"
             data-analytics-source="mobile_location_bar"
             data-location-slug={location.slug}
-            className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-yellow px-2 font-body text-xs font-extrabold text-washking-brown"
+            className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-yellow px-2 font-body text-xs font-bold text-washking-brown"
           >
             Join
             <ExternalLink className="h-4 w-4" aria-hidden="true" />

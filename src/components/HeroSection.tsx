@@ -1,8 +1,28 @@
+import { BadgeDollarSign, CalendarCheck2, MapPinned } from "lucide-react";
 import tunnelHero from "@/assets/washking-wash-tunnel-hero.jpg";
 import tunnelHeroAvif from "@/assets/washking-wash-tunnel-hero.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
-import { OPEN_LOCATIONS } from "@/lib/locations";
+import { OPEN_LOCATIONS, getStartingMonthlyPrice } from "@/lib/locations";
+
+const lowestMonthlyPrice = Math.min(
+  ...OPEN_LOCATIONS.map(getStartingMonthlyPrice).filter(Number.isFinite),
+);
+
+const quickFacts = [
+  {
+    icon: MapPinned,
+    label: `${OPEN_LOCATIONS.length} locations open`,
+  },
+  {
+    icon: BadgeDollarSign,
+    label: `Unlimited from $${lowestMonthlyPrice.toFixed(2)}/month`,
+  },
+  {
+    icon: CalendarCheck2,
+    label: "No long-term contract",
+  },
+] as const;
 
 const HeroSection = () => {
   const scrollToLocations = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -12,9 +32,7 @@ const HeroSection = () => {
 
   return (
     <section id="hero" className="overflow-hidden border-b-4 border-washking-yellow bg-white">
-      <h1 className="sr-only">WASH KING CAR WASH</h1>
-
-      <div className="hero-media-enter relative h-[320px] overflow-hidden bg-black sm:h-[430px] lg:h-[520px]">
+      <div className="hero-media-enter relative h-[280px] overflow-hidden bg-black sm:h-[380px] lg:h-[440px]">
         <OptimizedImage
           avifSrc={tunnelHeroAvif}
           src={tunnelHero}
@@ -28,28 +46,36 @@ const HeroSection = () => {
       </div>
 
       <div className="bg-white">
-        <div className="container mx-auto px-4 py-7 sm:py-8">
+        <div className="container mx-auto px-4 py-8 sm:py-10">
           <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-            <p className="font-body text-sm font-extrabold uppercase text-washking-sky sm:text-base">
-              FAMILY-OWNED NEW JERSEY CAR WASH
+            <p className="section-eyebrow">
+              Family-owned across New Jersey
             </p>
 
-            <div className="mt-3 max-w-2xl">
-              <p className="font-body text-sm font-bold leading-relaxed text-washking-brown sm:text-base lg:text-lg">
-                Find your nearest Wash King, check today's hours, compare wash plans, and get directions.
-              </p>
-              <p className="mt-2 font-body text-sm font-extrabold uppercase text-washking-sky sm:text-base">
-                {OPEN_LOCATIONS.length} LOCATIONS OPEN | CHERRY HILL COMING SOON
-              </p>
-            </div>
+            <h1 className="mt-2 font-display text-3xl text-washking-brown sm:text-4xl">
+              Wash King Car Wash
+            </h1>
 
-            <div className="mt-5 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-gray-600 sm:text-lg">
+              Find the right wash, see today's hours, and compare single-wash and unlimited plans before you arrive.
+            </p>
+
+            <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-3" aria-label="Wash King highlights">
+              {quickFacts.map((fact) => (
+                <li key={fact.label} className="flex items-center gap-2 font-body text-sm font-bold text-washking-brown">
+                  <fact.icon className="h-4 w-4 text-washking-sky" aria-hidden="true" />
+                  {fact.label}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <a
                 href="#locations"
                 onClick={scrollToLocations}
-                className="btn-cloud min-h-12 border border-washking-brown bg-washking-yellow px-6 py-3 text-center text-sm text-washking-brown sm:px-8 sm:text-base"
+                className="btn-secondary min-h-12 px-6 text-center sm:px-8 sm:text-base"
               >
-                FIND A LOCATION
+                Find a location
               </a>
               <a
                 href={MEMBERSHIP_PORTAL}
@@ -57,9 +83,9 @@ const HeroSection = () => {
                 data-analytics-source="homepage_hero"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-cloud min-h-12 border border-washking-brown bg-washking-brown px-6 py-3 text-center text-sm text-white sm:px-8 sm:text-base"
+                className="btn-primary min-h-12 px-6 text-center sm:px-8 sm:text-base"
               >
-                GO UNLIMITED
+                Join Unlimited
               </a>
             </div>
           </div>

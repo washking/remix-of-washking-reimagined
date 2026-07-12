@@ -10,12 +10,13 @@ describe("modern UI guardrails", () => {
     const hero = source("src/components/HeroSection.tsx");
     const packages = source("src/components/PackagesSection.tsx");
     const media = hero.indexOf('className="hero-media-enter');
-    const eyebrow = hero.indexOf("FAMILY-OWNED NEW JERSEY CAR WASH");
+    const eyebrow = hero.indexOf("Family-owned across New Jersey");
 
     expect(brandLogo).toContain('from "@/assets/lion-mascot.png"');
     expect(brandLogo).toContain('from "@/assets/washking-hero-logo.png"');
     expect(hero).toContain('from "@/assets/washking-wash-tunnel-hero.jpg"');
-    expect(hero).toContain('<h1 className="sr-only">WASH KING CAR WASH</h1>');
+    expect(hero).toContain("Wash King Car Wash");
+    expect(hero).not.toContain('<h1 className="sr-only">');
     expect(hero).not.toContain("hero-logo-float");
     expect(packages).toContain("washking-customer-experience-collage");
     expect(media).toBeGreaterThan(-1);
@@ -23,6 +24,10 @@ describe("modern UI guardrails", () => {
   });
 
   it("uses one modern type family across the site", () => {
+    expect(source("index.html")).toContain("Plus+Jakarta+Sans");
+    ["tailwind.config.ts", "src/index.css"].forEach((file) => {
+      expect(source(file)).toContain("Plus Jakarta Sans");
+    });
     ["index.html", "tailwind.config.ts", "src/index.css"].forEach((file) => {
       expect(source(file)).not.toContain("Luckiest Guy");
     });
@@ -94,6 +99,16 @@ describe("modern UI guardrails", () => {
       expect(ui).not.toContain("FoamBubbles");
       expect(ui).not.toContain("tracking-widest");
       expect(ui).not.toContain("woodTexture");
+    });
+  });
+
+  it("keeps the sticky header out of overflow scroll containers", () => {
+    [
+      "src/pages/Index.tsx",
+      "src/pages/LocationPage.tsx",
+      "src/pages/PrivacyPage.tsx",
+    ].forEach((file) => {
+      expect(source(file)).not.toContain("overflow-x-hidden");
     });
   });
 });

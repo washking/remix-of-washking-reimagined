@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ChevronDown, Mail, Menu, X } from "lucide-react";
+import { ChevronDown, CircleUserRound, Menu, X } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 import { LOCATIONS } from "@/lib/locations";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
@@ -18,23 +18,23 @@ type MenuItem = {
 };
 
 const locationLinks: SubmenuItem[] = LOCATIONS.map((washLocation) => ({
-  label: `${washLocation.name}${washLocation.status === "coming-soon" ? " - Coming Soon" : ""}`,
+  label: `${washLocation.name}${washLocation.status === "coming-soon" ? " - coming soon" : ""}`,
   href: `/location/${washLocation.slug}`,
 }));
 
 const menuItems: MenuItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Plans & Pricing", href: "/#locations" },
+  { label: "Plans & pricing", href: "/#locations" },
   { label: "Locations", href: "/#locations", dropdown: locationLinks },
+  { label: "About", href: "/about" },
   {
-    label: "About",
-    href: "/about",
+    label: "Help",
+    href: "/#faq",
     dropdown: [
-      { label: "About Wash King", href: "/about" },
       { label: "FAQs", href: "/#faq" },
-      { label: "At a Glance", href: "/#at-a-glance" },
-      { label: "Employment", href: "/employment" },
-      { label: "Manage Membership", href: MEMBERSHIP_PORTAL, external: true },
+      { label: "At a glance", href: "/#at-a-glance" },
+      { label: "Contact us", href: "/contact" },
+      { label: "Customer survey", href: "/customer-survey" },
+      { label: "Careers", href: "/employment" },
     ],
   },
 ];
@@ -68,15 +68,7 @@ const Header = () => {
     setActiveDropdown(null);
 
     if (href.startsWith("/#")) {
-      const hash = href.substring(1);
-      if (route.pathname === "/") {
-        document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-      } else {
-        navigate("/");
-        window.setTimeout(() => {
-          document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      }
+      navigate(href);
       return;
     }
 
@@ -85,8 +77,8 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 border-t-4 border-t-washking-yellow bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-2.5 lg:py-3">
+    <header className="sticky top-0 z-50 border-b border-gray-200 border-t-[3px] border-t-washking-yellow bg-white/95 shadow-sm backdrop-blur">
+      <div className="container mx-auto px-4 py-2.5">
         <div className="flex items-center justify-between gap-3">
           <a
             href="/"
@@ -115,10 +107,10 @@ const Header = () => {
                     type="button"
                     onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
                     onFocus={() => setActiveDropdown(item.label)}
-                    className="flex min-h-11 items-center gap-1 rounded-lg px-3 py-2 font-body text-xs font-extrabold text-washking-brown transition-colors hover:bg-gray-100 xl:px-4 xl:text-sm"
+                    className="flex min-h-11 items-center gap-1.5 rounded-lg px-3 py-2 font-body text-sm font-bold text-washking-brown transition-colors hover:bg-washking-cream xl:px-4"
                     aria-expanded={activeDropdown === item.label}
                   >
-                    {item.label.toUpperCase()}
+                    {item.label}
                     <ChevronDown
                       className={`w-3 h-3 xl:w-4 xl:h-4 transition-transform ${activeDropdown === item.label ? "rotate-180" : ""}`}
                       aria-hidden="true"
@@ -128,9 +120,9 @@ const Header = () => {
                   <a
                     href={item.href}
                     onClick={(event) => handleNavClick(event, item.href)}
-                    className="block min-h-11 rounded-lg px-3 py-3 font-body text-xs font-extrabold text-washking-brown transition-colors hover:bg-gray-100 xl:px-4 xl:text-sm"
+                    className="flex min-h-11 items-center rounded-lg px-3 py-2 font-body text-sm font-bold text-washking-brown transition-colors hover:bg-washking-cream xl:px-4"
                   >
-                    {item.label.toUpperCase()}
+                    {item.label}
                   </a>
                 )}
 
@@ -146,7 +138,7 @@ const Header = () => {
                               rel="noopener noreferrer"
                               data-analytics="membership_cta"
                               data-analytics-source="desktop_navigation"
-                              className="block px-5 py-3 font-body text-sm text-washking-brown hover:bg-washking-cream transition-colors"
+                              className="block px-5 py-3 font-body text-sm font-medium text-washking-brown transition-colors hover:bg-washking-cream"
                             >
                               {subItem.label}
                             </a>
@@ -155,7 +147,7 @@ const Header = () => {
                               key={subItem.href}
                               href={subItem.href}
                               onClick={(event) => handleNavClick(event, subItem.href)}
-                              className="block px-5 py-3 font-body text-sm text-washking-brown hover:bg-washking-cream transition-colors"
+                              className="block px-5 py-3 font-body text-sm font-medium text-washking-brown transition-colors hover:bg-washking-cream"
                             >
                               {subItem.label}
                             </a>
@@ -168,39 +160,41 @@ const Header = () => {
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-2 shrink-0">
+          <div className="hidden shrink-0 items-center gap-2 lg:flex">
             <a
-              href="/contact"
-              data-analytics="contact_open"
-              data-analytics-source="desktop_header"
-              onClick={(event) => handleNavClick(event, "/contact")}
-              className="btn-cloud flex min-h-11 items-center gap-1.5 whitespace-nowrap border border-gray-300 bg-white px-4 py-2 text-sm text-washking-brown xl:px-5"
+              href={MEMBERSHIP_PORTAL}
+              data-analytics="membership_cta"
+              data-analytics-source="desktop_header_manage"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline gap-1.5 whitespace-nowrap px-3 xl:px-4"
             >
-              <Mail className="w-4 h-4" aria-hidden="true" />
-              Contact Us
+              <CircleUserRound className="h-4 w-4" aria-hidden="true" />
+              Manage plan
             </a>
             <a
               href={MEMBERSHIP_PORTAL}
               data-analytics="membership_cta"
-              data-analytics-source="desktop_header"
+              data-analytics-source="desktop_header_join"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-unlimited whitespace-nowrap"
+              className="btn-secondary whitespace-nowrap px-4 xl:px-5"
             >
-              Go Unlimited
+              Join Unlimited
             </a>
           </div>
 
           <div className="flex items-center gap-1.5 lg:hidden">
             <a
-              href="/contact"
-              data-analytics="contact_open"
-              data-analytics-source="mobile_header"
-              onClick={(event) => handleNavClick(event, "/contact")}
-              className="btn-cloud flex min-h-11 items-center gap-1 whitespace-nowrap border border-gray-300 bg-white px-3 py-2 text-xs text-washking-brown"
+              href={MEMBERSHIP_PORTAL}
+              data-analytics="membership_cta"
+              data-analytics-source="mobile_header_manage"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline gap-1.5 whitespace-nowrap px-3 text-xs"
             >
-              <Mail className="w-4 h-4" aria-hidden="true" />
-              Contact
+              <CircleUserRound className="h-4 w-4" aria-hidden="true" />
+              Manage
             </a>
             <button
               type="button"
@@ -231,9 +225,9 @@ const Header = () => {
                       <a
                         href={item.href}
                         onClick={(event) => handleNavClick(event, item.href)}
-                        className="block rounded-lg px-2 py-2.5 font-body text-sm font-extrabold text-washking-brown transition-colors hover:bg-gray-100"
+                        className="flex min-h-11 items-center rounded-lg px-3 py-2.5 font-body text-sm font-bold text-washking-brown transition-colors hover:bg-washking-cream"
                       >
-                        {item.label.toUpperCase()}
+                        {item.label}
                       </a>
                       {item.dropdown && (
                         <div className="ml-3 grid grid-cols-1 gap-0.5 border-l border-gray-200 pl-3 sm:grid-cols-2">
@@ -246,7 +240,7 @@ const Header = () => {
                                 rel="noopener noreferrer"
                                 data-analytics="membership_cta"
                                 data-analytics-source="mobile_navigation"
-                                className="block rounded-lg px-3 py-2 font-body text-sm text-washking-brown transition-colors hover:bg-gray-100"
+                                className="block rounded-lg px-3 py-2.5 font-body text-sm text-washking-brown transition-colors hover:bg-washking-cream"
                               >
                                 {subItem.label}
                               </a>
@@ -255,7 +249,7 @@ const Header = () => {
                                 key={subItem.href}
                                 href={subItem.href}
                                 onClick={(event) => handleNavClick(event, subItem.href)}
-                                className="block rounded-lg px-3 py-2 font-body text-sm text-washking-brown transition-colors hover:bg-gray-100"
+                                className="block rounded-lg px-3 py-2.5 font-body text-sm text-washking-brown transition-colors hover:bg-washking-cream"
                               >
                                 {subItem.label}
                               </a>
@@ -267,16 +261,28 @@ const Header = () => {
                   ))}
                 </nav>
 
-                <a
-                  href={MEMBERSHIP_PORTAL}
-                  data-analytics="membership_cta"
-                  data-analytics-source="mobile_menu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-unlimited mt-4 block w-full text-center"
-                >
-                  Go Unlimited
-                </a>
+                <div className="mt-4 grid grid-cols-2 gap-2 border-t border-gray-200 pt-4">
+                  <a
+                    href={MEMBERSHIP_PORTAL}
+                    data-analytics="membership_cta"
+                    data-analytics-source="mobile_menu_manage"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline px-3 text-center"
+                  >
+                    Manage Membership
+                  </a>
+                  <a
+                    href={MEMBERSHIP_PORTAL}
+                    data-analytics="membership_cta"
+                    data-analytics-source="mobile_menu_join"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary px-3 text-center"
+                  >
+                    Join Unlimited
+                  </a>
+                </div>
               </div>
             </div>
         )}

@@ -9,7 +9,7 @@ describe("trust and privacy guardrails", () => {
     expect(source("src/pages/Index.tsx")).toContain("TrustStatsSection");
     expect(source("src/components/TrustStatsSection.tsx")).toContain("OPEN_LOCATIONS");
     expect(existsSync(resolve(process.cwd(), "src/components/TestimonialsSection.tsx"))).toBe(false);
-    expect(source("src/components/Header.tsx")).toContain("At a Glance");
+    expect(source("src/components/Header.tsx")).toContain("At a glance");
 
     const confirmation = source("src/pages/ThankYouPage.tsx");
     expect(confirmation).not.toContain("as soon as possible");
@@ -19,7 +19,7 @@ describe("trust and privacy guardrails", () => {
   it("publishes and links the privacy notice", () => {
     expect(source("src/App.tsx")).toContain('path: "privacy"');
     expect(source("public/sitemap.xml")).toContain("https://www.washking.net/privacy");
-    expect(source("src/components/Footer.tsx")).toContain("Privacy Notice");
+    expect(source("src/components/Footer.tsx")).toContain("Privacy notice");
 
     ["ContactPage.tsx", "CustomerSurveyPage.tsx", "EmploymentPage.tsx"].forEach((page) => {
       expect(source(`src/pages/${page}`)).toContain('to="/privacy"');

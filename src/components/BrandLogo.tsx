@@ -45,7 +45,7 @@ const BrandLogo = ({ variant = "header" }: BrandLogoProps) => {
       </span>
 
       <span className="flex min-w-0 flex-col text-left leading-none">
-        <span className="whitespace-nowrap font-display text-sm font-black text-washking-brown sm:text-base">
+        <span className="whitespace-nowrap font-display text-sm font-extrabold text-washking-brown sm:text-base">
           WASH KING
         </span>
         <span className="mt-1 whitespace-nowrap font-body text-[10px] font-extrabold text-washking-sky sm:text-xs">

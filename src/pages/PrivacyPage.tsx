@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { CONTACT_EMAIL, MEMBERSHIP_PORTAL } from "@/lib/site";
 
 const PrivacyPage = () => (
-  <div className="min-h-screen overflow-x-hidden bg-white">
+  <div className="min-h-screen bg-white">
     <Seo
       title="Privacy Notice | Wash King Car Wash"
       description="Learn what information Wash King's website collects through forms and website analytics, how it is used, and which services receive it."
@@ -15,11 +15,11 @@ const PrivacyPage = () => (
     <main id="main-content" tabIndex={-1}>
       <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-14">
         <div className="container mx-auto px-4 text-center">
-          <p className="mb-3 font-body text-sm font-extrabold uppercase text-washking-yellow">
+          <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
             Last updated July 11, 2026
           </p>
-          <h1 className="font-display text-4xl text-white sm:text-5xl">
-            PRIVACY NOTICE
+          <h1 className="font-display text-3xl text-white sm:text-4xl">
+            Privacy Notice
           </h1>
           <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-relaxed text-white/90 sm:text-xl">
             A plain-language summary of information handled through washking.net.
@@ -46,7 +46,7 @@ const PrivacyPage = () => (
                 <Send className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 id="information-you-submit" className="font-display text-3xl text-washking-brown">
+                <h2 id="information-you-submit" className="font-display text-2xl text-washking-brown sm:text-3xl">
                   Information you submit
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">
@@ -68,7 +68,7 @@ const PrivacyPage = () => (
                 <Database className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 id="website-analytics" className="font-display text-3xl text-washking-brown">
+                <h2 id="website-analytics" className="font-display text-2xl text-washking-brown sm:text-3xl">
                   Website usage analytics
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">
@@ -87,7 +87,7 @@ const PrivacyPage = () => (
                 <UserRoundCheck className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 id="how-information-is-used" className="font-display text-3xl text-washking-brown">
+                <h2 id="how-information-is-used" className="font-display text-2xl text-washking-brown sm:text-3xl">
                   How information is used
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">
@@ -118,7 +118,7 @@ const PrivacyPage = () => (
                 <ShieldCheck className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 id="choices-and-contact" className="font-display text-3xl text-washking-brown">
+                <h2 id="choices-and-contact" className="font-display text-2xl text-washking-brown sm:text-3xl">
                   Your choices and contact
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">

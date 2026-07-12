@@ -5,11 +5,11 @@ import { OPEN_LOCATIONS } from "@/lib/locations";
 import OptimizedImage from "@/components/OptimizedImage";
 
 const benefits = [
-  "Visit daily for one monthly low price!",
-  "Most plans pay for themselves after 2-3 visits per month.",
-  "Hassle-free entry with License Plate Recognition.",
-  "Automatic Monthly Recharge on your anniversary.",
-  "No contracts — cancel anytime!",
+  "Wash once a day for one predictable monthly price.",
+  "Most plans cover their cost after 2-3 visits in a month.",
+  "License plate recognition makes member entry faster.",
+  "Your plan renews automatically on your monthly sign-up date.",
+  "No long-term contract. Cancel anytime.",
 ];
 
 const PackagesSection = () => {
@@ -20,15 +20,15 @@ const PackagesSection = () => {
           <div
             className="lg:w-1/2"
           >
-            <h2 className="mb-2 font-display text-3xl text-white sm:text-4xl lg:text-5xl">
-              UNLIMITED WASH CLUB
+            <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
+              Membership made simple
+            </p>
+            <h2 className="mb-4 font-display text-3xl text-white sm:text-4xl">
+              Unlimited Wash Club
             </h2>
-            <h3 className="mb-4 font-display text-xl text-washking-yellow sm:text-2xl lg:mb-7 lg:text-3xl">
-              HOW IT WORKS
-            </h3>
-            
-            <p className="mb-6 font-body text-base leading-relaxed text-white/90 sm:text-lg lg:mb-9 lg:text-xl">
-              Turn repeat visits into one predictable monthly price.
+
+            <p className="mb-7 max-w-xl font-body text-base leading-relaxed text-white/90 sm:text-lg lg:mb-9">
+              Keep your car looking its best without deciding whether today is worth another single-wash purchase.
             </p>
 
             <div className="space-y-3 lg:space-y-5">
@@ -49,7 +49,7 @@ const PackagesSection = () => {
 
             <div className="mt-7 lg:mt-10">
               <p className="mb-3 font-body text-sm font-bold text-white">
-                Compare plans and pricing at your location:
+                Choose your location to see exact plans and pricing:
               </p>
               <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
                 {OPEN_LOCATIONS.map((location) => (
@@ -59,7 +59,7 @@ const PackagesSection = () => {
                     data-analytics="location_select"
                     data-analytics-source="homepage_unlimited"
                     data-location-slug={location.slug}
-                    className="rounded-lg border border-white/40 bg-white px-4 py-2 font-body text-sm font-extrabold text-washking-brown transition-colors hover:bg-washking-cream"
+                    className="btn-cloud border border-white/40 bg-white px-4 py-2 text-washking-brown hover:bg-washking-cream"
                   >
                     {location.name}
                   </Link>
