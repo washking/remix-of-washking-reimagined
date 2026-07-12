@@ -15,6 +15,7 @@ describe("modern UI guardrails", () => {
 
     expect(brandLogo).toContain('from "@/assets/lion-mascot.png"');
     expect(brandLogo).toContain('from "@/assets/washking-hero-logo.png"');
+    expect(brandLogo).toContain("min-[360px]:flex");
     expect(hero).toContain('from "@/assets/washking-wash-tunnel-hero.jpg"');
     expect(hero).toContain('from "@/assets/washking-customer-experience-collage.jpg"');
     expect(hero).toContain("Wash King Car Wash");
@@ -30,6 +31,8 @@ describe("modern UI guardrails", () => {
     expect(hero).toContain('className="absolute right-3 top-1/2');
     expect(hero).toContain("bg-black/40 px-2.5 py-1.5");
     expect(hero).not.toContain("bg-black/70 p-1.5");
+    expect(hero).toContain('className="absolute inset-0 h-full w-full object-contain object-center"');
+    expect(hero).not.toContain("object-cover");
     expect(carousel).toContain('api?.off("reInit", onSelect)');
     expect(packages).toContain("washking-customer-experience-collage");
     expect(media).toBeGreaterThan(-1);

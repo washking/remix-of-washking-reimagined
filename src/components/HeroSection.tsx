@@ -212,7 +212,7 @@ const HeroSection = () => {
                 height={slide.height}
                 loading="eager"
                 decoding="async"
-                className="absolute inset-0 h-full w-full object-cover object-center lg:object-contain"
+                className="absolute inset-0 h-full w-full object-contain object-center"
               />
             </CarouselItem>
           ))}
