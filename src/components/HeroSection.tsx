@@ -307,7 +307,7 @@ const HeroSection = () => {
             </h1>
 
             <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-white/90 sm:text-lg">
-              Find the right wash, see today's hours, and compare single-wash and unlimited plans before you arrive.
+              Compare washes and prices, check today's hours, and find the Wash King location nearest you.
             </p>
 
             <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-3" aria-label="Wash King highlights">

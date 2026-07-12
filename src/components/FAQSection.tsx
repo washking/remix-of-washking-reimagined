@@ -17,7 +17,7 @@ const faqs = [
     answer: "Unlimited members can wash their registered vehicle once a day for one monthly price.",
   },
   {
-    question: "How do I sign up for Wash King's Unlimited Wash Plans?",
+    question: "How do I join the Unlimited Wash Club?",
     answer: "Join through the online membership portal, at an onsite pay station, or with help from a Wash King team member.",
   },
   {
@@ -51,7 +51,7 @@ const FAQSection = () => {
         <div className="mb-9 text-center lg:mb-12">
           <p className="section-eyebrow mb-2">Unlimited membership</p>
           <h2 className="section-title">
-            Questions, answered
+            Unlimited Wash Club FAQs
           </h2>
           <p className="section-copy mx-auto mt-3 max-w-2xl">
             The essentials about joining, billing, vehicles, and cancellation.

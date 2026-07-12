@@ -16,7 +16,7 @@ const PrivacyPage = () => (
       <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-14">
         <div className="container mx-auto px-4 text-center">
           <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
-            Last updated July 11, 2026
+            Last updated July 12, 2026
           </p>
           <h1 className="font-display text-3xl text-white sm:text-4xl">
             Privacy Notice
@@ -95,7 +95,7 @@ const PrivacyPage = () => (
                     Form information is used to respond to customer questions, review feedback, assist with membership requests, and evaluate employment applications. Website analytics are used to understand website performance and improve customer journeys.
                   </p>
                   <p>
-                    Contact, survey, and employment submissions are delivered through Formspree and a Webchily-managed Supabase function. Website analytics are delivered to a separate Wash King Supabase endpoint. A form is sent to both delivery services so a temporary provider outage is less likely to lose the message.
+                    Contact, survey, and employment submissions are delivered through our Formspree and Supabase form-delivery services. Website analytics are delivered to a separate Wash King Supabase endpoint. A form is sent to both delivery services so a temporary provider outage is less likely to lose the message.
                   </p>
                   <p>
                     Membership purchases and account management open the external NXTWash customer portal. Information entered there is handled by that service under its own terms and privacy practices. You can open the{" "}

@@ -6,7 +6,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 
 const benefits = [
   "Wash once a day for one predictable monthly price.",
-  "Most plans cover their cost after 2-3 visits in a month.",
+  "For most plans, 2-3 washes per month can cost as much as the membership.",
   "License plate recognition makes member entry faster.",
   "Your plan renews automatically on your monthly sign-up date.",
   "No long-term contract. Cancel anytime.",
@@ -28,7 +28,7 @@ const PackagesSection = () => {
             </h2>
 
             <p className="mb-7 max-w-xl font-body text-base leading-relaxed text-white/90 sm:text-lg lg:mb-9">
-              Keep your car looking its best without deciding whether today is worth another single-wash purchase.
+              Wash your registered vehicle once a day for one predictable monthly price.
             </p>
 
             <div className="space-y-3 lg:space-y-5">

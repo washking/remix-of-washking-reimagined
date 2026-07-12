@@ -122,7 +122,7 @@ const ContactPage = () => {
         <FormPageHero
           eyebrow="Customer support"
           title="Contact Wash King"
-          description="Choose a topic and location so your message reaches the right team."
+          description="Use this form for membership help, billing questions, wash feedback, or location support."
           icon={MessageSquareText}
         />
 
@@ -263,7 +263,7 @@ const ContactPage = () => {
                               <Input required maxLength={20} type="tel" autoComplete="tel" placeholder="(000) 000-0000" className={FORM_INPUT_CLASS} {...field} />
                             </FormControl>
                             <FormDescription className="font-body text-sm text-gray-600">
-                              For membership requests, use the phone number connected to the account.
+                              Required. For membership help, enter the phone number connected to your account so we can locate it.
                             </FormDescription>
                             <FormMessage className="text-red-700" />
                           </FormItem>
@@ -305,7 +305,7 @@ const ContactPage = () => {
                               How can we help? <span className="text-red-700" aria-hidden="true">*</span>
                             </FormLabel>
                             <FormControl>
-                              <Textarea required maxLength={1000} placeholder="Share the details of your request." rows={6} className={FORM_TEXTAREA_CLASS} {...field} />
+                              <Textarea required maxLength={1000} placeholder="Tell us what happened, what you need help with, and any relevant visit or membership details." rows={6} className={FORM_TEXTAREA_CLASS} {...field} />
                             </FormControl>
                             <FormMessage className="text-red-700" />
                           </FormItem>
@@ -365,6 +365,9 @@ const ContactPage = () => {
 
                 <section className="border-t border-gray-300 pt-7">
                   <h2 className="font-display text-base text-washking-brown">Email</h2>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-gray-600">
+                    Prefer email? For the most accurate routing, use the form above. You may also email us directly.
+                  </p>
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
                     className="mt-3 inline-flex items-center gap-2 break-all font-body text-sm font-bold text-washking-sky underline-offset-4 hover:underline"

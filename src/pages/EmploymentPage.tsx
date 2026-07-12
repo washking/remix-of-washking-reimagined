@@ -117,7 +117,7 @@ const EmploymentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-        title="Careers at Wash King Car Wash | Now Hiring in NJ"
+        title="Car Wash Careers in New Jersey | Wash King"
         description="Apply to join the Wash King Car Wash team at one of our four open New Jersey locations."
         path="/employment"
       />
@@ -316,14 +316,14 @@ const EmploymentPage = () => {
                   </legend>
                   <div>
                     <Label htmlFor="employment-message" className={FORM_LABEL_CLASS}>
-                      Tell us about yourself <span className="text-red-700" aria-hidden="true">*</span>
+                    Experience and availability <span className="text-red-700" aria-hidden="true">*</span>
                     </Label>
                     <Textarea
                       id="employment-message"
                       required
                       maxLength={1000}
                       rows={7}
-                      placeholder="Share relevant experience, availability, or why you would like to join Wash King."
+                      placeholder="Tell us about your work experience, weekly availability, preferred schedule, and interest in joining Wash King."
                       {...register("message")}
                       aria-invalid={Boolean(errors.message)}
                       aria-describedby={errors.message ? "employment-message-error" : undefined}

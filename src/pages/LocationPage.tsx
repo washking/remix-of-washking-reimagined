@@ -41,13 +41,21 @@ const PLAN_PRICE_CLASSES: Record<string, string> = {
 };
 
 const PLAN_CALLOUTS: Record<string, string> = {
-  DIAMOND: "Top exterior wash",
-  ROYALTY: "Most complete wash",
+  DIAMOND: "Best exterior protection",
+  ROYALTY: "Best for inside and out",
 };
 
 const sentenceCase = (value: string) => {
   const normalized = value.replace(/^\*/, "").trim().toLowerCase();
   return normalized ? `${normalized[0].toUpperCase()}${normalized.slice(1)}` : "";
+};
+
+const formatOrdinal = (value: number) => {
+  const lastTwoDigits = value % 100;
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 13) return `${value}th`;
+
+  const suffix = value % 10 === 1 ? "st" : value % 10 === 2 ? "nd" : value % 10 === 3 ? "rd" : "th";
+  return `${value}${suffix}`;
 };
 
 const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
@@ -321,7 +329,7 @@ const LocationPage = () => {
                 Wash plans and pricing
               </h2>
               <p className="section-copy mx-auto max-w-2xl">
-                Choose a single wash or save with an unlimited monthly plan at {location.name}.
+                Compare pay-per-visit washes and unlimited monthly plans available at {location.name}.
               </p>
             </div>
 
@@ -345,11 +353,12 @@ const LocationPage = () => {
             </div>
 
             <div className={`mx-auto grid max-w-7xl gap-10 md:grid-cols-2 md:gap-7 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} lg:gap-6`}>
-              {orderedPackages.map((washPackage) => {
+              {orderedPackages.map((washPackage, index) => {
                 const breakEvenVisits = getBreakEvenVisits(washPackage);
                 const includedFeatures = getIncludedFeatures(location, washPackage.name);
                 const visibleFeatures = washPackage.features.slice(0, 4);
                 const additionalFeatureCount = washPackage.features.length - visibleFeatures.length;
+                const basePackage = orderedPackages[index + 1];
 
                 return (
                   <article
@@ -394,15 +403,15 @@ const LocationPage = () => {
                       </div>
                       {breakEvenVisits && (
                         <p className="mt-4 border-t border-washking-brown/15 pt-3 font-body text-xs font-bold text-washking-brown/75">
-                          Covers its cost by visit {breakEvenVisits}
+                          Pays for itself on your {formatOrdinal(breakEvenVisits)} wash this month
                         </p>
                       )}
                     </div>
 
                     <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
-                      {washPackage.includes && (
+                      {washPackage.includes && basePackage && (
                         <p className="mb-3 text-center font-body text-sm font-bold text-washking-brown">
-                          Includes the previous plan, plus:
+                          Everything in {sentenceCase(basePackage.name)}, plus:
                         </p>
                       )}
                       <ul className="mb-5 flex-1 space-y-2">
@@ -455,7 +464,7 @@ const LocationPage = () => {
                         <ExternalLink className="h-4 w-4" aria-hidden="true" />
                       </a>
                       <p className="mt-2 text-center font-body text-xs text-gray-500">
-                        Choose {portalLocationName} and {sentenceCase(washPackage.name)} in the portal
+                        At checkout, select {portalLocationName} and the {sentenceCase(washPackage.name)} plan.
                       </p>
                     </div>
                   </article>
@@ -474,7 +483,7 @@ const LocationPage = () => {
                   More value in every month
                 </h2>
                 <p className="mt-3 font-body text-base leading-relaxed text-washking-brown/80">
-                  Built for drivers who like keeping a clean car without buying each wash separately.
+                  A convenient option for drivers who wash regularly and prefer one predictable monthly payment.
                 </p>
               </div>
               <ul className="grid gap-4 sm:grid-cols-2">

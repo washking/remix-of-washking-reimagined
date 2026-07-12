@@ -80,7 +80,7 @@ const AboutPage = () => (
             About Wash King
           </h1>
           <p className="mx-auto mt-3 max-w-2xl font-body text-base leading-relaxed text-white/90 sm:text-lg">
-            Car care built around quality, convenience, and the way we would want our own family treated.
+            A family-owned New Jersey car wash focused on dependable service, convenient locations, and a consistently clean car.
           </p>
         </div>
       </section>

@@ -61,7 +61,7 @@ const TrustStatsSection = () => (
             Wash King at a glance
           </h2>
           <p className="section-copy mt-3">
-            Pick the service and hours that fit your visit, then view that location for exact plans and directions.
+            See which locations are open 24 hours, which offer full service, and where Wash King is opening next.
           </p>
         </div>
 

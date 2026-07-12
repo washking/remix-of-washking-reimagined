@@ -255,10 +255,10 @@ const CustomerSurveyPage = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className={FORM_LABEL_CLASS}>
-                            What should we know? <span className="text-red-700" aria-hidden="true">*</span>
+                            Tell us about your visit <span className="text-red-700" aria-hidden="true">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Textarea required maxLength={2000} placeholder="Tell us what went well or what we could improve." rows={7} className={FORM_TEXTAREA_CLASS} {...field} />
+                            <Textarea required maxLength={2000} placeholder="What went well? What could we do better? Include any details that would help us understand your visit." rows={7} className={FORM_TEXTAREA_CLASS} {...field} />
                           </FormControl>
                           <FormMessage className="text-red-700" />
                         </FormItem>

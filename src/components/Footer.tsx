@@ -47,7 +47,7 @@ const Footer = () => {
             <section className="col-span-2 lg:col-span-1">
               <h2 className="font-display text-lg text-white">Customer care</h2>
               <p className="mt-3 max-w-sm font-body text-sm leading-relaxed text-white/75">
-                Questions about a visit or membership? Our team will help you reach the right location or account.
+                Need help with a visit or membership? Use our contact form so your request reaches the right location or account team.
               </p>
               <a
                 href="mailto:contact@washking.net"

@@ -28,7 +28,7 @@ const ProofSection = () => (
           <div>
             <p className="mb-2 flex items-center justify-center gap-2 font-body text-sm font-bold text-washking-yellow lg:justify-start">
               <CalendarDays className="h-4 w-4" aria-hidden="true" />
-              Local care, practical convenience
+              Local service. Easier car care.
             </p>
             <h2 className="font-display text-3xl text-white sm:text-4xl">
               Why drivers choose Wash King

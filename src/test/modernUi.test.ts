@@ -140,11 +140,13 @@ describe("modern UI guardrails", () => {
     expect(plans).toContain("border-2 border-t-[8px]");
     expect(plans).toContain("getPackagesByMonthlyPriceDescending(location)");
     expect(plans).toContain("PLAN_PRICE_CLASSES");
-    expect(plans).toContain("Top exterior wash");
-    expect(plans).toContain("Most complete wash");
+    expect(plans).toContain("Best exterior protection");
+    expect(plans).toContain("Best for inside and out");
     expect(plans).toContain("Pay once per visit");
     expect(plans).toContain("Unlimited monthly");
     expect(plans).toContain("grid grid-cols-2 divide-x");
+    expect(plans).toContain("Everything in {sentenceCase(basePackage.name)}, plus:");
+    expect(plans).toContain("Pays for itself on your {formatOrdinal(breakEvenVisits)} wash this month");
   });
 
   it("keeps the contact form prominent beside membership management", () => {
@@ -161,5 +163,16 @@ describe("modern UI guardrails", () => {
     expect(source("src/components/HeroSection.tsx")).toContain('className="bg-washking-sky"');
     expect(source("src/components/LocationsSection.tsx")).toContain("bg-washking-sky-light");
     expect(source("src/components/FAQSection.tsx")).toContain("bg-washking-cream");
+  });
+
+  it("keeps the approved customer-first copy across key journeys", () => {
+    expect(source("src/components/HeroSection.tsx")).toContain("Compare washes and prices");
+    expect(source("src/components/LocationsSection.tsx")).toContain("See washes &amp; prices");
+    expect(source("src/components/FAQSection.tsx")).toContain("Unlimited Wash Club FAQs");
+    expect(source("src/pages/ContactPage.tsx")).toContain("so we can locate it");
+    expect(source("src/pages/CustomerSurveyPage.tsx")).toContain("Tell us about your visit");
+    expect(source("src/pages/EmploymentPage.tsx")).toContain("Experience and availability");
+    expect(source("src/pages/Index.tsx")).toContain("New Jersey Car Wash Locations & Unlimited Plans");
+    expect(source("src/pages/PrivacyPage.tsx")).not.toContain("Webchily-managed");
   });
 });

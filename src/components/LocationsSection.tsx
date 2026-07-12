@@ -92,7 +92,7 @@ const LocationCard = ({
           data-location-slug={location.slug}
           className="btn-outline px-3 py-2.5 text-center"
         >
-          View plans &amp; pricing
+          See washes &amp; prices
         </Link>
         {directionsUrl && (
           <a
@@ -133,10 +133,10 @@ const LocationsSection = () => {
               Hours, services, pricing, and directions
             </p>
             <h2 className="section-title mb-3">
-              Find your Wash King
+              Choose your Wash King location
             </h2>
             <p className="section-copy mx-auto max-w-2xl">
-              Choose one of our {OPEN_LOCATIONS.length} open New Jersey locations to compare wash options and plan your visit.
+              Select a location to see its services, hours, single-wash prices, unlimited plans, and directions.
             </p>
           </div>
 
