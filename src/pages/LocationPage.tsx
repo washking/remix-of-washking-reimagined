@@ -356,7 +356,7 @@ const LocationPage = () => {
                     key={washPackage.name}
                     className={`flex flex-col overflow-hidden rounded-lg border-2 border-t-[8px] border-gray-300 bg-white shadow-md md:border md:border-x-gray-200 md:border-b-gray-200 md:border-t-[6px] md:shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
                   >
-                    <div className={`${washPackage.color} ${washPackage.textColor} min-h-36 p-6 pb-5 text-center`}>
+                    <div className={`${washPackage.color} ${washPackage.textColor} flex min-h-32 flex-col items-center justify-center p-6 text-center`}>
                       {PLAN_CALLOUTS[washPackage.name] && (
                         <p className="mb-2 font-body text-xs font-extrabold uppercase">
                           {PLAN_CALLOUTS[washPackage.name]}
@@ -365,20 +365,35 @@ const LocationPage = () => {
                       <h3 className="font-display text-2xl">
                         {sentenceCase(washPackage.name)}
                       </h3>
-                      <p className="mt-2 font-body text-sm font-semibold opacity-85">
-                        Single wash{" "}
-                        <span className="font-extrabold">{washPackage.singlePrice}</span>
-                      </p>
                     </div>
 
-                    <div className={`border-y px-4 py-4 text-center ${PLAN_PRICE_CLASSES[washPackage.name] || "border-gray-200 bg-gray-50"}`}>
-                      <p className="font-body text-xs font-bold text-washking-sky">Unlimited membership</p>
-                      <p className="mt-1 font-display text-3xl text-washking-brown">
-                        {washPackage.monthlyPrice}
-                        <span className="font-body text-xs font-bold">/month + tax</span>
-                      </p>
+                    <div className={`border-y px-3 py-5 text-center ${PLAN_PRICE_CLASSES[washPackage.name] || "border-gray-200 bg-gray-50"}`}>
+                      <div className="grid grid-cols-2 divide-x divide-washking-brown/20">
+                        <div className="flex flex-col items-center px-2">
+                          <p className="flex min-h-10 items-center font-body text-sm font-extrabold text-washking-brown">
+                            Single wash
+                          </p>
+                          <p className="mt-1 font-display text-3xl text-washking-brown">
+                            {washPackage.singlePrice}
+                          </p>
+                          <p className="mt-1 font-body text-xs font-semibold text-washking-brown/70">
+                            Pay once per visit
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-center px-2">
+                          <p className="flex min-h-10 items-center font-body text-sm font-extrabold leading-tight text-washking-brown">
+                            Unlimited monthly
+                          </p>
+                          <p className="mt-1 font-display text-3xl text-washking-brown">
+                            {washPackage.monthlyPrice}
+                          </p>
+                          <p className="mt-1 font-body text-xs font-semibold text-washking-brown/70">
+                            Per month + tax
+                          </p>
+                        </div>
+                      </div>
                       {breakEvenVisits && (
-                        <p className="mt-2 font-body text-xs font-bold text-washking-brown/75">
+                        <p className="mt-4 border-t border-washking-brown/15 pt-3 font-body text-xs font-bold text-washking-brown/75">
                           Covers its cost by visit {breakEvenVisits}
                         </p>
                       )}

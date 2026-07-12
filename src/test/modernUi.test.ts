@@ -141,6 +141,9 @@ describe("modern UI guardrails", () => {
     expect(plans).toContain("PLAN_PRICE_CLASSES");
     expect(plans).toContain("Top exterior wash");
     expect(plans).toContain("Most complete wash");
+    expect(plans).toContain("Pay once per visit");
+    expect(plans).toContain("Unlimited monthly");
+    expect(plans).toContain("grid grid-cols-2 divide-x");
   });
 
   it("keeps the contact form prominent beside membership management", () => {
