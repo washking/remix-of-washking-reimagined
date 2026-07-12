@@ -157,18 +157,6 @@ const Footer = () => {
               >
                 Privacy Notice
               </a>
-              <span className="hidden sm:inline text-white/40">|</span>
-              <span>
-                Web design &amp; developed by{" "}
-                <a
-                  href="https://www.webchily.design/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-washking-yellow hover:underline"
-                >
-                  Webchily
-                </a>
-              </span>
             </p>
           </div>
         </div>

@@ -59,6 +59,13 @@ describe("modern UI guardrails", () => {
     });
   });
 
+  it("keeps third-party design credits out of the footer", () => {
+    const footer = source("src/components/Footer.tsx");
+
+    expect(footer).not.toContain("Web design &amp; developed by");
+    expect(footer).not.toContain("webchily.design");
+  });
+
   it("keeps legacy decorative treatments off customer-facing surfaces", () => {
     const surfaces = [
       "src/components/Header.tsx",
