@@ -1,5 +1,7 @@
 import logo from "@/assets/washking-logo.png";
 import logoAvif from "@/assets/washking-logo.avif";
+import lionMascot from "@/assets/lion-mascot.png";
+import lionMascotAvif from "@/assets/lion-mascot.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 
 type BrandLogoProps = {
@@ -8,24 +10,27 @@ type BrandLogoProps = {
 
 const BrandLogo = ({ variant = "header" }: BrandLogoProps) => {
   const isFooter = variant === "footer";
+  const imageSrc = isFooter ? logo : lionMascot;
+  const imageAvifSrc = isFooter ? logoAvif : lionMascotAvif;
 
   return (
     <span className={`inline-flex items-center ${isFooter ? "gap-3" : "gap-2"}`}>
       <span
         className={`relative block shrink-0 overflow-hidden ${
-          isFooter ? "h-14 w-20" : "h-9 w-12 sm:h-10 sm:w-14"
+          isFooter ? "h-14 w-20" : "h-12 w-12 sm:w-14"
         }`}
         aria-hidden="true"
       >
         <OptimizedImage
-          avifSrc={logoAvif}
-          src={logo}
+          avifSrc={imageAvifSrc}
+          src={imageSrc}
           alt=""
-          width={500}
-          height={511}
+          width={isFooter ? 500 : 1132}
+          height={isFooter ? 511 : 1920}
+          loading={isFooter ? "lazy" : "eager"}
           decoding="async"
           className={`absolute left-1/2 top-0 h-auto -translate-x-1/2 ${
-            isFooter ? "w-20" : "w-12 sm:w-14"
+            isFooter ? "w-20" : "w-10 sm:w-11"
           }`}
         />
       </span>

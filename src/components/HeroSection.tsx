@@ -1,5 +1,5 @@
-import carWashIllustration from "@/assets/car-wash-illustration.png";
-import carWashIllustrationAvif from "@/assets/car-wash-illustration.avif";
+import heroLogo from "@/assets/washking-hero-logo.png";
+import heroLogoAvif from "@/assets/washking-hero-logo.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import { OPEN_LOCATIONS } from "@/lib/locations";
@@ -11,43 +11,43 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="relative overflow-hidden bg-washking-sky">
-      <div className="absolute inset-y-0 right-0 hidden w-[46%] border-l border-white/10 bg-white/5 lg:block" aria-hidden="true" />
-      <OptimizedImage
-        avifSrc={carWashIllustrationAvif}
-        src={carWashIllustration}
-        alt="Car being washed with bubbles"
-        width={801}
-        height={451}
-        decoding="async"
-        className="pointer-events-none absolute -bottom-3 right-[-12%] z-0 w-[82%] max-w-2xl opacity-95 sm:right-[-5%] sm:w-[68%] lg:bottom-6 lg:right-[2%] lg:w-[48%] lg:max-w-3xl"
-      />
+    <section id="hero" className="relative overflow-hidden border-b-4 border-washking-yellow bg-white">
+      <div className="container mx-auto px-4">
+        <div className="mx-auto flex min-h-[560px] max-w-3xl flex-col items-center justify-center py-6 text-center sm:min-h-[600px] sm:py-8 lg:min-h-[640px]">
+          <h1 className="sr-only">WASH KING CAR WASH</h1>
 
-      <div className="container relative z-10 mx-auto px-4">
-        <div className="flex min-h-[560px] max-w-3xl flex-col items-start py-10 pb-64 sm:min-h-[600px] sm:pb-72 lg:min-h-[620px] lg:justify-center lg:py-14 lg:pb-14">
-          <h1 className="font-display text-5xl font-black leading-none text-white sm:text-6xl lg:text-7xl">
-            <span className="block">WASH KING</span>
-            <span className="mt-1 block text-washking-yellow">CAR WASH</span>
-          </h1>
+          <div className="hero-logo-enter flex h-[250px] w-full items-center justify-center sm:h-[310px] lg:h-[360px] xl:h-[380px]">
+            <OptimizedImage
+              avifSrc={heroLogoAvif}
+              src={heroLogo}
+              alt=""
+              aria-hidden="true"
+              width={1185}
+              height={1400}
+              loading="eager"
+              decoding="async"
+              className="hero-logo-float block h-full w-auto max-w-full"
+            />
+          </div>
 
-          <p className="mt-5 font-body text-sm font-extrabold uppercase text-white/80 sm:text-base">
+          <p className="mt-3 font-body text-sm font-extrabold uppercase text-washking-sky sm:text-base">
             FAMILY-OWNED NEW JERSEY CAR WASH
           </p>
 
-          <div className="mt-5 max-w-xl">
-            <p className="font-body text-base font-bold leading-relaxed text-white sm:text-lg lg:text-xl">
+          <div className="mt-3 max-w-2xl">
+            <p className="font-body text-sm font-bold leading-relaxed text-washking-brown sm:text-base lg:text-lg">
               Find your nearest Wash King, check today's hours, compare wash plans, and get directions.
             </p>
-            <p className="mt-3 font-body text-sm font-extrabold uppercase text-washking-yellow sm:text-base">
+            <p className="mt-2 font-body text-sm font-extrabold uppercase text-washking-sky sm:text-base">
               {OPEN_LOCATIONS.length} LOCATIONS OPEN | CHERRY HILL COMING SOON
             </p>
           </div>
 
-          <div className="mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+          <div className="mt-5 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <a
               href="#locations"
               onClick={scrollToLocations}
-              className="btn-hero-secondary min-h-12 px-6 py-3 text-center text-sm sm:px-8 sm:text-base"
+              className="btn-cloud min-h-12 border border-washking-brown bg-washking-yellow px-6 py-3 text-center text-sm text-washking-brown sm:px-8 sm:text-base"
             >
               FIND A LOCATION
             </a>
@@ -57,7 +57,7 @@ const HeroSection = () => {
               data-analytics-source="homepage_hero"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-hero-primary min-h-12 px-6 py-3 text-center text-sm sm:px-8 sm:text-base"
+              className="btn-cloud min-h-12 border border-washking-brown bg-washking-brown px-6 py-3 text-center text-sm text-white sm:px-8 sm:text-base"
             >
               GO UNLIMITED
             </a>
