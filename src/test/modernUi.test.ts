@@ -8,6 +8,7 @@ describe("modern UI guardrails", () => {
   it("uses the approved brand and customer imagery across the homepage", () => {
     const brandLogo = source("src/components/BrandLogo.tsx");
     const hero = source("src/components/HeroSection.tsx");
+    const carousel = source("src/components/ui/carousel.tsx");
     const packages = source("src/components/PackagesSection.tsx");
     const media = hero.indexOf('className="hero-media-enter');
     const eyebrow = hero.indexOf("Family-owned across New Jersey");
@@ -15,9 +16,17 @@ describe("modern UI guardrails", () => {
     expect(brandLogo).toContain('from "@/assets/lion-mascot.png"');
     expect(brandLogo).toContain('from "@/assets/washking-hero-logo.png"');
     expect(hero).toContain('from "@/assets/washking-wash-tunnel-hero.jpg"');
+    expect(hero).toContain('from "@/assets/washking-customer-experience-collage.jpg"');
     expect(hero).toContain("Wash King Car Wash");
     expect(hero).not.toContain('<h1 className="sr-only">');
     expect(hero).not.toContain("hero-logo-float");
+    expect(hero).toContain('opts={{ loop: true, align: "start" }}');
+    expect(hero).toContain('window.matchMedia("(prefers-reduced-motion: reduce)")');
+    expect(hero).toContain('document.visibilityState === "visible"');
+    expect(hero).toContain("Pause automatic hero images");
+    expect(hero).toContain("autoplayTimeoutRef");
+    expect(hero).toContain("carouselApi?.scrollTo(nextIndex, true)");
+    expect(carousel).toContain('api?.off("reInit", onSelect)');
     expect(packages).toContain("washking-customer-experience-collage");
     expect(media).toBeGreaterThan(-1);
     expect(media).toBeLessThan(eyebrow);
