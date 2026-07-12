@@ -27,10 +27,11 @@ describe("modern UI guardrails", () => {
     expect(hero).toContain("Pause automatic hero images");
     expect(hero).toContain("autoplayTimeoutRef");
     expect(hero).toContain("carouselApi?.scrollTo(nextIndex, true)");
-    expect(hero).toContain('className="absolute left-3 top-1/2');
-    expect(hero).toContain('className="absolute right-3 top-1/2');
-    expect(hero).toContain("bg-black/40 px-2.5 py-1.5");
-    expect(hero).not.toContain("bg-black/70 p-1.5");
+    expect(hero).toContain('aria-label="Hero image controls"');
+    expect(hero).toContain('className="flex h-10 items-center justify-center');
+    expect(hero).not.toContain("absolute left-3 top-1/2");
+    expect(hero).not.toContain("absolute right-3 top-1/2");
+    expect(hero).not.toContain("bg-black/40");
     expect(hero).toContain('className="absolute inset-0 h-full w-full object-contain object-center"');
     expect(hero).not.toContain("object-cover");
     expect(carousel).toContain('api?.off("reInit", onSelect)');
