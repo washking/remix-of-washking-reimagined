@@ -133,7 +133,8 @@ describe("modern UI guardrails", () => {
     const plans = source("src/pages/LocationPage.tsx");
 
     expect(locations).toContain("grid-cols-1 gap-8");
-    expect(locations).toContain("border-2 border-gray-200 border-t-4");
+    expect(locations).toContain("border-2 border-washking-brown/35 border-t-4");
+    expect(locations).toContain("bg-washking-yellow p-5");
     expect(plans).toContain("max-w-7xl gap-10");
     expect(plans).toContain("border-2 border-t-[8px]");
   });

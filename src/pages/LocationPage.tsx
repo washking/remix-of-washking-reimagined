@@ -12,7 +12,7 @@ import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
-import { autoWashSchema } from "@/lib/structuredData";
+import { autoWashSchema, breadcrumbSchema } from "@/lib/structuredData";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
   getDirectionsUrl,
@@ -194,7 +194,13 @@ const LocationPage = () => {
         title={`${location.name} Car Wash | Wash King ${location.city.replace(/\s*\d{5}$/, "")}`}
         description={`Visit Wash King ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
         path={`/location/${location.slug}`}
-        jsonLd={autoWashSchema(location.slug, location)}
+        jsonLd={[
+          autoWashSchema(location.slug, location),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: location.name, path: `/location/${location.slug}` },
+          ]),
+        ]}
       />
       <Header />
 

@@ -46,10 +46,10 @@ const LocationCard = ({
 
   return (
     <article
-      className="flex h-full flex-col rounded-lg border-2 border-gray-200 border-t-4 border-t-washking-sky bg-white p-5 shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:border sm:border-t-4 sm:shadow-sm sm:hover:shadow-md lg:p-6"
+      className="flex h-full flex-col rounded-lg border-2 border-washking-brown/35 border-t-4 border-t-washking-brown bg-washking-yellow p-5 shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:border sm:border-t-4 sm:border-washking-brown/35 sm:border-t-washking-brown sm:shadow-sm sm:hover:shadow-md lg:p-6"
     >
       <div className="mb-4 flex items-start justify-between gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white/85">
           <MapPin className="h-5 w-5 text-washking-sky" aria-hidden="true" />
         </div>
         <OpenStatus location={location} currentTime={currentTime} />
@@ -63,7 +63,7 @@ const LocationCard = ({
         <span>{location.serviceLabel}</span>
       </p>
 
-      <div className="space-y-3 border-t border-gray-200 pt-4">
+      <div className="space-y-3 border-t border-washking-brown/25 pt-4">
         <p className="font-body text-sm text-gray-700">
           <span className="block font-bold">{location.address}</span>
           <span>{location.city}</span>
@@ -75,7 +75,7 @@ const LocationCard = ({
       </div>
 
       {Number.isFinite(startingPrice) && (
-        <div className="mt-4 rounded-lg bg-washking-cream px-3 py-2.5">
+        <div className="mt-4 rounded-lg border border-washking-brown/15 bg-white/85 px-3 py-2.5">
           <p className="font-body text-xs font-bold text-washking-brown/70">Unlimited plans from</p>
           <p className="font-display text-xl text-washking-brown">
             ${startingPrice.toFixed(2)}

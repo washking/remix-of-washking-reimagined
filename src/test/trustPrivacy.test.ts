@@ -34,4 +34,16 @@ describe("trust and privacy guardrails", () => {
     expect(privacy).toContain("random visitor and session identifiers");
     expect(privacy).toContain("NXTWash");
   });
+
+  it("publishes complete crawl and social metadata", () => {
+    const seo = source("src/components/Seo.tsx");
+    const structuredData = source("src/lib/structuredData.ts");
+
+    expect(seo).toContain("max-image-preview:large");
+    expect(seo).toContain('property="og:site_name"');
+    expect(seo).toContain('property="og:image:width"');
+    expect(seo).toContain('name="twitter:image:alt"');
+    expect(structuredData).toContain('"@type": "WebSite"');
+    expect(structuredData).toContain('"@type": "BreadcrumbList"');
+  });
 });
