@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ChevronDown, CircleUserRound, Menu, X } from "lucide-react";
+import { ChevronDown, CircleUserRound, Menu, MessageSquareText, X } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 import { LOCATIONS } from "@/lib/locations";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
@@ -173,6 +173,16 @@ const Header = () => {
               Manage plan
             </a>
             <a
+              href="/contact"
+              onClick={(event) => handleNavClick(event, "/contact")}
+              data-analytics="contact_open"
+              data-analytics-source="desktop_header"
+              className="btn-primary gap-1.5 whitespace-nowrap px-3 xl:px-4"
+            >
+              <MessageSquareText className="h-4 w-4" aria-hidden="true" />
+              Contact
+            </a>
+            <a
               href={MEMBERSHIP_PORTAL}
               data-analytics="membership_cta"
               data-analytics-source="desktop_header_join"
@@ -184,17 +194,27 @@ const Header = () => {
             </a>
           </div>
 
-          <div className="flex items-center gap-1.5 lg:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             <a
               href={MEMBERSHIP_PORTAL}
               data-analytics="membership_cta"
               data-analytics-source="mobile_header_manage"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline gap-1.5 whitespace-nowrap px-3 text-xs"
+              className="btn-outline gap-1 whitespace-nowrap px-2 text-[11px] sm:px-3 sm:text-xs"
             >
-              <CircleUserRound className="h-4 w-4" aria-hidden="true" />
+              <CircleUserRound className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
               Manage
+            </a>
+            <a
+              href="/contact"
+              onClick={(event) => handleNavClick(event, "/contact")}
+              data-analytics="contact_open"
+              data-analytics-source="mobile_header"
+              className="btn-primary gap-1 whitespace-nowrap px-2 text-[11px] sm:px-3 sm:text-xs"
+            >
+              <MessageSquareText className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
+              Contact
             </a>
             <button
               type="button"

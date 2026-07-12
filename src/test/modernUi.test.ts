@@ -130,4 +130,13 @@ describe("modern UI guardrails", () => {
     expect(plans).toContain("max-w-7xl gap-10");
     expect(plans).toContain("border-2 border-t-[8px]");
   });
+
+  it("keeps the contact form prominent beside membership management", () => {
+    const header = source("src/components/Header.tsx");
+
+    expect(header).toContain('data-analytics-source="desktop_header"');
+    expect(header).toContain('data-analytics-source="mobile_header"');
+    expect(header.match(/href="\/contact"/g)).toHaveLength(2);
+    expect(header).toContain("MessageSquareText");
+  });
 });
