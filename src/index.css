@@ -77,7 +77,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Fredoka', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
     font-weight: 800;
     letter-spacing: 0;
     line-height: 1.15;
@@ -101,8 +101,8 @@
 
 @layer components {
   .font-display {
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-    font-weight: 800;
+    font-family: 'Fredoka', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
     letter-spacing: 0;
   }
 

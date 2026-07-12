@@ -1,5 +1,5 @@
-import headerLogo from "@/assets/washking-logo.png";
-import headerLogoAvif from "@/assets/washking-logo.avif";
+import headerLogo from "@/assets/lion-car-mark.png";
+import headerLogoAvif from "@/assets/lion-car-mark.avif";
 import footerLogo from "@/assets/washking-hero-logo.png";
 import footerLogoAvif from "@/assets/washking-hero-logo.avif";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -28,19 +28,16 @@ const BrandLogo = ({ variant = "header" }: BrandLogoProps) => {
 
   return (
     <span className="inline-flex items-center gap-2">
-      <span
-        className="relative block h-[50px] w-14 shrink-0 overflow-hidden sm:w-16"
-        aria-hidden="true"
-      >
+      <span className="block w-14 shrink-0 sm:w-16" aria-hidden="true">
         <OptimizedImage
           avifSrc={headerLogoAvif}
           src={headerLogo}
           alt=""
           width={500}
-          height={500}
+          height={380}
           loading="eager"
           decoding="async"
-          className="absolute left-1/2 top-0 h-auto w-16 -translate-x-1/2 [clip-path:inset(0_0_25%_0)]"
+          className="block h-auto w-full"
         />
       </span>
 

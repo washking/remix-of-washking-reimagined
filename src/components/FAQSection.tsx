@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import lionMascot from "@/assets/lion-mascot.png";
 import lionMascotAvif from "@/assets/lion-mascot.avif";
 import OptimizedImage from "@/components/OptimizedImage";
+import KingdomHeading from "@/components/KingdomHeading";
+import RoyalTrim from "@/components/RoyalTrim";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
   Accordion,
@@ -48,15 +50,12 @@ const FAQSection = () => {
   return (
     <section id="faq" className="scroll-mt-24 bg-washking-cream py-12 lg:py-16">
       <div className="container mx-auto px-4">
-        <div className="mb-9 text-center lg:mb-12">
-          <p className="section-eyebrow mb-2">Unlimited membership</p>
-          <h2 className="section-title">
-            Unlimited Wash Club FAQs
-          </h2>
-          <p className="section-copy mx-auto mt-3 max-w-2xl">
-            The essentials about joining, billing, vehicles, and cancellation.
-          </p>
-        </div>
+        <KingdomHeading
+          eyebrow="Unlimited membership"
+          title="Unlimited Wash Club FAQs"
+          description="The essentials about joining, billing, vehicles, and cancellation."
+          className="mb-9 lg:mb-12"
+        />
 
         <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-16 max-w-6xl mx-auto">
           <div
@@ -85,7 +84,7 @@ const FAQSection = () => {
                 <AccordionItem
                   key={index} 
                   value={`item-${index}`}
-                  className="rounded-lg border border-gray-200 bg-white px-4 shadow-sm sm:px-5"
+                  className="rounded-lg border border-washking-brown/15 border-l-4 border-l-washking-sky bg-white px-4 shadow-sm sm:px-5"
                 >
                   <AccordionTrigger 
                     hideChevron 
@@ -132,6 +131,7 @@ const FAQSection = () => {
           {supportCopy}
         </p>
       </div>
+      <RoyalTrim className="mt-12 lg:mt-16" />
     </section>
   );
 };

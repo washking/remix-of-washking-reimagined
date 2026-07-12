@@ -3,12 +3,12 @@ import { Home, MapPinned } from "lucide-react";
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import lionMascot from "@/assets/lion-mascot.png";
-import lionMascotAvif from "@/assets/lion-mascot.avif";
+import lionCar from "@/assets/lion-car-mark.png";
+import lionCarAvif from "@/assets/lion-car-mark.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 
 const NotFound = () => (
-  <div className="flex min-h-screen flex-col bg-gray-50">
+  <div className="flex min-h-screen flex-col bg-washking-sky-light">
     <Seo
       title="Page Not Found | Wash King Car Wash"
       description="The page you're looking for doesn't exist. Return to Wash King Car Wash."
@@ -17,15 +17,15 @@ const NotFound = () => (
     />
     <Header />
     <main id="main-content" tabIndex={-1} className="flex flex-1 items-center justify-center py-12">
-      <div className="px-4 text-center">
+      <div className="mx-4 max-w-2xl rounded-lg border border-washking-brown/15 border-t-[6px] border-t-washking-yellow bg-white px-6 py-10 text-center shadow-md sm:px-10">
         <OptimizedImage
-          avifSrc={lionMascotAvif}
-          src={lionMascot}
-          alt="Wash King lion mascot"
-          width={1132}
-          height={1920}
+          avifSrc={lionCarAvif}
+          src={lionCar}
+          alt="Wash King lion mascot sitting on a red car"
+          width={500}
+          height={380}
           decoding="async"
-          className="mx-auto mb-6 h-auto w-24"
+          className="mx-auto mb-6 h-auto w-44"
         />
         <p className="font-body text-sm font-bold text-washking-sky">Error 404</p>
         <h1 className="mt-2 font-display text-3xl text-washking-brown sm:text-4xl">

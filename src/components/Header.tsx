@@ -77,7 +77,7 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-washking-brown/20 bg-washking-yellow/95 shadow-sm backdrop-blur">
+    <header className="sticky top-0 z-50 border-b-4 border-washking-sky bg-washking-yellow/95 shadow-sm backdrop-blur">
       <div className="container mx-auto px-4 py-2.5">
         <div className="flex items-center justify-between gap-3">
           <a
