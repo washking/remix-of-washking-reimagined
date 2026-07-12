@@ -2,7 +2,6 @@ import { Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import lionMascot from "@/assets/lion-mascot.png";
 import lionMascotAvif from "@/assets/lion-mascot.avif";
-import FoamBubbles from "./FoamBubbles";
 import OptimizedImage from "@/components/OptimizedImage";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
@@ -41,15 +40,12 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="relative py-10 lg:py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)]" />
-      <FoamBubbles variant="section" density="low" />
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="faq" className="bg-gray-50 py-12 lg:py-16">
+      <div className="container mx-auto px-4">
         <div
           className="text-center mb-6 lg:mb-14"
         >
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl xl:text-7xl text-white text-shadow">
+          <h2 className="font-display text-3xl text-washking-brown sm:text-4xl lg:text-5xl">
             ANY QUESTIONS?
           </h2>
         </div>
@@ -66,9 +62,9 @@ const FAQSection = () => {
               height={1920}
               loading="lazy"
               decoding="async"
-              className="w-48 lg:w-64 xl:w-72 h-auto mx-auto lg:mx-0 drop-shadow-2xl mb-6"
+              className="mx-auto mb-6 h-auto w-32 lg:mx-0 lg:w-40"
             />
-            <p className="text-white font-body text-base lg:text-lg xl:text-xl leading-relaxed">
+            <p className="font-body text-base leading-relaxed text-gray-700 lg:text-lg">
               Have more questions? Feel free to reach out to us! We're here to assist 
               you with all your car care needs.
             </p>
@@ -79,21 +75,21 @@ const FAQSection = () => {
           >
             <Accordion type="single" collapsible className="space-y-2 lg:space-y-4">
               {faqs.map((faq, index) => (
-                <AccordionItem 
+                <AccordionItem
                   key={index} 
                   value={`item-${index}`}
-                  className="border-b border-white/30 pb-2 lg:pb-4"
+                  className="border-b border-gray-300 pb-2 lg:pb-4"
                 >
                   <AccordionTrigger 
                     hideChevron 
-                    className="text-left font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wide hover:no-underline group py-2"
+                    className="group py-3 text-left font-body text-sm font-extrabold text-washking-brown hover:no-underline sm:text-base lg:text-lg"
                   >
                     <span className="flex items-center gap-2 lg:gap-4">
-                      <Plus className="w-4 h-4 lg:w-6 lg:h-6 flex-shrink-0 transition-transform group-data-[state=open]:rotate-45" />
+                      <Plus className="h-4 w-4 flex-shrink-0 text-washking-sky transition-transform group-data-[state=open]:rotate-45 lg:h-5 lg:w-5" />
                       {faq.question.toUpperCase()}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-white/90 font-body text-sm sm:text-base lg:text-lg pl-6 lg:pl-10 leading-relaxed">
+                  <AccordionContent className="pl-6 font-body text-sm leading-relaxed text-gray-700 sm:text-base lg:pl-9">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -107,7 +103,7 @@ const FAQSection = () => {
                 rel="noopener noreferrer"
                 data-analytics="membership_cta"
                 data-analytics-source="faq"
-                className="btn-cloud border-2 border-washking-brown bg-washking-yellow px-5 py-3 text-center font-display text-sm text-washking-brown"
+                className="btn-cloud border border-washking-brown bg-washking-yellow px-5 py-3 text-center text-sm text-washking-brown"
               >
                 Manage Membership
               </a>
@@ -115,7 +111,7 @@ const FAQSection = () => {
                 to="/contact"
                 data-analytics="contact_open"
                 data-analytics-source="faq"
-                className="btn-cloud border-2 border-washking-brown bg-white px-5 py-3 text-center font-display text-sm text-washking-brown"
+                className="btn-cloud border border-washking-brown bg-white px-5 py-3 text-center text-sm text-washking-brown"
               >
                 Contact Support
               </Link>
@@ -124,7 +120,7 @@ const FAQSection = () => {
         </div>
 
         <p
-          className="text-white font-body text-sm text-center mt-6 lg:hidden max-w-md mx-auto leading-relaxed"
+          className="mx-auto mt-6 max-w-md text-center font-body text-sm leading-relaxed text-gray-700 lg:hidden"
         >
           Have more questions? Feel free to reach out to us! We're here to assist 
           you with all your car care needs.

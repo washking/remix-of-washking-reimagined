@@ -1,79 +1,66 @@
-import lionMascot from "@/assets/lion-mascot.png";
-import lionMascotAvif from "@/assets/lion-mascot.avif";
-import FoamBubbles from "./FoamBubbles";
+import carWashIllustration from "@/assets/car-wash-illustration.png";
+import carWashIllustrationAvif from "@/assets/car-wash-illustration.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import { OPEN_LOCATIONS } from "@/lib/locations";
 
 const HeroSection = () => {
-  const scrollToLocations = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const element = document.querySelector("#locations");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const scrollToLocations = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    document.querySelector("#locations")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section id="hero" className="relative overflow-hidden">
-      <div className="relative bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] min-h-[360px] sm:min-h-[420px] lg:min-h-[540px]">
-        <FoamBubbles variant="hero" density="medium" />
+    <section id="hero" className="relative overflow-hidden bg-washking-sky">
+      <div className="absolute inset-y-0 right-0 hidden w-[46%] border-l border-white/10 bg-white/5 lg:block" aria-hidden="true" />
+      <OptimizedImage
+        avifSrc={carWashIllustrationAvif}
+        src={carWashIllustration}
+        alt="Car being washed with bubbles"
+        width={801}
+        height={451}
+        decoding="async"
+        className="pointer-events-none absolute -bottom-3 right-[-12%] z-0 w-[82%] max-w-2xl opacity-95 sm:right-[-5%] sm:w-[68%] lg:bottom-6 lg:right-[2%] lg:w-[48%] lg:max-w-3xl"
+      />
 
-        <div className="container mx-auto px-4 py-8 sm:py-10 lg:py-12 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
-            <div
-              className="lg:w-1/2 text-center lg:text-left"
+      <div className="container relative z-10 mx-auto px-4">
+        <div className="flex min-h-[560px] max-w-3xl flex-col items-start py-10 pb-64 sm:min-h-[600px] sm:pb-72 lg:min-h-[620px] lg:justify-center lg:py-14 lg:pb-14">
+          <h1 className="font-display text-5xl font-black leading-none text-white sm:text-6xl lg:text-7xl">
+            <span className="block">WASH KING</span>
+            <span className="mt-1 block text-washking-yellow">CAR WASH</span>
+          </h1>
+
+          <p className="mt-5 font-body text-sm font-extrabold uppercase text-white/80 sm:text-base">
+            FAMILY-OWNED NEW JERSEY CAR WASH
+          </p>
+
+          <div className="mt-5 max-w-xl">
+            <p className="font-body text-base font-bold leading-relaxed text-white sm:text-lg lg:text-xl">
+              Find your nearest WashKing, check today's hours, compare wash plans, and get directions.
+            </p>
+            <p className="mt-3 font-body text-sm font-extrabold uppercase text-washking-yellow sm:text-base">
+              {OPEN_LOCATIONS.length} LOCATIONS OPEN | CHERRY HILL COMING SOON
+            </p>
+          </div>
+
+          <div className="mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <a
+              href="#locations"
+              onClick={scrollToLocations}
+              className="btn-hero-secondary min-h-12 px-6 py-3 text-center text-sm sm:px-8 sm:text-base"
             >
-              <p className="font-display text-white text-sm sm:text-base lg:text-xl tracking-wider text-shadow-white mb-2">
-                FAMILY-OWNED NEW JERSEY CAR WASH
-              </p>
-              <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-washking-yellow text-shadow mb-4 lg:mb-8">
-                WASHKING
-              </h1>
-
-              <div className="mb-6 lg:mb-10 max-w-xl mx-auto lg:mx-0">
-                <p className="font-body font-bold text-white text-base sm:text-lg lg:text-xl leading-relaxed text-shadow-white">
-                  Find your nearest WashKing, check today's hours, compare wash plans, and get directions.
-                </p>
-                <p className="font-display text-washking-yellow text-sm sm:text-base lg:text-lg tracking-wider text-shadow mt-3">
-                  {OPEN_LOCATIONS.length} LOCATIONS OPEN | CHERRY HILL COMING SOON
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <a
-                  href="#locations"
-                  onClick={scrollToLocations}
-                  className="btn-hero-secondary text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-4"
-                >
-                  FIND A LOCATION
-                </a>
-                <a
-                  href={MEMBERSHIP_PORTAL}
-                  data-analytics="membership_cta"
-                  data-analytics-source="homepage_hero"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-hero-primary text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 lg:py-4"
-                >
-                  GO UNLIMITED
-                </a>
-              </div>
-            </div>
-
-            <div
-              className="lg:w-1/2 flex justify-center lg:justify-end"
+              FIND A LOCATION
+            </a>
+            <a
+              href={MEMBERSHIP_PORTAL}
+              data-analytics="membership_cta"
+              data-analytics-source="homepage_hero"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-hero-primary min-h-12 px-6 py-3 text-center text-sm sm:px-8 sm:text-base"
             >
-              <OptimizedImage
-                avifSrc={lionMascotAvif}
-                src={lionMascot}
-                alt="WashKing Lion Mascot"
-                width={1132}
-                height={1920}
-                decoding="async"
-                className="w-40 sm:w-56 lg:w-72 xl:w-80 h-auto drop-shadow-2xl rounded-2xl"
-              />
-            </div>
+              GO UNLIMITED
+            </a>
           </div>
         </div>
       </div>

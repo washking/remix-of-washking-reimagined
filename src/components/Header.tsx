@@ -87,8 +87,8 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-washking-yellow relative z-50 shadow-md">
-      <div className="container mx-auto px-4 py-3 lg:py-4">
+    <header className="sticky top-0 z-50 border-b border-gray-200 border-t-4 border-t-washking-yellow bg-white shadow-sm">
+      <div className="container mx-auto px-4 py-2.5 lg:py-3">
         <div className="flex items-center justify-between gap-3">
           <a
             href="/"
@@ -103,11 +103,11 @@ const Header = () => {
               width={500}
               height={511}
               decoding="async"
-              className="h-16 sm:h-18 lg:h-24 w-auto drop-shadow-sm"
+              className="h-14 w-auto sm:h-16"
             />
           </a>
 
-          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-white/20 backdrop-blur-sm rounded-full px-2 py-1.5" aria-label="Primary navigation">
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
             {menuItems.map((item) => (
               <div
                 key={item.label}
@@ -125,7 +125,7 @@ const Header = () => {
                     type="button"
                     onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
                     onFocus={() => setActiveDropdown(item.label)}
-                    className="font-display text-washking-brown text-xs xl:text-sm flex items-center gap-1 hover:bg-white/40 rounded-full transition-colors px-3 xl:px-4 py-2"
+                    className="flex min-h-11 items-center gap-1 rounded-lg px-3 py-2 font-body text-xs font-extrabold text-washking-brown transition-colors hover:bg-gray-100 xl:px-4 xl:text-sm"
                     aria-expanded={activeDropdown === item.label}
                   >
                     {item.label.toUpperCase()}
@@ -138,7 +138,7 @@ const Header = () => {
                   <a
                     href={item.href}
                     onClick={(event) => handleNavClick(event, item.href)}
-                    className="font-display text-washking-brown text-xs xl:text-sm block hover:bg-white/40 rounded-full transition-colors px-3 xl:px-4 py-2"
+                    className="block min-h-11 rounded-lg px-3 py-3 font-body text-xs font-extrabold text-washking-brown transition-colors hover:bg-gray-100 xl:px-4 xl:text-sm"
                   >
                     {item.label.toUpperCase()}
                   </a>
@@ -146,7 +146,7 @@ const Header = () => {
 
                 {item.dropdown && activeDropdown === item.label && (
                     <div className="absolute top-full left-0 pt-2 z-50">
-                      <div className="bg-white rounded-2xl shadow-2xl py-2 min-w-[230px] border border-gray-100 overflow-hidden">
+                      <div className="min-w-[230px] overflow-hidden rounded-lg border border-gray-200 bg-white py-2 shadow-xl">
                         {item.dropdown.map((subItem) => (
                           subItem.external ? (
                             <a
@@ -184,7 +184,7 @@ const Header = () => {
               data-analytics="contact_open"
               data-analytics-source="desktop_header"
               onClick={(event) => handleNavClick(event, "/contact")}
-              className="btn-cloud bg-white text-washking-brown border-2 border-washking-brown px-4 xl:px-5 py-2 text-sm whitespace-nowrap flex items-center gap-1.5"
+              className="btn-cloud flex min-h-11 items-center gap-1.5 whitespace-nowrap border border-gray-300 bg-white px-4 py-2 text-sm text-washking-brown xl:px-5"
             >
               <Mail className="w-4 h-4" aria-hidden="true" />
               Contact Us
@@ -207,14 +207,14 @@ const Header = () => {
               data-analytics="contact_open"
               data-analytics-source="mobile_header"
               onClick={(event) => handleNavClick(event, "/contact")}
-              className="btn-cloud min-h-11 bg-white text-washking-brown border-2 border-washking-brown px-3 py-2 text-xs whitespace-nowrap flex items-center gap-1"
+              className="btn-cloud flex min-h-11 items-center gap-1 whitespace-nowrap border border-gray-300 bg-white px-3 py-2 text-xs text-washking-brown"
             >
               <Mail className="w-4 h-4" aria-hidden="true" />
               Contact
             </a>
             <button
               type="button"
-              className="flex min-h-11 min-w-11 items-center justify-center p-2 -mr-2"
+              className="-mr-2 flex min-h-11 min-w-11 items-center justify-center rounded-lg p-2 hover:bg-gray-100"
               onClick={() => setMobileMenuOpen((open) => !open)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
@@ -232,7 +232,7 @@ const Header = () => {
         {mobileMenuOpen && (
             <div
               id="mobile-navigation"
-              className="lg:hidden mt-3 border-t border-washking-brown/20 overflow-hidden"
+              className="mt-2 overflow-hidden border-t border-gray-200 lg:hidden"
             >
               <div className="max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain pt-3 pb-4 pr-1">
                 <nav className="space-y-1" aria-label="Mobile navigation">
@@ -241,12 +241,12 @@ const Header = () => {
                       <a
                         href={item.href}
                         onClick={(event) => handleNavClick(event, item.href)}
-                        className="block py-2.5 px-2 font-display text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
+                        className="block rounded-lg px-2 py-2.5 font-body text-sm font-extrabold text-washking-brown transition-colors hover:bg-gray-100"
                       >
                         {item.label.toUpperCase()}
                       </a>
                       {item.dropdown && (
-                        <div className="pl-3 border-l-2 border-washking-brown/20 ml-3 grid grid-cols-1 sm:grid-cols-2 gap-0.5">
+                        <div className="ml-3 grid grid-cols-1 gap-0.5 border-l border-gray-200 pl-3 sm:grid-cols-2">
                           {item.dropdown.map((subItem) => (
                             subItem.external ? (
                               <a
@@ -256,7 +256,7 @@ const Header = () => {
                                 rel="noopener noreferrer"
                                 data-analytics="membership_cta"
                                 data-analytics-source="mobile_navigation"
-                                className="block py-2 px-3 font-body text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
+                                className="block rounded-lg px-3 py-2 font-body text-sm text-washking-brown transition-colors hover:bg-gray-100"
                               >
                                 {subItem.label}
                               </a>
@@ -265,7 +265,7 @@ const Header = () => {
                                 key={subItem.href}
                                 href={subItem.href}
                                 onClick={(event) => handleNavClick(event, subItem.href)}
-                                className="block py-2 px-3 font-body text-washking-brown text-sm rounded-lg hover:bg-washking-brown/10 transition-colors"
+                                className="block rounded-lg px-3 py-2 font-body text-sm text-washking-brown transition-colors hover:bg-gray-100"
                               >
                                 {subItem.label}
                               </a>

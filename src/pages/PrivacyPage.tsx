@@ -2,7 +2,6 @@ import { Database, Send, ShieldCheck, UserRoundCheck } from "lucide-react";
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FoamBubbles from "@/components/FoamBubbles";
 import { CONTACT_EMAIL, MEMBERSHIP_PORTAL } from "@/lib/site";
 
 const PrivacyPage = () => (
@@ -14,13 +13,12 @@ const PrivacyPage = () => (
     />
     <Header />
     <main id="main-content" tabIndex={-1}>
-      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] py-14 lg:py-18">
-        <FoamBubbles variant="hero" density="low" />
-        <div className="container relative z-10 mx-auto px-4 text-center">
+      <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-14">
+        <div className="container mx-auto px-4 text-center">
           <p className="mb-3 font-body text-sm font-extrabold uppercase text-washking-yellow">
             Last updated July 11, 2026
           </p>
-          <h1 className="font-display text-5xl text-white text-shadow sm:text-6xl lg:text-7xl">
+          <h1 className="font-display text-4xl text-white sm:text-5xl">
             PRIVACY NOTICE
           </h1>
           <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-relaxed text-white/90 sm:text-xl">
@@ -40,7 +38,7 @@ const PrivacyPage = () => (
         </div>
       </section>
 
-      <section className="py-12 lg:py-18">
+      <section className="py-12 lg:py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl divide-y divide-washking-brown/15">
             <section className="grid gap-5 pb-10 md:grid-cols-[56px_1fr]" aria-labelledby="information-you-submit">

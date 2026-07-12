@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { MotionConfig, motion } from "framer-motion";
 import {
   Check,
   Clock,
@@ -12,7 +11,6 @@ import {
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FoamBubbles from "@/components/FoamBubbles";
 import { Badge } from "@/components/ui/badge";
 import { autoWashSchema } from "@/lib/structuredData";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
@@ -28,48 +26,8 @@ import {
   type WashKingLocation,
 } from "@/lib/locations";
 
-const BubbleCluster = ({ className = "" }: { className?: string }) => (
-  <div className={`absolute pointer-events-none ${className}`} aria-hidden="true">
-    <motion.div
-      animate={{ y: [0, -8, 0], scale: [1, 1.05, 1] }}
-      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      className="relative"
-    >
-      <div className="w-16 h-16 rounded-full bg-white/30 backdrop-blur-sm absolute -top-4 -left-4" />
-      <div className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-sm absolute top-6 left-8" />
-      <div className="w-8 h-8 rounded-full bg-white/25 backdrop-blur-sm absolute -top-2 left-12" />
-      <div className="w-6 h-6 rounded-full bg-white/35 backdrop-blur-sm absolute top-10 -left-2" />
-    </motion.div>
-  </div>
-);
-
-const WaveTransition = () => (
-  <div className="bg-washking-yellow h-8 lg:h-12 relative" aria-hidden="true">
-    <div className="absolute bottom-0 left-0 right-0">
-      <svg viewBox="0 0 1440 200" className="w-full h-auto" preserveAspectRatio="none">
-        <path
-          fill="hsl(202 68% 40%)"
-          d="M0,200 L0,100 Q360,180 720,100 T1440,120 L1440,200 Z"
-        />
-      </svg>
-    </div>
-  </div>
-);
-
-const CloudTransition = () => (
-  <div className="absolute bottom-0 left-0 right-0" aria-hidden="true">
-    <svg viewBox="0 0 1440 120" className="w-full h-auto" preserveAspectRatio="none">
-      <ellipse cx="200" cy="100" rx="250" ry="80" fill="hsl(200 80% 85%)" />
-      <ellipse cx="500" cy="110" rx="300" ry="70" fill="hsl(200 80% 90%)" />
-      <ellipse cx="900" cy="95" rx="350" ry="90" fill="hsl(200 80% 85%)" />
-      <ellipse cx="1300" cy="105" rx="280" ry="75" fill="hsl(200 80% 90%)" />
-    </svg>
-  </div>
-);
-
 const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
-  <MotionConfig reducedMotion="user">
-    <div className="min-h-screen overflow-x-hidden">
+  <div className="min-h-screen overflow-x-hidden bg-gray-50">
     <Seo
       title={`${location.name} Car Wash - Coming Soon | WashKing`}
       description={`WashKing Car Wash is coming soon to ${location.city}. Follow the new location and contact our team for updates.`}
@@ -78,89 +36,75 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
     <Header />
 
     <main id="main-content" tabIndex={-1}>
-      <section className="relative">
-        <WaveTransition />
-        <div className="bg-gradient-to-b from-[hsl(202_68%_40%)] to-washking-sky relative pt-5 lg:pt-10 pb-28 lg:pb-40">
-          <FoamBubbles variant="section" density="low" />
-          <BubbleCluster className="top-16 left-[6%]" />
+      <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-16">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            <div className="text-center lg:text-left">
+              <p className="mb-2 font-body text-sm font-extrabold uppercase text-washking-yellow">
+                {location.state.toUpperCase()}
+              </p>
+              <h1 className="mb-4 font-display text-4xl text-white sm:text-5xl lg:text-6xl">
+                {location.name}
+              </h1>
+              <p className="mx-auto max-w-xl font-body text-xl font-bold text-white sm:text-2xl lg:mx-0">
+                A new WashKing is on the way to {location.city}.
+              </p>
+            </div>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-              <motion.div
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="text-center lg:text-left"
-              >
-                <p className="font-display text-washking-brown text-sm sm:text-base tracking-widest mb-2">
-                  {location.state.toUpperCase()}
-                </p>
-                <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl text-white text-shadow mb-4">
-                  {location.name}
-                </h1>
-                <p className="font-body font-bold text-white text-xl sm:text-2xl lg:text-3xl text-shadow-white max-w-xl mx-auto lg:mx-0">
-                  A new WashKing is on the way to {location.city}.
-                </p>
-              </motion.div>
+            <div className="mx-auto w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
+              <Badge className="mb-6 rounded-lg bg-washking-yellow px-4 py-2 font-body text-sm font-extrabold text-washking-brown">
+                Coming Soon
+              </Badge>
 
-              <div className="bg-white rounded-3xl shadow-2xl p-6 lg:p-8 w-full max-w-md mx-auto lg:ml-auto">
-                <Badge className="bg-washking-yellow text-washking-brown font-display text-lg px-5 py-2 rounded-full mb-6">
-                  Coming Soon
-                </Badge>
-
-                <div className="space-y-5">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                      <MapPin className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <p className="font-display text-washking-brown/70 text-xs tracking-widest">LOCATION</p>
-                      <p className="font-body text-washking-brown font-bold">{location.city}</p>
-                    </div>
+              <div className="space-y-5">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                    <MapPin className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                   </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                      <Mail className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-display text-washking-brown/70 text-xs tracking-widest">UPDATES</p>
-                      <a
-                        href={`mailto:${location.email}?subject=${encodeURIComponent(`${location.name} opening updates`)}`}
-                        className="font-body text-washking-brown font-bold hover:underline break-all"
-                      >
-                        {location.email}
-                      </a>
-                    </div>
+                  <div>
+                    <p className="font-body text-xs font-extrabold text-washking-brown/70">LOCATION</p>
+                    <p className="font-body font-bold text-washking-brown">{location.city}</p>
                   </div>
                 </div>
 
-                <div className="mt-7 grid gap-3">
-                  <Link
-                    to={`/contact?location=${location.slug}&topic=opening-updates`}
-                    className="btn-cloud text-center bg-washking-brown text-white border-2 border-washking-brown px-4 py-3 font-display text-base"
-                  >
-                    Contact WashKing
-                  </Link>
-                  <Link
-                    to="/#locations"
-                    className="btn-cloud text-center bg-washking-cream text-washking-brown border-2 border-washking-brown px-4 py-3 font-display text-base"
-                  >
-                    View Open Locations
-                  </Link>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                    <Mail className="h-5 w-5 text-washking-brown" aria-hidden="true" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-body text-xs font-extrabold text-washking-brown/70">UPDATES</p>
+                    <a
+                      href={`mailto:${location.email}?subject=${encodeURIComponent(`${location.name} opening updates`)}`}
+                      className="break-all font-body font-bold text-washking-brown hover:underline"
+                    >
+                      {location.email}
+                    </a>
+                  </div>
                 </div>
+              </div>
+
+              <div className="mt-7 grid gap-3">
+                <Link
+                  to={`/contact?location=${location.slug}&topic=opening-updates`}
+                  className="btn-cloud border border-washking-brown bg-washking-brown px-4 py-3 text-center font-body text-base font-extrabold text-white"
+                >
+                  Contact WashKing
+                </Link>
+                <Link
+                  to="/#locations"
+                  className="btn-cloud border border-washking-brown bg-white px-4 py-3 text-center font-body text-base font-extrabold text-washking-brown"
+                >
+                  View Open Locations
+                </Link>
               </div>
             </div>
           </div>
-
-          <CloudTransition />
         </div>
       </section>
     </main>
 
-      <Footer />
-    </div>
-  </MotionConfig>
+    <Footer />
+  </div>
 );
 
 const HoursDetails = ({ location }: { location: WashKingLocation }) => {
@@ -198,7 +142,7 @@ const LocationPage = () => {
 
   if (!location) {
     return (
-      <div className="min-h-screen bg-washking-sky">
+      <div className="min-h-screen bg-gray-50">
         <Seo
           title="Location Not Found | WashKing Car Wash"
           description="This WashKing Car Wash location could not be found. Explore our New Jersey locations."
@@ -207,8 +151,8 @@ const LocationPage = () => {
         />
         <Header />
         <main id="main-content" tabIndex={-1} className="container mx-auto px-4 py-24 text-center">
-          <h1 className="font-display text-4xl text-white text-shadow mb-4">Location Not Found</h1>
-          <Link to="/#locations" className="btn-hero-primary inline-block">
+          <h1 className="mb-4 font-display text-4xl text-washking-brown">Location Not Found</h1>
+          <Link to="/#locations" className="btn-hero-primary inline-block border border-washking-brown">
             View Locations
           </Link>
         </main>
@@ -233,8 +177,7 @@ const LocationPage = () => {
   };
 
   return (
-    <MotionConfig reducedMotion="user">
-      <div className="min-h-screen overflow-x-hidden pb-24 md:pb-0">
+    <div className="min-h-screen overflow-x-hidden bg-gray-50 pb-24 md:pb-0">
       <Seo
         title={`${location.name} Car Wash | WashKing ${location.city.replace(/\s*\d{5}$/, "")}`}
         description={`Visit WashKing ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
@@ -244,116 +187,103 @@ const LocationPage = () => {
       <Header />
 
       <main id="main-content" tabIndex={-1}>
-        <section className="relative">
-          <WaveTransition />
-          <div className="bg-gradient-to-b from-[hsl(202_68%_40%)] to-washking-sky relative pt-5 lg:pt-10 pb-28 lg:pb-40">
-            <FoamBubbles variant="section" density="low" />
-            <BubbleCluster className="top-14 right-[8%]" />
-
-            <div className="container mx-auto px-4 relative z-10">
-              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-                <motion.div
-                  initial={false}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-center lg:text-left"
-                >
-                  <p className="font-display text-washking-brown text-sm sm:text-base tracking-widest mb-2">
-                    {location.state.toUpperCase()}
+        <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-16">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
+              <div className="text-center lg:text-left">
+                <p className="mb-2 font-body text-sm font-extrabold uppercase text-washking-yellow">
+                  {location.state.toUpperCase()}
+                </p>
+                <h1 className="mb-4 font-display text-4xl text-white sm:text-5xl lg:text-6xl">
+                  {location.name}
+                </h1>
+                {Number.isFinite(startingPrice) && (
+                  <p className="font-body text-xl font-bold text-white sm:text-2xl">
+                    Unlimited plans from{" "}
+                    <span className="whitespace-nowrap font-display text-3xl text-washking-yellow sm:text-4xl">
+                      ${startingPrice.toFixed(2)}/mo
+                    </span>
                   </p>
-                  <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl text-white text-shadow mb-4">
-                    {location.name}
-                  </h1>
-                  {Number.isFinite(startingPrice) && (
-                    <p className="font-body font-bold text-white text-xl sm:text-2xl lg:text-3xl text-shadow-white">
-                      Unlimited plans from{" "}
-                      <span className="font-display text-washking-yellow whitespace-nowrap text-3xl sm:text-4xl lg:text-5xl">
-                        ${startingPrice.toFixed(2)}/mo
-                      </span>
-                    </p>
-                  )}
-                </motion.div>
+                )}
+              </div>
 
-                <div className="bg-white rounded-3xl shadow-2xl p-6 lg:p-8 w-full max-w-md mx-auto lg:ml-auto">
-                  <div className="space-y-5">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                        <MapPin className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <p className="font-display text-washking-brown/70 text-xs tracking-widest">ADDRESS</p>
-                        <p className="font-body text-washking-brown font-bold">{location.address}</p>
-                        <p className="font-body text-washking-brown/80">{location.city}</p>
-                      </div>
+              <div className="mx-auto w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
+                <div className="space-y-5">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                      <MapPin className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                     </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                        <Clock className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <p className="font-display text-washking-brown/70 text-xs tracking-widest">HOURS</p>
-                        <p className="font-body text-washking-brown font-bold">{hoursSummary}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                        <Mail className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="font-display text-washking-brown/70 text-xs tracking-widest">CONTACT</p>
-                        <a href={`mailto:${location.email}`} className="font-body text-washking-brown font-bold hover:underline break-all">
-                          {location.email}
-                        </a>
-                      </div>
+                    <div>
+                      <p className="font-body text-xs font-extrabold text-washking-brown/70">ADDRESS</p>
+                      <p className="font-body font-bold text-washking-brown">{location.address}</p>
+                      <p className="font-body text-washking-brown/80">{location.city}</p>
                     </div>
                   </div>
 
-                  <div className="mt-7 grid grid-cols-2 gap-3">
-                    {directionsUrl && (
-                      <a
-                        href={directionsUrl}
-                        data-analytics="directions_click"
-                        data-analytics-source="location_hero"
-                        data-location-slug={location.slug}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-cloud bg-washking-brown text-white border-2 border-washking-brown px-3 py-3 font-display text-sm flex items-center justify-center gap-2"
-                      >
-                        <Navigation className="w-4 h-4" aria-hidden="true" />
-                        Directions
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                      <Clock className="h-5 w-5 text-washking-brown" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <p className="font-body text-xs font-extrabold text-washking-brown/70">HOURS</p>
+                      <p className="font-body font-bold text-washking-brown">{hoursSummary}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                      <Mail className="h-5 w-5 text-washking-brown" aria-hidden="true" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-body text-xs font-extrabold text-washking-brown/70">CONTACT</p>
+                      <a href={`mailto:${location.email}`} className="break-all font-body font-bold text-washking-brown hover:underline">
+                        {location.email}
                       </a>
-                    )}
-                    <button
-                      type="button"
-                      onClick={scrollToPlans}
-                      className="btn-cloud bg-washking-cream text-washking-brown border-2 border-washking-brown px-3 py-3 font-display text-sm flex items-center justify-center gap-2"
-                    >
-                      <Sparkles className="w-4 h-4" aria-hidden="true" />
-                      View Plans
-                    </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-7 grid grid-cols-2 gap-3">
+                  {directionsUrl && (
                     <a
-                      href={MEMBERSHIP_PORTAL}
-                      data-analytics="membership_cta"
+                      href={directionsUrl}
+                      data-analytics="directions_click"
                       data-analytics-source="location_hero"
                       data-location-slug={location.slug}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-unlimited col-span-2 text-center"
+                      className="btn-cloud flex items-center justify-center gap-2 border border-washking-brown bg-washking-brown px-3 py-3 font-body text-sm font-extrabold text-white"
                     >
-                      Go Unlimited
+                      <Navigation className="h-4 w-4" aria-hidden="true" />
+                      Directions
                     </a>
-                  </div>
+                  )}
+                  <button
+                    type="button"
+                    onClick={scrollToPlans}
+                    className="btn-cloud flex items-center justify-center gap-2 border border-washking-brown bg-white px-3 py-3 font-body text-sm font-extrabold text-washking-brown"
+                  >
+                    <Sparkles className="h-4 w-4" aria-hidden="true" />
+                    View Plans
+                  </button>
+                  <a
+                    href={MEMBERSHIP_PORTAL}
+                    data-analytics="membership_cta"
+                    data-analytics-source="location_hero"
+                    data-location-slug={location.slug}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-unlimited col-span-2 text-center"
+                  >
+                    Go Unlimited
+                  </a>
                 </div>
               </div>
             </div>
-
-            <CloudTransition />
           </div>
         </section>
 
-        <section id="wash-plans" className="bg-gradient-to-b from-[hsl(200_80%_92%)] to-white py-12 lg:py-16 scroll-mt-8">
+        <section id="wash-plans" className="scroll-mt-8 bg-gray-50 py-12 lg:py-16">
           <div className="container mx-auto px-4">
             <div className="text-center mb-9 lg:mb-12">
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-washking-brown mb-3">
@@ -364,7 +294,7 @@ const LocationPage = () => {
               </p>
             </div>
 
-            <div className="mx-auto mb-8 flex max-w-4xl flex-col items-center justify-between gap-4 rounded-2xl border border-washking-brown/15 bg-white p-5 text-center shadow-sm sm:flex-row sm:text-left">
+            <div className="mx-auto mb-8 flex max-w-4xl flex-col items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-5 text-center shadow-sm sm:flex-row sm:text-left">
               <p className="font-body text-sm text-washking-brown sm:text-base">
                 Membership checkout opens our NXTWash plan portal. Confirm{" "}
                 <strong>{portalLocationName}</strong> when prompted.
@@ -391,13 +321,9 @@ const LocationPage = () => {
                 const additionalFeatureCount = washPackage.features.length - visibleFeatures.length;
 
                 return (
-                  <motion.article
+                  <article
                     key={washPackage.name}
-                    initial={false}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: index * 0.08 }}
-                    className={`${washPackage.color} rounded-3xl overflow-hidden shadow-xl flex flex-col`}
+                    className={`${washPackage.color} flex flex-col overflow-hidden rounded-lg border border-washking-brown/15 shadow-sm`}
                   >
                   <div className="p-6 text-center">
                     {index === 0 && (
@@ -414,7 +340,7 @@ const LocationPage = () => {
                     </p>
                   </div>
 
-                  <div className="border-y-2 border-washking-brown/20 bg-washking-brown px-4 py-4 text-center">
+                  <div className="border-y border-washking-brown/20 bg-washking-brown px-4 py-4 text-center">
                     <p className="text-white font-display text-sm">UNLIMITED WASH CLUB</p>
                     <p className="text-white font-display text-3xl">
                       {washPackage.monthlyPrice}
@@ -476,7 +402,7 @@ const LocationPage = () => {
                       data-plan-name={washPackage.name}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-cloud flex items-center justify-center gap-2 bg-washking-cream text-washking-brown border-2 border-washking-brown px-5 py-2.5 font-display text-base text-center"
+                      className="btn-cloud flex items-center justify-center gap-2 border border-washking-brown bg-white px-5 py-2.5 text-center font-body text-base font-extrabold text-washking-brown"
                       aria-label={`Join the ${washPackage.name} unlimited wash plan`}
                     >
                       Choose {washPackage.name}
@@ -486,7 +412,7 @@ const LocationPage = () => {
                       Confirm {portalLocationName} in NXTWash
                     </p>
                   </div>
-                  </motion.article>
+                  </article>
                 );
               })}
             </div>
@@ -497,15 +423,15 @@ const LocationPage = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] items-center gap-8">
               <div>
-                <p className="font-display text-washking-brown/70 text-sm tracking-widest mb-2">MEMBERSHIP</p>
-                <h2 className="font-display text-3xl lg:text-5xl text-washking-brown">
+                <p className="mb-2 font-body text-sm font-extrabold text-washking-brown/70">MEMBERSHIP</p>
+                <h2 className="font-display text-3xl text-washking-brown lg:text-4xl">
                   Why Become a Member?
                 </h2>
               </div>
               <ul className="grid sm:grid-cols-2 gap-4">
                 {memberBenefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3 text-washking-brown">
-                    <span className="w-7 h-7 bg-washking-brown rounded-full flex items-center justify-center shrink-0">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-washking-brown">
                       <Check className="w-4 h-4 text-white" aria-hidden="true" />
                     </span>
                     <span className="font-body font-semibold">{benefit}</span>
@@ -516,19 +442,18 @@ const LocationPage = () => {
           </div>
         </section>
 
-        <section className="bg-washking-sky py-14 lg:py-20 relative overflow-hidden">
-          <FoamBubbles variant="section" density="low" />
-          <div className="container mx-auto px-4 relative z-10">
+        <section className="bg-white py-14 lg:py-20">
+          <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-12 items-center">
               <div>
-                <p className="font-display text-washking-yellow text-sm tracking-widest mb-2">PLAN YOUR VISIT</p>
-                <h2 className="font-display text-4xl lg:text-5xl text-white text-shadow mb-6">
+                <p className="mb-2 font-body text-sm font-extrabold text-washking-sky">PLAN YOUR VISIT</p>
+                <h2 className="mb-6 font-display text-3xl text-washking-brown lg:text-4xl">
                   Hours and Directions
                 </h2>
-                <div className="bg-washking-green rounded-3xl p-7 text-white">
+                <div className="rounded-lg bg-washking-green p-7 text-white">
                   <HoursDetails location={location} />
                 </div>
-                <p className="font-body text-white mt-5">
+                <p className="mt-5 font-body text-washking-brown">
                   {location.address}, {location.city}
                 </p>
                 {directionsUrl && (
@@ -539,7 +464,7 @@ const LocationPage = () => {
                     data-location-slug={location.slug}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-cloud mt-5 inline-flex bg-washking-yellow text-washking-brown border-2 border-washking-brown px-5 py-3 font-display text-base items-center gap-2"
+                    className="btn-cloud mt-5 inline-flex items-center gap-2 border border-washking-brown bg-washking-yellow px-5 py-3 font-body text-base font-extrabold text-washking-brown"
                   >
                     <Navigation className="w-5 h-5" aria-hidden="true" />
                     Get Directions
@@ -548,7 +473,7 @@ const LocationPage = () => {
               </div>
 
               {location.mapEmbed && (
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30">
+                <div className="relative overflow-hidden rounded-lg border border-gray-200 shadow-lg">
                   <iframe
                     src={location.mapEmbed}
                     width="100%"
@@ -601,7 +526,7 @@ const LocationPage = () => {
           <button
             type="button"
             onClick={scrollToPlans}
-            className="flex min-h-12 items-center justify-center gap-1 rounded-lg border-2 border-washking-brown bg-white px-2 font-body text-xs font-extrabold text-washking-brown"
+            className="flex min-h-12 items-center justify-center gap-1 rounded-lg border border-washking-brown bg-white px-2 font-body text-xs font-extrabold text-washking-brown"
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             Plans
@@ -621,9 +546,8 @@ const LocationPage = () => {
         </div>
       </div>
 
-        <Footer />
-      </div>
-    </MotionConfig>
+      <Footer />
+    </div>
   );
 };
 

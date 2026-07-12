@@ -50,7 +50,7 @@ const stats = [
 ] as const;
 
 const TrustStatsSection = () => (
-  <section id="at-a-glance" className="scroll-mt-24 bg-white py-12 lg:py-18">
+  <section id="at-a-glance" className="scroll-mt-24 bg-white py-12 lg:py-16">
     <div className="container mx-auto px-4">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 max-w-3xl">
@@ -65,7 +65,7 @@ const TrustStatsSection = () => (
           </p>
         </div>
 
-        <div className="grid border-y-2 border-washking-brown/15 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid border-y border-washking-brown/15 md:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
             <article
               key={stat.label}

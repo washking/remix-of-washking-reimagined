@@ -13,26 +13,14 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <main id="main-content" tabIndex={-1} className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] relative overflow-hidden">
+    <main id="main-content" tabIndex={-1} className="flex min-h-screen items-center justify-center bg-gray-50">
       <Seo
         title="Page Not Found | WashKing Car Wash"
         description="The page you're looking for doesn't exist. Return to WashKing Car Wash."
         path="/404"
         noIndex
       />
-      {/* Cloud decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10">
-          <div className="w-32 h-16 bg-white/80 rounded-full" />
-          <div className="w-24 h-14 bg-white/80 rounded-full -mt-8 ml-8" />
-        </div>
-        <div className="absolute bottom-40 right-20">
-          <div className="w-40 h-20 bg-white/70 rounded-full" />
-          <div className="w-28 h-16 bg-white/70 rounded-full -mt-10 ml-12" />
-        </div>
-      </div>
-      
-      <div className="text-center relative z-10 px-4">
+      <div className="px-4 text-center">
         <OptimizedImage
           avifSrc={lionMascotAvif}
           src={lionMascot} 
@@ -40,16 +28,15 @@ const NotFound = () => {
           width={1132}
           height={1920}
           decoding="async"
-          className="w-32 h-auto mx-auto mb-6"
-          style={{ mixBlendMode: 'multiply' }}
+          className="mx-auto mb-6 h-auto w-24"
         />
-        <h1 className="font-display text-6xl lg:text-8xl text-washking-yellow text-shadow mb-4">
+        <h1 className="mb-4 font-display text-5xl text-washking-sky lg:text-6xl">
           404
         </h1>
-        <p className="text-white text-xl font-body mb-8">Oops! Page not found</p>
+        <p className="mb-8 font-body text-xl text-washking-brown">Oops! Page not found</p>
         <Link 
           to="/" 
-          className="btn-hero-primary inline-block"
+          className="btn-hero-secondary inline-block"
         >
           Return to Home
         </Link>

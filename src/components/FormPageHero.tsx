@@ -23,7 +23,7 @@ const FormPageHero = ({
           <p className="mb-1 font-body text-sm font-extrabold uppercase text-washking-yellow">
             {eyebrow}
           </p>
-          <h1 className="font-display text-4xl text-white text-shadow sm:text-5xl">
+          <h1 className="font-display text-4xl text-white sm:text-5xl">
             {title}
           </h1>
           <p className="mt-2 max-w-2xl font-body text-base leading-relaxed text-white/90 sm:text-lg">
