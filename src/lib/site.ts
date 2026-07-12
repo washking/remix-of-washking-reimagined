@@ -2,7 +2,7 @@
 export const SITE_URL = "https://www.washking.net";
 export const BUSINESS_NAME = "Wash King Car Wash";
 export const CONTACT_EMAIL = "contact@washking.net";
-export const OG_IMAGE = `${SITE_URL}/og-image.png`;
+export const OG_IMAGE = `${SITE_URL}/og-image-v2.png`;
 export const MEMBERSHIP_PORTAL = "https://customerportal.nxtwash.com/washkingcarwash";
 
 // Public ingest endpoint for first-party interaction analytics (Wash King Communicator Supabase).
