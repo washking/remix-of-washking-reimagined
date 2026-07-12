@@ -29,7 +29,7 @@ const BrandLogo = ({ variant = "header" }: BrandLogoProps) => {
   return (
     <span className="inline-flex items-center gap-2">
       <span
-        className="relative block h-12 w-14 shrink-0 overflow-hidden sm:w-16"
+        className="relative block h-[50px] w-14 shrink-0 overflow-hidden sm:w-16"
         aria-hidden="true"
       >
         <OptimizedImage
@@ -40,7 +40,7 @@ const BrandLogo = ({ variant = "header" }: BrandLogoProps) => {
           height={500}
           loading="eager"
           decoding="async"
-          className="absolute left-1/2 top-0 h-auto w-16 -translate-x-1/2"
+          className="absolute left-1/2 top-0 h-auto w-16 -translate-x-1/2 [clip-path:inset(0_0_23%_0)]"
         />
       </span>
 
