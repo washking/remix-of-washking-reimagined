@@ -5,9 +5,10 @@ import { describe, expect, it } from "vitest";
 const source = (path: string) => readFileSync(resolve(process.cwd(), path), "utf8");
 
 describe("modern UI guardrails", () => {
-  it("uses the lion-only header mark and supplied car logo in the hero", () => {
+  it("uses the approved brand and customer imagery across the homepage", () => {
     const brandLogo = source("src/components/BrandLogo.tsx");
     const hero = source("src/components/HeroSection.tsx");
+    const packages = source("src/components/PackagesSection.tsx");
     const media = hero.indexOf('className="hero-media-enter');
     const eyebrow = hero.indexOf("FAMILY-OWNED NEW JERSEY CAR WASH");
 
@@ -16,6 +17,7 @@ describe("modern UI guardrails", () => {
     expect(hero).toContain('from "@/assets/washking-wash-tunnel-hero.jpg"');
     expect(hero).toContain('<h1 className="sr-only">WASH KING CAR WASH</h1>');
     expect(hero).not.toContain("hero-logo-float");
+    expect(packages).toContain("washking-customer-experience-collage");
     expect(media).toBeGreaterThan(-1);
     expect(media).toBeLessThan(eyebrow);
   });

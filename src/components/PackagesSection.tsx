@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import carWashIllustration from "@/assets/car-wash-illustration.png";
-import carWashIllustrationAvif from "@/assets/car-wash-illustration.avif";
+import experienceCollage from "@/assets/washking-customer-experience-collage.jpg";
+import experienceCollageAvif from "@/assets/washking-customer-experience-collage.avif";
 import { OPEN_LOCATIONS } from "@/lib/locations";
 import OptimizedImage from "@/components/OptimizedImage";
 
@@ -69,17 +69,17 @@ const PackagesSection = () => {
           </div>
 
           <div
-            className="lg:w-1/2 flex justify-center"
+            className="flex w-full justify-center lg:w-1/2"
           >
             <OptimizedImage
-              avifSrc={carWashIllustrationAvif}
-              src={carWashIllustration}
-              alt="Car being washed with bubbles"
-              width={801}
-              height={451}
+              avifSrc={experienceCollageAvif}
+              src={experienceCollage}
+              alt="Wash King pricing board, wash tunnel, payment station, facility entrance, and team member detailing a wheel"
+              width={1536}
+              height={1024}
               loading="lazy"
               decoding="async"
-              className="h-auto w-64 sm:w-80 lg:max-w-lg"
+              className="block h-auto w-full max-w-2xl rounded-lg border border-white/20 shadow-lg"
             />
           </div>
         </div>

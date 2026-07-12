@@ -36,6 +36,10 @@ describe("performance guardrails", () => {
       ["src/assets/car-wash-illustration.avif", "src/assets/car-wash-illustration.png"],
       ["src/assets/washking-hero-logo.avif", "src/assets/washking-hero-logo.png"],
       ["src/assets/washking-wash-tunnel-hero.avif", "src/assets/washking-wash-tunnel-hero.jpg"],
+      [
+        "src/assets/washking-customer-experience-collage.avif",
+        "src/assets/washking-customer-experience-collage.jpg",
+      ],
     ];
 
     assets.forEach(([optimized, fallback]) => {
