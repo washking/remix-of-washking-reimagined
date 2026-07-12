@@ -40,7 +40,7 @@ const BrandLogo = ({ variant = "header" }: BrandLogoProps) => {
           height={500}
           loading="eager"
           decoding="async"
-          className="absolute left-1/2 top-0 h-auto w-16 -translate-x-1/2 [clip-path:inset(0_0_23%_0)]"
+          className="absolute left-1/2 top-0 h-auto w-16 -translate-x-1/2 [clip-path:inset(0_0_25%_0)]"
         />
       </span>
 
