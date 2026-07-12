@@ -21,7 +21,7 @@ const proofPoints = [
 ] as const;
 
 const ProofSection = () => (
-  <section className="bg-washking-green py-12 lg:py-16">
+  <section className="bg-washking-sky py-12 lg:py-16">
     <div className="container mx-auto px-4">
       <div className="mx-auto max-w-6xl">
         <div className="mb-9 flex flex-col items-center justify-between gap-5 text-center lg:flex-row lg:text-left">

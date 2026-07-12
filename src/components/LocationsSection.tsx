@@ -126,7 +126,7 @@ const LocationsSection = () => {
   }, []);
 
   return (
-    <section id="locations" className="scroll-mt-24 bg-gray-50 py-12 lg:py-16">
+    <section id="locations" className="scroll-mt-24 bg-washking-sky-light py-12 lg:py-16">
         <div className="container mx-auto px-4">
           <div className="mb-9 text-center lg:mb-12">
             <p className="section-eyebrow mb-2">

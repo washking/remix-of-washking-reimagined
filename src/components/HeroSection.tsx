@@ -218,25 +218,25 @@ const HeroSection = () => {
           ))}
         </CarouselContent>
 
-        <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-lg border border-white/25 bg-black/70 p-1.5 shadow-lg backdrop-blur-sm">
-          <button
-            type="button"
-            onClick={showPreviousSlide}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/15"
-            aria-label="Show previous hero image"
-            title="Previous image"
-          >
-            <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-          </button>
+        <button
+          type="button"
+          onClick={showPreviousSlide}
+          className="absolute left-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-black/35 text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-black/60 sm:left-4 sm:h-10 sm:w-10"
+          aria-label="Show previous hero image"
+          title="Previous image"
+        >
+          <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+        </button>
 
-          <div className="flex items-center gap-2 px-1" role="group" aria-label="Choose hero image">
+        <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/40 bg-black/40 px-2.5 py-1.5 shadow-sm backdrop-blur-sm">
+          <div className="flex items-center gap-2" role="group" aria-label="Choose hero image">
             {heroSlides.map((slide, index) => (
               <button
                 key={slide.label}
                 type="button"
                 onClick={() => selectSlide(index)}
-                className={`h-3 w-3 rounded-full border border-white transition-colors ${
-                  selectedSlide === index ? "bg-washking-yellow" : "bg-white/25"
+                className={`h-2.5 w-2.5 rounded-full border border-white transition-colors ${
+                  selectedSlide === index ? "bg-washking-yellow" : "bg-white/35"
                 }`}
                 aria-label={`Show ${slide.label.toLowerCase()} image`}
                 aria-current={selectedSlide === index ? "true" : undefined}
@@ -257,7 +257,7 @@ const HeroSection = () => {
               }
             }}
             disabled={prefersReducedMotion}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-7 w-7 items-center justify-center rounded-full text-white transition-colors hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-50"
             aria-label={
               prefersReducedMotion
                 ? "Automatic hero images are off because reduced motion is enabled"
@@ -273,42 +273,42 @@ const HeroSection = () => {
               <Pause className="h-4 w-4" aria-hidden="true" />
             )}
           </button>
-
-          <button
-            type="button"
-            onClick={showNextSlide}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/15"
-            aria-label="Show next hero image"
-            title="Next image"
-          >
-            <ChevronRight className="h-5 w-5" aria-hidden="true" />
-          </button>
         </div>
+
+        <button
+          type="button"
+          onClick={showNextSlide}
+          className="absolute right-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-black/35 text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-black/60 sm:right-4 sm:h-10 sm:w-10"
+          aria-label="Show next hero image"
+          title="Next image"
+        >
+          <ChevronRight className="h-5 w-5" aria-hidden="true" />
+        </button>
 
         <p className="sr-only" aria-live={userPaused ? "polite" : "off"}>
           Showing image {selectedSlide + 1} of {heroSlides.length}: {heroSlides[selectedSlide].label}
         </p>
       </Carousel>
 
-      <div className="bg-white">
+      <div className="bg-washking-sky">
         <div className="container mx-auto px-4 py-8 sm:py-10">
           <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-            <p className="section-eyebrow">
+            <p className="font-body text-xs font-extrabold text-washking-yellow sm:text-sm">
               Family-owned across New Jersey
             </p>
 
-            <h1 className="mt-2 font-display text-3xl text-washking-brown sm:text-4xl">
+            <h1 className="mt-2 font-display text-3xl text-white sm:text-4xl">
               Wash King Car Wash
             </h1>
 
-            <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-gray-600 sm:text-lg">
+            <p className="mt-3 max-w-2xl font-body text-base leading-relaxed text-white/90 sm:text-lg">
               Find the right wash, see today's hours, and compare single-wash and unlimited plans before you arrive.
             </p>
 
             <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-3" aria-label="Wash King highlights">
               {quickFacts.map((fact) => (
-                <li key={fact.label} className="flex items-center gap-2 font-body text-sm font-bold text-washking-brown">
-                  <fact.icon className="h-4 w-4 text-washking-sky" aria-hidden="true" />
+                <li key={fact.label} className="flex items-center gap-2 font-body text-sm font-bold text-white">
+                  <fact.icon className="h-4 w-4 text-washking-yellow" aria-hidden="true" />
                   {fact.label}
                 </li>
               ))}
@@ -328,7 +328,7 @@ const HeroSection = () => {
                 data-analytics-source="homepage_hero"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary min-h-12 px-6 text-center sm:px-8 sm:text-base"
+                className="btn-cloud min-h-12 border border-white bg-white px-6 text-center text-washking-brown hover:bg-washking-cream sm:px-8 sm:text-base"
               >
                 Join Unlimited
               </a>

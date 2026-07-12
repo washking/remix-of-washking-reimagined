@@ -26,6 +26,10 @@ describe("modern UI guardrails", () => {
     expect(hero).toContain("Pause automatic hero images");
     expect(hero).toContain("autoplayTimeoutRef");
     expect(hero).toContain("carouselApi?.scrollTo(nextIndex, true)");
+    expect(hero).toContain('className="absolute left-3 top-1/2');
+    expect(hero).toContain('className="absolute right-3 top-1/2');
+    expect(hero).toContain("bg-black/40 px-2.5 py-1.5");
+    expect(hero).not.toContain("bg-black/70 p-1.5");
     expect(carousel).toContain('api?.off("reInit", onSelect)');
     expect(packages).toContain("washking-customer-experience-collage");
     expect(media).toBeGreaterThan(-1);
@@ -138,5 +142,12 @@ describe("modern UI guardrails", () => {
     expect(header).toContain('data-analytics-source="mobile_header"');
     expect(header.match(/href="\/contact"/g)).toHaveLength(2);
     expect(header).toContain("MessageSquareText");
+  });
+
+  it("restores the production brand colors without restoring decorative clutter", () => {
+    expect(source("src/components/Header.tsx")).toContain("bg-washking-yellow/95");
+    expect(source("src/components/HeroSection.tsx")).toContain('className="bg-washking-sky"');
+    expect(source("src/components/LocationsSection.tsx")).toContain("bg-washking-sky-light");
+    expect(source("src/components/FAQSection.tsx")).toContain("bg-washking-cream");
   });
 });

@@ -46,7 +46,7 @@ const supportCopy = "Need account help? Use the phone number connected to your m
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="scroll-mt-24 bg-gray-50 py-12 lg:py-16">
+    <section id="faq" className="scroll-mt-24 bg-washking-cream py-12 lg:py-16">
       <div className="container mx-auto px-4">
         <div className="mb-9 text-center lg:mb-12">
           <p className="section-eyebrow mb-2">Unlimited membership</p>
