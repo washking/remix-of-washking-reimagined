@@ -13,7 +13,7 @@ describe("modern UI guardrails", () => {
     const media = hero.indexOf('className="hero-media-enter');
     const eyebrow = hero.indexOf("Family-owned across New Jersey");
 
-    expect(brandLogo).toContain('from "@/assets/lion-mascot.png"');
+    expect(brandLogo).toContain('from "@/assets/washking-logo.png"');
     expect(brandLogo).toContain('from "@/assets/washking-hero-logo.png"');
     expect(brandLogo).toContain("min-[360px]:flex");
     expect(hero).toContain('from "@/assets/washking-wash-tunnel-hero.jpg"');
