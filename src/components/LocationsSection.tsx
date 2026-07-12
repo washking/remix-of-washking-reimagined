@@ -46,7 +46,7 @@ const LocationCard = ({
 
   return (
     <article
-      className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-5 shadow-sm transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md lg:p-6"
+      className="flex h-full flex-col rounded-lg border-2 border-gray-200 border-t-4 border-t-washking-sky bg-white p-5 shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:border sm:border-t-4 sm:shadow-sm sm:hover:shadow-md lg:p-6"
     >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
@@ -140,7 +140,7 @@ const LocationsSection = () => {
             </p>
           </div>
 
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 xl:gap-5">
             {OPEN_LOCATIONS.map((location) => (
               <LocationCard
                 key={location.slug}

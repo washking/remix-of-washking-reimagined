@@ -111,4 +111,14 @@ describe("modern UI guardrails", () => {
       expect(source(file)).not.toContain("overflow-x-hidden");
     });
   });
+
+  it("keeps mobile location and wash-plan cards visually separated", () => {
+    const locations = source("src/components/LocationsSection.tsx");
+    const plans = source("src/pages/LocationPage.tsx");
+
+    expect(locations).toContain("grid-cols-1 gap-8");
+    expect(locations).toContain("border-2 border-gray-200 border-t-4");
+    expect(plans).toContain("max-w-7xl gap-10");
+    expect(plans).toContain("border-2 border-t-[8px]");
+  });
 });

@@ -326,7 +326,7 @@ const LocationPage = () => {
               </a>
             </div>
 
-            <div className={`mx-auto grid max-w-7xl gap-6 md:grid-cols-2 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
+            <div className={`mx-auto grid max-w-7xl gap-10 md:grid-cols-2 md:gap-7 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} lg:gap-6`}>
               {orderedPackages.map((washPackage, index) => {
                 const breakEvenVisits = getBreakEvenVisits(washPackage);
                 const includedFeatures = getIncludedFeatures(location, washPackage.name);
@@ -336,7 +336,7 @@ const LocationPage = () => {
                 return (
                   <article
                     key={washPackage.name}
-                    className={`flex flex-col overflow-hidden rounded-lg border border-t-[6px] border-gray-200 bg-white shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
+                    className={`flex flex-col overflow-hidden rounded-lg border-2 border-t-[8px] border-gray-300 bg-white shadow-md md:border md:border-x-gray-200 md:border-b-gray-200 md:border-t-[6px] md:shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
                   >
                     <div className="p-6 pb-5 text-center">
                       {index === 0 && (
