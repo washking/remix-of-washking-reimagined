@@ -2,7 +2,6 @@ import { Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 import lionMascot from "@/assets/lion-mascot.png";
 import lionMascotAvif from "@/assets/lion-mascot.avif";
-import FoamBubbles from "./FoamBubbles";
 import OptimizedImage from "@/components/OptimizedImage";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
@@ -14,44 +13,49 @@ import {
 
 const faqs = [
   {
-    question: "How do I sign up for WashKing's Unlimited Wash Plans?",
-    answer: "You can easily sign up for our Unlimited Wash Plans either online through our website, at our onsite pay station, or by speaking with a WashKing team member at our location.",
+    question: "How often can I use an Unlimited Wash Plan?",
+    answer: "Unlimited members can wash their registered vehicle once a day for one monthly price.",
   },
   {
-    question: "When will I be billed for my WashKing Unlimited Wash Plan?",
-    answer: "Your payment card will be automatically charged on the same date each month, ensuring hassle-free billing.",
+    question: "How do I join the Unlimited Wash Club?",
+    answer: "Join through the online membership portal, at an onsite pay station, or with help from a Wash King team member.",
+  },
+  {
+    question: "When will I be billed for my Wash King Unlimited Wash Plan?",
+    answer: "Your payment card is charged automatically on the same date each month.",
   },
   {
     question: "What should I do if I get a new license plate or a new car?",
-    answer: "Updating your information is simple. You can do it online through your member portal on our website or by speaking with a WashKing team member at our location.",
+    answer: "Update your vehicle in the member portal or ask a Wash King team member for help at an open location.",
   },
   {
-    question: "Can I use my WashKing Unlimited Wash Plan on more than one vehicle?",
+    question: "Can I use my Wash King Unlimited Wash Plan on more than one vehicle?",
     answer: "Each Unlimited Wash Plan is connected to one vehicle and its license plate. Contact us if you need help choosing coverage for another vehicle.",
   },
   {
-    question: "How do I cancel my WashKing Unlimited Wash Plan?",
-    answer: "You can cancel online through the membership portal or visit an open WashKing location and speak with a team member. You can also send us a message through the contact page if you need help.",
+    question: "How do I cancel my Wash King Unlimited Wash Plan?",
+    answer: "Cancel through the membership portal or visit an open Wash King location and speak with a team member. Contact support if you need help finding your account.",
   },
   {
-    question: "What happens when I cancel my WashKing Unlimited Wash Plan?",
-    answer: "If you choose to cancel your Unlimited Wash Plan, your membership will end on the day it is canceled, even if there are remaining days in the month. We strive to ensure transparency and flexibility in our cancellation process.",
+    question: "What happens when I cancel my Wash King Unlimited Wash Plan?",
+    answer: "Your membership ends on the day it is canceled, even if days remain in the current billing month.",
   },
 ];
 
+const supportCopy = "Need account help? Use the phone number connected to your membership so our team can find it quickly.";
+
 const FAQSection = () => {
   return (
-    <section id="faq" className="relative py-10 lg:py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)]" />
-      <FoamBubbles variant="section" density="low" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div
-          className="text-center mb-6 lg:mb-14"
-        >
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-6xl xl:text-7xl text-white text-shadow">
-            ANY QUESTIONS?
+    <section id="faq" className="scroll-mt-24 bg-washking-cream py-12 lg:py-16">
+      <div className="container mx-auto px-4">
+        <div className="mb-9 text-center lg:mb-12">
+          <p className="section-eyebrow mb-2">Unlimited membership</p>
+          <h2 className="section-title">
+            Unlimited Wash Club FAQs
           </h2>
+          <p className="section-copy mx-auto mt-3 max-w-2xl">
+            The essentials about joining, billing, vehicles, and cancellation.
+          </p>
         </div>
 
         <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-16 max-w-6xl mx-auto">
@@ -61,39 +65,38 @@ const FAQSection = () => {
             <OptimizedImage
               avifSrc={lionMascotAvif}
               src={lionMascot}
-              alt="WashKing Lion"
+              alt="Wash King lion mascot"
               width={1132}
               height={1920}
               loading="lazy"
               decoding="async"
-              className="w-48 lg:w-64 xl:w-72 h-auto mx-auto lg:mx-0 drop-shadow-2xl mb-6"
+              className="mx-auto mb-6 h-auto w-32 lg:mx-0 lg:w-40"
             />
-            <p className="text-white font-body text-base lg:text-lg xl:text-xl leading-relaxed">
-              Have more questions? Feel free to reach out to us! We're here to assist 
-              you with all your car care needs.
+            <p className="font-body text-base leading-relaxed text-gray-700 lg:text-lg">
+              {supportCopy}
             </p>
           </div>
 
           <div
             className="lg:w-2/3 w-full"
           >
-            <Accordion type="single" collapsible className="space-y-2 lg:space-y-4">
+            <Accordion type="single" collapsible className="space-y-2.5">
               {faqs.map((faq, index) => (
-                <AccordionItem 
+                <AccordionItem
                   key={index} 
                   value={`item-${index}`}
-                  className="border-b border-white/30 pb-2 lg:pb-4"
+                  className="rounded-lg border border-gray-200 bg-white px-4 shadow-sm sm:px-5"
                 >
                   <AccordionTrigger 
                     hideChevron 
-                    className="text-left font-display text-white text-sm sm:text-base lg:text-xl xl:text-2xl tracking-wide hover:no-underline group py-2"
+                    className="group py-4 text-left font-body text-sm font-bold text-washking-brown hover:no-underline sm:text-base"
                   >
                     <span className="flex items-center gap-2 lg:gap-4">
-                      <Plus className="w-4 h-4 lg:w-6 lg:h-6 flex-shrink-0 transition-transform group-data-[state=open]:rotate-45" />
-                      {faq.question.toUpperCase()}
+                      <Plus className="h-4 w-4 flex-shrink-0 text-washking-sky transition-transform group-data-[state=open]:rotate-45 lg:h-5 lg:w-5" />
+                      {faq.question}
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="text-white/90 font-body text-sm sm:text-base lg:text-lg pl-6 lg:pl-10 leading-relaxed">
+                  <AccordionContent className="pl-6 pr-2 font-body text-sm leading-relaxed text-gray-700 sm:text-base lg:pl-9">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -107,7 +110,7 @@ const FAQSection = () => {
                 rel="noopener noreferrer"
                 data-analytics="membership_cta"
                 data-analytics-source="faq"
-                className="btn-cloud border-2 border-washking-brown bg-washking-yellow px-5 py-3 text-center font-display text-sm text-washking-brown"
+                className="btn-secondary px-5 text-center"
               >
                 Manage Membership
               </a>
@@ -115,7 +118,7 @@ const FAQSection = () => {
                 to="/contact"
                 data-analytics="contact_open"
                 data-analytics-source="faq"
-                className="btn-cloud border-2 border-washking-brown bg-white px-5 py-3 text-center font-display text-sm text-washking-brown"
+                className="btn-outline px-5 text-center"
               >
                 Contact Support
               </Link>
@@ -124,10 +127,9 @@ const FAQSection = () => {
         </div>
 
         <p
-          className="text-white font-body text-sm text-center mt-6 lg:hidden max-w-md mx-auto leading-relaxed"
+          className="mx-auto mt-6 max-w-md text-center font-body text-sm leading-relaxed text-gray-700 lg:hidden"
         >
-          Have more questions? Feel free to reach out to us! We're here to assist 
-          you with all your car care needs.
+          {supportCopy}
         </p>
       </div>
     </section>

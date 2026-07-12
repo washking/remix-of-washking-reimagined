@@ -1,45 +1,29 @@
-import { MotionConfig, motion } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Home, Sparkles } from "lucide-react";
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FoamBubbles from "@/components/FoamBubbles";
 import lionMascot from "@/assets/lion-mascot.png";
 import lionMascotAvif from "@/assets/lion-mascot.avif";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const sourceContent: Record<string, { title: string; subtitle: string; message: string }> = {
   contact_form: {
-    title: "MESSAGE RECEIVED!",
-    subtitle: "Thanks for reaching out to WashKing",
-    message: "Your message has been delivered to the WashKing team for review.",
+    title: "Message received",
+    subtitle: "Thanks for reaching out to Wash King",
+    message: "Your message has been delivered to the Wash King team for review.",
   },
   customer_survey: {
-    title: "FEEDBACK SUBMITTED!",
-    subtitle: "Thank you for helping us shine brighter",
-    message: "Your feedback has been delivered to the WashKing team and will help us understand your visit.",
+    title: "Feedback submitted",
+    subtitle: "Thank you for helping us improve",
+    message: "Your feedback has been delivered to the Wash King team and will help us understand your visit.",
   },
   employment_application: {
-    title: "APPLICATION SENT!",
-    subtitle: "Welcome to the WashKing journey",
-    message: "Your application has been delivered to the WashKing hiring team for review.",
+    title: "Application sent",
+    subtitle: "Thank you for your interest in Wash King",
+    message: "Your application has been delivered to the Wash King hiring team for review.",
   },
 };
-
-const BubbleCluster = ({ className = "" }: { className?: string }) => (
-  <div className={`absolute pointer-events-none ${className}`}>
-    <motion.div
-      animate={{ y: [0, -10, 0], scale: [1, 1.08, 1] }}
-      transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-      className="relative"
-    >
-      <div className="w-20 h-20 rounded-full bg-white/30 backdrop-blur-sm absolute -top-4 -left-4" />
-      <div className="w-12 h-12 rounded-full bg-white/40 backdrop-blur-sm absolute top-8 left-10" />
-      <div className="w-10 h-10 rounded-full bg-white/25 backdrop-blur-sm absolute -top-2 left-16" />
-      <div className="w-8 h-8 rounded-full bg-white/35 backdrop-blur-sm absolute top-14 -left-2" />
-    </motion.div>
-  </div>
-);
 
 const ThankYouPage = () => {
   const [searchParams] = useSearchParams();
@@ -47,118 +31,61 @@ const ThankYouPage = () => {
   const content = sourceContent[source] || sourceContent.contact_form;
 
   return (
-    <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-washking-sky flex flex-col">
+    <div className="flex min-h-screen flex-col bg-gray-50">
       <Seo
-        title="Thank You | WashKing Car Wash"
-        description="Your website form has been submitted to WashKing Car Wash."
+        title="Thank You | Wash King Car Wash"
+        description="Your website form has been submitted to Wash King Car Wash."
         path="/thank-you"
         noIndex
       />
       <Header />
-      <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
+      <main id="main-content" tabIndex={-1} className="flex flex-1 items-center py-12 lg:py-16">
+        <div className="container mx-auto px-4">
+          <section className="mx-auto max-w-2xl rounded-lg border border-gray-200 bg-white px-6 py-9 text-center shadow-sm sm:px-10 sm:py-12">
+            <div className="mx-auto flex items-end justify-center gap-3">
+              <CheckCircle2 className="h-14 w-14 text-washking-green" strokeWidth={2} aria-hidden="true" />
+              <OptimizedImage
+                avifSrc={lionMascotAvif}
+                src={lionMascot}
+                alt="Wash King lion mascot"
+                width={1132}
+                height={1920}
+                decoding="async"
+                className="h-auto w-16"
+              />
+            </div>
 
-      <section className="relative flex-1 overflow-hidden bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] py-16 lg:py-24">
-        <FoamBubbles variant="hero" density="medium" />
-        <BubbleCluster className="top-12 left-[6%]" />
-        <BubbleCluster className="top-20 right-[8%]" />
-        <BubbleCluster className="bottom-16 left-[12%]" />
-        <BubbleCluster className="bottom-24 right-[14%]" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl mx-auto bg-white/15 backdrop-blur-sm rounded-3xl p-8 sm:p-12 lg:p-16 text-center shadow-2xl border-2 border-white/30"
-          >
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, type: "spring", stiffness: 120 }}
-              className="flex justify-center mb-6"
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-washking-yellow rounded-full blur-2xl opacity-60" />
-                <CheckCircle2 className="relative w-24 h-24 sm:w-28 sm:h-28 text-washking-yellow drop-shadow-2xl" strokeWidth={2.5} />
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex justify-center mb-6"
-            >
-              <picture>
-                <source srcSet={lionMascotAvif} type="image/avif" />
-                <motion.img
-                  src={lionMascot}
-                  alt="WashKing Lion"
-                  width={1132}
-                  height={1920}
-                  decoding="async"
-                  className="w-32 sm:w-40 h-auto drop-shadow-2xl"
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                />
-              </picture>
-            </motion.div>
-
-            <motion.h1
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="font-display text-4xl sm:text-5xl lg:text-6xl text-white text-shadow mb-4"
-            >
+            <h1 className="mt-6 font-display text-3xl text-washking-brown sm:text-4xl">
               {content.title}
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="font-display text-xl sm:text-2xl lg:text-3xl text-washking-yellow mb-6 flex items-center justify-center gap-2"
-            >
-              <Sparkles className="w-6 h-6" />
+            <p className="mt-3 flex items-center justify-center gap-2 font-body text-lg font-bold text-washking-sky sm:text-xl">
+              <Sparkles className="h-5 w-5" aria-hidden="true" />
               {content.subtitle}
-              <Sparkles className="w-6 h-6" />
-            </motion.p>
+              <Sparkles className="h-5 w-5" aria-hidden="true" />
+            </p>
 
-            <motion.p
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="font-body text-lg sm:text-xl text-white/95 max-w-2xl mx-auto mb-10 leading-relaxed"
-            >
+            <p className="mx-auto mt-5 max-w-xl font-body text-base leading-relaxed text-gray-700 sm:text-lg">
               {content.message}
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-            >
-              <Link to="/" className="btn-cloud btn-submit inline-flex items-center gap-2">
-                <Home className="w-5 h-5" />
-                Back to Home
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link to="/" className="btn-primary min-h-12 gap-2">
+                <Home className="h-4 w-4" aria-hidden="true" />
+                Back to home
               </Link>
               <Link
                 to="/contact"
-                className="font-body text-lg text-white/90 hover:text-white underline underline-offset-4"
+                className="inline-flex min-h-12 items-center px-4 py-3 font-body font-bold text-washking-sky underline-offset-4 hover:underline"
               >
                 Need anything else?
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </section>
         </div>
-      </section>
-
       </main>
-        <Footer />
-      </div>
-    </MotionConfig>
+      <Footer />
+    </div>
   );
 };
 

@@ -2,26 +2,24 @@ import { Database, Send, ShieldCheck, UserRoundCheck } from "lucide-react";
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FoamBubbles from "@/components/FoamBubbles";
 import { CONTACT_EMAIL, MEMBERSHIP_PORTAL } from "@/lib/site";
 
 const PrivacyPage = () => (
-  <div className="min-h-screen overflow-x-hidden bg-white">
+  <div className="min-h-screen bg-white">
     <Seo
-      title="Privacy Notice | WashKing Car Wash"
-      description="Learn what information WashKing's website collects through forms and website analytics, how it is used, and which services receive it."
+      title="Privacy Notice | Wash King Car Wash"
+      description="Learn what information Wash King's website collects through forms and website analytics, how it is used, and which services receive it."
       path="/privacy"
     />
     <Header />
     <main id="main-content" tabIndex={-1}>
-      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] py-14 lg:py-18">
-        <FoamBubbles variant="hero" density="low" />
-        <div className="container relative z-10 mx-auto px-4 text-center">
-          <p className="mb-3 font-body text-sm font-extrabold uppercase text-washking-yellow">
-            Last updated July 11, 2026
+      <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-14">
+        <div className="container mx-auto px-4 text-center">
+          <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
+            Last updated July 12, 2026
           </p>
-          <h1 className="font-display text-5xl text-white text-shadow sm:text-6xl lg:text-7xl">
-            PRIVACY NOTICE
+          <h1 className="font-display text-3xl text-white sm:text-4xl">
+            Privacy Notice
           </h1>
           <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-relaxed text-white/90 sm:text-xl">
             A plain-language summary of information handled through washking.net.
@@ -34,13 +32,13 @@ const PrivacyPage = () => (
           <div className="mx-auto flex max-w-4xl items-start gap-4">
             <ShieldCheck className="mt-1 h-7 w-7 shrink-0 text-washking-brown" aria-hidden="true" />
             <p className="font-body text-base font-bold leading-relaxed text-washking-brown sm:text-lg">
-              WashKing receives information you choose to send through website forms. The site also records limited usage signals tied to random browser identifiers so the team can understand which pages and actions are useful.
+              Wash King receives information you choose to send through website forms. The site also records limited usage signals tied to random browser identifiers so the team can understand which pages and actions are useful.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-12 lg:py-18">
+      <section className="py-12 lg:py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl divide-y divide-washking-brown/15">
             <section className="grid gap-5 pb-10 md:grid-cols-[56px_1fr]" aria-labelledby="information-you-submit">
@@ -48,7 +46,7 @@ const PrivacyPage = () => (
                 <Send className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 id="information-you-submit" className="font-display text-3xl text-washking-brown">
+                <h2 id="information-you-submit" className="font-display text-2xl text-washking-brown sm:text-3xl">
                   Information you submit
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">
@@ -70,7 +68,7 @@ const PrivacyPage = () => (
                 <Database className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 id="website-analytics" className="font-display text-3xl text-washking-brown">
+                <h2 id="website-analytics" className="font-display text-2xl text-washking-brown sm:text-3xl">
                   Website usage analytics
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">
@@ -89,7 +87,7 @@ const PrivacyPage = () => (
                 <UserRoundCheck className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 id="how-information-is-used" className="font-display text-3xl text-washking-brown">
+                <h2 id="how-information-is-used" className="font-display text-2xl text-washking-brown sm:text-3xl">
                   How information is used
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">
@@ -97,7 +95,7 @@ const PrivacyPage = () => (
                     Form information is used to respond to customer questions, review feedback, assist with membership requests, and evaluate employment applications. Website analytics are used to understand website performance and improve customer journeys.
                   </p>
                   <p>
-                    Contact, survey, and employment submissions are delivered through Formspree and a Webchily-managed Supabase function. Website analytics are delivered to a separate WashKing Supabase endpoint. A form is sent to both delivery services so a temporary provider outage is less likely to lose the message.
+                    Contact, survey, and employment submissions are delivered through our Formspree and Supabase form-delivery services. Website analytics are delivered to a separate Wash King Supabase endpoint. A form is sent to both delivery services so a temporary provider outage is less likely to lose the message.
                   </p>
                   <p>
                     Membership purchases and account management open the external NXTWash customer portal. Information entered there is handled by that service under its own terms and privacy practices. You can open the{" "}
@@ -120,7 +118,7 @@ const PrivacyPage = () => (
                 <ShieldCheck className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 id="choices-and-contact" className="font-display text-3xl text-washking-brown">
+                <h2 id="choices-and-contact" className="font-display text-2xl text-washking-brown sm:text-3xl">
                   Your choices and contact
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">
@@ -128,9 +126,9 @@ const PrivacyPage = () => (
                     You can clear the site's random identifiers by clearing local and session storage in your browser. You can also use the site without submitting a contact, survey, or employment form.
                   </p>
                   <p>
-                    To ask about information WashKing received through a website form, or to request a correction or deletion, email{" "}
+                    To ask about information Wash King received through a website form, or to request a correction or deletion, email{" "}
                     <a
-                      href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("WashKing website privacy request")}`}
+                      href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Wash King website privacy request")}`}
                       className="font-bold text-washking-sky underline underline-offset-4"
                     >
                       {CONTACT_EMAIL}

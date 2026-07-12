@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { MotionConfig, motion } from "framer-motion";
 import {
   Check,
   Clock,
@@ -12,9 +11,8 @@ import {
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FoamBubbles from "@/components/FoamBubbles";
 import { Badge } from "@/components/ui/badge";
-import { autoWashSchema } from "@/lib/structuredData";
+import { autoWashSchema, breadcrumbSchema } from "@/lib/structuredData";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
   getDirectionsUrl,
@@ -22,153 +20,131 @@ import {
   getHoursSummary,
   getIncludedFeatures,
   getLocationBySlug,
-  getPackagesByMonthlyPrice,
+  getPackagesByMonthlyPriceDescending,
   getStartingMonthlyPrice,
   UNLIMITED_MEMBER_BENEFITS,
   type WashKingLocation,
 } from "@/lib/locations";
 
-const BubbleCluster = ({ className = "" }: { className?: string }) => (
-  <div className={`absolute pointer-events-none ${className}`} aria-hidden="true">
-    <motion.div
-      animate={{ y: [0, -8, 0], scale: [1, 1.05, 1] }}
-      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      className="relative"
-    >
-      <div className="w-16 h-16 rounded-full bg-white/30 backdrop-blur-sm absolute -top-4 -left-4" />
-      <div className="w-10 h-10 rounded-full bg-white/40 backdrop-blur-sm absolute top-6 left-8" />
-      <div className="w-8 h-8 rounded-full bg-white/25 backdrop-blur-sm absolute -top-2 left-12" />
-      <div className="w-6 h-6 rounded-full bg-white/35 backdrop-blur-sm absolute top-10 -left-2" />
-    </motion.div>
-  </div>
-);
+const PLAN_ACCENT_CLASSES: Record<string, string> = {
+  BRONZE: "border-t-washking-green",
+  PLATINUM: "border-t-washking-sky",
+  DIAMOND: "border-t-washking-yellow",
+  ROYALTY: "border-t-washking-brown",
+};
 
-const WaveTransition = () => (
-  <div className="bg-washking-yellow h-8 lg:h-12 relative" aria-hidden="true">
-    <div className="absolute bottom-0 left-0 right-0">
-      <svg viewBox="0 0 1440 200" className="w-full h-auto" preserveAspectRatio="none">
-        <path
-          fill="hsl(202 68% 40%)"
-          d="M0,200 L0,100 Q360,180 720,100 T1440,120 L1440,200 Z"
-        />
-      </svg>
-    </div>
-  </div>
-);
+const PLAN_PRICE_CLASSES: Record<string, string> = {
+  BRONZE: "border-washking-green/20 bg-green-50",
+  PLATINUM: "border-washking-sky/20 bg-washking-sky-light",
+  DIAMOND: "border-washking-gold/25 bg-yellow-100",
+  ROYALTY: "border-amber-800/20 bg-amber-100",
+};
 
-const CloudTransition = () => (
-  <div className="absolute bottom-0 left-0 right-0" aria-hidden="true">
-    <svg viewBox="0 0 1440 120" className="w-full h-auto" preserveAspectRatio="none">
-      <ellipse cx="200" cy="100" rx="250" ry="80" fill="hsl(200 80% 85%)" />
-      <ellipse cx="500" cy="110" rx="300" ry="70" fill="hsl(200 80% 90%)" />
-      <ellipse cx="900" cy="95" rx="350" ry="90" fill="hsl(200 80% 85%)" />
-      <ellipse cx="1300" cy="105" rx="280" ry="75" fill="hsl(200 80% 90%)" />
-    </svg>
-  </div>
-);
+const PLAN_CALLOUTS: Record<string, string> = {
+  DIAMOND: "Best exterior protection",
+  ROYALTY: "Best for inside and out",
+};
+
+const sentenceCase = (value: string) => {
+  const normalized = value.replace(/^\*/, "").trim().toLowerCase();
+  return normalized ? `${normalized[0].toUpperCase()}${normalized.slice(1)}` : "";
+};
+
+const formatOrdinal = (value: number) => {
+  const lastTwoDigits = value % 100;
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 13) return `${value}th`;
+
+  const suffix = value % 10 === 1 ? "st" : value % 10 === 2 ? "nd" : value % 10 === 3 ? "rd" : "th";
+  return `${value}${suffix}`;
+};
 
 const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
-  <MotionConfig reducedMotion="user">
-    <div className="min-h-screen overflow-x-hidden">
+  <div className="min-h-screen bg-gray-50">
     <Seo
-      title={`${location.name} Car Wash - Coming Soon | WashKing`}
-      description={`WashKing Car Wash is coming soon to ${location.city}. Follow the new location and contact our team for updates.`}
+      title={`${location.name} Car Wash - Coming Soon | Wash King`}
+      description={`Wash King Car Wash is coming soon to ${location.city}. Follow the new location and contact our team for updates.`}
       path={`/location/${location.slug}`}
     />
     <Header />
 
     <main id="main-content" tabIndex={-1}>
-      <section className="relative">
-        <WaveTransition />
-        <div className="bg-gradient-to-b from-[hsl(202_68%_40%)] to-washking-sky relative pt-5 lg:pt-10 pb-28 lg:pb-40">
-          <FoamBubbles variant="section" density="low" />
-          <BubbleCluster className="top-16 left-[6%]" />
+      <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-16">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            <div className="text-center lg:text-left">
+              <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
+                {location.state}
+              </p>
+              <h1 className="mb-4 font-display text-3xl text-white sm:text-4xl lg:text-5xl">
+                {location.name}
+              </h1>
+              <p className="mx-auto max-w-xl font-body text-xl font-bold text-white sm:text-2xl lg:mx-0">
+                A new Wash King is on the way to {location.city}.
+              </p>
+            </div>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-              <motion.div
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="text-center lg:text-left"
-              >
-                <p className="font-display text-washking-brown text-sm sm:text-base tracking-widest mb-2">
-                  {location.state.toUpperCase()}
-                </p>
-                <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl text-white text-shadow mb-4">
-                  {location.name}
-                </h1>
-                <p className="font-body font-bold text-white text-xl sm:text-2xl lg:text-3xl text-shadow-white max-w-xl mx-auto lg:mx-0">
-                  A new WashKing is on the way to {location.city}.
-                </p>
-              </motion.div>
+            <div className="mx-auto w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
+              <Badge className="mb-6 rounded-lg bg-washking-yellow px-4 py-2 font-body text-sm font-bold text-washking-brown">
+                Coming soon
+              </Badge>
 
-              <div className="bg-white rounded-3xl shadow-2xl p-6 lg:p-8 w-full max-w-md mx-auto lg:ml-auto">
-                <Badge className="bg-washking-yellow text-washking-brown font-display text-lg px-5 py-2 rounded-full mb-6">
-                  Coming Soon
-                </Badge>
-
-                <div className="space-y-5">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                      <MapPin className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <p className="font-display text-washking-brown/70 text-xs tracking-widest">LOCATION</p>
-                      <p className="font-body text-washking-brown font-bold">{location.city}</p>
-                    </div>
+              <div className="space-y-5">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                    <MapPin className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                   </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                      <Mail className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-display text-washking-brown/70 text-xs tracking-widest">UPDATES</p>
-                      <a
-                        href={`mailto:${location.email}?subject=${encodeURIComponent(`${location.name} opening updates`)}`}
-                        className="font-body text-washking-brown font-bold hover:underline break-all"
-                      >
-                        {location.email}
-                      </a>
-                    </div>
+                  <div>
+                    <p className="font-body text-xs font-bold text-washking-brown/70">Location</p>
+                    <p className="font-body font-bold text-washking-brown">{location.city}</p>
                   </div>
                 </div>
 
-                <div className="mt-7 grid gap-3">
-                  <Link
-                    to={`/contact?location=${location.slug}&topic=opening-updates`}
-                    className="btn-cloud text-center bg-washking-brown text-white border-2 border-washking-brown px-4 py-3 font-display text-base"
-                  >
-                    Contact WashKing
-                  </Link>
-                  <Link
-                    to="/#locations"
-                    className="btn-cloud text-center bg-washking-cream text-washking-brown border-2 border-washking-brown px-4 py-3 font-display text-base"
-                  >
-                    View Open Locations
-                  </Link>
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                    <Mail className="h-5 w-5 text-washking-brown" aria-hidden="true" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-body text-xs font-bold text-washking-brown/70">Opening updates</p>
+                    <a
+                      href={`mailto:${location.email}?subject=${encodeURIComponent(`${location.name} opening updates`)}`}
+                      className="break-all font-body font-bold text-washking-brown hover:underline"
+                    >
+                      {location.email}
+                    </a>
+                  </div>
                 </div>
+              </div>
+
+              <div className="mt-7 grid gap-3">
+                <Link
+                  to={`/contact?location=${location.slug}&topic=opening-updates`}
+                  className="btn-primary px-4 text-center text-base"
+                >
+                  Ask about opening updates
+                </Link>
+                <Link
+                  to="/#locations"
+                  className="btn-outline px-4 text-center text-base"
+                >
+                  View open locations
+                </Link>
               </div>
             </div>
           </div>
-
-          <CloudTransition />
         </div>
       </section>
     </main>
 
-      <Footer />
-    </div>
-  </MotionConfig>
+    <Footer />
+  </div>
 );
 
 const HoursDetails = ({ location }: { location: WashKingLocation }) => {
   if (location.hours.is24Hours) {
     return (
       <>
-        <p className="font-display text-2xl mb-2">We never close</p>
-        <p className="font-display text-3xl">Open 24/7</p>
+        <p className="mb-2 font-body text-sm font-bold text-white/75">Daily hours</p>
+        <p className="font-display text-3xl">Open 24 hours</p>
       </>
     );
   }
@@ -176,7 +152,7 @@ const HoursDetails = ({ location }: { location: WashKingLocation }) => {
   if (location.hours.allDays) {
     return (
       <>
-        <p className="font-display text-xl mb-2">Monday - Sunday</p>
+        <p className="mb-2 font-body text-sm font-bold text-white/75">Monday - Sunday</p>
         <p className="font-display text-2xl">{location.hours.allDays}</p>
       </>
     );
@@ -184,9 +160,9 @@ const HoursDetails = ({ location }: { location: WashKingLocation }) => {
 
   return (
     <>
-      <p className="font-display text-lg mb-1">Monday - Saturday</p>
-      <p className="font-display text-2xl mb-4">{location.hours.weekdays}</p>
-      <p className="font-display text-lg mb-1">Sunday</p>
+      <p className="mb-1 font-body text-sm font-bold text-white/75">Monday - Saturday</p>
+      <p className="mb-4 font-display text-2xl">{location.hours.weekdays}</p>
+      <p className="mb-1 font-body text-sm font-bold text-white/75">Sunday</p>
       <p className="font-display text-2xl">{location.hours.sunday}</p>
     </>
   );
@@ -198,17 +174,17 @@ const LocationPage = () => {
 
   if (!location) {
     return (
-      <div className="min-h-screen bg-washking-sky">
+      <div className="min-h-screen bg-gray-50">
         <Seo
-          title="Location Not Found | WashKing Car Wash"
-          description="This WashKing Car Wash location could not be found. Explore our New Jersey locations."
+          title="Location Not Found | Wash King Car Wash"
+          description="This Wash King Car Wash location could not be found. Explore our New Jersey locations."
           path="/location"
           noIndex
         />
         <Header />
         <main id="main-content" tabIndex={-1} className="container mx-auto px-4 py-24 text-center">
-          <h1 className="font-display text-4xl text-white text-shadow mb-4">Location Not Found</h1>
-          <Link to="/#locations" className="btn-hero-primary inline-block">
+          <h1 className="mb-4 font-display text-4xl text-washking-brown">Location Not Found</h1>
+          <Link to="/#locations" className="btn-secondary inline-flex">
             View Locations
           </Link>
         </main>
@@ -225,148 +201,141 @@ const LocationPage = () => {
   const directionsUrl = getDirectionsUrl(location);
   const startingPrice = getStartingMonthlyPrice(location);
   const memberBenefits = [...UNLIMITED_MEMBER_BENEFITS, ...location.memberPerks];
-  const orderedPackages = getPackagesByMonthlyPrice(location);
-  const portalLocationName = location.portalLocationName || `WashKing ${location.name}`;
+  const orderedPackages = getPackagesByMonthlyPriceDescending(location);
+  const portalLocationName = location.portalLocationName || `Wash King ${location.name}`;
 
   const scrollToPlans = () => {
     document.getElementById("wash-plans")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <MotionConfig reducedMotion="user">
-      <div className="min-h-screen overflow-x-hidden pb-24 md:pb-0">
+    <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
       <Seo
-        title={`${location.name} Car Wash | WashKing ${location.city.replace(/\s*\d{5}$/, "")}`}
-        description={`Visit WashKing ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
+        title={`${location.name} Car Wash | Wash King ${location.city.replace(/\s*\d{5}$/, "")}`}
+        description={`Visit Wash King ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
         path={`/location/${location.slug}`}
-        jsonLd={autoWashSchema(location.slug, location)}
+        jsonLd={[
+          autoWashSchema(location.slug, location),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: location.name, path: `/location/${location.slug}` },
+          ]),
+        ]}
       />
       <Header />
 
       <main id="main-content" tabIndex={-1}>
-        <section className="relative">
-          <WaveTransition />
-          <div className="bg-gradient-to-b from-[hsl(202_68%_40%)] to-washking-sky relative pt-5 lg:pt-10 pb-28 lg:pb-40">
-            <FoamBubbles variant="section" density="low" />
-            <BubbleCluster className="top-14 right-[8%]" />
-
-            <div className="container mx-auto px-4 relative z-10">
-              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-                <motion.div
-                  initial={false}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-center lg:text-left"
-                >
-                  <p className="font-display text-washking-brown text-sm sm:text-base tracking-widest mb-2">
-                    {location.state.toUpperCase()}
+        <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-16">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2 lg:gap-12">
+              <div className="text-center lg:text-left">
+                <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
+                  {location.state}
+                </p>
+                <h1 className="mb-4 font-display text-3xl text-white sm:text-4xl lg:text-5xl">
+                  {location.name}
+                </h1>
+                {Number.isFinite(startingPrice) && (
+                  <p className="font-body text-xl font-bold text-white sm:text-2xl">
+                    Unlimited plans from{" "}
+                    <span className="whitespace-nowrap font-display text-3xl text-washking-yellow sm:text-4xl">
+                      ${startingPrice.toFixed(2)}/mo
+                    </span>
                   </p>
-                  <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl text-white text-shadow mb-4">
-                    {location.name}
-                  </h1>
-                  {Number.isFinite(startingPrice) && (
-                    <p className="font-body font-bold text-white text-xl sm:text-2xl lg:text-3xl text-shadow-white">
-                      Unlimited plans from{" "}
-                      <span className="font-display text-washking-yellow whitespace-nowrap text-3xl sm:text-4xl lg:text-5xl">
-                        ${startingPrice.toFixed(2)}/mo
-                      </span>
-                    </p>
-                  )}
-                </motion.div>
+                )}
+              </div>
 
-                <div className="bg-white rounded-3xl shadow-2xl p-6 lg:p-8 w-full max-w-md mx-auto lg:ml-auto">
-                  <div className="space-y-5">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                        <MapPin className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <p className="font-display text-washking-brown/70 text-xs tracking-widest">ADDRESS</p>
-                        <p className="font-body text-washking-brown font-bold">{location.address}</p>
-                        <p className="font-body text-washking-brown/80">{location.city}</p>
-                      </div>
+              <div className="mx-auto w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
+                <div className="space-y-5">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                      <MapPin className="h-5 w-5 text-washking-brown" aria-hidden="true" />
                     </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                        <Clock className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <p className="font-display text-washking-brown/70 text-xs tracking-widest">HOURS</p>
-                        <p className="font-body text-washking-brown font-bold">{hoursSummary}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-full bg-washking-cream flex items-center justify-center shrink-0">
-                        <Mail className="w-5 h-5 text-washking-brown" aria-hidden="true" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="font-display text-washking-brown/70 text-xs tracking-widest">CONTACT</p>
-                        <a href={`mailto:${location.email}`} className="font-body text-washking-brown font-bold hover:underline break-all">
-                          {location.email}
-                        </a>
-                      </div>
+                    <div>
+                      <p className="font-body text-xs font-bold text-washking-brown/70">Address</p>
+                      <p className="font-body font-bold text-washking-brown">{location.address}</p>
+                      <p className="font-body text-washking-brown/80">{location.city}</p>
                     </div>
                   </div>
 
-                  <div className="mt-7 grid grid-cols-2 gap-3">
-                    {directionsUrl && (
-                      <a
-                        href={directionsUrl}
-                        data-analytics="directions_click"
-                        data-analytics-source="location_hero"
-                        data-location-slug={location.slug}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-cloud bg-washking-brown text-white border-2 border-washking-brown px-3 py-3 font-display text-sm flex items-center justify-center gap-2"
-                      >
-                        <Navigation className="w-4 h-4" aria-hidden="true" />
-                        Directions
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                      <Clock className="h-5 w-5 text-washking-brown" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <p className="font-body text-xs font-bold text-washking-brown/70">Hours</p>
+                      <p className="font-body font-bold text-washking-brown">{hoursSummary}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
+                      <Mail className="h-5 w-5 text-washking-brown" aria-hidden="true" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-body text-xs font-bold text-washking-brown/70">Contact</p>
+                      <a href={`mailto:${location.email}`} className="break-all font-body font-bold text-washking-brown hover:underline">
+                        {location.email}
                       </a>
-                    )}
-                    <button
-                      type="button"
-                      onClick={scrollToPlans}
-                      className="btn-cloud bg-washking-cream text-washking-brown border-2 border-washking-brown px-3 py-3 font-display text-sm flex items-center justify-center gap-2"
-                    >
-                      <Sparkles className="w-4 h-4" aria-hidden="true" />
-                      View Plans
-                    </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-7 grid grid-cols-2 gap-3">
+                  {directionsUrl && (
                     <a
-                      href={MEMBERSHIP_PORTAL}
-                      data-analytics="membership_cta"
+                      href={directionsUrl}
+                      data-analytics="directions_click"
                       data-analytics-source="location_hero"
                       data-location-slug={location.slug}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-unlimited col-span-2 text-center"
+                      className="btn-primary gap-2 px-3"
                     >
-                      Go Unlimited
+                      <Navigation className="h-4 w-4" aria-hidden="true" />
+                      Directions
                     </a>
-                  </div>
+                  )}
+                  <button
+                    type="button"
+                    onClick={scrollToPlans}
+                    className="btn-outline gap-2 px-3"
+                  >
+                    <Sparkles className="h-4 w-4" aria-hidden="true" />
+                    View Plans
+                  </button>
+                  <a
+                    href={MEMBERSHIP_PORTAL}
+                    data-analytics="membership_cta"
+                    data-analytics-source="location_hero"
+                    data-location-slug={location.slug}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-unlimited col-span-2 text-center"
+                  >
+                    Join Unlimited
+                  </a>
                 </div>
               </div>
             </div>
-
-            <CloudTransition />
           </div>
         </section>
 
-        <section id="wash-plans" className="bg-gradient-to-b from-[hsl(200_80%_92%)] to-white py-12 lg:py-16 scroll-mt-8">
+        <section id="wash-plans" className="scroll-mt-24 bg-gray-50 py-12 lg:py-16">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-9 lg:mb-12">
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-washking-brown mb-3">
-                Wash Packages
+            <div className="mb-9 text-center lg:mb-12">
+              <p className="section-eyebrow mb-2">Compare your options</p>
+              <h2 className="section-title mb-3">
+                Wash plans and pricing
               </h2>
-              <p className="font-body text-base sm:text-lg text-washking-brown max-w-2xl mx-auto">
-                Choose a single wash or save with an unlimited monthly plan at {location.name}.
+              <p className="section-copy mx-auto max-w-2xl">
+                Compare pay-per-visit washes and unlimited monthly plans available at {location.name}.
               </p>
             </div>
 
-            <div className="mx-auto mb-8 flex max-w-4xl flex-col items-center justify-between gap-4 rounded-2xl border border-washking-brown/15 bg-white p-5 text-center shadow-sm sm:flex-row sm:text-left">
+            <div className="mx-auto mb-8 flex max-w-4xl flex-col items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-5 text-center shadow-sm sm:flex-row sm:text-left">
               <p className="font-body text-sm text-washking-brown sm:text-base">
-                Membership checkout opens our NXTWash plan portal. Confirm{" "}
+                Online checkout opens our secure NXTWash membership portal. Choose{" "}
                 <strong>{portalLocationName}</strong> when prompted.
               </p>
               <a
@@ -376,117 +345,129 @@ const LocationPage = () => {
                 data-analytics="membership_cta"
                 data-analytics-source="location_plan_intro"
                 data-location-slug={location.slug}
-                className="inline-flex shrink-0 items-center gap-2 font-body text-sm font-extrabold text-washking-brown underline underline-offset-4"
+                className="inline-flex shrink-0 items-center gap-2 font-body text-sm font-bold text-washking-brown underline underline-offset-4"
               >
-                Member login
+                Manage an existing plan
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
 
-            <div className={`grid md:grid-cols-2 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-6 max-w-7xl mx-auto`}>
+            <div className={`mx-auto grid max-w-7xl gap-10 md:grid-cols-2 md:gap-7 ${orderedPackages.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} lg:gap-6`}>
               {orderedPackages.map((washPackage, index) => {
                 const breakEvenVisits = getBreakEvenVisits(washPackage);
                 const includedFeatures = getIncludedFeatures(location, washPackage.name);
                 const visibleFeatures = washPackage.features.slice(0, 4);
                 const additionalFeatureCount = washPackage.features.length - visibleFeatures.length;
+                const basePackage = orderedPackages[index + 1];
 
                 return (
-                  <motion.article
+                  <article
                     key={washPackage.name}
-                    initial={false}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: index * 0.08 }}
-                    className={`${washPackage.color} rounded-3xl overflow-hidden shadow-xl flex flex-col`}
+                    className={`flex flex-col overflow-hidden rounded-lg border-2 border-t-[8px] border-gray-300 bg-white shadow-md md:border md:border-x-gray-200 md:border-b-gray-200 md:border-t-[6px] md:shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
                   >
-                  <div className="p-6 text-center">
-                    {index === 0 && (
-                      <p className={`mb-2 font-body text-xs font-extrabold uppercase ${washPackage.textColor}`}>
-                        Lowest monthly price
-                      </p>
-                    )}
-                    <h3 className={`font-display text-3xl ${washPackage.textColor} mb-2`}>
-                      {washPackage.name}
-                    </h3>
-                    <p className={`font-display text-2xl ${washPackage.textColor}`}>
-                      {washPackage.singlePrice}
-                      <span className="font-body text-sm"> / single wash</span>
-                    </p>
-                  </div>
-
-                  <div className="border-y-2 border-washking-brown/20 bg-washking-brown px-4 py-4 text-center">
-                    <p className="text-white font-display text-sm">UNLIMITED WASH CLUB</p>
-                    <p className="text-white font-display text-3xl">
-                      {washPackage.monthlyPrice}
-                      <span className="font-body text-xs"> + tax</span>
-                    </p>
-                    <p className="text-white font-body text-sm">per month</p>
-                    {breakEvenVisits && (
-                      <p className="mt-2 font-body text-xs font-extrabold text-white">
-                        Pays for itself by visit {breakEvenVisits}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="px-6 pb-6 pt-5 flex flex-col flex-1">
-                    {washPackage.includes && (
-                      <p className={`font-display text-sm ${washPackage.textColor} mb-3 text-center`}>
-                        {washPackage.includes}
-                      </p>
-                    )}
-                    <ul className="space-y-2 mb-5 flex-1">
-                      {visibleFeatures.map((feature) => (
-                        <li key={feature} className={`flex items-start gap-2 ${washPackage.textColor}`}>
-                          <Check className="w-5 h-5 shrink-0" aria-hidden="true" />
-                          <span className="font-body font-semibold text-sm">{feature}</span>
-                        </li>
-                      ))}
-                      {additionalFeatureCount > 0 && (
-                        <li className={`font-body text-sm font-extrabold ${washPackage.textColor}`}>
-                          + {additionalFeatureCount} more upgrades
-                        </li>
+                    <div className={`${washPackage.color} ${washPackage.textColor} flex min-h-32 flex-col items-center justify-center p-6 text-center`}>
+                      {PLAN_CALLOUTS[washPackage.name] && (
+                        <p className="mb-2 font-body text-xs font-extrabold uppercase">
+                          {PLAN_CALLOUTS[washPackage.name]}
+                        </p>
                       )}
-                    </ul>
-                    {washPackage.note && (
-                      <p className={`text-xs ${washPackage.textColor} opacity-80 mb-4`}>
-                        {washPackage.note}
-                      </p>
-                    )}
+                      <h3 className="font-display text-2xl">
+                        {sentenceCase(washPackage.name)}
+                      </h3>
+                    </div>
 
-                    <details className={`mb-5 border-t border-current/20 pt-3 ${washPackage.textColor}`}>
-                      <summary className="cursor-pointer font-body text-sm font-extrabold">
-                        See all {includedFeatures.length} included{" "}
-                        {includedFeatures.length === 1 ? "feature" : "features"}
-                      </summary>
-                      <ul className="mt-3 space-y-2">
-                        {includedFeatures.map((feature) => (
-                          <li key={feature} className="flex items-start gap-2">
-                            <Check className="h-4 w-4 shrink-0" aria-hidden="true" />
-                            <span className="font-body text-xs font-semibold">{feature}</span>
+                    <div className={`border-y px-3 py-5 text-center ${PLAN_PRICE_CLASSES[washPackage.name] || "border-gray-200 bg-gray-50"}`}>
+                      <div className="grid grid-cols-2 divide-x divide-washking-brown/20">
+                        <div className="flex flex-col items-center px-2">
+                          <p className="flex min-h-10 items-center font-body text-sm font-extrabold text-washking-brown">
+                            Single wash
+                          </p>
+                          <p className="mt-1 font-display text-3xl text-washking-brown">
+                            {washPackage.singlePrice}
+                          </p>
+                          <p className="mt-1 font-body text-xs font-semibold text-washking-brown/70">
+                            Pay once per visit
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-center px-2">
+                          <p className="flex min-h-10 items-center font-body text-sm font-extrabold leading-tight text-washking-brown">
+                            Unlimited monthly
+                          </p>
+                          <p className="mt-1 font-display text-3xl text-washking-brown">
+                            {washPackage.monthlyPrice}
+                          </p>
+                          <p className="mt-1 font-body text-xs font-semibold text-washking-brown/70">
+                            Per month + tax
+                          </p>
+                        </div>
+                      </div>
+                      {breakEvenVisits && (
+                        <p className="mt-4 border-t border-washking-brown/15 pt-3 font-body text-xs font-bold text-washking-brown/75">
+                          Pays for itself on your {formatOrdinal(breakEvenVisits)} wash this month
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
+                      {washPackage.includes && basePackage && (
+                        <p className="mb-3 text-center font-body text-sm font-bold text-washking-brown">
+                          Everything in {sentenceCase(basePackage.name)}, plus:
+                        </p>
+                      )}
+                      <ul className="mb-5 flex-1 space-y-2">
+                        {visibleFeatures.map((feature) => (
+                          <li key={feature} className="flex items-start gap-2 text-washking-brown">
+                            <Check className="h-5 w-5 shrink-0 text-washking-green" aria-hidden="true" />
+                            <span className="font-body text-sm font-semibold">{sentenceCase(feature)}</span>
                           </li>
                         ))}
+                        {additionalFeatureCount > 0 && (
+                          <li className="font-body text-sm font-bold text-washking-sky">
+                            + {additionalFeatureCount} more upgrades
+                          </li>
+                        )}
                       </ul>
-                    </details>
+                      {washPackage.note && (
+                        <p className="mb-4 font-body text-xs font-bold text-gray-500">
+                          {sentenceCase(washPackage.note)}
+                        </p>
+                      )}
 
-                    <a
-                      href={MEMBERSHIP_PORTAL}
-                      data-analytics="plan_select"
-                      data-analytics-source="location_plan_card"
-                      data-location-slug={location.slug}
-                      data-plan-name={washPackage.name}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-cloud flex items-center justify-center gap-2 bg-washking-cream text-washking-brown border-2 border-washking-brown px-5 py-2.5 font-display text-base text-center"
-                      aria-label={`Join the ${washPackage.name} unlimited wash plan`}
-                    >
-                      Choose {washPackage.name}
-                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                    </a>
-                    <p className={`mt-2 text-center font-body text-xs ${washPackage.textColor}`}>
-                      Confirm {portalLocationName} in NXTWash
-                    </p>
-                  </div>
-                  </motion.article>
+                      {includedFeatures.length > visibleFeatures.length && (
+                        <details className="mb-5 border-t border-gray-200 pt-3 text-washking-brown">
+                          <summary className="cursor-pointer font-body text-sm font-bold">
+                            See all {includedFeatures.length} included features
+                          </summary>
+                          <ul className="mt-3 space-y-2">
+                            {includedFeatures.map((feature) => (
+                              <li key={feature} className="flex items-start gap-2">
+                                <Check className="h-4 w-4 shrink-0 text-washking-green" aria-hidden="true" />
+                                <span className="font-body text-xs font-semibold">{sentenceCase(feature)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </details>
+                      )}
+
+                      <a
+                        href={MEMBERSHIP_PORTAL}
+                        data-analytics="plan_select"
+                        data-analytics-source="location_plan_card"
+                        data-location-slug={location.slug}
+                        data-plan-name={washPackage.name}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary gap-2 px-4 text-center text-sm"
+                        aria-label={`Join the ${sentenceCase(washPackage.name)} unlimited wash plan`}
+                      >
+                        Join {sentenceCase(washPackage.name)} Unlimited
+                        <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                      </a>
+                      <p className="mt-2 text-center font-body text-xs text-gray-500">
+                        At checkout, select {portalLocationName} and the {sentenceCase(washPackage.name)} plan.
+                      </p>
+                    </div>
+                  </article>
                 );
               })}
             </div>
@@ -495,17 +476,20 @@ const LocationPage = () => {
 
         <section className="bg-washking-yellow py-12 lg:py-16">
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] items-center gap-8">
+            <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
-                <p className="font-display text-washking-brown/70 text-sm tracking-widest mb-2">MEMBERSHIP</p>
-                <h2 className="font-display text-3xl lg:text-5xl text-washking-brown">
-                  Why Become a Member?
+                <p className="mb-2 font-body text-sm font-bold text-washking-brown/70">Membership benefits</p>
+                <h2 className="font-display text-3xl text-washking-brown lg:text-4xl">
+                  More value in every month
                 </h2>
+                <p className="mt-3 font-body text-base leading-relaxed text-washking-brown/80">
+                  A convenient option for drivers who wash regularly and prefer one predictable monthly payment.
+                </p>
               </div>
-              <ul className="grid sm:grid-cols-2 gap-4">
+              <ul className="grid gap-4 sm:grid-cols-2">
                 {memberBenefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3 text-washking-brown">
-                    <span className="w-7 h-7 bg-washking-brown rounded-full flex items-center justify-center shrink-0">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-washking-brown">
                       <Check className="w-4 h-4 text-white" aria-hidden="true" />
                     </span>
                     <span className="font-body font-semibold">{benefit}</span>
@@ -516,19 +500,18 @@ const LocationPage = () => {
           </div>
         </section>
 
-        <section className="bg-washking-sky py-14 lg:py-20 relative overflow-hidden">
-          <FoamBubbles variant="section" density="low" />
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-12 items-center">
+        <section className="bg-white py-14 lg:py-20">
+          <div className="container mx-auto px-4">
+            <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
               <div>
-                <p className="font-display text-washking-yellow text-sm tracking-widest mb-2">PLAN YOUR VISIT</p>
-                <h2 className="font-display text-4xl lg:text-5xl text-white text-shadow mb-6">
-                  Hours and Directions
+                <p className="section-eyebrow mb-2">Plan your visit</p>
+                <h2 className="mb-6 font-display text-3xl text-washking-brown lg:text-4xl">
+                  Hours and directions
                 </h2>
-                <div className="bg-washking-green rounded-3xl p-7 text-white">
+                <div className="rounded-lg bg-washking-green p-7 text-white">
                   <HoursDetails location={location} />
                 </div>
-                <p className="font-body text-white mt-5">
+                <p className="mt-5 font-body text-washking-brown">
                   {location.address}, {location.city}
                 </p>
                 {directionsUrl && (
@@ -539,7 +522,7 @@ const LocationPage = () => {
                     data-location-slug={location.slug}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-cloud mt-5 inline-flex bg-washking-yellow text-washking-brown border-2 border-washking-brown px-5 py-3 font-display text-base items-center gap-2"
+                    className="btn-secondary mt-5 gap-2 text-base"
                   >
                     <Navigation className="w-5 h-5" aria-hidden="true" />
                     Get Directions
@@ -548,7 +531,7 @@ const LocationPage = () => {
               </div>
 
               {location.mapEmbed && (
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30">
+                <div className="relative overflow-hidden rounded-lg border border-gray-200 shadow-lg">
                   <iframe
                     src={location.mapEmbed}
                     width="100%"
@@ -558,7 +541,7 @@ const LocationPage = () => {
                     loading="lazy"
                     tabIndex={-1}
                     referrerPolicy="no-referrer-when-downgrade"
-                    title={`Map for WashKing ${location.name}`}
+                    title={`Map for Wash King ${location.name}`}
                     className="pointer-events-none w-full h-[320px] lg:h-[420px]"
                   />
                   {directionsUrl && (
@@ -569,7 +552,7 @@ const LocationPage = () => {
                       data-analytics="directions_click"
                       data-analytics-source="location_map"
                       data-location-slug={location.slug}
-                      className="absolute left-3 top-3 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-4 py-2 font-body text-sm font-extrabold text-washking-brown shadow-lg"
+                      className="absolute left-3 top-3 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-4 py-2 font-body text-sm font-bold text-washking-brown shadow-lg"
                     >
                       Open in Maps
                       <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -592,7 +575,7 @@ const LocationPage = () => {
               data-analytics="directions_click"
               data-analytics-source="mobile_location_bar"
               data-location-slug={location.slug}
-              className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-brown px-2 font-body text-xs font-extrabold text-white"
+              className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-brown px-2 font-body text-xs font-bold text-white"
             >
               <Navigation className="h-4 w-4" aria-hidden="true" />
               Directions
@@ -601,7 +584,7 @@ const LocationPage = () => {
           <button
             type="button"
             onClick={scrollToPlans}
-            className="flex min-h-12 items-center justify-center gap-1 rounded-lg border-2 border-washking-brown bg-white px-2 font-body text-xs font-extrabold text-washking-brown"
+            className="flex min-h-12 items-center justify-center gap-1 rounded-lg border border-washking-brown bg-white px-2 font-body text-xs font-bold text-washking-brown"
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             Plans
@@ -613,7 +596,7 @@ const LocationPage = () => {
             data-analytics="membership_cta"
             data-analytics-source="mobile_location_bar"
             data-location-slug={location.slug}
-            className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-yellow px-2 font-body text-xs font-extrabold text-washking-brown"
+            className="flex min-h-12 items-center justify-center gap-1 rounded-lg bg-washking-yellow px-2 font-body text-xs font-bold text-washking-brown"
           >
             Join
             <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -621,9 +604,8 @@ const LocationPage = () => {
         </div>
       </div>
 
-        <Footer />
-      </div>
-    </MotionConfig>
+      <Footer />
+    </div>
   );
 };
 

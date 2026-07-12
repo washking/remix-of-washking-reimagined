@@ -91,7 +91,7 @@ const ContactPage = () => {
     try {
       await submitWebsiteForm({
         source: "contact_form",
-        subject: "New WashKing Contact Enquiry",
+        subject: "New Wash King Contact Enquiry",
         data: {
           ...data,
           plateNumber: isMembershipContactTopic(data.topic)
@@ -99,7 +99,7 @@ const ContactPage = () => {
             : undefined,
         },
       });
-      toast.success("Message sent. Thank you for contacting WashKing.");
+      toast.success("Message sent. Thank you for contacting Wash King.");
       form.reset();
       track("form_submit", { form: "contact" });
       navigate("/thank-you?source=contact_form");
@@ -112,8 +112,8 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-        title="Contact WashKing Car Wash | New Jersey Locations"
-        description="Contact WashKing Car Wash about memberships, wash packages or any of our New Jersey locations. Four locations are open and Cherry Hill is coming soon."
+        title="Contact Wash King Car Wash | New Jersey Locations"
+        description="Contact Wash King Car Wash about memberships, wash packages or any of our New Jersey locations. Four locations are open and Cherry Hill is coming soon."
         path="/contact"
       />
       <Header />
@@ -121,8 +121,8 @@ const ContactPage = () => {
       <main id="main-content" tabIndex={-1}>
         <FormPageHero
           eyebrow="Customer support"
-          title="CONTACT WASHKING"
-          description="Choose a topic and location so your request reaches the right team."
+          title="Contact Wash King"
+          description="Use this form for membership help, billing questions, wash feedback, or location support."
           icon={MessageSquareText}
         />
 
@@ -133,11 +133,11 @@ const ContactPage = () => {
                 <div className="border-b border-gray-200 px-5 py-5 sm:px-7">
                   <div className="flex flex-wrap items-end justify-between gap-2">
                     <div>
-                      <h2 className="font-body text-xl font-extrabold uppercase text-washking-brown sm:text-2xl">
-                        SEND A MESSAGE
+                      <h2 className="font-display text-xl text-washking-brown sm:text-2xl">
+                        Send us a message
                       </h2>
                       <p className="mt-1 font-body text-sm text-gray-600">
-                        All fields are required unless marked optional.
+                        Required fields are marked with an asterisk.
                       </p>
                     </div>
                   </div>
@@ -146,8 +146,8 @@ const ContactPage = () => {
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 px-5 py-6 sm:px-7 sm:py-8">
                     <fieldset className="min-w-0 space-y-5">
-                      <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                        REQUEST DETAILS
+                      <legend className="font-body text-base font-bold text-washking-brown">
+                        Request details
                       </legend>
                       <div className="grid gap-5 md:grid-cols-2">
                         <FormField
@@ -214,8 +214,8 @@ const ContactPage = () => {
                     </fieldset>
 
                     <fieldset className="min-w-0 space-y-5 border-t border-gray-200 pt-8">
-                      <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                        CONTACT DETAILS
+                      <legend className="font-body text-base font-bold text-washking-brown">
+                        Contact details
                       </legend>
                       <div className="grid gap-5 md:grid-cols-2">
                         <FormField
@@ -263,7 +263,7 @@ const ContactPage = () => {
                               <Input required maxLength={20} type="tel" autoComplete="tel" placeholder="(000) 000-0000" className={FORM_INPUT_CLASS} {...field} />
                             </FormControl>
                             <FormDescription className="font-body text-sm text-gray-600">
-                              For membership requests, use the phone number connected to the account.
+                              Required. For membership help, enter the phone number connected to your account so we can locate it.
                             </FormDescription>
                             <FormMessage className="text-red-700" />
                           </FormItem>
@@ -293,8 +293,8 @@ const ContactPage = () => {
                     </fieldset>
 
                     <fieldset className="min-w-0 space-y-5 border-t border-gray-200 pt-8">
-                      <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                        MESSAGE
+                      <legend className="font-body text-base font-bold text-washking-brown">
+                        Message
                       </legend>
                       <FormField
                         control={form.control}
@@ -305,7 +305,7 @@ const ContactPage = () => {
                               How can we help? <span className="text-red-700" aria-hidden="true">*</span>
                             </FormLabel>
                             <FormControl>
-                              <Textarea required maxLength={1000} placeholder="Share the details of your request." rows={6} className={FORM_TEXTAREA_CLASS} {...field} />
+                              <Textarea required maxLength={1000} placeholder="Tell us what happened, what you need help with, and any relevant visit or membership details." rows={6} className={FORM_TEXTAREA_CLASS} {...field} />
                             </FormControl>
                             <FormMessage className="text-red-700" />
                           </FormItem>
@@ -330,9 +330,9 @@ const ContactPage = () => {
                 </Form>
               </div>
 
-              <aside className="space-y-7 lg:sticky lg:top-6" aria-label="Contact options">
+              <aside className="space-y-7 lg:sticky lg:top-28" aria-label="Contact options">
                 <section>
-                  <h2 className="font-body text-base font-extrabold uppercase text-washking-brown">MEMBERSHIP ACCOUNT</h2>
+                  <h2 className="font-display text-base text-washking-brown">Membership account</h2>
                   <p className="mt-2 font-body text-sm leading-relaxed text-gray-600">
                     Update a vehicle, review your account, or manage an existing plan in the member portal.
                   </p>
@@ -342,7 +342,7 @@ const ContactPage = () => {
                     rel="noopener noreferrer"
                     data-analytics="membership_cta"
                     data-analytics-source="contact_sidebar"
-                    className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-lg bg-washking-yellow px-4 py-2.5 font-body text-sm font-extrabold text-washking-brown hover:bg-washking-gold"
+                    className="btn-secondary mt-4 gap-2 px-4 py-2.5"
                   >
                     Manage membership
                     <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -350,13 +350,13 @@ const ContactPage = () => {
                 </section>
 
                 <section className="border-t border-gray-300 pt-7">
-                  <h2 className="font-body text-base font-extrabold uppercase text-washking-brown">VISIT A LOCATION</h2>
+                  <h2 className="font-display text-base text-washking-brown">Visit a location</h2>
                   <p className="mt-2 font-body text-sm leading-relaxed text-gray-600">
                     Compare services, hours, plans, and directions for all open locations.
                   </p>
                   <Link
                     to="/#locations"
-                    className="mt-4 inline-flex min-h-11 items-center gap-2 font-body text-sm font-extrabold text-washking-sky underline-offset-4 hover:underline"
+                    className="mt-4 inline-flex min-h-11 items-center gap-2 font-body text-sm font-bold text-washking-sky underline-offset-4 hover:underline"
                   >
                     <MapPinned className="h-4 w-4" aria-hidden="true" />
                     View locations
@@ -364,10 +364,13 @@ const ContactPage = () => {
                 </section>
 
                 <section className="border-t border-gray-300 pt-7">
-                  <h2 className="font-body text-base font-extrabold uppercase text-washking-brown">EMAIL</h2>
+                  <h2 className="font-display text-base text-washking-brown">Email</h2>
+                  <p className="mt-2 font-body text-sm leading-relaxed text-gray-600">
+                    Prefer email? For the most accurate routing, use the form above. You may also email us directly.
+                  </p>
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
-                    className="mt-3 inline-flex items-center gap-2 break-all font-body text-sm font-extrabold text-washking-sky underline-offset-4 hover:underline"
+                    className="mt-3 inline-flex items-center gap-2 break-all font-body text-sm font-bold text-washking-sky underline-offset-4 hover:underline"
                   >
                     <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
                     {CONTACT_EMAIL}

@@ -9,7 +9,7 @@ describe("trust and privacy guardrails", () => {
     expect(source("src/pages/Index.tsx")).toContain("TrustStatsSection");
     expect(source("src/components/TrustStatsSection.tsx")).toContain("OPEN_LOCATIONS");
     expect(existsSync(resolve(process.cwd(), "src/components/TestimonialsSection.tsx"))).toBe(false);
-    expect(source("src/components/Header.tsx")).toContain("At a Glance");
+    expect(source("src/components/Header.tsx")).toContain("At a glance");
 
     const confirmation = source("src/pages/ThankYouPage.tsx");
     expect(confirmation).not.toContain("as soon as possible");
@@ -19,7 +19,7 @@ describe("trust and privacy guardrails", () => {
   it("publishes and links the privacy notice", () => {
     expect(source("src/App.tsx")).toContain('path: "privacy"');
     expect(source("public/sitemap.xml")).toContain("https://www.washking.net/privacy");
-    expect(source("src/components/Footer.tsx")).toContain("Privacy Notice");
+    expect(source("src/components/Footer.tsx")).toContain("Privacy notice");
 
     ["ContactPage.tsx", "CustomerSurveyPage.tsx", "EmploymentPage.tsx"].forEach((page) => {
       expect(source(`src/pages/${page}`)).toContain('to="/privacy"');
@@ -33,5 +33,25 @@ describe("trust and privacy guardrails", () => {
     expect(privacy).toContain("Supabase");
     expect(privacy).toContain("random visitor and session identifiers");
     expect(privacy).toContain("NXTWash");
+  });
+
+  it("publishes complete crawl and social metadata", () => {
+    const seo = source("src/components/Seo.tsx");
+    const site = source("src/lib/site.ts");
+    const shell = source("index.html");
+    const manifest = source("public/site.webmanifest");
+    const structuredData = source("src/lib/structuredData.ts");
+
+    expect(seo).toContain("max-image-preview:large");
+    expect(seo).toContain('property="og:site_name"');
+    expect(seo).toContain('property="og:image:secure_url"');
+    expect(seo).toContain('property="og:image:width"');
+    expect(seo).toContain('name="twitter:image:alt"');
+    expect(site).toContain("/og-image-v2.png");
+    expect(shell).toContain('rel="manifest"');
+    expect(shell).toContain('name="theme-color"');
+    expect(manifest).toContain('"purpose": "any maskable"');
+    expect(structuredData).toContain('"@type": "WebSite"');
+    expect(structuredData).toContain('"@type": "BreadcrumbList"');
   });
 });

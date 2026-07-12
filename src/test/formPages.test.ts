@@ -26,7 +26,7 @@ describe("form page UI guardrails", () => {
     const survey = source("src/pages/CustomerSurveyPage.tsx");
     const employment = source("src/pages/EmploymentPage.tsx");
 
-    expect(contact).toContain("phone number connected to the account");
+    expect(contact).toContain("phone number connected to your account so we can locate it");
     expect(contact).not.toContain("LocationsMap");
     expect(survey).toContain("survey-rating-");
     expect(employment).toContain("preferredLocation");

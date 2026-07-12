@@ -296,7 +296,7 @@ export const getLocationBySlug = (slug?: string) =>
   slug ? LOCATION_BY_SLUG[slug] : undefined;
 
 export const getLocationFormValue = (location: WashKingLocation) =>
-  `WashKing ${location.name}`;
+  `Wash King ${location.name}`;
 
 export const getLocationFormLabel = (location: WashKingLocation) =>
   `${getLocationFormValue(location)}${location.status === "coming-soon" ? " - Coming Soon" : ""}`;
@@ -304,7 +304,7 @@ export const getLocationFormLabel = (location: WashKingLocation) =>
 export const getDirectionsUrl = (location: WashKingLocation) => {
   if (location.status !== "open" || !location.address) return null;
 
-  const destination = `WashKing ${location.name}, ${location.address}, ${location.city}`;
+  const destination = `Wash King ${location.name}, ${location.address}, ${location.city}`;
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
 };
 
@@ -398,6 +398,11 @@ const monthlyPriceValue = (washPackage: WashPackage) =>
 export const getPackagesByMonthlyPrice = (location: WashKingLocation) =>
   [...location.packages].sort(
     (left, right) => monthlyPriceValue(left) - monthlyPriceValue(right),
+  );
+
+export const getPackagesByMonthlyPriceDescending = (location: WashKingLocation) =>
+  [...location.packages].sort(
+    (left, right) => monthlyPriceValue(right) - monthlyPriceValue(left),
   );
 
 export const getIncludedFeatures = (

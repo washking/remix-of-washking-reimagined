@@ -13,10 +13,11 @@ import {
   getLocationFormLabel,
   getLocationOpenStatus,
   getPackagesByMonthlyPrice,
+  getPackagesByMonthlyPriceDescending,
 } from "@/lib/locations";
 import { autoWashSchema } from "@/lib/structuredData";
 
-describe("WashKing location registry", () => {
+describe("Wash King location registry", () => {
   it("contains four open locations and Cherry Hill coming soon", () => {
     expect(LOCATIONS).toHaveLength(5);
     expect(OPEN_LOCATIONS).toHaveLength(4);
@@ -103,6 +104,12 @@ describe("WashKing location registry", () => {
       "PLATINUM",
       "DIAMOND",
       "ROYALTY",
+    ]);
+    expect(getPackagesByMonthlyPriceDescending(vineland).map((plan) => plan.name)).toEqual([
+      "ROYALTY",
+      "DIAMOND",
+      "PLATINUM",
+      "BRONZE",
     ]);
     expect(orderedPlans.map(getBreakEvenVisits)).toEqual([2, 3, 3, 3]);
 

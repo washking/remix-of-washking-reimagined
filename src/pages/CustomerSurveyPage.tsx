@@ -83,7 +83,7 @@ const CustomerSurveyPage = () => {
     try {
       await submitWebsiteForm({
         source: "customer_survey",
-        subject: "New WashKing Customer Survey",
+        subject: "New Wash King Customer Survey",
         data,
       });
       toast.success("Thank you. Your feedback was submitted.");
@@ -99,8 +99,8 @@ const CustomerSurveyPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-        title="Customer Survey | WashKing Car Wash"
-        description="Share feedback about your visit to one of WashKing Car Wash's four open New Jersey locations."
+        title="Customer Survey | Wash King Car Wash"
+        description="Share feedback about your visit to one of Wash King Car Wash's four open New Jersey locations."
         path="/customer-survey"
         noIndex
       />
@@ -109,8 +109,8 @@ const CustomerSurveyPage = () => {
       <main id="main-content" tabIndex={-1}>
         <FormPageHero
           eyebrow="Customer feedback"
-          title="TELL US ABOUT YOUR VISIT"
-          description="Share your experience with the WashKing team."
+          title="Tell us about your visit"
+          description="Your feedback helps the Wash King team improve the next visit."
           icon={ClipboardCheck}
         />
 
@@ -118,19 +118,19 @@ const CustomerSurveyPage = () => {
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-4xl overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
               <div className="border-b border-gray-200 px-5 py-5 sm:px-7">
-                <h2 className="font-body text-xl font-extrabold uppercase text-washking-brown sm:text-2xl">
-                  CUSTOMER SURVEY
+                <h2 className="font-display text-xl text-washking-brown sm:text-2xl">
+                  Share your feedback
                 </h2>
                 <p className="mt-1 font-body text-sm text-gray-600">
-                  All fields are required.
+                  Required fields are marked with an asterisk.
                 </p>
               </div>
 
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 px-5 py-6 sm:px-7 sm:py-8">
                   <fieldset className="min-w-0 space-y-6">
-                    <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                      VISIT DETAILS
+                    <legend className="font-body text-base font-bold text-washking-brown">
+                      Visit details
                     </legend>
 
                     <FormField
@@ -207,8 +207,8 @@ const CustomerSurveyPage = () => {
                   </fieldset>
 
                   <fieldset className="min-w-0 space-y-5 border-t border-gray-200 pt-8">
-                    <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                      YOUR DETAILS
+                    <legend className="font-body text-base font-bold text-washking-brown">
+                      Your details
                     </legend>
                     <div className="grid gap-5 md:grid-cols-2">
                       <FormField
@@ -246,8 +246,8 @@ const CustomerSurveyPage = () => {
                   </fieldset>
 
                   <fieldset className="min-w-0 space-y-5 border-t border-gray-200 pt-8">
-                    <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                      FEEDBACK
+                    <legend className="font-body text-base font-bold text-washking-brown">
+                      Feedback
                     </legend>
                     <FormField
                       control={form.control}
@@ -255,10 +255,10 @@ const CustomerSurveyPage = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className={FORM_LABEL_CLASS}>
-                            What should we know? <span className="text-red-700" aria-hidden="true">*</span>
+                            Tell us about your visit <span className="text-red-700" aria-hidden="true">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Textarea required maxLength={2000} placeholder="Tell us what went well or what we could improve." rows={7} className={FORM_TEXTAREA_CLASS} {...field} />
+                            <Textarea required maxLength={2000} placeholder="What went well? What could we do better? Include any details that would help us understand your visit." rows={7} className={FORM_TEXTAREA_CLASS} {...field} />
                           </FormControl>
                           <FormMessage className="text-red-700" />
                         </FormItem>

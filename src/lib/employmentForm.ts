@@ -15,7 +15,7 @@ export const employmentSchema = z.object({
   ),
   firstName: z.string().trim().min(1, "First name is required").max(50, "First name must be less than 50 characters"),
   lastName: z.string().trim().min(1, "Last name is required").max(50, "Last name must be less than 50 characters"),
-  message: z.string().trim().min(1, "Tell us about yourself").max(1000, "Message must be less than 1000 characters"),
+  message: z.string().trim().min(1, "Experience and availability are required").max(1000, "Message must be less than 1000 characters"),
   city: z.string().trim().min(1, "City is required").max(100, "City must be less than 100 characters"),
   state: z.string().trim().min(1, "State is required").max(50, "State must be less than 50 characters"),
   postal: z.string().trim().max(20, "Postal code must be less than 20 characters").optional(),

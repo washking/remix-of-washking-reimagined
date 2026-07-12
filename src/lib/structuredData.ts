@@ -84,13 +84,44 @@ function parseCity(city: string) {
 export function organizationSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: BUSINESS_NAME,
-    url: SITE_URL,
-    logo: `${SITE_URL}/favicon.png`,
-    image: OG_IMAGE,
-    email: CONTACT_EMAIL,
-    sameAs: SOCIAL_LINKS,
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: BUSINESS_NAME,
+        alternateName: "Wash King",
+        url: SITE_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/favicon.png`,
+        },
+        image: OG_IMAGE,
+        email: CONTACT_EMAIL,
+        sameAs: SOCIAL_LINKS,
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: BUSINESS_NAME,
+        alternateName: "Wash King",
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        inLanguage: "en-US",
+      },
+    ],
+  };
+}
+
+export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path}`,
+    })),
   };
 }
 
@@ -101,11 +132,12 @@ export function autoWashSchema(slug: string, loc: WashKingLocation) {
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "AutoWash",
+    "@id": `${SITE_URL}/location/${slug}#business`,
     name: `${BUSINESS_NAME} – ${loc.name}`,
     url: `${SITE_URL}/location/${slug}`,
     image: OG_IMAGE,
     email: loc.email || CONTACT_EMAIL,
-    priceRange: "10-60 USD",
+    priceRange: "$10-$60",
     address: {
       "@type": "PostalAddress",
       streetAddress: loc.address,
@@ -120,6 +152,7 @@ export function autoWashSchema(slug: string, loc: WashKingLocation) {
       longitude: loc.lng,
     },
     parentOrganization: {
+      "@id": `${SITE_URL}/#organization`,
       "@type": "Organization",
       name: BUSINESS_NAME,
       url: SITE_URL,

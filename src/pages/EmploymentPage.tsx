@@ -62,7 +62,7 @@ const YesNoField = ({ id, label, value, error, onChange }: YesNoFieldProps) => (
           <RadioGroupItem id={`${id}-${option}`} value={option} className="peer sr-only" />
           <Label
             htmlFor={`${id}-${option}`}
-            className="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 font-body text-sm font-extrabold capitalize text-washking-brown transition-colors hover:border-washking-sky peer-focus-visible:ring-2 peer-focus-visible:ring-washking-sky peer-focus-visible:ring-offset-2 peer-data-[state=checked]:border-washking-sky peer-data-[state=checked]:bg-washking-sky peer-data-[state=checked]:text-white"
+            className="flex min-h-12 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 font-body text-sm font-bold capitalize text-washking-brown transition-colors hover:border-washking-sky peer-focus-visible:ring-2 peer-focus-visible:ring-washking-sky peer-focus-visible:ring-offset-2 peer-data-[state=checked]:border-washking-sky peer-data-[state=checked]:bg-washking-sky peer-data-[state=checked]:text-white"
           >
             {option}
           </Label>
@@ -101,10 +101,10 @@ const EmploymentPage = () => {
     try {
       await submitWebsiteForm({
         source: "employment_application",
-        subject: "New WashKing Employment Application",
+        subject: "New Wash King Employment Application",
         data,
       });
-      toast.success("Application submitted. Thank you for your interest in WashKing.");
+      toast.success("Application submitted. Thank you for your interest in Wash King.");
       reset();
       track("form_submit", { form: "employment" });
       navigate("/thank-you?source=employment_application");
@@ -117,8 +117,8 @@ const EmploymentPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Seo
-        title="Careers at WashKing Car Wash | Now Hiring in NJ"
-        description="Apply to join the WashKing Car Wash team at one of our four open New Jersey locations."
+        title="Car Wash Careers in New Jersey | Wash King"
+        description="Apply to join the Wash King Car Wash team at one of our four open New Jersey locations."
         path="/employment"
       />
       <Header />
@@ -126,8 +126,8 @@ const EmploymentPage = () => {
       <main id="main-content" tabIndex={-1}>
         <FormPageHero
           eyebrow="Careers"
-          title="JOIN THE WASHKING TEAM"
-          description="Tell us where you would like to work and a little about yourself."
+          title="Join the Wash King team"
+          description="Choose a preferred location and tell us a little about yourself."
           icon={BriefcaseBusiness}
         />
 
@@ -135,18 +135,18 @@ const EmploymentPage = () => {
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
               <div className="border-b border-gray-200 px-5 py-5 sm:px-7">
-                <h2 className="font-body text-xl font-extrabold uppercase text-washking-brown sm:text-2xl">
-                  EMPLOYMENT APPLICATION
+                <h2 className="font-display text-xl text-washking-brown sm:text-2xl">
+                  Employment application
                 </h2>
                 <p className="mt-1 font-body text-sm text-gray-600">
-                  All fields are required unless marked optional.
+                  Required fields are marked with an asterisk.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 px-5 py-6 sm:px-7 sm:py-8">
                 <fieldset className="min-w-0 space-y-5">
-                  <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                    LOCATION
+                  <legend className="font-body text-base font-bold text-washking-brown">
+                    Location
                   </legend>
                   <div>
                     <Label htmlFor="employment-location" className={FORM_LABEL_CLASS}>
@@ -173,8 +173,8 @@ const EmploymentPage = () => {
                 </fieldset>
 
                 <fieldset className="min-w-0 space-y-5 border-t border-gray-200 pt-8">
-                  <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                    APPLICANT DETAILS
+                  <legend className="font-body text-base font-bold text-washking-brown">
+                    Applicant details
                   </legend>
 
                   <div className="grid gap-5 md:grid-cols-2">
@@ -311,19 +311,19 @@ const EmploymentPage = () => {
                 </fieldset>
 
                 <fieldset className="min-w-0 space-y-5 border-t border-gray-200 pt-8">
-                  <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                    ABOUT YOU
+                  <legend className="font-body text-base font-bold text-washking-brown">
+                    About you
                   </legend>
                   <div>
                     <Label htmlFor="employment-message" className={FORM_LABEL_CLASS}>
-                      Tell us about yourself <span className="text-red-700" aria-hidden="true">*</span>
+                    Experience and availability <span className="text-red-700" aria-hidden="true">*</span>
                     </Label>
                     <Textarea
                       id="employment-message"
                       required
                       maxLength={1000}
                       rows={7}
-                      placeholder="Share relevant experience, availability, or why you would like to join WashKing."
+                      placeholder="Tell us about your work experience, weekly availability, preferred schedule, and interest in joining Wash King."
                       {...register("message")}
                       aria-invalid={Boolean(errors.message)}
                       aria-describedby={errors.message ? "employment-message-error" : undefined}
@@ -334,13 +334,13 @@ const EmploymentPage = () => {
                 </fieldset>
 
                 <fieldset className="min-w-0 space-y-5 border-t border-gray-200 pt-8">
-                  <legend className="mb-5 font-body text-base font-extrabold uppercase text-washking-brown">
-                    APPLICATION DETAILS
+                  <legend className="font-body text-base font-bold text-washking-brown">
+                    Application details
                   </legend>
                   <div className="grid gap-6 md:grid-cols-3">
                     <YesNoField
                       id="employment-applied-before"
-                      label="Applied to WashKing before?"
+                      label="Applied to Wash King before?"
                       value={watch("appliedBefore")}
                       error={errors.appliedBefore?.message}
                       onChange={(value) => setValue("appliedBefore", value, { shouldValidate: true })}

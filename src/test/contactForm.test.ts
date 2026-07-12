@@ -32,7 +32,7 @@ describe("contact form", () => {
 
   it("prefills only known query values", () => {
     expect(getContactFormPrefill("cherry-hill", "opening-updates")).toEqual({
-      location: "WashKing Cherry Hill",
+      location: "Wash King Cherry Hill",
       topic: "opening-updates",
     });
     expect(getContactFormPrefill("not-a-location", "not-a-topic")).toEqual({

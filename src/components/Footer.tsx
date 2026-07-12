@@ -1,22 +1,20 @@
-import { Facebook, Instagram, Mail } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "@/assets/washking-logo.png";
-import logoAvif from "@/assets/washking-logo.avif";
-import woodTexture from "@/assets/wood-texture.jpg";
-import woodTextureAvif from "@/assets/wood-texture.avif";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
-import OptimizedImage from "@/components/OptimizedImage";
-import { backgroundImageSet } from "@/lib/media";
+import BrandLogo from "@/components/BrandLogo";
+import { LOCATIONS } from "@/lib/locations";
 
-const exploreLinks1 = [
+const exploreLinks = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
+  { label: "About Wash King", href: "/about" },
+  { label: "Plans & pricing", href: "/#locations" },
+  { label: "Careers", href: "/employment" },
 ];
 
-const exploreLinks2 = [
-  { label: "Plans & Pricing", href: "/#locations" },
-  { label: "Contact Us", href: "/contact" },
-  { label: "Locations", href: "/#locations" },
+const supportLinks = [
+  { label: "Contact us", href: "/contact" },
+  { label: "FAQs", href: "/#faq" },
+  { label: "Customer survey", href: "/customer-survey" },
 ];
 
 const Footer = () => {
@@ -24,23 +22,9 @@ const Footer = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    
+
     if (href.startsWith("/#")) {
-      const hash = href.substring(1);
-      if (window.location.pathname === "/") {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      } else {
-        navigate("/");
-        setTimeout(() => {
-          const element = document.querySelector(hash);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 100);
-      }
+      navigate(href);
     } else {
       navigate(href);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -48,166 +32,125 @@ const Footer = () => {
   };
 
   return (
-    <footer id="footer" className="relative overflow-hidden">
-      {/* Wood texture footer */}
-      <div 
-        className="relative py-8 lg:py-14"
-        style={{
-          backgroundImage: backgroundImageSet(woodTextureAvif, woodTexture),
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="absolute inset-0 bg-[hsl(25_55%_32%)]/80" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          {/* Logo - full width centered on all sizes */}
-          <div
-            className="flex justify-center mb-6"
-          >
-            <Link to="/">
-              <OptimizedImage
-                avifSrc={logoAvif}
-                src={logo} 
-                alt="WashKing Car Wash" 
-                width={500}
-                height={511}
-                loading="lazy"
-                decoding="async"
-                className="w-28 lg:w-44 h-auto"
-              />
-            </Link>
-          </div>
+    <footer id="footer" className="overflow-hidden bg-washking-brown">
+      <div className="border-b-4 border-washking-yellow bg-white py-4 sm:py-5">
+        <div className="container mx-auto flex justify-center px-4">
+          <Link to="/" aria-label="Wash King home">
+            <BrandLogo variant="footer" />
+          </Link>
+        </div>
+      </div>
 
-          {/* Two-column link grid + email/social on desktop */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-12 items-start">
-            {/* Mobile: Email & Social appears after links via order */}
-            <div
-              className="order-3 md:order-1 text-center md:text-left"
-            >
-              <div className="flex items-center gap-3 mb-4 justify-center md:justify-start">
-                <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-full border-2 border-white flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 lg:w-7 lg:h-7 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-display text-white text-sm lg:text-lg">E-MAIL US</h3>
-                  <a 
-                    href="mailto:contact@washking.net"
-                    className="font-body text-white text-xs lg:text-sm tracking-wide hover:underline break-all"
-                  >
-                    CONTACT@WASHKING.NET
-                  </a>
-                </div>
-              </div>
-              
-              <div className="flex gap-3 justify-center md:justify-start">
-                <a
-                  href="https://www.facebook.com/WashKingVineland/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-11 h-11 bg-washking-yellow rounded-full flex items-center justify-center"
-                  aria-label="Follow us on Facebook"
-                >
-                  <Facebook className="w-5 h-5 text-washking-brown" />
-                </a>
-                <a
-                  href="https://www.instagram.com/washkingvineland"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-11 h-11 bg-washking-yellow rounded-full flex items-center justify-center"
-                  aria-label="Follow us on Instagram"
-                >
-                  <Instagram className="w-5 h-5 text-washking-brown" />
-                </a>
-              </div>
-
+      <div className="py-10 lg:py-12">
+        <div className="container mx-auto max-w-7xl px-4">
+          <div className="grid grid-cols-2 gap-9 lg:grid-cols-[1.15fr_0.8fr_1fr_0.75fr] lg:gap-10">
+            <section className="col-span-2 lg:col-span-1">
+              <h2 className="font-display text-lg text-white">Customer care</h2>
+              <p className="mt-3 max-w-sm font-body text-sm leading-relaxed text-white/75">
+                Need help with a visit or membership? Use our contact form so your request reaches the right location or account team.
+              </p>
+              <a
+                href="mailto:contact@washking.net"
+                className="mt-4 inline-flex items-center gap-2 break-all font-body text-sm font-bold text-white hover:text-washking-yellow"
+              >
+                <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+                contact@washking.net
+              </a>
               <a
                 href={MEMBERSHIP_PORTAL}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-analytics="membership_cta"
                 data-analytics-source="footer"
-                className="mt-4 inline-block font-body text-sm font-bold text-washking-yellow hover:underline"
+                className="mt-5 block w-fit rounded-lg border border-white/35 px-4 py-2.5 font-body text-sm font-bold text-white transition-colors hover:border-washking-yellow hover:text-washking-yellow"
               >
-                Manage Membership
+                Manage membership
               </a>
-            </div>
+            </section>
 
-            {/* Center - Two divided link columns on mobile, single column on desktop */}
-            <div
-              className="order-1 md:order-2 text-center"
-            >
-              {/* Mobile: 2-column grid for links */}
-              <div className="grid grid-cols-2 gap-4 md:block">
-                {/* Section 1: EXPLORE */}
-                <div className="text-center">
-                  <h3 className="font-display text-washking-yellow text-base lg:text-2xl mb-2 border-b-2 border-washking-yellow pb-1 inline-block">
-                    EXPLORE
-                  </h3>
-                  <nav className="space-y-1">
-                    {exploreLinks1.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        onClick={(e) => handleNavClick(e, link.href)}
-                        className="block text-white font-body text-sm lg:text-base hover:text-washking-yellow transition-colors py-0.5"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </nav>
-                </div>
+            <section>
+              <h2 className="font-display text-lg text-white">Explore</h2>
+              <nav className="mt-3 space-y-2" aria-label="Footer explore links">
+                {exploreLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(event) => handleNavClick(event, link.href)}
+                    className="block py-0.5 font-body text-sm text-white/80 transition-colors hover:text-washking-yellow"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </section>
 
-                {/* Section 2 */}
-                <div className="text-center md:text-center">
-                  <div aria-hidden="true" className="font-display text-washking-yellow text-base lg:text-2xl mb-2 border-b-2 border-washking-yellow pb-1 inline-block md:hidden">
-                    &nbsp;
-                  </div>
-                  <nav className="space-y-1 md:mt-0">
-                    {exploreLinks2.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        onClick={(e) => handleNavClick(e, link.href)}
-                        className="block text-white font-body text-sm lg:text-base hover:text-washking-yellow transition-colors py-0.5"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </nav>
-                </div>
+            <section>
+              <h2 className="font-display text-lg text-white">Locations</h2>
+              <nav className="mt-3 space-y-2" aria-label="Footer location links">
+                {LOCATIONS.map((location) => (
+                  <a
+                    key={location.slug}
+                    href={`/location/${location.slug}`}
+                    onClick={(event) => handleNavClick(event, `/location/${location.slug}`)}
+                    className="flex items-start gap-2 py-0.5 font-body text-sm text-white/80 transition-colors hover:text-washking-yellow"
+                  >
+                    <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    <span>
+                      {location.name}
+                      {location.status === "coming-soon" ? " (coming soon)" : ""}
+                    </span>
+                  </a>
+                ))}
+              </nav>
+            </section>
+
+            <section className="col-span-2 lg:col-span-1">
+              <h2 className="font-display text-lg text-white">Stay connected</h2>
+              <nav className="mt-3 space-y-2" aria-label="Footer support links">
+                {supportLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(event) => handleNavClick(event, link.href)}
+                    className="block py-0.5 font-body text-sm text-white/80 transition-colors hover:text-washking-yellow"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+              <div className="mt-5 flex gap-2">
+                <a
+                  href="https://www.facebook.com/WashKingVineland/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-11 w-11 items-center justify-center rounded-lg bg-washking-yellow transition-colors hover:bg-washking-gold"
+                  aria-label="Follow Wash King on Facebook"
+                >
+                  <Facebook className="h-5 w-5 text-washking-brown" aria-hidden="true" />
+                </a>
+                <a
+                  href="https://www.instagram.com/washkingvineland"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-11 w-11 items-center justify-center rounded-lg bg-washking-yellow transition-colors hover:bg-washking-gold"
+                  aria-label="Follow Wash King on Instagram"
+                >
+                  <Instagram className="h-5 w-5 text-washking-brown" aria-hidden="true" />
+                </a>
               </div>
-            </div>
-
-            {/* Right spacer on desktop to balance 3-column layout */}
-            <div className="hidden md:block order-3" />
+            </section>
           </div>
 
-          <div
-            className="text-center mt-6 pt-4 border-t border-white/20"
-          >
-            <p className="text-white/70 font-body text-xs lg:text-sm flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-              <span>© {new Date().getFullYear()} WashKing Car Wash. All rights reserved.</span>
-              <span className="hidden sm:inline text-white/40">|</span>
+          <div className="mt-9 border-t border-white/20 pt-5 text-center">
+            <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-body text-xs text-white/65 sm:justify-between lg:text-sm">
+              <span>© {new Date().getFullYear()} Wash King Car Wash. All rights reserved.</span>
               <a
                 href="/privacy"
                 onClick={(event) => handleNavClick(event, "/privacy")}
                 className="font-semibold text-white hover:text-washking-yellow hover:underline"
               >
-                Privacy Notice
+                Privacy notice
               </a>
-              <span className="hidden sm:inline text-white/40">|</span>
-              <span>
-                Web design &amp; developed by{" "}
-                <a
-                  href="https://www.webchily.design/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-washking-yellow hover:underline"
-                >
-                  Webchily
-                </a>
-              </span>
             </p>
           </div>
         </div>

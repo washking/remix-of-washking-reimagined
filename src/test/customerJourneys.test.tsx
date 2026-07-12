@@ -14,10 +14,10 @@ describe("first-visit customer journeys", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole("heading", { name: "FIND YOUR WASHKING" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Choose your Wash King location" })).toBeInTheDocument();
     expect(screen.getAllByRole("article")).toHaveLength(4);
-    expect(screen.getAllByRole("link", { name: "Plans & Pricing" })).toHaveLength(4);
-    expect(screen.getAllByRole("link", { name: /Get directions to WashKing/ })).toHaveLength(4);
+    expect(screen.getAllByRole("link", { name: "See washes & prices" })).toHaveLength(4);
+    expect(screen.getAllByRole("link", { name: /Get directions to Wash King/ })).toHaveLength(4);
     expect(screen.getByRole("heading", { name: "Cherry Hill" })).toBeInTheDocument();
 
     await waitFor(() => {

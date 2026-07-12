@@ -1,61 +1,53 @@
-import { Link, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Home, MapPinned } from "lucide-react";
 import Seo from "@/components/Seo";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import lionMascot from "@/assets/lion-mascot.png";
 import lionMascotAvif from "@/assets/lion-mascot.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
-  return (
-    <main id="main-content" tabIndex={-1} className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[hsl(202_68%_40%)] to-[hsl(202_72%_34%)] relative overflow-hidden">
-      <Seo
-        title="Page Not Found | WashKing Car Wash"
-        description="The page you're looking for doesn't exist. Return to WashKing Car Wash."
-        path="/404"
-        noIndex
-      />
-      {/* Cloud decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10">
-          <div className="w-32 h-16 bg-white/80 rounded-full" />
-          <div className="w-24 h-14 bg-white/80 rounded-full -mt-8 ml-8" />
-        </div>
-        <div className="absolute bottom-40 right-20">
-          <div className="w-40 h-20 bg-white/70 rounded-full" />
-          <div className="w-28 h-16 bg-white/70 rounded-full -mt-10 ml-12" />
-        </div>
-      </div>
-      
-      <div className="text-center relative z-10 px-4">
+const NotFound = () => (
+  <div className="flex min-h-screen flex-col bg-gray-50">
+    <Seo
+      title="Page Not Found | Wash King Car Wash"
+      description="The page you're looking for doesn't exist. Return to Wash King Car Wash."
+      path="/404"
+      noIndex
+    />
+    <Header />
+    <main id="main-content" tabIndex={-1} className="flex flex-1 items-center justify-center py-12">
+      <div className="px-4 text-center">
         <OptimizedImage
           avifSrc={lionMascotAvif}
-          src={lionMascot} 
-          alt="WashKing Lion" 
+          src={lionMascot}
+          alt="Wash King lion mascot"
           width={1132}
           height={1920}
           decoding="async"
-          className="w-32 h-auto mx-auto mb-6"
-          style={{ mixBlendMode: 'multiply' }}
+          className="mx-auto mb-6 h-auto w-24"
         />
-        <h1 className="font-display text-6xl lg:text-8xl text-washking-yellow text-shadow mb-4">
-          404
+        <p className="font-body text-sm font-bold text-washking-sky">Error 404</p>
+        <h1 className="mt-2 font-display text-3xl text-washking-brown sm:text-4xl">
+          That page took a wrong turn
         </h1>
-        <p className="text-white text-xl font-body mb-8">Oops! Page not found</p>
-        <Link 
-          to="/" 
-          className="btn-hero-primary inline-block"
-        >
-          Return to Home
-        </Link>
+        <p className="mx-auto mt-3 max-w-md font-body text-base leading-relaxed text-gray-600">
+          The page may have moved, but your nearest Wash King is still easy to find.
+        </p>
+        <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link to="/" className="btn-primary gap-2">
+            <Home className="h-4 w-4" aria-hidden="true" />
+            Back to home
+          </Link>
+          <Link to="/#locations" className="btn-outline gap-2">
+            <MapPinned className="h-4 w-4" aria-hidden="true" />
+            View locations
+          </Link>
+        </div>
       </div>
     </main>
-  );
-};
+    <Footer />
+  </div>
+);
 
 export default NotFound;

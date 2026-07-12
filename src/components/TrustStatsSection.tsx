@@ -50,22 +50,22 @@ const stats = [
 ] as const;
 
 const TrustStatsSection = () => (
-  <section id="at-a-glance" className="scroll-mt-24 bg-white py-12 lg:py-18">
+  <section id="at-a-glance" className="scroll-mt-24 bg-white py-12 lg:py-16">
     <div className="container mx-auto px-4">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 max-w-3xl">
-          <p className="mb-2 font-body text-sm font-extrabold uppercase text-washking-sky">
-            Current location facts
+          <p className="section-eyebrow mb-2">
+            Plan with the facts
           </p>
-          <h2 className="font-display text-4xl text-washking-brown sm:text-5xl">
-            WASHKING AT A GLANCE
+          <h2 className="section-title">
+            Wash King at a glance
           </h2>
-          <p className="mt-3 font-body text-base leading-relaxed text-gray-700 sm:text-lg">
-            Pick the service and hours that fit your visit, then view that location for exact plans and directions.
+          <p className="section-copy mt-3">
+            See which locations are open 24 hours, which offer full service, and where Wash King is opening next.
           </p>
         </div>
 
-        <div className="grid border-y-2 border-washking-brown/15 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid border-y border-washking-brown/15 md:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
             <article
               key={stat.label}
