@@ -6,17 +6,44 @@ import { WEB_EVENTS_URL } from "./site";
 
 const TOKEN = import.meta.env.VITE_WEB_EVENTS_TOKEN as string | undefined;
 const isBrowser = typeof window !== "undefined" && typeof navigator !== "undefined";
+const memoryIds = new Map<string, string>();
+let eventSequence = 0;
 
-function persistentId(key: string, storage: Storage): string {
+type StorageKind = "local" | "session";
+
+export type TrackOptions = {
+  path?: string;
+  transport?: "fetch" | "beacon";
+};
+
+function newId(): string {
   try {
+    return crypto.randomUUID();
+  } catch {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
+      const random = Math.floor(Math.random() * 16);
+      return (char === "x" ? random : (random & 0x3) | 0x8).toString(16);
+    });
+  }
+}
+
+function persistentId(key: string, kind: StorageKind): string {
+  const cached = memoryIds.get(key);
+  if (cached) return cached;
+
+  try {
+    const storage = kind === "local" ? window.localStorage : window.sessionStorage;
     let v = storage.getItem(key);
     if (!v) {
-      v = crypto.randomUUID();
+      v = newId();
       storage.setItem(key, v);
     }
+    memoryIds.set(key, v);
     return v;
   } catch {
-    return crypto.randomUUID();
+    const fallback = newId();
+    memoryIds.set(key, fallback);
+    return fallback;
   }
 }
 
@@ -40,14 +67,26 @@ function utms(): Record<string, string | undefined> {
   }
 }
 
-function baseFields() {
-  const loc = window.location.pathname.match(/^\/location\/([^/]+)/);
+function baseFields(pathOverride?: string) {
+  const path = pathOverride || window.location.pathname;
+  const loc = path.match(/^\/location\/([^/]+)/);
+  let referrer: string | undefined;
+  try {
+    const source = document.referrer ? new URL(document.referrer) : null;
+    // Query strings can contain ad IDs or customer-entered values. Source and
+    // pathname are enough for attribution, so never send the query or hash.
+    referrer = source ? `${source.origin}${source.pathname}` : undefined;
+  } catch {
+    referrer = undefined;
+  }
+
   return {
-    anon_id: persistentId("wk_anon", localStorage),
-    session_id: persistentId("wk_sess", sessionStorage),
-    path: window.location.pathname,
+    anon_id: persistentId("wk_anon", "local"),
+    session_id: persistentId("wk_sess", "session"),
+    path,
     location_slug: loc ? loc[1] : undefined,
-    referrer: document.referrer || undefined,
+    site_host: window.location.hostname,
+    referrer,
     device: window.matchMedia("(max-width: 768px)").matches ? "mobile" : "desktop",
     viewport: `${window.innerWidth}x${window.innerHeight}`,
     ...utms(),
@@ -55,18 +94,39 @@ function baseFields() {
 }
 
 /** Fire-and-forget event. Never throws — analytics must not break the page. */
-export function track(event_name: string, meta: Record<string, unknown> = {}): void {
+export function track(
+  event_name: string,
+  meta: Record<string, unknown> = {},
+  options: TrackOptions = {},
+): void {
   if (!isBrowser) return;
   try {
-    const body = JSON.stringify({ ...baseFields(), event_name, meta });
-    // fetch + keepalive survives navigation (like sendBeacon) but, unlike sendBeacon,
-    // completes correctly through the CORS preflight that a JSON body / token header
-    // requires. Fire-and-forget; errors are swallowed.
+    const body = JSON.stringify({
+      ...baseFields(options.path),
+      event_name,
+      web_token: TOKEN,
+      meta: {
+        ...meta,
+        client_ts_ms: Date.now(),
+        sequence: ++eventSequence,
+      },
+    });
+
+    // A text/plain body is a CORS-simple request. That matters during page exit,
+    // where there may not be enough time for a preflight followed by a POST.
+    if (options.transport === "beacon" && typeof navigator.sendBeacon === "function") {
+      const accepted = navigator.sendBeacon(
+        WEB_EVENTS_URL,
+        new Blob([body], { type: "text/plain;charset=UTF-8" }),
+      );
+      if (accepted) return;
+    }
+
     fetch(WEB_EVENTS_URL, {
       method: "POST",
       mode: "cors",
       keepalive: true,
-      headers: { "content-type": "application/json", ...(TOKEN ? { "x-web-token": TOKEN } : {}) },
+      headers: { "content-type": "text/plain;charset=UTF-8" },
       body,
     }).catch(() => {});
   } catch {

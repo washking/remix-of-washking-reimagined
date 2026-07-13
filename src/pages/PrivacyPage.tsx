@@ -67,7 +67,7 @@ const PrivacyPage = () => (
                 </h2>
                 <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-gray-700">
                   <p>
-                    The site creates random visitor and session identifiers in browser local and session storage. Analytics events may include the page path, location page viewed, referring page, device category, viewport size, campaign tags, and interactions such as selecting a location, requesting directions, or opening the membership portal.
+                    The site creates random visitor and session identifiers in browser local and session storage. Analytics events may include the page path, location page viewed, referring page, device category, viewport size, campaign tags, approximate visible time and scroll milestones, and interactions such as selecting a location, requesting directions, or opening the membership portal.
                   </p>
                   <p>
                     These analytics events do not include the name, email, phone, plate, message, survey feedback, or employment details typed into forms.
