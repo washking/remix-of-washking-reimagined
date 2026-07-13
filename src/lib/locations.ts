@@ -197,8 +197,7 @@ export const LOCATIONS: WashKingLocation[] = [
       weekdays: "9:00 AM to 6:00 PM",
       sunday: "9:00 AM to 5:00 PM",
     },
-    mapEmbed:
-      "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12323.823908697876!2d-75.0201754!3d39.4478589!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6d7dcb67cdec3%3A0x8b9c7b687e7a8f95!2sWash%20King!5e0!3m2!1sen!2sus!4v1706540000000!5m2!1sen!2sus",
+    mapEmbed: "https://www.google.com/maps?q=39.4478,-75.0202&z=16&output=embed",
     packages: [royaltyPackage, ...exteriorPackages(standardExteriorPrices)],
   },
   {
@@ -216,8 +215,7 @@ export const LOCATIONS: WashKingLocation[] = [
     lat: 39.479,
     lng: -75.01,
     hours: { is24Hours: true },
-    mapEmbed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.5!2d-75.03!3d39.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDI4JzEyLjAiTiA3NcKwMDEnNDguMCJX!5e0!3m2!1sen!2sus!4v1706540000000!5m2!1sen!2sus",
+    mapEmbed: "https://www.google.com/maps?q=39.479,-75.01&z=16&output=embed",
     packages: premiumExteriorPackages(),
   },
   {
@@ -235,8 +233,7 @@ export const LOCATIONS: WashKingLocation[] = [
     lat: 40.5015,
     lng: -74.4832,
     hours: { allDays: "8:00 AM to 7:00 PM" },
-    mapEmbed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3035.5!2d-74.49!3d40.50!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDMwJzAwLjAiTiA3NMKwMjknMjQuMCJX!5e0!3m2!1sen!2sus!4v1706540000000!5m2!1sen!2sus",
+    mapEmbed: "https://www.google.com/maps?q=40.5015,-74.4832&z=16&output=embed",
     packages: exteriorPackages(standardExteriorPrices),
   },
   {
@@ -254,8 +251,7 @@ export const LOCATIONS: WashKingLocation[] = [
     lat: 39.5265,
     lng: -74.9682,
     hours: { is24Hours: true },
-    mapEmbed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3081.5!2d-75.07!3d39.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDMxJzEyLjAiTiA3NcKwMDQnMTIuMCJX!5e0!3m2!1sen!2sus!4v1706540000000!5m2!1sen!2sus",
+    mapEmbed: "https://www.google.com/maps?q=39.5265,-74.9682&z=16&output=embed",
     packages: premiumExteriorPackages(),
   },
   {

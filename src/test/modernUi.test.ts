@@ -159,6 +159,8 @@ describe("modern UI guardrails", () => {
     expect(header).toContain('data-analytics-source="mobile_header"');
     expect(header.match(/href="\/contact"/g)).toHaveLength(2);
     expect(header).toContain("MessageSquareText");
+    expect(header).toContain("bg-washking-orange");
+    expect(header).toContain("bg-washking-green");
   });
 
   it("layers a reusable kingdom identity onto the production color system", () => {

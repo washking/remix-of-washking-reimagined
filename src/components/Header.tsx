@@ -167,7 +167,7 @@ const Header = () => {
               data-analytics-source="desktop_header_manage"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-cloud gap-1.5 whitespace-nowrap border border-washking-brown bg-transparent px-3 py-3 text-washking-brown hover:bg-white/55 xl:px-4"
+              className="btn-cloud gap-1.5 whitespace-nowrap border border-washking-brown bg-washking-orange px-3 py-3 text-washking-brown hover:brightness-95 xl:px-4"
             >
               <CircleUserRound className="h-4 w-4" aria-hidden="true" />
               Manage plan
@@ -177,7 +177,7 @@ const Header = () => {
               onClick={(event) => handleNavClick(event, "/contact")}
               data-analytics="contact_open"
               data-analytics-source="desktop_header"
-              className="btn-cloud gap-1.5 whitespace-nowrap border border-washking-brown bg-white px-3 py-3 text-washking-brown hover:bg-washking-cream xl:px-4"
+              className="btn-cloud gap-1.5 whitespace-nowrap border border-washking-brown bg-washking-green px-3 py-3 text-white hover:bg-washking-green-light xl:px-4"
             >
               <MessageSquareText className="h-4 w-4" aria-hidden="true" />
               Contact
@@ -201,7 +201,7 @@ const Header = () => {
               data-analytics-source="mobile_header_manage"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-cloud gap-1 whitespace-nowrap border border-washking-brown bg-transparent px-2 py-3 text-[11px] text-washking-brown hover:bg-white/55 sm:px-3 sm:text-xs"
+              className="btn-cloud gap-1 whitespace-nowrap border border-washking-brown bg-washking-orange px-2 py-3 text-[11px] text-washking-brown hover:brightness-95 sm:px-3 sm:text-xs"
             >
               <CircleUserRound className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
               Manage
@@ -211,7 +211,7 @@ const Header = () => {
               onClick={(event) => handleNavClick(event, "/contact")}
               data-analytics="contact_open"
               data-analytics-source="mobile_header"
-              className="btn-cloud gap-1 whitespace-nowrap border border-washking-brown bg-white px-2 py-3 text-[11px] text-washking-brown hover:bg-washking-cream sm:px-3 sm:text-xs"
+              className="btn-cloud gap-1 whitespace-nowrap border border-washking-brown bg-washking-green px-2 py-3 text-[11px] text-white hover:bg-washking-green-light sm:px-3 sm:text-xs"
             >
               <MessageSquareText className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
               Contact
