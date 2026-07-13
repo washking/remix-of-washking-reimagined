@@ -174,6 +174,8 @@ describe("modern UI guardrails", () => {
     expect(pageHero).toContain("<RoyalTrim />");
     expect(heading).toContain("Crown");
     expect(trim).toContain("grid-cols-8");
+    expect(trim).toContain("bg-washking-red");
+    expect(trim).not.toContain("bg-washking-sky");
     expect(source("src/pages/LocationPage.tsx")).toContain('className="mt-7 hidden grid-cols-2 gap-3 md:grid"');
   });
 

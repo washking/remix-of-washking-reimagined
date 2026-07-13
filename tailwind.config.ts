@@ -64,6 +64,7 @@ export default {
           "brown-light": "hsl(var(--washking-brown-light))",
           cream: "hsl(var(--washking-cream))",
           orange: "hsl(var(--washking-orange))",
+          red: "hsl(var(--washking-red))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

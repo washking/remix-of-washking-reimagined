@@ -1,10 +1,10 @@
 const colors = [
   "bg-washking-yellow",
-  "bg-washking-sky",
+  "bg-washking-red",
   "bg-washking-orange",
   "bg-washking-green",
   "bg-washking-yellow",
-  "bg-washking-sky",
+  "bg-washking-red",
   "bg-washking-orange",
   "bg-washking-green",
 ];

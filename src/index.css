@@ -50,6 +50,7 @@
     --washking-brown-light: 25 50% 38%;
     --washking-cream: 40 60% 95%;
     --washking-orange: 30 100% 50%;
+    --washking-red: 357 72% 49%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -222,6 +223,10 @@
 
   .bg-washking-green-light {
     background-color: hsl(var(--washking-green-light));
+  }
+
+  .bg-washking-red {
+    background-color: hsl(var(--washking-red));
   }
 
   .bg-washking-cream {
