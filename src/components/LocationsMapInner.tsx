@@ -10,10 +10,10 @@ import {
 const pinHtml = (fill: string, center: string) =>
   `<svg width="30" height="42" viewBox="0 0 30 42" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 2px 2px rgba(0,0,0,.35))"><path d="M15 0C6.7 0 0 6.7 0 15c0 10.5 15 27 15 27s15-16.5 15-27C30 6.7 23.3 0 15 0z" fill="${fill}"/><circle cx="15" cy="15" r="6" fill="${center}"/></svg>`;
 
-const makeIcon = (comingSoon: boolean) =>
+const makeIcon = () =>
   L.divIcon({
     className: "washking-map-pin",
-    html: comingSoon ? pinHtml("#FFD43B", "#6B3E26") : pinHtml("#E23B3B", "#FFFFFF"),
+    html: pinHtml("#D9232E", "#FFFFFF"),
     iconSize: [30, 42],
     iconAnchor: [15, 42],
     popupAnchor: [0, -38],
@@ -93,7 +93,7 @@ const LocationsMapInner = () => {
     LOCATIONS.forEach((location) => {
       const comingSoon = location.status === "coming-soon";
       L.marker([location.lat, location.lng], {
-        icon: makeIcon(comingSoon),
+        icon: makeIcon(),
         title: `${location.name}${comingSoon ? " - Coming Soon" : ""}`,
         alt: `Wash King ${location.name}`,
       })
@@ -106,7 +106,9 @@ const LocationsMapInner = () => {
       { padding: [40, 40] },
     );
 
-    return () => map.remove();
+    return () => {
+      map.remove();
+    };
   }, []);
 
   return (

@@ -3,6 +3,7 @@ import {
   COMING_SOON_LOCATIONS,
   OPEN_LOCATIONS,
 } from "@/lib/locations";
+import KingdomHeading from "@/components/KingdomHeading";
 
 const open24HourLocations = OPEN_LOCATIONS.filter(
   (location) => location.hours.is24Hours,
@@ -50,26 +51,27 @@ const stats = [
 ] as const;
 
 const TrustStatsSection = () => (
-  <section id="at-a-glance" className="scroll-mt-24 bg-white py-12 lg:py-16">
+  <section id="at-a-glance" className="scroll-mt-24 bg-washking-sky-light py-12 lg:py-16">
     <div className="container mx-auto px-4">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 max-w-3xl">
-          <p className="section-eyebrow mb-2">
-            Plan with the facts
-          </p>
-          <h2 className="section-title">
-            Wash King at a glance
-          </h2>
-          <p className="section-copy mt-3">
-            See which locations are open 24 hours, which offer full service, and where Wash King is opening next.
-          </p>
-        </div>
+        <KingdomHeading
+          eyebrow="Plan with the facts"
+          title="Wash King at a glance"
+          description="See which locations are open 24 hours, which offer full service, and where Wash King is opening next."
+          align="left"
+          className="mb-8 max-w-3xl"
+        />
 
-        <div className="grid border-y border-washking-brown/15 md:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat, index) => (
             <article
               key={stat.label}
-              className="flex min-h-48 flex-col border-b border-washking-brown/15 px-2 py-7 last:border-b-0 md:px-6 md:[&:nth-last-child(-n+2)]:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0"
+              className={`flex min-h-48 flex-col rounded-lg border border-washking-brown/15 border-t-[6px] bg-white px-5 py-6 shadow-sm ${[
+                "border-t-washking-sky",
+                "border-t-washking-green",
+                "border-t-washking-orange",
+                "border-t-washking-brown",
+              ][index % 4]}`}
             >
               <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-washking-yellow text-washking-brown">
                 <stat.icon className="h-5 w-5" aria-hidden="true" />

@@ -13,12 +13,16 @@ describe("modern UI guardrails", () => {
     const media = hero.indexOf('className="hero-media-enter');
     const eyebrow = hero.indexOf("Family-owned across New Jersey");
 
-    expect(brandLogo).toContain('from "@/assets/washking-logo.png"');
+    expect(brandLogo).toContain('from "@/assets/lion-car-mark.png"');
     expect(brandLogo).toContain('from "@/assets/washking-hero-logo.png"');
     expect(brandLogo).toContain("min-[360px]:flex");
-    expect(hero).toContain('from "@/assets/washking-wash-tunnel-hero.jpg"');
-    expect(hero).toContain('from "@/assets/washking-customer-experience-collage.jpg"');
+    expect(hero).toContain("HOMEPAGE_LOCATION_PHOTOS");
+    expect(source("src/lib/locationMedia.ts")).toContain("somerset-wash-experience-collage.jpg");
+    expect(source("src/lib/locationMedia.ts")).toContain("somerset-facility-collage.jpg");
+    expect(source("src/lib/locationMedia.ts")).toContain("vineland: vinelandPhotos");
+    expect(source("src/lib/locationMedia.ts")).toContain("somerset: somersetPhotos");
     expect(hero).toContain("Wash King Car Wash");
+    expect(hero).toContain('loading={index === 0 ? "eager" : "lazy"}');
     expect(hero).not.toContain('<h1 className="sr-only">');
     expect(hero).not.toContain("hero-logo-float");
     expect(hero).toContain('opts={{ loop: true, align: "start" }}');
@@ -41,10 +45,12 @@ describe("modern UI guardrails", () => {
     expect(media).toBeLessThan(eyebrow);
   });
 
-  it("uses one modern type family across the site", () => {
+  it("uses a playful display face with a highly readable body face", () => {
     expect(source("index.html")).toContain("Plus+Jakarta+Sans");
+    expect(source("index.html")).toContain("Fredoka");
     ["tailwind.config.ts", "src/index.css"].forEach((file) => {
       expect(source(file)).toContain("Plus Jakarta Sans");
+      expect(source(file)).toContain("Fredoka");
     });
     ["index.html", "tailwind.config.ts", "src/index.css"].forEach((file) => {
       expect(source(file)).not.toContain("Luckiest Guy");
@@ -78,9 +84,7 @@ describe("modern UI guardrails", () => {
 
     customerFacingFiles.forEach((file) => {
       const copy = source(file)
-        .replaceAll("WashKingLocation", "")
-        .replaceAll("WashKingVineland", "")
-        .replaceAll("CONTACT@WASHKING.NET", "");
+        .replace(/WashKingLocation|WashKingVineland|CONTACT@WASHKING\.NET/g, "");
 
       expect(copy).not.toMatch(/\b(?:WashKing|WASHKING|Washking)\b/);
     });
@@ -91,6 +95,15 @@ describe("modern UI guardrails", () => {
 
     expect(footer).not.toContain("Web design &amp; developed by");
     expect(footer).not.toContain("webchily.design");
+  });
+
+  it("ships a branded static fallback for direct not-found requests", () => {
+    const notFound = source("public/404.html");
+
+    expect(notFound).toContain("Page Not Found | Wash King Car Wash");
+    expect(notFound).toContain('content="noindex, follow"');
+    expect(notFound).toContain("That page took a wrong turn");
+    expect(notFound).toContain('href="/#locations"');
   });
 
   it("keeps legacy decorative treatments off customer-facing surfaces", () => {
@@ -135,7 +148,7 @@ describe("modern UI guardrails", () => {
     const plans = source("src/pages/LocationPage.tsx");
 
     expect(locations).toContain("grid-cols-1 gap-8");
-    expect(locations).toContain("border-2 border-washking-brown/35 border-t-4");
+    expect(locations).toContain("border-2 border-washking-brown/35 border-t-[6px]");
     expect(locations).toContain("bg-washking-yellow p-5");
     expect(plans).toContain("max-w-7xl gap-10");
     expect(plans).toContain("border-2 border-t-[8px]");
@@ -157,13 +170,26 @@ describe("modern UI guardrails", () => {
     expect(header).toContain('data-analytics-source="mobile_header"');
     expect(header.match(/href="\/contact"/g)).toHaveLength(2);
     expect(header).toContain("MessageSquareText");
+    expect(header).toContain("bg-white/90");
+    expect(header).toContain("bg-washking-red");
   });
 
-  it("restores the production brand colors without restoring decorative clutter", () => {
+  it("layers a reusable kingdom identity onto the production color system", () => {
+    const pageHero = source("src/components/KingdomPageHero.tsx");
+    const heading = source("src/components/KingdomHeading.tsx");
+    const trim = source("src/components/RoyalTrim.tsx");
+
     expect(source("src/components/Header.tsx")).toContain("bg-washking-yellow/95");
     expect(source("src/components/HeroSection.tsx")).toContain('className="bg-washking-sky"');
     expect(source("src/components/LocationsSection.tsx")).toContain("bg-washking-sky-light");
     expect(source("src/components/FAQSection.tsx")).toContain("bg-washking-cream");
+    expect(pageHero).toContain("lion-car-mark.png");
+    expect(pageHero).toContain("<RoyalTrim />");
+    expect(heading).toContain("Crown");
+    expect(trim).toContain("grid-cols-8");
+    expect(trim).toContain("bg-washking-red");
+    expect(trim).not.toContain("bg-washking-sky");
+    expect(source("src/pages/LocationPage.tsx")).toContain('className="mt-7 hidden grid-cols-2 gap-3 md:grid"');
   });
 
   it("keeps the approved customer-first copy across key journeys", () => {

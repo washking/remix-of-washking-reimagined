@@ -3,8 +3,8 @@ import { CheckCircle2, Home, Sparkles } from "lucide-react";
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import lionMascot from "@/assets/lion-mascot.png";
-import lionMascotAvif from "@/assets/lion-mascot.avif";
+import lionCar from "@/assets/lion-car-mark.png";
+import lionCarAvif from "@/assets/lion-car-mark.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 
 const sourceContent: Record<string, { title: string; subtitle: string; message: string }> = {
@@ -31,7 +31,7 @@ const ThankYouPage = () => {
   const content = sourceContent[source] || sourceContent.contact_form;
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50">
+    <div className="flex min-h-screen flex-col bg-washking-sky-light">
       <Seo
         title="Thank You | Wash King Car Wash"
         description="Your website form has been submitted to Wash King Car Wash."
@@ -41,17 +41,17 @@ const ThankYouPage = () => {
       <Header />
       <main id="main-content" tabIndex={-1} className="flex flex-1 items-center py-12 lg:py-16">
         <div className="container mx-auto px-4">
-          <section className="mx-auto max-w-2xl rounded-lg border border-gray-200 bg-white px-6 py-9 text-center shadow-sm sm:px-10 sm:py-12">
+          <section className="mx-auto max-w-2xl rounded-lg border border-washking-brown/15 border-t-[6px] border-t-washking-yellow bg-white px-6 py-9 text-center shadow-md sm:px-10 sm:py-12">
             <div className="mx-auto flex items-end justify-center gap-3">
               <CheckCircle2 className="h-14 w-14 text-washking-green" strokeWidth={2} aria-hidden="true" />
               <OptimizedImage
-                avifSrc={lionMascotAvif}
-                src={lionMascot}
-                alt="Wash King lion mascot"
-                width={1132}
-                height={1920}
+                avifSrc={lionCarAvif}
+                src={lionCar}
+                alt="Wash King lion mascot sitting on a red car"
+                width={500}
+                height={380}
                 decoding="async"
-                className="h-auto w-16"
+                className="h-auto w-28"
               />
             </div>
 

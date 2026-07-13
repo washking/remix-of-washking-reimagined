@@ -35,6 +35,8 @@ describe("Wash King location registry", () => {
       expect(location.portalLocationName).toBeTruthy();
       expect(location.serviceType).not.toBe("coming-soon");
       expect(location.mapEmbed).toMatch(/^https:\/\//);
+      expect(location.mapEmbed).toContain(`q=${location.lat},${location.lng}`);
+      expect(location.mapEmbed).toContain("output=embed");
       expect(getDirectionsUrl(location)).toMatch(/^https:\/\/www\.google\.com\/maps\/dir/);
       expect(Number.isFinite(location.lat)).toBe(true);
       expect(Number.isFinite(location.lng)).toBe(true);
@@ -42,7 +44,7 @@ describe("Wash King location registry", () => {
   });
 
   it("matches the verified NXTWash recurring membership catalog", () => {
-    expect(PACKAGE_CATALOG_VERIFIED_ON).toBe("2026-07-11");
+    expect(PACKAGE_CATALOG_VERIFIED_ON).toBe("2026-07-12");
 
     const vineland = LOCATIONS.find((location) => location.slug === "vineland")!;
     const somerset = LOCATIONS.find((location) => location.slug === "somerset")!;

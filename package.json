@@ -7,8 +7,10 @@
     "dev": "vite",
     "build": "vite-react-ssg build",
     "check:build": "node scripts/check-build-budget.mjs",
+    "check:documents": "node scripts/check-release-documents.mjs",
     "build:dev": "vite-react-ssg build --mode development",
     "lint": "eslint .",
+    "typecheck": "tsc -b --pretty false",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"

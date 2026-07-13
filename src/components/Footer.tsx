@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import BrandLogo from "@/components/BrandLogo";
 import { LOCATIONS } from "@/lib/locations";
+import RoyalTrim from "@/components/RoyalTrim";
 
 const exploreLinks = [
   { label: "Home", href: "/" },
@@ -40,6 +41,7 @@ const Footer = () => {
           </Link>
         </div>
       </div>
+      <RoyalTrim />
 
       <div className="py-10 lg:py-12">
         <div className="container mx-auto max-w-7xl px-4">

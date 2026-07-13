@@ -56,10 +56,12 @@ describe("accessibility guardrails", () => {
     const white: Rgb = [1, 1, 1];
     const sky = hslToRgb(token("washking-sky"));
     const brown = hslToRgb(token("washking-brown"));
+    const red = hslToRgb(token("washking-red"));
     const yellow = hslToRgb(token("washking-yellow"));
 
     expect(contrast(sky, white)).toBeGreaterThanOrEqual(4.5);
     expect(contrast(brown, yellow)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(red, white)).toBeGreaterThanOrEqual(4.5);
   });
 
   it("gives every rendered page a skip-link target", () => {

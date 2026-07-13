@@ -8,11 +8,12 @@ import {
   Pause,
   Play,
 } from "lucide-react";
-import tunnelHero from "@/assets/washking-wash-tunnel-hero.jpg";
-import tunnelHeroAvif from "@/assets/washking-wash-tunnel-hero.avif";
-import experienceCollage from "@/assets/washking-customer-experience-collage.jpg";
-import experienceCollageAvif from "@/assets/washking-customer-experience-collage.avif";
+import lionCar from "@/assets/lion-car-mark.png";
+import lionCarAvif from "@/assets/lion-car-mark.avif";
+import carWashIllustration from "@/assets/car-wash-illustration.png";
+import carWashIllustrationAvif from "@/assets/car-wash-illustration.avif";
 import OptimizedImage from "@/components/OptimizedImage";
+import RoyalTrim from "@/components/RoyalTrim";
 import {
   Carousel,
   CarouselContent,
@@ -21,27 +22,11 @@ import {
 } from "@/components/ui/carousel";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import { OPEN_LOCATIONS, getStartingMonthlyPrice } from "@/lib/locations";
+import { HOMEPAGE_LOCATION_PHOTOS } from "@/lib/locationMedia";
 
 const HERO_ROTATION_DELAY = 4_000;
 
-const heroSlides = [
-  {
-    src: tunnelHero,
-    avifSrc: tunnelHeroAvif,
-    alt: "A car moving through the Wash King wash tunnel, shown half dirty and half clean",
-    label: "Wash tunnel",
-    width: 1247,
-    height: 831,
-  },
-  {
-    src: experienceCollage,
-    avifSrc: experienceCollageAvif,
-    alt: "Wash King pricing, wash tunnel, payment station, facility entrance, and team member detailing a wheel",
-    label: "Wash King services and locations",
-    width: 1536,
-    height: 1024,
-  },
-] as const;
+const heroSlides = HOMEPAGE_LOCATION_PHOTOS;
 
 const lowestMonthlyPrice = Math.min(
   ...OPEN_LOCATIONS.map(getStartingMonthlyPrice).filter(Number.isFinite),
@@ -210,7 +195,7 @@ const HeroSection = () => {
                 alt={slide.alt}
                 width={slide.width}
                 height={slide.height}
-                loading="eager"
+                loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-contain object-center"
               />
@@ -297,7 +282,19 @@ const HeroSection = () => {
         </div>
 
         <div className="container mx-auto px-4 py-8 sm:py-10">
-          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+          <div className="mx-auto grid max-w-7xl items-end gap-5 lg:grid-cols-[170px_minmax(0,1fr)_220px]">
+            <OptimizedImage
+              avifSrc={lionCarAvif}
+              src={lionCar}
+              alt=""
+              width={500}
+              height={380}
+              loading="eager"
+              decoding="async"
+              className="hidden h-auto w-full lg:block"
+            />
+
+            <div className="flex flex-col items-center text-center">
             <p className="font-body text-xs font-extrabold text-washking-yellow sm:text-sm">
               Family-owned across New Jersey
             </p>
@@ -338,8 +335,21 @@ const HeroSection = () => {
                 Join Unlimited
               </a>
             </div>
+            </div>
+
+            <OptimizedImage
+              avifSrc={carWashIllustrationAvif}
+              src={carWashIllustration}
+              alt=""
+              width={803}
+              height={451}
+              loading="lazy"
+              decoding="async"
+              className="hidden h-auto w-full lg:block"
+            />
           </div>
         </div>
+        <RoyalTrim />
       </div>
     </section>
   );

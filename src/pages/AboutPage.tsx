@@ -13,6 +13,11 @@ import {
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import KingdomPageHero from "@/components/KingdomPageHero";
+import KingdomHeading from "@/components/KingdomHeading";
+import carWashIllustration from "@/assets/car-wash-illustration.png";
+import carWashIllustrationAvif from "@/assets/car-wash-illustration.avif";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const coreValues = [
   {
@@ -71,26 +76,17 @@ const AboutPage = () => (
     />
     <Header />
     <main id="main-content" tabIndex={-1}>
-      <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-14">
-        <div className="container mx-auto px-4 text-center">
-          <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
-            Family-owned in New Jersey
-          </p>
-          <h1 className="font-display text-3xl text-white sm:text-4xl">
-            About Wash King
-          </h1>
-          <p className="mx-auto mt-3 max-w-2xl font-body text-base leading-relaxed text-white/90 sm:text-lg">
-            A family-owned New Jersey car wash focused on dependable service, convenient locations, and a consistently clean car.
-          </p>
-        </div>
-      </section>
+      <KingdomPageHero
+        eyebrow="Family-owned in New Jersey"
+        title="About Wash King"
+        description="A family-owned New Jersey car wash focused on dependable service, convenient locations, and a consistently clean car."
+        icon={UsersRound}
+      />
 
       <section className="py-12 lg:py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-8 text-center font-display text-3xl text-washking-brown sm:text-4xl">
-              Who we are
-            </h2>
+            <KingdomHeading eyebrow="Our story" title="Who we are" className="mb-8" />
 
             <div className="grid gap-5 md:grid-cols-2">
               <article className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm lg:p-8">
@@ -111,22 +107,36 @@ const AboutPage = () => (
                 </p>
               </article>
             </div>
+            <OptimizedImage
+              avifSrc={carWashIllustrationAvif}
+              src={carWashIllustration}
+              alt=""
+              width={803}
+              height={451}
+              loading="lazy"
+              decoding="async"
+              className="mx-auto mt-8 h-auto w-full max-w-md"
+            />
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-50 py-12 lg:py-16">
+      <section className="bg-washking-sky-light py-12 lg:py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-3 text-center font-display text-3xl text-washking-brown sm:text-4xl">
-            What guides us
-          </h2>
-          <p className="mx-auto mb-9 max-w-2xl text-center font-body text-base leading-relaxed text-gray-600 sm:text-lg">
-            The standards behind each wash, each location, and each customer interaction.
-          </p>
+          <KingdomHeading
+            eyebrow="The Wash King standard"
+            title="What guides us"
+            description="The standards behind each wash, each location, and each customer interaction."
+            className="mb-9"
+          />
 
           <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {coreValues.map((value) => (
-              <article key={value.title} className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            {coreValues.map((value, index) => (
+              <article key={value.title} className={`rounded-lg border border-washking-brown/15 border-t-4 bg-white p-6 shadow-sm ${[
+                "border-t-washking-sky",
+                "border-t-washking-green",
+                "border-t-washking-orange",
+              ][index % 3]}`}>
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-washking-sky-light text-washking-sky">
                   <value.icon className="h-5 w-5" aria-hidden="true" />
                 </div>
