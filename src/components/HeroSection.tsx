@@ -8,10 +8,6 @@ import {
   Pause,
   Play,
 } from "lucide-react";
-import tunnelHero from "@/assets/washking-wash-tunnel-hero.jpg";
-import tunnelHeroAvif from "@/assets/washking-wash-tunnel-hero.avif";
-import experienceCollage from "@/assets/washking-customer-experience-collage.jpg";
-import experienceCollageAvif from "@/assets/washking-customer-experience-collage.avif";
 import lionCar from "@/assets/lion-car-mark.png";
 import lionCarAvif from "@/assets/lion-car-mark.avif";
 import carWashIllustration from "@/assets/car-wash-illustration.png";
@@ -26,27 +22,11 @@ import {
 } from "@/components/ui/carousel";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import { OPEN_LOCATIONS, getStartingMonthlyPrice } from "@/lib/locations";
+import { HOMEPAGE_LOCATION_PHOTOS } from "@/lib/locationMedia";
 
 const HERO_ROTATION_DELAY = 4_000;
 
-const heroSlides = [
-  {
-    src: tunnelHero,
-    avifSrc: tunnelHeroAvif,
-    alt: "A car moving through the Wash King wash tunnel, shown half dirty and half clean",
-    label: "Wash tunnel",
-    width: 1247,
-    height: 831,
-  },
-  {
-    src: experienceCollage,
-    avifSrc: experienceCollageAvif,
-    alt: "Wash King pricing, wash tunnel, payment station, facility entrance, and team member detailing a wheel",
-    label: "Wash King services and locations",
-    width: 1536,
-    height: 1024,
-  },
-] as const;
+const heroSlides = HOMEPAGE_LOCATION_PHOTOS;
 
 const lowestMonthlyPrice = Math.min(
   ...OPEN_LOCATIONS.map(getStartingMonthlyPrice).filter(Number.isFinite),
@@ -215,7 +195,7 @@ const HeroSection = () => {
                 alt={slide.alt}
                 width={slide.width}
                 height={slide.height}
-                loading="eager"
+                loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-contain object-center"
               />

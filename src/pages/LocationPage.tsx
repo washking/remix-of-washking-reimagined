@@ -18,6 +18,7 @@ import RoyalTrim from "@/components/RoyalTrim";
 import OptimizedImage from "@/components/OptimizedImage";
 import lionCar from "@/assets/lion-car-mark.png";
 import lionCarAvif from "@/assets/lion-car-mark.avif";
+import LocationGallery from "@/components/LocationGallery";
 import { autoWashSchema, breadcrumbSchema } from "@/lib/structuredData";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
@@ -31,6 +32,7 @@ import {
   UNLIMITED_MEMBER_BENEFITS,
   type WashKingLocation,
 } from "@/lib/locations";
+import { LOCATION_PHOTO_SETS } from "@/lib/locationMedia";
 
 const PLAN_ACCENT_CLASSES: Record<string, string> = {
   BRONZE: "border-t-washking-green",
@@ -220,6 +222,7 @@ const LocationPage = () => {
   const memberBenefits = [...UNLIMITED_MEMBER_BENEFITS, ...location.memberPerks];
   const orderedPackages = getPackagesByMonthlyPriceDescending(location);
   const portalLocationName = location.portalLocationName || `Wash King ${location.name}`;
+  const locationPhotos = LOCATION_PHOTO_SETS[location.slug];
 
   const scrollToPlans = () => {
     document.getElementById("wash-plans")?.scrollIntoView({ behavior: "smooth" });
@@ -348,6 +351,10 @@ const LocationPage = () => {
           </div>
           <RoyalTrim className="mt-10" />
         </section>
+
+        {locationPhotos && (
+          <LocationGallery locationName={location.name} photos={locationPhotos} />
+        )}
 
         <section id="wash-plans" className="scroll-mt-24 bg-washking-sky-light py-12 lg:py-16">
           <div className="container mx-auto px-4">

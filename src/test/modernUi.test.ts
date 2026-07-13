@@ -16,9 +16,13 @@ describe("modern UI guardrails", () => {
     expect(brandLogo).toContain('from "@/assets/lion-car-mark.png"');
     expect(brandLogo).toContain('from "@/assets/washking-hero-logo.png"');
     expect(brandLogo).toContain("min-[360px]:flex");
-    expect(hero).toContain('from "@/assets/washking-wash-tunnel-hero.jpg"');
-    expect(hero).toContain('from "@/assets/washking-customer-experience-collage.jpg"');
+    expect(hero).toContain("HOMEPAGE_LOCATION_PHOTOS");
+    expect(source("src/lib/locationMedia.ts")).toContain("somerset-wash-experience-collage.jpg");
+    expect(source("src/lib/locationMedia.ts")).toContain("somerset-facility-collage.jpg");
+    expect(source("src/lib/locationMedia.ts")).toContain("vineland: vinelandPhotos");
+    expect(source("src/lib/locationMedia.ts")).toContain("somerset: somersetPhotos");
     expect(hero).toContain("Wash King Car Wash");
+    expect(hero).toContain('loading={index === 0 ? "eager" : "lazy"}');
     expect(hero).not.toContain('<h1 className="sr-only">');
     expect(hero).not.toContain("hero-logo-float");
     expect(hero).toContain('opts={{ loop: true, align: "start" }}');
