@@ -9,7 +9,7 @@ const anchor = (href: string, text = "Action") => {
 };
 
 describe("click analytics", () => {
-  it("tracks a plan selection and the outbound portal handoff", () => {
+  it("uses the explicit plan event without double-counting the portal URL", () => {
     const element = anchor(
       "https://customerportal.nxtwash.com/washkingcarwash",
       "Join Unlimited",
@@ -27,19 +27,12 @@ describe("click analytics", () => {
           plan: "BRONZE",
         },
       },
-      {
-        eventName: "portal_open",
-        meta: {
-          label: "Join Unlimited",
-          target_location: "somerset",
-          plan: "BRONZE",
-        },
-      },
     ]);
   });
 
   it.each([
     ["https://www.google.com/maps/dir/?api=1", "directions_click"],
+    ["tel:+18555551212", "phone_click"],
     ["mailto:contact@washking.net", "email_click"],
     ["/location/vineland", "location_select"],
   ])("infers %s as %s", (href, eventName) => {

@@ -23,18 +23,20 @@ export const getClickAnalyticsEvents = (
   const meta = eventMeta(anchor);
   const events: ClickAnalyticsEvent[] = [];
 
-  if (customEvent) events.push({ eventName: customEvent, meta });
+  // A click is one customer action. Explicit instrumentation wins over URL
+  // inference so membership links do not inflate the dashboard with both a CTA
+  // click and a portal-open event for the same interaction.
+  if (customEvent) return [{ eventName: customEvent, meta }];
 
-  if (href.includes("customerportal.nxtwash.com") && customEvent !== "portal_open") {
+  if (href.includes("customerportal.nxtwash.com")) {
     events.push({ eventName: "portal_open", meta });
-  } else if (
-    href.includes("google.com/maps/dir") &&
-    customEvent !== "directions_click"
-  ) {
+  } else if (href.includes("google.com/maps/dir")) {
     events.push({ eventName: "directions_click", meta });
-  } else if (href.startsWith("mailto:") && customEvent !== "email_click") {
+  } else if (href.startsWith("tel:")) {
+    events.push({ eventName: "phone_click", meta });
+  } else if (href.startsWith("mailto:")) {
     events.push({ eventName: "email_click", meta });
-  } else if (href.startsWith("/location/") && customEvent !== "location_select") {
+  } else if (href.startsWith("/location/")) {
     events.push({ eventName: "location_select", meta });
   }
 

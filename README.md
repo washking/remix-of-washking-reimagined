@@ -64,6 +64,21 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
+## Website analytics
+
+The site sends anonymous first-party events to the Wash King Communicator Supabase
+function at `ingest-web-event`. Production deployment requires:
+
+- `VITE_WEB_EVENTS_TOKEN` in the website Vercel project for Production and Preview.
+- A matching `WEB_EVENTS_TOKEN` Supabase Edge Function secret.
+- Communicator migrations `migration_013_web_events.sql` and
+  `migration_014_web_events_dashboard_enrichment.sql` applied in order.
+- The `ingest-web-event` function deployed with JWT verification disabled; visitors
+  are anonymous and the function performs its own origin, token, event, and size checks.
+
+Do not place names, email addresses, phone numbers, license plates, or form answers in
+analytics metadata. Form events record only the form type after a successful submit.
+
 ## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!
