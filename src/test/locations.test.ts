@@ -44,7 +44,7 @@ describe("Wash King location registry", () => {
   });
 
   it("matches the verified NXTWash recurring membership catalog", () => {
-    expect(PACKAGE_CATALOG_VERIFIED_ON).toBe("2026-07-11");
+    expect(PACKAGE_CATALOG_VERIFIED_ON).toBe("2026-07-12");
 
     const vineland = LOCATIONS.find((location) => location.slug === "vineland")!;
     const somerset = LOCATIONS.find((location) => location.slug === "somerset")!;

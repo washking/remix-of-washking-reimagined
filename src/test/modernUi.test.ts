@@ -84,9 +84,7 @@ describe("modern UI guardrails", () => {
 
     customerFacingFiles.forEach((file) => {
       const copy = source(file)
-        .replaceAll("WashKingLocation", "")
-        .replaceAll("WashKingVineland", "")
-        .replaceAll("CONTACT@WASHKING.NET", "");
+        .replace(/WashKingLocation|WashKingVineland|CONTACT@WASHKING\.NET/g, "");
 
       expect(copy).not.toMatch(/\b(?:WashKing|WASHKING|Washking)\b/);
     });
@@ -97,6 +95,15 @@ describe("modern UI guardrails", () => {
 
     expect(footer).not.toContain("Web design &amp; developed by");
     expect(footer).not.toContain("webchily.design");
+  });
+
+  it("ships a branded static fallback for direct not-found requests", () => {
+    const notFound = source("public/404.html");
+
+    expect(notFound).toContain("Page Not Found | Wash King Car Wash");
+    expect(notFound).toContain('content="noindex, follow"');
+    expect(notFound).toContain("That page took a wrong turn");
+    expect(notFound).toContain('href="/#locations"');
   });
 
   it("keeps legacy decorative treatments off customer-facing surfaces", () => {

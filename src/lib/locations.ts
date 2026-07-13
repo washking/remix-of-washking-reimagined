@@ -50,7 +50,7 @@ export const UNLIMITED_MEMBER_BENEFITS = [
   "No long-term contract - cancel anytime",
 ] as const;
 
-export const PACKAGE_CATALOG_VERIFIED_ON = "2026-07-11";
+export const PACKAGE_CATALOG_VERIFIED_ON = "2026-07-12";
 
 type ExteriorMonthlyPrices = {
   diamond: string;

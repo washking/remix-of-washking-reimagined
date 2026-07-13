@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found | Wash King Car Wash</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Return to Wash King Car Wash." />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#ffbf00" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+        color: #6f351d;
+        background: #d5eaf5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      header {
+        border-bottom: 4px solid #1b78a8;
+        background: #ffbf00;
+      }
+
+      .brand {
+        display: flex;
+        width: min(100% - 32px, 1180px);
+        min-height: 76px;
+        margin: 0 auto;
+        align-items: center;
+        gap: 10px;
+        color: #6f351d;
+        text-decoration: none;
+      }
+
+      .brand img {
+        width: 62px;
+        height: 62px;
+        object-fit: contain;
+      }
+
+      .brand-name,
+      h1 {
+        font-family: "Fredoka", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .brand-name {
+        display: block;
+        font-size: 18px;
+        line-height: 1.05;
+      }
+
+      .brand-category {
+        display: block;
+        margin-top: 5px;
+        color: #1b78a8;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      main {
+        display: grid;
+        min-height: calc(100vh - 76px);
+        place-items: center;
+        padding: 36px 16px;
+      }
+
+      .error-panel {
+        width: min(100%, 680px);
+        overflow: hidden;
+        border: 1px solid rgba(111, 53, 29, 0.2);
+        border-top: 6px solid #ffbf00;
+        border-radius: 8px;
+        background: #fff;
+        padding: 32px 24px 36px;
+        text-align: center;
+        box-shadow: 0 18px 45px rgba(30, 78, 105, 0.15);
+      }
+
+      .mascot {
+        width: min(46vw, 176px);
+        height: auto;
+      }
+
+      .eyebrow {
+        margin: 14px 0 0;
+        color: #1b78a8;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 8px 0 0;
+        font-size: clamp(30px, 7vw, 42px);
+        line-height: 1.12;
+      }
+
+      .copy {
+        max-width: 480px;
+        margin: 14px auto 0;
+        color: #53616a;
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      nav {
+        display: flex;
+        margin-top: 26px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #6f351d;
+        border-radius: 8px;
+        padding: 11px 20px;
+        color: #6f351d;
+        font-size: 14px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .button-primary {
+        background: #6f351d;
+        color: #fff;
+      }
+
+      .button-secondary {
+        background: #fff;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(111, 53, 29, 0.18);
+      }
+
+      a:focus-visible {
+        outline: 3px solid #ffbf00;
+        outline-offset: 3px;
+        box-shadow: 0 0 0 2px #6f351d;
+      }
+
+      @media (max-width: 440px) {
+        nav,
+        .button {
+          width: 100%;
+        }
+
+        .error-panel {
+          padding-inline: 20px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/" aria-label="Wash King home">
+        <img src="/icon-192.png" alt="" width="192" height="192" />
+        <span>
+          <span class="brand-name">WASH KING</span>
+          <span class="brand-category">CAR WASH</span>
+        </span>
+      </a>
+    </header>
+    <main>
+      <section class="error-panel" aria-labelledby="page-title">
+        <img
+          class="mascot"
+          src="/icon-192.png"
+          alt="Wash King lion mascot sitting on a red car"
+          width="192"
+          height="192"
+        />
+        <p class="eyebrow">ERROR 404</p>
+        <h1 id="page-title">That page took a wrong turn</h1>
+        <p class="copy">The page may have moved, but your nearest Wash King is still easy to find.</p>
+        <nav aria-label="Page recovery">
+          <a class="button button-primary" href="/">Back to home</a>
+          <a class="button button-secondary" href="/#locations">View locations</a>
+        </nav>
+      </section>
+    </main>
+  </body>
+</html>

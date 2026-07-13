@@ -106,7 +106,9 @@ const LocationsMapInner = () => {
       { padding: [40, 40] },
     );
 
-    return () => map.remove();
+    return () => {
+      map.remove();
+    };
   }, []);
 
   return (
