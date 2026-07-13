@@ -110,7 +110,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-washking-sky-light">
       <Seo
         title="Contact Wash King Car Wash | New Jersey Locations"
         description="Contact Wash King Car Wash about memberships, wash packages or any of our New Jersey locations. Four locations are open and Cherry Hill is coming soon."
@@ -129,7 +129,7 @@ const ContactPage = () => {
         <section className="py-10 lg:py-14">
           <div className="container mx-auto px-4">
             <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
-              <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+              <div className="overflow-hidden rounded-lg border border-washking-brown/15 border-t-4 border-t-washking-yellow bg-white shadow-md">
                 <div className="border-b border-gray-200 px-5 py-5 sm:px-7">
                   <div className="flex flex-wrap items-end justify-between gap-2">
                     <div>

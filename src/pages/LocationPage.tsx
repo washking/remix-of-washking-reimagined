@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import {
   Check,
   Clock,
+  Crown,
   ExternalLink,
   Mail,
   MapPin,
@@ -12,6 +13,12 @@ import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
+import KingdomHeading from "@/components/KingdomHeading";
+import RoyalTrim from "@/components/RoyalTrim";
+import OptimizedImage from "@/components/OptimizedImage";
+import lionCar from "@/assets/lion-car-mark.png";
+import lionCarAvif from "@/assets/lion-car-mark.avif";
+import LocationGallery from "@/components/LocationGallery";
 import { autoWashSchema, breadcrumbSchema } from "@/lib/structuredData";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
@@ -25,6 +32,7 @@ import {
   UNLIMITED_MEMBER_BENEFITS,
   type WashKingLocation,
 } from "@/lib/locations";
+import { LOCATION_PHOTO_SETS } from "@/lib/locationMedia";
 
 const PLAN_ACCENT_CLASSES: Record<string, string> = {
   BRONZE: "border-t-washking-green",
@@ -59,7 +67,7 @@ const formatOrdinal = (value: number) => {
 };
 
 const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
-  <div className="min-h-screen bg-gray-50">
+  <div className="min-h-screen bg-washking-sky-light">
     <Seo
       title={`${location.name} Car Wash - Coming Soon | Wash King`}
       description={`Wash King Car Wash is coming soon to ${location.city}. Follow the new location and contact our team for updates.`}
@@ -81,9 +89,19 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
               <p className="mx-auto max-w-xl font-body text-xl font-bold text-white sm:text-2xl lg:mx-0">
                 A new Wash King is on the way to {location.city}.
               </p>
+              <OptimizedImage
+                avifSrc={lionCarAvif}
+                src={lionCar}
+                alt=""
+                width={500}
+                height={380}
+                loading="eager"
+                decoding="async"
+                className="mx-auto mt-5 h-auto w-40 lg:mx-0"
+              />
             </div>
 
-            <div className="mx-auto w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
+            <div className="mx-auto w-full max-w-md rounded-lg border border-washking-brown/15 border-t-4 border-t-washking-yellow bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
               <Badge className="mb-6 rounded-lg bg-washking-yellow px-4 py-2 font-body text-sm font-bold text-washking-brown">
                 Coming soon
               </Badge>
@@ -132,6 +150,7 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
             </div>
           </div>
         </div>
+        <RoyalTrim className="mt-10" />
       </section>
     </main>
 
@@ -203,13 +222,14 @@ const LocationPage = () => {
   const memberBenefits = [...UNLIMITED_MEMBER_BENEFITS, ...location.memberPerks];
   const orderedPackages = getPackagesByMonthlyPriceDescending(location);
   const portalLocationName = location.portalLocationName || `Wash King ${location.name}`;
+  const locationPhotos = LOCATION_PHOTO_SETS[location.slug];
 
   const scrollToPlans = () => {
     document.getElementById("wash-plans")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24 md:pb-0">
+    <div className="min-h-screen bg-washking-sky-light pb-24 md:pb-0">
       <Seo
         title={`${location.name} Car Wash | Wash King ${location.city.replace(/\s*\d{5}$/, "")}`}
         description={`Visit Wash King ${location.name} at ${location.address}, ${location.city}. View hours, wash packages and unlimited monthly plans.`}
@@ -243,9 +263,19 @@ const LocationPage = () => {
                     </span>
                   </p>
                 )}
+                <OptimizedImage
+                  avifSrc={lionCarAvif}
+                  src={lionCar}
+                  alt=""
+                  width={500}
+                  height={380}
+                  loading="eager"
+                  decoding="async"
+                  className="mx-auto mt-5 h-auto w-36 lg:mx-0 lg:w-44"
+                />
               </div>
 
-              <div className="mx-auto w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
+              <div className="mx-auto w-full max-w-md rounded-lg border border-washking-brown/15 border-t-4 border-t-washking-yellow bg-white p-6 shadow-lg lg:ml-auto lg:p-8">
                 <div className="space-y-5">
                   <div className="flex items-start gap-3">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-washking-sky-light">
@@ -281,7 +311,7 @@ const LocationPage = () => {
                   </div>
                 </div>
 
-                <div className="mt-7 grid grid-cols-2 gap-3">
+                <div className="mt-7 hidden grid-cols-2 gap-3 md:grid">
                   {directionsUrl && (
                     <a
                       href={directionsUrl}
@@ -319,19 +349,21 @@ const LocationPage = () => {
               </div>
             </div>
           </div>
+          <RoyalTrim className="mt-10" />
         </section>
 
-        <section id="wash-plans" className="scroll-mt-24 bg-gray-50 py-12 lg:py-16">
+        {locationPhotos && (
+          <LocationGallery locationName={location.name} photos={locationPhotos} />
+        )}
+
+        <section id="wash-plans" className="scroll-mt-24 bg-washking-sky-light py-12 lg:py-16">
           <div className="container mx-auto px-4">
-            <div className="mb-9 text-center lg:mb-12">
-              <p className="section-eyebrow mb-2">Compare your options</p>
-              <h2 className="section-title mb-3">
-                Wash plans and pricing
-              </h2>
-              <p className="section-copy mx-auto max-w-2xl">
-                Compare pay-per-visit washes and unlimited monthly plans available at {location.name}.
-              </p>
-            </div>
+            <KingdomHeading
+              eyebrow="Compare your options"
+              title="Wash plans and pricing"
+              description={`Compare pay-per-visit washes and unlimited monthly plans available at ${location.name}.`}
+              className="mb-9 lg:mb-12"
+            />
 
             <div className="mx-auto mb-8 flex max-w-4xl flex-col items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-5 text-center shadow-sm sm:flex-row sm:text-left">
               <p className="font-body text-sm text-washking-brown sm:text-base">
@@ -366,6 +398,7 @@ const LocationPage = () => {
                     className={`flex flex-col overflow-hidden rounded-lg border-2 border-t-[8px] border-gray-300 bg-white shadow-md md:border md:border-x-gray-200 md:border-b-gray-200 md:border-t-[6px] md:shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
                   >
                     <div className={`${washPackage.color} ${washPackage.textColor} flex min-h-32 flex-col items-center justify-center p-6 text-center`}>
+                      <Crown className="mb-2 h-5 w-5" aria-hidden="true" />
                       {PLAN_CALLOUTS[washPackage.name] && (
                         <p className="mb-2 font-body text-xs font-extrabold uppercase">
                           {PLAN_CALLOUTS[washPackage.name]}
@@ -498,16 +531,19 @@ const LocationPage = () => {
               </ul>
             </div>
           </div>
+          <RoyalTrim className="mt-10" />
         </section>
 
         <section className="bg-white py-14 lg:py-20">
           <div className="container mx-auto px-4">
             <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
               <div>
-                <p className="section-eyebrow mb-2">Plan your visit</p>
-                <h2 className="mb-6 font-display text-3xl text-washking-brown lg:text-4xl">
-                  Hours and directions
-                </h2>
+                <KingdomHeading
+                  eyebrow="Plan your visit"
+                  title="Hours and directions"
+                  align="left"
+                  className="mb-6"
+                />
                 <div className="rounded-lg bg-washking-green p-7 text-white">
                   <HoursDetails location={location} />
                 </div>

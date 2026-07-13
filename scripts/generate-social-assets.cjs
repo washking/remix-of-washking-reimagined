@@ -90,11 +90,23 @@ async function buildAppIcon(size) {
     .toFile(publicFile(`icon-${size}.png`));
 }
 
+async function buildLionCarMark() {
+  const mark = sharp(asset("washking-logo.png"))
+    .extract({ left: 0, top: 0, width: 500, height: 380 })
+    .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } });
+
+  await Promise.all([
+    mark.clone().png({ compressionLevel: 9 }).toFile(asset("lion-car-mark.png")),
+    mark.clone().avif({ quality: 72 }).toFile(asset("lion-car-mark.avif")),
+  ]);
+}
+
 Promise.all([
   buildSocialPreview(),
   buildAppleTouchIcon(),
   buildAppIcon(192),
   buildAppIcon(512),
+  buildLionCarMark(),
 ]).catch((error) => {
   console.error(error);
   process.exitCode = 1;

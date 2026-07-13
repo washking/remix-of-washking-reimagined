@@ -50,6 +50,7 @@
     --washking-brown-light: 25 50% 38%;
     --washking-cream: 40 60% 95%;
     --washking-orange: 30 100% 50%;
+    --washking-red: 357 72% 49%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -77,7 +78,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Fredoka', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
     font-weight: 800;
     letter-spacing: 0;
     line-height: 1.15;
@@ -101,8 +102,8 @@
 
 @layer components {
   .font-display {
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-    font-weight: 800;
+    font-family: 'Fredoka', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
     letter-spacing: 0;
   }
 
@@ -222,6 +223,10 @@
 
   .bg-washking-green-light {
     background-color: hsl(var(--washking-green-light));
+  }
+
+  .bg-washking-red {
+    background-color: hsl(var(--washking-red));
   }
 
   .bg-washking-cream {

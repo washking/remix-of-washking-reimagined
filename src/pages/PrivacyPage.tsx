@@ -2,6 +2,7 @@ import { Database, Send, ShieldCheck, UserRoundCheck } from "lucide-react";
 import Seo from "@/components/Seo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import KingdomPageHero from "@/components/KingdomPageHero";
 import { CONTACT_EMAIL, MEMBERSHIP_PORTAL } from "@/lib/site";
 
 const PrivacyPage = () => (
@@ -13,19 +14,12 @@ const PrivacyPage = () => (
     />
     <Header />
     <main id="main-content" tabIndex={-1}>
-      <section className="border-b-4 border-washking-yellow bg-washking-sky py-12 lg:py-14">
-        <div className="container mx-auto px-4 text-center">
-          <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
-            Last updated July 12, 2026
-          </p>
-          <h1 className="font-display text-3xl text-white sm:text-4xl">
-            Privacy Notice
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl font-body text-lg leading-relaxed text-white/90 sm:text-xl">
-            A plain-language summary of information handled through washking.net.
-          </p>
-        </div>
-      </section>
+      <KingdomPageHero
+        eyebrow="Last updated July 12, 2026"
+        title="Privacy Notice"
+        description="A plain-language summary of information handled through washking.net."
+        icon={ShieldCheck}
+      />
 
       <section className="border-b border-washking-brown/15 bg-washking-yellow py-8">
         <div className="container mx-auto px-4">

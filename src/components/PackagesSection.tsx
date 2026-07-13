@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import experienceCollage from "@/assets/washking-customer-experience-collage.jpg";
 import experienceCollageAvif from "@/assets/washking-customer-experience-collage.avif";
+import carWashIllustration from "@/assets/car-wash-illustration.png";
+import carWashIllustrationAvif from "@/assets/car-wash-illustration.avif";
 import { OPEN_LOCATIONS } from "@/lib/locations";
 import OptimizedImage from "@/components/OptimizedImage";
+import KingdomHeading from "@/components/KingdomHeading";
+import RoyalTrim from "@/components/RoyalTrim";
 
 const benefits = [
   "Wash once a day for one predictable monthly price.",
@@ -16,28 +20,24 @@ const PackagesSection = () => {
   return (
     <section id="packages" className="overflow-hidden bg-washking-sky py-12 lg:py-16">
       <div className="container mx-auto px-4">
+        <KingdomHeading
+          eyebrow="Membership made simple"
+          title="Unlimited Wash Club"
+          description="Wash your registered vehicle once a day for one predictable monthly price."
+          inverse
+          className="mb-10 lg:mb-12"
+        />
         <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
           <div
             className="lg:w-1/2"
           >
-            <p className="mb-2 font-body text-sm font-bold text-washking-yellow">
-              Membership made simple
-            </p>
-            <h2 className="mb-4 font-display text-3xl text-white sm:text-4xl">
-              Unlimited Wash Club
-            </h2>
-
-            <p className="mb-7 max-w-xl font-body text-base leading-relaxed text-white/90 sm:text-lg lg:mb-9">
-              Wash your registered vehicle once a day for one predictable monthly price.
-            </p>
-
             <div className="space-y-3 lg:space-y-5">
               {benefits.map((benefit, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-3 lg:gap-4"
                 >
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-washking-yellow font-body text-sm font-extrabold text-washking-brown lg:h-11 lg:w-11 lg:text-base">
+                  <div className="flex h-9 w-9 flex-shrink-0 rotate-3 items-center justify-center rounded-lg border-2 border-white/35 bg-washking-yellow font-display text-sm font-bold text-washking-brown shadow-sm lg:h-11 lg:w-11 lg:text-base">
                     {index + 1}
                   </div>
                   <p className="text-white font-body text-sm sm:text-base lg:text-xl">
@@ -69,7 +69,7 @@ const PackagesSection = () => {
           </div>
 
           <div
-            className="flex w-full justify-center lg:w-1/2"
+            className="flex w-full flex-col items-center justify-center lg:w-1/2"
           >
             <OptimizedImage
               avifSrc={experienceCollageAvif}
@@ -81,9 +81,20 @@ const PackagesSection = () => {
               decoding="async"
               className="block h-auto w-full max-w-2xl rounded-lg border border-white/20 shadow-lg"
             />
+            <OptimizedImage
+              avifSrc={carWashIllustrationAvif}
+              src={carWashIllustration}
+              alt=""
+              width={803}
+              height={451}
+              loading="lazy"
+              decoding="async"
+              className="-mt-8 h-auto w-56 max-w-[65%] sm:w-72"
+            />
           </div>
         </div>
       </div>
+      <RoyalTrim className="mt-12 lg:mt-16" />
     </section>
   );
 };

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Clock, MapPin, Navigation, Sparkles } from "lucide-react";
+import { Clock, Crown, MapPin, Navigation, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import KingdomHeading from "@/components/KingdomHeading";
+import RoyalTrim from "@/components/RoyalTrim";
 import {
   COMING_SOON_LOCATIONS,
   OPEN_LOCATIONS,
@@ -37,20 +39,23 @@ const OpenStatus = ({
 const LocationCard = ({
   location,
   currentTime,
+  accentClass,
 }: {
   location: WashKingLocation;
   currentTime: Date | null;
+  accentClass: string;
 }) => {
   const directionsUrl = getDirectionsUrl(location);
   const startingPrice = getStartingMonthlyPrice(location);
 
   return (
     <article
-      className="flex h-full flex-col rounded-lg border-2 border-washking-brown/35 border-t-4 border-t-washking-brown bg-washking-yellow p-5 shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:border sm:border-t-4 sm:border-washking-brown/35 sm:border-t-washking-brown sm:shadow-sm sm:hover:shadow-md lg:p-6"
+      className={`flex h-full flex-col rounded-lg border-2 border-washking-brown/35 border-t-[6px] bg-washking-yellow p-5 shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:shadow-sm sm:hover:shadow-md lg:p-6 ${accentClass}`}
     >
       <div className="mb-4 flex items-start justify-between gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white/85">
-          <MapPin className="h-5 w-5 text-washking-sky" aria-hidden="true" />
+        <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-washking-brown/15 bg-white/90">
+          <MapPin className="h-6 w-6 text-washking-sky" aria-hidden="true" />
+          <Crown className="absolute -right-2 -top-2 h-4 w-4 rotate-12 text-washking-brown" aria-hidden="true" />
         </div>
         <OpenStatus location={location} currentTime={currentTime} />
       </div>
@@ -128,30 +133,31 @@ const LocationsSection = () => {
   return (
     <section id="locations" className="scroll-mt-24 bg-washking-sky-light py-12 lg:py-16">
         <div className="container mx-auto px-4">
-          <div className="mb-9 text-center lg:mb-12">
-            <p className="section-eyebrow mb-2">
-              Hours, services, pricing, and directions
-            </p>
-            <h2 className="section-title mb-3">
-              Choose your Wash King location
-            </h2>
-            <p className="section-copy mx-auto max-w-2xl">
-              Select a location to see its services, hours, single-wash prices, unlimited plans, and directions.
-            </p>
-          </div>
+          <KingdomHeading
+            eyebrow="Hours, services, pricing, and directions"
+            title="Choose your Wash King location"
+            description="Select a location to see its services, hours, single-wash prices, unlimited plans, and directions."
+            className="mb-9 lg:mb-12"
+          />
 
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 xl:gap-5">
-            {OPEN_LOCATIONS.map((location) => (
+            {OPEN_LOCATIONS.map((location, index) => (
               <LocationCard
                 key={location.slug}
                 location={location}
                 currentTime={currentTime}
+                accentClass={[
+                  "border-t-washking-sky",
+                  "border-t-washking-green",
+                  "border-t-washking-orange",
+                  "border-t-washking-brown",
+                ][index % 4]}
               />
             ))}
           </div>
 
           {comingSoon && (
-            <div className="mx-auto mt-10 flex max-w-5xl flex-col items-center justify-between gap-5 rounded-lg border border-washking-sky/20 bg-washking-sky-light p-6 text-center sm:flex-row sm:text-left">
+            <div className="mx-auto mt-10 flex max-w-5xl flex-col items-center justify-between gap-5 rounded-lg border-2 border-dashed border-washking-sky/35 bg-white p-6 text-center shadow-sm sm:flex-row sm:text-left">
               <div>
                 <p className="mb-1 font-body text-sm font-bold text-washking-sky">Coming soon</p>
                 <h3 className="font-display text-2xl text-washking-brown">{comingSoon.name}</h3>
@@ -171,6 +177,7 @@ const LocationsSection = () => {
             </div>
           )}
         </div>
+        <RoyalTrim className="mt-12 lg:mt-16" />
     </section>
   );
 };

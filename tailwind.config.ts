@@ -15,7 +15,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Fredoka"', '"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         body: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
@@ -64,6 +64,7 @@ export default {
           "brown-light": "hsl(var(--washking-brown-light))",
           cream: "hsl(var(--washking-cream))",
           orange: "hsl(var(--washking-orange))",
+          red: "hsl(var(--washking-red))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

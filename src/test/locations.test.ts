@@ -35,6 +35,8 @@ describe("Wash King location registry", () => {
       expect(location.portalLocationName).toBeTruthy();
       expect(location.serviceType).not.toBe("coming-soon");
       expect(location.mapEmbed).toMatch(/^https:\/\//);
+      expect(location.mapEmbed).toContain(`q=${location.lat},${location.lng}`);
+      expect(location.mapEmbed).toContain("output=embed");
       expect(getDirectionsUrl(location)).toMatch(/^https:\/\/www\.google\.com\/maps\/dir/);
       expect(Number.isFinite(location.lat)).toBe(true);
       expect(Number.isFinite(location.lng)).toBe(true);

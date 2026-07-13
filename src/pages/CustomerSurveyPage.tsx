@@ -97,7 +97,7 @@ const CustomerSurveyPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-washking-sky-light">
       <Seo
         title="Customer Survey | Wash King Car Wash"
         description="Share feedback about your visit to one of Wash King Car Wash's four open New Jersey locations."
@@ -116,7 +116,7 @@ const CustomerSurveyPage = () => {
 
         <section className="py-10 lg:py-14">
           <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-4xl overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+            <div className="mx-auto max-w-4xl overflow-hidden rounded-lg border border-washking-brown/15 border-t-4 border-t-washking-yellow bg-white shadow-md">
               <div className="border-b border-gray-200 px-5 py-5 sm:px-7">
                 <h2 className="font-display text-xl text-washking-brown sm:text-2xl">
                   Share your feedback

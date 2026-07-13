@@ -115,7 +115,7 @@ const EmploymentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-washking-sky-light">
       <Seo
         title="Car Wash Careers in New Jersey | Wash King"
         description="Apply to join the Wash King Car Wash team at one of our four open New Jersey locations."
@@ -133,7 +133,7 @@ const EmploymentPage = () => {
 
         <section className="py-10 lg:py-14">
           <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+            <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border border-washking-brown/15 border-t-4 border-t-washking-yellow bg-white shadow-md">
               <div className="border-b border-gray-200 px-5 py-5 sm:px-7">
                 <h2 className="font-display text-xl text-washking-brown sm:text-2xl">
                   Employment application
