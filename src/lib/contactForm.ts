@@ -8,12 +8,26 @@ import {
 export const GENERAL_LOCATION_VALUE = "No specific location";
 
 export const CONTACT_TOPICS = [
-  { value: "general", label: "General question" },
-  { value: "membership", label: "Membership help" },
-  { value: "billing-cancellation", label: "Billing / cancellation" },
-  { value: "wash-quality", label: "Wash visit feedback" },
-  { value: "opening-updates", label: "Cherry Hill updates" },
+  { value: "general_question", label: "General question" },
+  { value: "new_membership", label: "Start a membership" },
+  { value: "cancel_membership", label: "Cancel a membership" },
+  { value: "billing_issue", label: "Billing issue" },
+  { value: "change_membership", label: "Change membership plan" },
+  { value: "add_vehicle", label: "Add a vehicle" },
+  { value: "change_plate", label: "Change a license plate" },
+  { value: "update_account", label: "Update account information" },
+  { value: "lost_item", label: "Lost item" },
+  { value: "wash_feedback", label: "Wash visit feedback" },
+  { value: "opening_updates", label: "Cherry Hill updates" },
 ] as const;
+
+const LEGACY_TOPIC_MAP: Record<string, string> = {
+  general: "general_question",
+  membership: "update_account",
+  "billing-cancellation": "billing_issue",
+  "wash-quality": "wash_feedback",
+  "opening-updates": "opening_updates",
+};
 
 const contactTopicValues = new Set<string>(
   CONTACT_TOPICS.map((topic) => topic.value),
@@ -36,7 +50,15 @@ export const contactSchema = z.object({
 export type ContactFormValues = z.infer<typeof contactSchema>;
 
 export const isMembershipContactTopic = (topic: string) =>
-  topic === "membership" || topic === "billing-cancellation";
+  [
+    "new_membership",
+    "cancel_membership",
+    "billing_issue",
+    "change_membership",
+    "add_vehicle",
+    "change_plate",
+    "update_account",
+  ].includes(topic);
 
 export const getContactFormPrefill = (
   locationSlug: string | null,
@@ -46,6 +68,10 @@ export const getContactFormPrefill = (
 
   return {
     location: location ? getLocationFormValue(location) : "",
-    topic: topicValue && contactTopicValues.has(topicValue) ? topicValue : "",
+    topic: topicValue
+      ? contactTopicValues.has(topicValue)
+        ? topicValue
+        : LEGACY_TOPIC_MAP[topicValue] ?? ""
+      : "",
   };
 };

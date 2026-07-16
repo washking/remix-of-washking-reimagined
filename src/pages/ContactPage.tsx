@@ -89,11 +89,23 @@ const ContactPage = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
+      const selectedLocation = LOCATIONS.find(
+        (location) => getLocationFormValue(location) === data.location,
+      );
+      const requestType = ["opening_updates", "wash_feedback"].includes(data.topic)
+        ? "general_question"
+        : data.topic;
       await submitWebsiteForm({
         source: "contact_form",
         subject: "New Wash King Contact Enquiry",
         data: {
           ...data,
+          request_type: requestType,
+          form_topic: data.topic,
+          location_slug: selectedLocation?.slug,
+          plate_number: isMembershipContactTopic(data.topic)
+            ? data.plateNumber || undefined
+            : undefined,
           plateNumber: isMembershipContactTopic(data.topic)
             ? data.plateNumber || undefined
             : undefined,

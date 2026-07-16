@@ -7,7 +7,7 @@ afterEach(() => {
 });
 
 describe("website form delivery", () => {
-  it("succeeds when either delivery provider accepts the message", async () => {
+  it("uses Formspree only after the primary provider fails", async () => {
     vi.spyOn(globalThis, "fetch")
       .mockResolvedValueOnce(new Response(null, { status: 500 }))
       .mockResolvedValueOnce(new Response(null, { status: 200 }));
@@ -19,28 +19,26 @@ describe("website form delivery", () => {
         data: { name: "Taylor" },
       }),
     ).resolves.toEqual({ deliveredBy: "formspree" });
+
+    expect(globalThis.fetch).toHaveBeenCalledTimes(2);
+    const primaryBody = JSON.parse(String(vi.mocked(globalThis.fetch).mock.calls[0][1]?.body));
+    const fallbackBody = JSON.parse(String(vi.mocked(globalThis.fetch).mock.calls[1][1]?.body));
+    expect(primaryBody.external_submission_id).toBeTruthy();
+    expect(fallbackBody.external_submission_id).toBe(primaryBody.external_submission_id);
   });
 
-  it("returns after a fast success even when the other provider stalls", async () => {
-    vi.useFakeTimers();
-    vi.spyOn(globalThis, "fetch")
-      .mockImplementationOnce((_input, init) =>
-        new Promise<Response>((_resolve, reject) => {
-          init?.signal?.addEventListener("abort", () => {
-            reject(new DOMException("Request aborted", "AbortError"));
-          });
-        }),
-      )
-      .mockResolvedValueOnce(new Response(null, { status: 200 }));
+  it("does not call the fallback after a primary success", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValueOnce(new Response(null, { status: 200 }));
 
     await expect(
       submitWebsiteForm({
         source: "contact_form",
         subject: "Contact",
         data: { name: "Taylor" },
-        timeoutMs: 25,
       }),
-    ).resolves.toEqual({ deliveredBy: "formspree" });
+    ).resolves.toEqual({ deliveredBy: "webchily" });
+
+    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
   });
 
   it("fails only when both delivery providers fail", async () => {
@@ -74,6 +72,7 @@ describe("website form delivery", () => {
       }),
     ).rejects.toThrow("Form delivery failed");
 
+    await vi.advanceTimersByTimeAsync(25);
     await vi.advanceTimersByTimeAsync(25);
     await submission;
   });

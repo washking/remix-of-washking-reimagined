@@ -36,6 +36,10 @@ export const submitWebsiteForm = async <T extends object>({
   data,
   timeoutMs = 12_000,
 }: WebsiteFormSubmission<T>) => {
+  const externalSubmissionId = globalThis.crypto?.randomUUID?.()
+    ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const submissionData = { ...data, external_submission_id: externalSubmissionId };
+
   const attempt = async (
     provider: "webchily" | "formspree",
     request: Promise<Response>,
@@ -48,32 +52,27 @@ export const submitWebsiteForm = async <T extends object>({
     }
   };
 
-  const attempts = [
-    attempt(
-      "webchily",
-      postWithTimeout(
-        WEBCHILY_URL,
-        { ...data, source, token: WEBCHILY_TOKEN },
-        timeoutMs,
-      ),
+  // Webchily is the primary delivery route. Formspree starts only if the
+  // primary fails or times out, preventing duplicate customer tickets.
+  const primaryResult = await attempt(
+    "webchily",
+    postWithTimeout(
+      WEBCHILY_URL,
+      { ...submissionData, source, token: WEBCHILY_TOKEN },
+      timeoutMs,
     ),
-    attempt(
-      "formspree",
-      postWithTimeout(
-        FORMSPREE_URL,
-        { ...data, source, _subject: subject },
-        timeoutMs,
-      ),
+  );
+  if (primaryResult.accepted) return { deliveredBy: primaryResult.provider };
+
+  const fallbackResult = await attempt(
+    "formspree",
+    postWithTimeout(
+      FORMSPREE_URL,
+      { ...submissionData, source, _subject: subject },
+      timeoutMs,
     ),
-  ] as const;
-
-  const firstResult = await Promise.race(attempts);
-  if (firstResult.accepted) return { deliveredBy: firstResult.provider };
-
-  const remainingAttempt =
-    firstResult.provider === "webchily" ? attempts[1] : attempts[0];
-  const secondResult = await remainingAttempt;
-  if (secondResult.accepted) return { deliveredBy: secondResult.provider };
+  );
+  if (fallbackResult.accepted) return { deliveredBy: fallbackResult.provider };
 
   throw new Error("Form delivery failed");
 };

@@ -10,7 +10,7 @@ const validContact = {
   name: "Taylor Customer",
   phone: "856-555-0123",
   email: "taylor@example.com",
-  topic: "general",
+  topic: "general_question",
   location: GENERAL_LOCATION_VALUE,
   plateNumber: "",
   message: "I have a question.",
@@ -33,7 +33,7 @@ describe("contact form", () => {
   it("prefills only known query values", () => {
     expect(getContactFormPrefill("cherry-hill", "opening-updates")).toEqual({
       location: "Wash King Cherry Hill",
-      topic: "opening-updates",
+      topic: "opening_updates",
     });
     expect(getContactFormPrefill("not-a-location", "not-a-topic")).toEqual({
       location: "",
@@ -42,8 +42,8 @@ describe("contact form", () => {
   });
 
   it("shows plate help only for membership-related topics", () => {
-    expect(isMembershipContactTopic("membership")).toBe(true);
-    expect(isMembershipContactTopic("billing-cancellation")).toBe(true);
-    expect(isMembershipContactTopic("general")).toBe(false);
+    expect(isMembershipContactTopic("cancel_membership")).toBe(true);
+    expect(isMembershipContactTopic("billing_issue")).toBe(true);
+    expect(isMembershipContactTopic("general_question")).toBe(false);
   });
 });
