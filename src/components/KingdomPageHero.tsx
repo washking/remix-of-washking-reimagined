@@ -3,6 +3,7 @@ import lionCar from "@/assets/lion-car-mark.png";
 import lionCarAvif from "@/assets/lion-car-mark.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 import RoyalTrim from "@/components/RoyalTrim";
+import BubbleField from "@/components/decor/BubbleField";
 
 type KingdomPageHeroProps = {
   eyebrow: string;
@@ -17,8 +18,9 @@ const KingdomPageHero = ({
   description,
   icon: Icon,
 }: KingdomPageHeroProps) => (
-  <section className="overflow-hidden bg-washking-sky text-white">
-    <div className="container mx-auto px-4">
+  <section className="relative overflow-hidden bg-washking-sky text-white">
+    <BubbleField density="subtle" />
+    <div className="container relative mx-auto px-4">
       <div className="mx-auto grid max-w-6xl items-center gap-5 py-9 sm:py-11 md:grid-cols-[minmax(0,1fr)_190px] lg:grid-cols-[minmax(0,1fr)_230px]">
         <div className="flex items-start gap-4 sm:items-center">
           {Icon && (

@@ -25,7 +25,7 @@ const NotFound = () => (
           width={500}
           height={380}
           decoding="async"
-          className="mx-auto mb-6 h-auto w-44"
+          className="mx-auto mb-6 h-auto w-44 animate-float"
         />
         <p className="font-body text-sm font-bold text-washking-sky">Error 404</p>
         <h1 className="mt-2 font-display text-3xl text-washking-brown sm:text-4xl">

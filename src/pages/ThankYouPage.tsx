@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import lionCar from "@/assets/lion-car-mark.png";
 import lionCarAvif from "@/assets/lion-car-mark.avif";
 import OptimizedImage from "@/components/OptimizedImage";
+import BubbleField from "@/components/decor/BubbleField";
 
 const sourceContent: Record<string, { title: string; subtitle: string; message: string }> = {
   contact_form: {
@@ -39,8 +40,12 @@ const ThankYouPage = () => {
         noIndex
       />
       <Header />
-      <main id="main-content" tabIndex={-1} className="flex flex-1 items-center py-12 lg:py-16">
-        <div className="container mx-auto px-4">
+      <main id="main-content" tabIndex={-1} className="relative flex flex-1 items-center overflow-hidden py-12 lg:py-16">
+        <BubbleField
+          density="lively"
+          bubbleClassName="border border-washking-sky/35 bg-washking-sky/15"
+        />
+        <div className="container relative mx-auto px-4">
           <section className="mx-auto max-w-2xl rounded-lg border border-washking-brown/15 border-t-[6px] border-t-washking-yellow bg-white px-6 py-9 text-center shadow-md sm:px-10 sm:py-12">
             <div className="mx-auto flex items-end justify-center gap-3">
               <CheckCircle2 className="h-14 w-14 text-washking-green" strokeWidth={2} aria-hidden="true" />

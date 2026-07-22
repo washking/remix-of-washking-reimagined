@@ -296,11 +296,17 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 - [x] **S10** LocationPage CTA band + visit section + gallery — ALREADY DONE
       UPSTREAM (yellow benefits band, green hours card, map w/ overlay CTA,
       LocationGallery). No changes needed.
-- [ ] **S11** ContactPage form UX (verify stubbed success → thank-you).
-- [ ] **S12** CustomerSurveyPage form UX.
-- [ ] **S13** EmploymentPage form UX.
-- [ ] **S14** ThankYouPage + NotFound.
-- [ ] **S15** AboutPage + PrivacyPage.
+- [x] **S11-S13** Form pages — upstream already ships RHF+zod forms with pending
+      submit states ("Sending…"/"Submitting…", disabled) and /thank-you redirects.
+      Delta applied: subtle BubbleField in the shared KingdomPageHero (all three
+      form heroes + About + Privacy inherit it). Stubbed contact submit verified
+      end-to-end in S1 (success toast → /thank-you, zero external requests).
+- [x] **S14** ThankYouPage + NotFound. (ThankYou: lively sky-tinted BubbleField
+      celebration behind the card. NotFound: lion gets animate-float. Both pages
+      were already on-brand otherwise.)
+- [x] **S15** AboutPage + PrivacyPage — ALREADY DONE UPSTREAM (About: kingdom hero
+      + values grid; Privacy: icon-sectioned plain-language layout, better than a
+      generic prose pass). They inherit the hero bubbles; no other changes.
 - [ ] **S16** Full test matrix (§7) end-to-end: build + preview, prerender audit of
       every route, responsive/keyboard/contrast/reduced-motion passes, content
       parity vs `locations.ts`. Fix fallout. Final Handoff update.
@@ -337,19 +343,14 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S11-S13 (form pages) — next up.
-- **Exact next action:** Read `src/components/FormPageHero.tsx` (13 lines) and
-  skim the three form pages. Candidate light-touch deltas: BubbleField behind the
-  FormPageHero sky band (decorative, aria-hidden), confirm submit buttons show a
-  pending state while the POC stub's 600ms delay runs, and confirm each page's
-  success UX (Contact + Survey navigate to /thank-you; check Employment). Do NOT
-  restructure the forms — they're already well-built with RHF + zod. Then S14:
-  ThankYouPage gets BubbleField density="lively" (celebration), NotFound gets the
-  lost-lion treatment if not already present (check first!).
-  IMPORTANT DISCOVERY for the whole build: main already merged the big kingdom
-  visual refresh (PR-17), so most pages are far closer to "done" than this plan
-  originally assumed. For every remaining step, read the target file first and do
-  the light-touch delta only; skip and mark accordingly if covered.
+- **Step in progress:** S16 (full test matrix) — next up.
+- **Exact next action:** Run the §7 matrix end-to-end: `npm run build`, then
+  `npm run preview` (or serve dist/) and check every route's prerendered HTML has
+  real content; verify hero text visible without JS; submit all 3 forms watching
+  the network filter `formspree|supabase|ingest` (expect zero); 375px + desktop
+  sweep; keyboard/skip-link; reduced-motion (bubble fields must vanish); console
+  clean on / and /location/vineland; content parity vs locations.ts. Fix fallout,
+  tick S16, finalize this Handoff, commit.
   Notes for the builder: tailwind already ships `animate-float`/`animate-bounce-slow`;
   browser-tool clicks can silently miss — verify state via JS/read_page rather than
   one screenshot; React re-renders are async so check DOM state in a second JS call.
