@@ -257,9 +257,12 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
       analytics logs `[poc] analytics suppressed:`, ZERO requests matching
       formspree|supabase|ingest|webchily. Also updated AnalyticsComponent.test.tsx
       which exercises the real pipeline. 57 tests green, build green.)
-- [ ] **S2** Design-system foundations: index.css keyframes/utilities +
+- [x] **S2** Design-system foundations: index.css keyframes/utilities +
       `WaveDivider` + `BubbleField` (with reduced-motion guards). Not yet used
       anywhere — pure additive, zero visual change, all checks green.
+      (WaveDivider colors via currentColor + text-washking-* classes. BubbleField
+      uses FIXED bubble arrays — SSG markup must match hydration, never randomize.
+      Reduced motion: `.bubble-field { display:none }` + card-lift transform off.)
 - [ ] **S3** Header polish.
 - [ ] **S4** Footer polish (first consumer of WaveDivider).
 - [ ] **S5** Home hero (LCP rule: no entry-opacity above fold).
@@ -310,15 +313,15 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S2 (design-system foundations) — next up.
-- **Exact next action:** Add to `src/index.css`: `@keyframes bubble-float` +
-  `@keyframes gentle-bounce` (components layer), `.card-lift` and `.prose-washking`
-  utilities, and a reduced-motion `display:none` guard for `.bubble-field`. Create
-  `src/components/decor/WaveDivider.tsx` (inline SVG wave, `aria-hidden`, color via
-  `fill-*` token classes, `flip` prop) and `src/components/decor/BubbleField.tsx`
-  (aria-hidden pointer-events-none absolute bubbles using `bubble-float`). Consume
-  nothing yet — zero visual change. Run typecheck/lint/test, commit
-  `Design foundations: wave divider, bubble field, motion utilities`.
+- **Step in progress:** S3 (Header polish) — next up.
+- **Exact next action:** In `src/components/Header.tsx`: add scroll-aware shadow
+  (small `useEffect` + scrollY > 8 state; SSR default = no shadow), active-route
+  pill styling on nav links (yellow bg + brown text via NavLink active state),
+  ensure mobile menu touch targets ≥44px. No layout/link changes. Verify on dev
+  server at desktop + 375px, typecheck/lint/test, screenshot, commit.
+  Note: tailwind config already has `animate-float`/`animate-bounce-slow`;
+  `gentle-bounce` keyframe was NOT needed (reuse `bounce` 5px). Existing
+  `animation` shorthand utilities are fine.
 - **Environment notes:**
   - Working dir: `/Users/raj/dev/Washking.net domain/live-site` (not a repo root
     typo — the dir name contains a space and ".net").
