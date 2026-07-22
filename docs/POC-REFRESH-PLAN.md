@@ -278,9 +278,15 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
       pill chips, lion-car mark gets animate-float — transform-only so LCP text
       stays visible, killed by the global reduced-motion block. No new entry
       animations; CTA hierarchy kept location-first by design.)
-- [ ] **S6** Home LocationsSection (open-now chips, hydration-safe).
-- [ ] **S7** Home PackagesSection (break-even line, tier clarity).
-- [ ] **S8** Home Proof + TrustStats + FAQ.
+- [x] **S6** Home LocationsSection — ALREADY DONE UPSTREAM (main's PR-17 kingdom
+      refresh ships hydration-safe open-now chips via client-only `currentTime`
+      state, card hover-lift, starting-price blocks). No changes made; verified.
+- [x] **S7** Home PackagesSection — light touch only: subtle BubbleField behind
+      the sky band (below-fold, decorative). Upstream already covers benefits +
+      per-location plan links; per-tier cards live on location pages by design.
+- [x] **S8** Home Proof/TrustStats/FAQ — light touch only: `card-lift` on the four
+      at-a-glance stat cards. Proof + FAQ already on-brand upstream (accordion with
+      rotating plus, mascot, truthful copy); left unchanged.
 - [ ] **S9** LocationPage hero + #wash-plans cards (verify all 5 slugs incl.
       cherry-hill coming-soon variant).
 - [ ] **S10** LocationPage CTA band + visit section + gallery.
@@ -325,13 +331,18 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S6 (Home LocationsSection) — next up.
-- **Exact next action:** Read `src/components/LocationsSection.tsx`. Add an
-  open-now chip per open-location card using `getLocationOpenStatus` — IMPORTANT:
-  compute it inside a client-only effect (useState null on server, set after
-  mount) so prerendered HTML/hydration match; SSR shows the static
-  `getHoursSummary` text it already shows. Add `card-lift` to cards. No data
-  changes. Verify all cards at desktop/375px, typecheck/lint/test, commit.
+- **Step in progress:** S9 (LocationPage hero + wash-plans) — next up.
+- **Exact next action:** Read `src/pages/LocationPage.tsx` in full (648 lines)
+  BEFORE editing — main's kingdom refresh already improved it, so verify what's
+  actually missing rather than assuming the plan's spec. Candidate deltas: an
+  open-now chip in the hero (pattern: client-only `currentTime` state exactly like
+  LocationsSection's OpenStatus), "pays for itself in N washes" line on plan cards
+  via `getBreakEvenVisits` (already exported in locations.ts), `card-lift` on plan
+  cards. Verify ALL 5 slugs incl. cherry-hill's coming-soon variant.
+  IMPORTANT DISCOVERY for the whole build: main already merged the big kingdom
+  visual refresh (PR-17), so most pages are far closer to "done" than this plan
+  originally assumed. For every remaining step, read the target file first and do
+  the light-touch delta only; skip and mark accordingly if covered.
   Notes for the builder: tailwind already ships `animate-float`/`animate-bounce-slow`;
   browser-tool clicks can silently miss — verify state via JS/read_page rather than
   one screenshot; React re-renders are async so check DOM state in a second JS call.

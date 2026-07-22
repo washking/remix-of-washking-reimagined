@@ -66,7 +66,7 @@ const TrustStatsSection = () => (
           {stats.map((stat, index) => (
             <article
               key={stat.label}
-              className={`flex min-h-48 flex-col rounded-lg border border-washking-brown/15 border-t-[6px] bg-white px-5 py-6 shadow-sm ${[
+              className={`card-lift flex min-h-48 flex-col rounded-lg border border-washking-brown/15 border-t-[6px] bg-white px-5 py-6 shadow-sm ${[
                 "border-t-washking-sky",
                 "border-t-washking-green",
                 "border-t-washking-orange",
