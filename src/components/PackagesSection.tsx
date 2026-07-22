@@ -7,6 +7,7 @@ import { OPEN_LOCATIONS } from "@/lib/locations";
 import OptimizedImage from "@/components/OptimizedImage";
 import KingdomHeading from "@/components/KingdomHeading";
 import RoyalTrim from "@/components/RoyalTrim";
+import BubbleField from "@/components/decor/BubbleField";
 
 const benefits = [
   "Wash once a day for one predictable monthly price.",
@@ -18,8 +19,9 @@ const benefits = [
 
 const PackagesSection = () => {
   return (
-    <section id="packages" className="overflow-hidden bg-washking-sky py-12 lg:py-16">
-      <div className="container mx-auto px-4">
+    <section id="packages" className="relative overflow-hidden bg-washking-sky py-12 lg:py-16">
+      <BubbleField density="subtle" />
+      <div className="container relative mx-auto px-4">
         <KingdomHeading
           eyebrow="Membership made simple"
           title="Unlimited Wash Club"

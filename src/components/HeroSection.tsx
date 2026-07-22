@@ -4,6 +4,7 @@ import {
   CalendarCheck2,
   ChevronLeft,
   ChevronRight,
+  Crown,
   MapPinned,
   Pause,
   Play,
@@ -291,15 +292,16 @@ const HeroSection = () => {
               height={380}
               loading="eager"
               decoding="async"
-              className="hidden h-auto w-full lg:block"
+              className="hidden h-auto w-full animate-float lg:block"
             />
 
             <div className="flex flex-col items-center text-center">
-            <p className="font-body text-xs font-extrabold text-washking-yellow sm:text-sm">
+            <Crown className="mb-2 h-7 w-7 rotate-[-8deg] text-washking-yellow" aria-hidden="true" />
+            <p className="bg-wood inline-block -rotate-1 rounded-md border border-white/25 px-3.5 py-1.5 font-body text-xs font-extrabold text-white shadow-sm sm:text-sm">
               Family-owned across New Jersey
             </p>
 
-            <h1 className="mt-2 font-display text-3xl text-white sm:text-4xl">
+            <h1 className="mt-2 font-display text-3xl text-white sm:text-4xl lg:text-5xl">
               Wash King Car Wash
             </h1>
 
@@ -309,7 +311,10 @@ const HeroSection = () => {
 
             <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-3" aria-label="Wash King highlights">
               {quickFacts.map((fact) => (
-                <li key={fact.label} className="flex items-center gap-2 font-body text-sm font-bold text-white">
+                <li
+                  key={fact.label}
+                  className="flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 font-body text-sm font-bold text-white"
+                >
                   <fact.icon className="h-4 w-4 text-washking-yellow" aria-hidden="true" />
                   {fact.label}
                 </li>

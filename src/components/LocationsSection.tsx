@@ -3,6 +3,12 @@ import { Clock, Crown, MapPin, Navigation, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import KingdomHeading from "@/components/KingdomHeading";
 import RoyalTrim from "@/components/RoyalTrim";
+import Reveal from "@/components/decor/Reveal";
+import BubbleField from "@/components/decor/BubbleField";
+import OptimizedImage from "@/components/OptimizedImage";
+import lionCar from "@/assets/lion-car-mark.png";
+import lionCarAvif from "@/assets/lion-car-mark.avif";
+import { LOCATION_PHOTO_SETS } from "@/lib/locationMedia";
 import {
   COMING_SOON_LOCATIONS,
   OPEN_LOCATIONS,
@@ -47,11 +53,40 @@ const LocationCard = ({
 }) => {
   const directionsUrl = getDirectionsUrl(location);
   const startingPrice = getStartingMonthlyPrice(location);
+  const cardPhoto = LOCATION_PHOTO_SETS[location.slug]?.[0];
 
   return (
     <article
-      className={`flex h-full flex-col rounded-lg border-2 border-washking-brown/35 border-t-[6px] bg-washking-yellow p-5 shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:shadow-sm sm:hover:shadow-md lg:p-6 ${accentClass}`}
+      className={`flex h-full flex-col overflow-hidden rounded-lg border-2 border-washking-brown/35 border-t-[6px] bg-washking-yellow shadow-md transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:shadow-sm sm:hover:shadow-md ${accentClass}`}
     >
+      {cardPhoto ? (
+        <OptimizedImage
+          avifSrc={cardPhoto.avifSrc}
+          src={cardPhoto.src}
+          alt={cardPhoto.alt}
+          width={cardPhoto.width}
+          height={cardPhoto.height}
+          loading="lazy"
+          decoding="async"
+          className="h-36 w-full border-b-2 border-washking-brown/25 object-cover"
+        />
+      ) : (
+        <div className="relative flex h-36 items-center justify-center overflow-hidden border-b-2 border-washking-brown/25 bg-washking-sky">
+          <BubbleField density="subtle" />
+          <OptimizedImage
+            avifSrc={lionCarAvif}
+            src={lionCar}
+            alt=""
+            width={500}
+            height={380}
+            loading="lazy"
+            decoding="async"
+            className="relative h-28 w-auto"
+          />
+        </div>
+      )}
+
+      <div className="flex flex-1 flex-col p-5 lg:p-6">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-washking-brown/15 bg-white/90">
           <MapPin className="h-6 w-6 text-washking-sky" aria-hidden="true" />
@@ -115,6 +150,7 @@ const LocationCard = ({
           </a>
         )}
       </div>
+      </div>
     </article>
   );
 };
@@ -140,7 +176,7 @@ const LocationsSection = () => {
             className="mb-9 lg:mb-12"
           />
 
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 xl:gap-5">
+          <Reveal className="mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 xl:gap-5">
             {OPEN_LOCATIONS.map((location, index) => (
               <LocationCard
                 key={location.slug}
@@ -154,7 +190,7 @@ const LocationsSection = () => {
                 ][index % 4]}
               />
             ))}
-          </div>
+          </Reveal>
 
           {comingSoon && (
             <div className="mx-auto mt-10 flex max-w-5xl flex-col items-center justify-between gap-5 rounded-lg border-2 border-dashed border-washking-sky/35 bg-white p-6 text-center shadow-sm sm:flex-row sm:text-left">

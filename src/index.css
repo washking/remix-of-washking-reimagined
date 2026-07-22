@@ -178,6 +178,87 @@
   .btn-unlimited {
     @apply btn-primary px-6;
   }
+
+  .card-lift {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px -14px hsl(var(--washking-brown) / 0.35);
+  }
+
+  .prose-washking {
+    @apply font-body text-base leading-relaxed text-gray-700;
+    max-width: 65ch;
+  }
+
+  .prose-washking h2 {
+    @apply mb-3 mt-10 font-display text-2xl text-washking-brown first:mt-0;
+  }
+
+  .prose-washking h3 {
+    @apply mb-2 mt-6 font-display text-xl text-washking-brown;
+  }
+
+  .prose-washking p {
+    @apply mb-4;
+  }
+
+  .prose-washking ul {
+    @apply mb-4 list-disc space-y-1 pl-6;
+  }
+
+  .prose-washking a {
+    @apply font-bold text-washking-sky underline underline-offset-2;
+  }
+
+  /* Wooden-sign motif: wood photo texture under a brown overlay strong enough
+     to keep white text AA on any part of the grain. */
+  .bg-wood {
+    background-image:
+      linear-gradient(hsl(var(--washking-brown) / 0.6), hsl(var(--washking-brown) / 0.6)),
+      url("./assets/wood-texture.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Scroll-reveal (see Reveal). SSR markup never carries these classes; they
+     are added client-side only for elements still below the viewport. */
+  .reveal-pending {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  .reveal-pending.reveal-shown {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 550ms ease-out, transform 550ms ease-out;
+  }
+
+  /* Decorative soap bubbles (see BubbleField). Bubbles drift up and fade; the
+     field is purely visual and disappears entirely under reduced motion. */
+  .bubble-field span {
+    animation: bubble-float var(--bubble-duration, 9s) linear var(--bubble-delay, 0s) infinite;
+    opacity: 0;
+  }
+
+  @keyframes bubble-float {
+    0% {
+      transform: translateY(0) scale(0.9);
+      opacity: 0;
+    }
+    12% {
+      opacity: var(--bubble-opacity, 0.4);
+    }
+    85% {
+      opacity: var(--bubble-opacity, 0.4);
+    }
+    100% {
+      transform: translateY(calc(-1 * var(--bubble-rise, 9rem))) scale(1.1);
+      opacity: 0;
+    }
+  }
 }
 
 @layer utilities {
@@ -259,6 +340,14 @@
 
     .hero-media-enter {
       animation: none;
+    }
+
+    .bubble-field {
+      display: none;
+    }
+
+    .card-lift:hover {
+      transform: none;
     }
   }
 }

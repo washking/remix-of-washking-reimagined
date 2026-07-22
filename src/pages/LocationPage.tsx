@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   Check,
@@ -19,6 +20,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import lionCar from "@/assets/lion-car-mark.png";
 import lionCarAvif from "@/assets/lion-car-mark.avif";
 import LocationGallery from "@/components/LocationGallery";
+import BubbleField from "@/components/decor/BubbleField";
 import { autoWashSchema, breadcrumbSchema } from "@/lib/structuredData";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
@@ -27,6 +29,7 @@ import {
   getHoursSummary,
   getIncludedFeatures,
   getLocationBySlug,
+  getLocationOpenStatus,
   getPackagesByMonthlyPriceDescending,
   getStartingMonthlyPrice,
   UNLIMITED_MEMBER_BENEFITS,
@@ -157,6 +160,33 @@ const ComingSoonLocation = ({ location }: { location: WashKingLocation }) => (
     <Footer />
   </div>
 );
+
+// Client-only so the prerendered HTML (which has no "now") matches hydration;
+// until the effect runs the chip simply doesn't render.
+const OpenNowChip = ({ location }: { location: WashKingLocation }) => {
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const update = () => setCurrentTime(new Date());
+    update();
+    const interval = window.setInterval(update, 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const status = currentTime ? getLocationOpenStatus(location, currentTime) : null;
+  if (!status) return null;
+
+  return (
+    <span
+      className={`mt-1 inline-flex min-h-6 items-center gap-1.5 rounded-full px-2.5 py-0.5 font-body text-xs font-bold text-white ${
+        status.isOpen ? "bg-washking-green" : "bg-washking-brown"
+      }`}
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-current opacity-80" aria-hidden="true" />
+      {status.label}
+    </span>
+  );
+};
 
 const HoursDetails = ({ location }: { location: WashKingLocation }) => {
   if (location.hours.is24Hours) {
@@ -295,6 +325,7 @@ const LocationPage = () => {
                     <div>
                       <p className="font-body text-xs font-bold text-washking-brown/70">Hours</p>
                       <p className="font-body font-bold text-washking-brown">{hoursSummary}</p>
+                      <OpenNowChip location={location} />
                     </div>
                   </div>
 
@@ -395,12 +426,12 @@ const LocationPage = () => {
                 return (
                   <article
                     key={washPackage.name}
-                    className={`flex flex-col overflow-hidden rounded-lg border-2 border-t-[8px] border-gray-300 bg-white shadow-md md:border md:border-x-gray-200 md:border-b-gray-200 md:border-t-[6px] md:shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
+                    className={`card-lift flex flex-col overflow-hidden rounded-lg border-2 border-t-[8px] border-gray-300 bg-white shadow-md md:border md:border-x-gray-200 md:border-b-gray-200 md:border-t-[6px] md:shadow-sm ${PLAN_ACCENT_CLASSES[washPackage.name] || "border-t-gray-300"}`}
                   >
                     <div className={`${washPackage.color} ${washPackage.textColor} flex min-h-32 flex-col items-center justify-center p-6 text-center`}>
                       <Crown className="mb-2 h-5 w-5" aria-hidden="true" />
                       {PLAN_CALLOUTS[washPackage.name] && (
-                        <p className="mb-2 font-body text-xs font-extrabold uppercase">
+                        <p className="mb-2 rounded-full bg-white/85 px-3 py-0.5 font-body text-xs font-extrabold uppercase text-washking-brown shadow-sm">
                           {PLAN_CALLOUTS[washPackage.name]}
                         </p>
                       )}
@@ -507,8 +538,9 @@ const LocationPage = () => {
           </div>
         </section>
 
-        <section className="bg-washking-yellow py-12 lg:py-16">
-          <div className="container mx-auto px-4">
+        <section className="relative overflow-hidden bg-washking-yellow py-12 lg:py-16">
+          <BubbleField density="subtle" bubbleClassName="border border-washking-brown/25 bg-white/45" />
+          <div className="container relative mx-auto px-4">
             <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
                 <p className="mb-2 font-body text-sm font-bold text-washking-brown/70">Membership benefits</p>
