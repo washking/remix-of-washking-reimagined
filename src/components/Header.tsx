@@ -42,8 +42,19 @@ const menuItems: MenuItem[] = [
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [elevated, setElevated] = useState(false);
   const navigate = useNavigate();
   const route = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setElevated(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const isActiveRoute = (href: string) =>
+    !href.startsWith("/#") && (href === "/" ? route.pathname === "/" : route.pathname.startsWith(href));
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -77,13 +88,17 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b-4 border-washking-sky bg-washking-yellow/95 shadow-sm backdrop-blur">
+    <header
+      className={`sticky top-0 z-50 border-b-4 border-washking-sky bg-washking-yellow/95 backdrop-blur transition-shadow duration-200 ${
+        elevated ? "shadow-lg" : "shadow-sm"
+      }`}
+    >
       <div className="container mx-auto px-4 py-2.5">
         <div className="flex items-center justify-between gap-3">
           <a
             href="/"
             onClick={(event) => handleNavClick(event, "/")}
-            className="flex items-center shrink-0"
+            className="flex shrink-0 items-center transition-transform duration-200 hover:-rotate-2 motion-reduce:transform-none"
             aria-label="Wash King home"
           >
             <BrandLogo />
@@ -120,7 +135,10 @@ const Header = () => {
                   <a
                     href={item.href}
                     onClick={(event) => handleNavClick(event, item.href)}
-                    className="flex min-h-11 items-center rounded-lg px-3 py-2 font-body text-sm font-bold text-washking-brown transition-colors hover:bg-white/55 xl:px-4"
+                    aria-current={isActiveRoute(item.href) ? "page" : undefined}
+                    className={`flex min-h-11 items-center rounded-lg px-3 py-2 font-body text-sm font-bold text-washking-brown transition-colors hover:bg-white/55 xl:px-4 ${
+                      isActiveRoute(item.href) ? "bg-white/80 shadow-sm" : ""
+                    }`}
                   >
                     {item.label}
                   </a>
@@ -245,7 +263,10 @@ const Header = () => {
                       <a
                         href={item.href}
                         onClick={(event) => handleNavClick(event, item.href)}
-                        className="flex min-h-11 items-center rounded-lg px-3 py-2.5 font-body text-sm font-bold text-washking-brown transition-colors hover:bg-washking-cream"
+                        aria-current={isActiveRoute(item.href) ? "page" : undefined}
+                        className={`flex min-h-11 items-center rounded-lg px-3 py-2.5 font-body text-sm font-bold text-washking-brown transition-colors hover:bg-washking-cream ${
+                          isActiveRoute(item.href) ? "bg-washking-cream" : ""
+                        }`}
                       >
                         {item.label}
                       </a>
@@ -260,7 +281,7 @@ const Header = () => {
                                 rel="noopener noreferrer"
                                 data-analytics="membership_cta"
                                 data-analytics-source="mobile_navigation"
-                                className="block rounded-lg px-3 py-2.5 font-body text-sm text-washking-brown transition-colors hover:bg-washking-cream"
+                                className="flex min-h-11 items-center rounded-lg px-3 py-2.5 font-body text-sm text-washking-brown transition-colors hover:bg-washking-cream"
                               >
                                 {subItem.label}
                               </a>
@@ -269,7 +290,7 @@ const Header = () => {
                                 key={subItem.href}
                                 href={subItem.href}
                                 onClick={(event) => handleNavClick(event, subItem.href)}
-                                className="block rounded-lg px-3 py-2.5 font-body text-sm text-washking-brown transition-colors hover:bg-washking-cream"
+                                className="flex min-h-11 items-center rounded-lg px-3 py-2.5 font-body text-sm text-washking-brown transition-colors hover:bg-washking-cream"
                               >
                                 {subItem.label}
                               </a>

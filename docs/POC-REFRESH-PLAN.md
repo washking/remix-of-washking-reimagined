@@ -263,7 +263,10 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
       (WaveDivider colors via currentColor + text-washking-* classes. BubbleField
       uses FIXED bubble arrays — SSG markup must match hydration, never randomize.
       Reduced motion: `.bubble-field { display:none }` + card-lift transform off.)
-- [ ] **S3** Header polish.
+- [x] **S3** Header polish. (Scroll-aware shadow via scrollY>8 state, SSR-safe
+      default; active-route pill on desktop + mobile nav with `aria-current="page"`;
+      logo hover tilt `motion-reduce:transform-none`; mobile submenu items now
+      min-h-11. Verified desktop + 375px incl. open menu.)
 - [ ] **S4** Footer polish (first consumer of WaveDivider).
 - [ ] **S5** Home hero (LCP rule: no entry-opacity above fold).
 - [ ] **S6** Home LocationsSection (open-now chips, hydration-safe).
@@ -313,15 +316,18 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S3 (Header polish) — next up.
-- **Exact next action:** In `src/components/Header.tsx`: add scroll-aware shadow
-  (small `useEffect` + scrollY > 8 state; SSR default = no shadow), active-route
-  pill styling on nav links (yellow bg + brown text via NavLink active state),
-  ensure mobile menu touch targets ≥44px. No layout/link changes. Verify on dev
-  server at desktop + 375px, typecheck/lint/test, screenshot, commit.
-  Note: tailwind config already has `animate-float`/`animate-bounce-slow`;
-  `gentle-bounce` keyframe was NOT needed (reuse `bounce` 5px). Existing
-  `animation` shorthand utilities are fine.
+- **Step in progress:** S4 (Footer polish) — next up.
+- **Exact next action:** In `src/components/Footer.tsx`: add
+  `<WaveDivider className="text-washking-brown" />` immediately above the footer's
+  brown band (wave sits on the preceding section's background, pointing into the
+  footer), keep all existing columns/links/socials (email only, NO phone), and add
+  a slim "Start Unlimited" CTA strip if one doesn't already exist — check the
+  current footer first; if it already has a portal CTA, just restyle, don't
+  duplicate. Verify home + a location page at desktop/375px, typecheck/lint/test,
+  screenshot, commit.
+  Notes for the builder: tailwind already ships `animate-float`/`animate-bounce-slow`;
+  browser-tool clicks can silently miss — verify state via `#mobile-navigation` in
+  JS or re-read the page rather than trusting one screenshot.
 - **Environment notes:**
   - Working dir: `/Users/raj/dev/Washking.net domain/live-site` (not a repo root
     typo — the dir name contains a space and ".net").
