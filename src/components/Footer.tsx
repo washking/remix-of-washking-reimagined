@@ -4,6 +4,8 @@ import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import BrandLogo from "@/components/BrandLogo";
 import { LOCATIONS } from "@/lib/locations";
 import RoyalTrim from "@/components/RoyalTrim";
+import WaveDivider from "@/components/decor/WaveDivider";
+import BubbleField from "@/components/decor/BubbleField";
 
 const exploreLinks = [
   { label: "Home", href: "/" },
@@ -42,6 +44,31 @@ const Footer = () => {
         </div>
       </div>
       <RoyalTrim />
+
+      <div className="relative bg-washking-sky">
+        <BubbleField density="subtle" />
+        <div className="container relative mx-auto flex flex-col items-center gap-4 px-4 pb-2 pt-8 text-center sm:flex-row sm:justify-between sm:text-left lg:pt-10">
+          <div>
+            <p className="font-display text-xl text-white sm:text-2xl">
+              Wash once a day for one monthly price.
+            </p>
+            <p className="mt-1 font-body text-sm text-white/85">
+              Unlimited plans at every open Wash King location. Cancel anytime.
+            </p>
+          </div>
+          <a
+            href={MEMBERSHIP_PORTAL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics="membership_cta"
+            data-analytics-source="footer_strip"
+            className="btn-secondary shrink-0 whitespace-nowrap px-6"
+          >
+            Join Unlimited
+          </a>
+        </div>
+        <WaveDivider className="relative text-washking-brown" />
+      </div>
 
       <div className="py-10 lg:py-12">
         <div className="container mx-auto max-w-7xl px-4">

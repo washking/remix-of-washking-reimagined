@@ -267,7 +267,13 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
       default; active-route pill on desktop + mobile nav with `aria-current="page"`;
       logo hover tilt `motion-reduce:transform-none`; mobile submenu items now
       min-h-11. Verified desktop + 375px incl. open menu.)
-- [ ] **S4** Footer polish (first consumer of WaveDivider).
+- [x] **S4** Footer polish (first consumer of WaveDivider). (Added sky-blue
+      "Join Unlimited" conversion strip between RoyalTrim and the brown columns:
+      truthful copy from UNLIMITED_MEMBER_BENEFITS, subtle BubbleField, WaveDivider
+      into the brown. Existing columns/links untouched. Verified desktop + 375px.
+      NOTE: the 2px "horizontal scroll" at 375px in the in-app browser is a pane
+      scrollbar artifact (innerWidth 377 vs clientWidth 375) hitting the header's
+      pre-existing `-mr-2` hamburger — not a real-device overflow.)
 - [ ] **S5** Home hero (LCP rule: no entry-opacity above fold).
 - [ ] **S6** Home LocationsSection (open-now chips, hydration-safe).
 - [ ] **S7** Home PackagesSection (break-even line, tier clarity).
@@ -316,18 +322,18 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S4 (Footer polish) — next up.
-- **Exact next action:** In `src/components/Footer.tsx`: add
-  `<WaveDivider className="text-washking-brown" />` immediately above the footer's
-  brown band (wave sits on the preceding section's background, pointing into the
-  footer), keep all existing columns/links/socials (email only, NO phone), and add
-  a slim "Start Unlimited" CTA strip if one doesn't already exist — check the
-  current footer first; if it already has a portal CTA, just restyle, don't
-  duplicate. Verify home + a location page at desktop/375px, typecheck/lint/test,
-  screenshot, commit.
+- **Step in progress:** S5 (Home hero) — next up.
+- **Exact next action:** Read `src/components/HeroSection.tsx` fully first. Polish
+  copy hierarchy + CTA prominence only (btn-secondary for primary CTA, keep both
+  CTAs), keep ALL above-the-fold content visible in prerendered HTML (no new
+  opacity-0/entry animations there; `hero-media-enter` on the media image is the
+  existing sanctioned exception). Optionally add BubbleField ONLY if it sits behind
+  non-LCP decorative areas. Verify with `npm run build` + view-source that hero
+  text is in the static HTML. Typecheck/lint/test, screenshots desktop+375px,
+  commit.
   Notes for the builder: tailwind already ships `animate-float`/`animate-bounce-slow`;
-  browser-tool clicks can silently miss — verify state via `#mobile-navigation` in
-  JS or re-read the page rather than trusting one screenshot.
+  browser-tool clicks can silently miss — verify state via JS/read_page rather than
+  one screenshot; React re-renders are async so check DOM state in a second JS call.
 - **Environment notes:**
   - Working dir: `/Users/raj/dev/Washking.net domain/live-site` (not a repo root
     typo — the dir name contains a space and ".net").
