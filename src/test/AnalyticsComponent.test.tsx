@@ -3,6 +3,10 @@ import { BrowserRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Analytics from "@/components/Analytics";
 
+// Covers the real engagement pipeline; the POC no-op is covered in
+// pocModeStub.test.ts.
+vi.mock("@/lib/pocMode", () => ({ POC_MODE: false }));
+
 describe("Analytics lifecycle", () => {
   afterEach(() => {
     vi.unstubAllGlobals();

@@ -250,9 +250,13 @@ After EVERY step: `npm run typecheck && npm run lint && npm run test`, eyeball t
 affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - [x] **S0** Create branch `poc/refresh-v2` off up-to-date `main`; commit this plan.
-- [ ] **S1** POC guardrails: add `pocMode.ts`; stub `submitWebsiteForm`; no-op
+- [x] **S1** POC guardrails: add `pocMode.ts`; stub `submitWebsiteForm`; no-op
       `track()`; update the two test files; verify with devtools that a contact
       submit + page nav produce zero requests to formspree/supabase domains.
+      (Verified in browser: contact submit → success toast + /thank-you redirect,
+      analytics logs `[poc] analytics suppressed:`, ZERO requests matching
+      formspree|supabase|ingest|webchily. Also updated AnalyticsComponent.test.tsx
+      which exercises the real pipeline. 57 tests green, build green.)
 - [ ] **S2** Design-system foundations: index.css keyframes/utilities +
       `WaveDivider` + `BubbleField` (with reduced-motion guards). Not yet used
       anywhere — pure additive, zero visual change, all checks green.
@@ -306,16 +310,15 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S1 (POC guardrails) — next up.
-- **Exact next action:** Create `src/lib/pocMode.ts` with `export const POC_MODE =
-  true;` + loud never-merge comment. In `src/lib/formSubmission.ts`, early-return in
-  `submitWebsiteForm` when `POC_MODE`: `await` a ~600ms delay, return
-  `{ deliveredBy: "poc-stub" as const }` (keep the return type compatible — widen the
-  union). In `src/lib/analytics.ts`, at top of `track()`: if `POC_MODE`,
-  `console.debug("[poc] track", event_name)` and return. Update
-  `src/test/formSubmission.test.ts` + `src/test/analytics.test.ts` (mock/spy fetch +
-  sendBeacon, assert not called; assert success result). Run typecheck/lint/test,
-  manual network check, commit `POC guardrails: stub forms + analytics`.
+- **Step in progress:** S2 (design-system foundations) — next up.
+- **Exact next action:** Add to `src/index.css`: `@keyframes bubble-float` +
+  `@keyframes gentle-bounce` (components layer), `.card-lift` and `.prose-washking`
+  utilities, and a reduced-motion `display:none` guard for `.bubble-field`. Create
+  `src/components/decor/WaveDivider.tsx` (inline SVG wave, `aria-hidden`, color via
+  `fill-*` token classes, `flip` prop) and `src/components/decor/BubbleField.tsx`
+  (aria-hidden pointer-events-none absolute bubbles using `bubble-float`). Consume
+  nothing yet — zero visual change. Run typecheck/lint/test, commit
+  `Design foundations: wave divider, bubble field, motion utilities`.
 - **Environment notes:**
   - Working dir: `/Users/raj/dev/Washking.net domain/live-site` (not a repo root
     typo — the dir name contains a space and ".net").

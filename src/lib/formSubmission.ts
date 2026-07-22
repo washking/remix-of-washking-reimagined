@@ -1,3 +1,5 @@
+import { POC_MODE } from "./pocMode";
+
 const WEBCHILY_URL =
   "https://tabbjztcwbohcsvofyvv.supabase.co/functions/v1/receive-enquiry";
 const FORMSPREE_URL = "https://formspree.io/f/mrejrbgy";
@@ -36,6 +38,13 @@ export const submitWebsiteForm = async <T extends object>({
   data,
   timeoutMs = 12_000,
 }: WebsiteFormSubmission<T>) => {
+  if (POC_MODE) {
+    // Keep the pending UX believable, then report success without touching
+    // Webchily or Formspree so the POC preview can never create real tickets.
+    await new Promise((resolve) => globalThis.setTimeout(resolve, 600));
+    return { deliveredBy: "poc-stub" as const };
+  }
+
   const externalSubmissionId = globalThis.crypto?.randomUUID?.()
     ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   const submissionData = { ...data, external_submission_id: externalSubmissionId };

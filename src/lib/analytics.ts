@@ -3,6 +3,7 @@
 // WashKing Communicator admin dashboard. No PII — just an anonymous visitor id.
 // Safe during SSG: every function no-ops when there's no browser environment.
 import { WEB_EVENTS_URL } from "./site";
+import { POC_MODE } from "./pocMode";
 
 const TOKEN = import.meta.env.VITE_WEB_EVENTS_TOKEN as string | undefined;
 const isBrowser = typeof window !== "undefined" && typeof navigator !== "undefined";
@@ -100,6 +101,10 @@ export function track(
   options: TrackOptions = {},
 ): void {
   if (!isBrowser) return;
+  if (POC_MODE) {
+    console.debug("[poc] analytics suppressed:", event_name);
+    return;
+  }
   try {
     const body = JSON.stringify({
       ...baseFields(options.path),
