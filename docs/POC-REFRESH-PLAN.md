@@ -307,6 +307,28 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 - [x] **S15** AboutPage + PrivacyPage — ALREADY DONE UPSTREAM (About: kingdom hero
       + values grid; Privacy: icon-sectioned plain-language layout, better than a
       generic prose pass). They inherit the hero bubbles; no other changes.
+### Phase 2 — "complete refresh" pass (owner asked for more visual ambition)
+
+- [ ] **S17** Motion & texture foundations: `Reveal` component (IntersectionObserver
+      scroll-reveal; SSR-visible by default — classes are only added client-side
+      after mount and only for elements still below the viewport, so prerendered
+      HTML is never hidden; no-op under reduced motion) + `.bg-wood` utility
+      (wood-texture.jpg with a brown overlay gradient so white text is always AA).
+- [ ] **S18** KingdomHeading wood-sign eyebrow: every section heading site-wide
+      gets the eyebrow inside a slightly-rotated wooden-sign chip (white text on
+      overlaid wood). One edit, site-wide cohesion.
+- [ ] **S19** Home flow: WaveDividers stitching cream/sky-light band transitions
+      (top of TrustStats, top of FAQ) + Reveal wrappers on below-fold home grids
+      (locations cards, stats cards, proof points, FAQ). Crown flourish over the
+      hero H1.
+- [ ] **S20** LocationsSection photo cards: real location photos
+      (LOCATION_PHOTO_SETS) as card headers for vineland/somerset; on-brand
+      sky/lion fallback panel for dante/landisville. Honest labels only.
+- [ ] **S21** Location page: bubbles on the yellow benefits band; ROYALTY/DIAMOND
+      callouts restyled as ribbon chips; gallery polish if needed.
+- [ ] **S22** Re-run the full §7 matrix on the production build; update Handoff;
+      push.
+
 - [x] **S16** Full test matrix (§7) — executed against the production build
       (`npm run build` + `vite preview` on :4173):
       · typecheck / lint / vitest (57) / build: all green.
