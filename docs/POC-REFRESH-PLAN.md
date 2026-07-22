@@ -309,25 +309,29 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
       generic prose pass). They inherit the hero bubbles; no other changes.
 ### Phase 2 — "complete refresh" pass (owner asked for more visual ambition)
 
-- [ ] **S17** Motion & texture foundations: `Reveal` component (IntersectionObserver
-      scroll-reveal; SSR-visible by default — classes are only added client-side
-      after mount and only for elements still below the viewport, so prerendered
-      HTML is never hidden; no-op under reduced motion) + `.bg-wood` utility
-      (wood-texture.jpg with a brown overlay gradient so white text is always AA).
-- [ ] **S18** KingdomHeading wood-sign eyebrow: every section heading site-wide
-      gets the eyebrow inside a slightly-rotated wooden-sign chip (white text on
-      overlaid wood). One edit, site-wide cohesion.
-- [ ] **S19** Home flow: WaveDividers stitching cream/sky-light band transitions
-      (top of TrustStats, top of FAQ) + Reveal wrappers on below-fold home grids
-      (locations cards, stats cards, proof points, FAQ). Crown flourish over the
-      hero H1.
-- [ ] **S20** LocationsSection photo cards: real location photos
-      (LOCATION_PHOTO_SETS) as card headers for vineland/somerset; on-brand
-      sky/lion fallback panel for dante/landisville. Honest labels only.
-- [ ] **S21** Location page: bubbles on the yellow benefits band; ROYALTY/DIAMOND
-      callouts restyled as ribbon chips; gallery polish if needed.
-- [ ] **S22** Re-run the full §7 matrix on the production build; update Handoff;
-      push.
+- [x] **S17** Motion & texture foundations: `Reveal` (`decor/Reveal.tsx`) +
+      `.bg-wood`/`.reveal-*` CSS. Reveal is prerender-safe: classes added
+      client-side only, only for elements still below the viewport; no-op under
+      reduced motion. Verified `reveal-pending` count in dist/index.html = 0.
+- [x] **S18** KingdomHeading wood-sign eyebrow — every section heading site-wide
+      now carries the rotated wood chip (white on brown-overlaid wood, AA-safe).
+- [x] **S19** Home flow: WaveDivider at top of TrustStats (cream→sky-light) and
+      FAQ (sky-light→cream); Reveal on locations grid, stats grid, proof points,
+      FAQ block; crown flourish + wood eyebrow above the hero H1 (static, visible
+      pre-hydration).
+- [x] **S20** LocationsSection photo cards — vineland/somerset use their real
+      photos as card headers; dante/landisville get an on-brand sky + lion +
+      bubbles fallback panel (brand art, not fake photography). One modernUi
+      guardrail assertion updated: card padding moved to an inner body div so the
+      media header bleeds edge-to-edge (`bg-washking-yellow` + inner
+      `flex flex-1 flex-col p-5 lg:p-6`).
+- [x] **S21** Location page: brown-tinted bubbles on the yellow benefits band;
+      DIAMOND/ROYALTY callouts restyled as white pill chips (AA brown text works
+      on every plan header color).
+- [x] **S22** Re-verified on production build: typecheck/lint/57 tests/build
+      green; zero console errors on home (prod bundle); prerender carries full
+      card content and no hidden elements; reduced-motion guards unchanged.
+      Pushed.
 
 - [x] **S16** Full test matrix (§7) — executed against the production build
       (`npm run build` + `vite preview` on :4173):
@@ -382,7 +386,7 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** BUILD COMPLETE — S0-S16 all done.
+- **Step in progress:** BUILD COMPLETE — S0-S22 all done (Phase 1 + Phase 2).
 - **Exact next action (if resuming):** Push the branch to get its Vercel preview
   URL: `git push -u origin poc/refresh-v2` (pushing is allowed; merging/promoting
   is NOT). Then share the preview URL with the owner. Optional follow-ups the

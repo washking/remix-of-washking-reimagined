@@ -20,6 +20,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import lionCar from "@/assets/lion-car-mark.png";
 import lionCarAvif from "@/assets/lion-car-mark.avif";
 import LocationGallery from "@/components/LocationGallery";
+import BubbleField from "@/components/decor/BubbleField";
 import { autoWashSchema, breadcrumbSchema } from "@/lib/structuredData";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
@@ -430,7 +431,7 @@ const LocationPage = () => {
                     <div className={`${washPackage.color} ${washPackage.textColor} flex min-h-32 flex-col items-center justify-center p-6 text-center`}>
                       <Crown className="mb-2 h-5 w-5" aria-hidden="true" />
                       {PLAN_CALLOUTS[washPackage.name] && (
-                        <p className="mb-2 font-body text-xs font-extrabold uppercase">
+                        <p className="mb-2 rounded-full bg-white/85 px-3 py-0.5 font-body text-xs font-extrabold uppercase text-washking-brown shadow-sm">
                           {PLAN_CALLOUTS[washPackage.name]}
                         </p>
                       )}
@@ -537,8 +538,9 @@ const LocationPage = () => {
           </div>
         </section>
 
-        <section className="bg-washking-yellow py-12 lg:py-16">
-          <div className="container mx-auto px-4">
+        <section className="relative overflow-hidden bg-washking-yellow py-12 lg:py-16">
+          <BubbleField density="subtle" bubbleClassName="border border-washking-brown/25 bg-white/45" />
+          <div className="container relative mx-auto px-4">
             <div className="mx-auto grid max-w-5xl items-center gap-8 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
                 <p className="mb-2 font-body text-sm font-bold text-washking-brown/70">Membership benefits</p>

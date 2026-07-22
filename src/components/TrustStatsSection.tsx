@@ -4,6 +4,8 @@ import {
   OPEN_LOCATIONS,
 } from "@/lib/locations";
 import KingdomHeading from "@/components/KingdomHeading";
+import WaveDivider from "@/components/decor/WaveDivider";
+import Reveal from "@/components/decor/Reveal";
 
 const open24HourLocations = OPEN_LOCATIONS.filter(
   (location) => location.hours.is24Hours,
@@ -51,8 +53,9 @@ const stats = [
 ] as const;
 
 const TrustStatsSection = () => (
-  <section id="at-a-glance" className="scroll-mt-24 bg-washking-sky-light py-12 lg:py-16">
-    <div className="container mx-auto px-4">
+  <section id="at-a-glance" className="scroll-mt-24 bg-washking-sky-light pb-12 lg:pb-16">
+    <WaveDivider flip className="text-washking-cream" />
+    <div className="container mx-auto px-4 pt-10 lg:pt-12">
       <div className="mx-auto max-w-6xl">
         <KingdomHeading
           eyebrow="Plan with the facts"
@@ -62,7 +65,7 @@ const TrustStatsSection = () => (
           className="mb-8 max-w-3xl"
         />
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Reveal className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, index) => (
             <article
               key={stat.label}
@@ -81,7 +84,7 @@ const TrustStatsSection = () => (
               <p className="mt-2 font-body text-sm leading-relaxed text-gray-600">{stat.detail}</p>
             </article>
           ))}
-        </div>
+        </Reveal>
       </div>
     </div>
   </section>

@@ -5,6 +5,8 @@ import lionMascotAvif from "@/assets/lion-mascot.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 import KingdomHeading from "@/components/KingdomHeading";
 import RoyalTrim from "@/components/RoyalTrim";
+import WaveDivider from "@/components/decor/WaveDivider";
+import Reveal from "@/components/decor/Reveal";
 import { MEMBERSHIP_PORTAL } from "@/lib/site";
 import {
   Accordion,
@@ -48,8 +50,9 @@ const supportCopy = "Need account help? Use the phone number connected to your m
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="scroll-mt-24 bg-washking-cream py-12 lg:py-16">
-      <div className="container mx-auto px-4">
+    <section id="faq" className="scroll-mt-24 bg-washking-cream pb-12 lg:pb-16">
+      <WaveDivider flip className="text-washking-sky-light" />
+      <div className="container mx-auto px-4 pt-10 lg:pt-12">
         <KingdomHeading
           eyebrow="Unlimited membership"
           title="Unlimited Wash Club FAQs"
@@ -57,7 +60,7 @@ const FAQSection = () => {
           className="mb-9 lg:mb-12"
         />
 
-        <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-16 max-w-6xl mx-auto">
+        <Reveal className="flex flex-col lg:flex-row items-start gap-6 lg:gap-16 max-w-6xl mx-auto">
           <div
             className="lg:w-1/3 text-center lg:text-left hidden lg:block"
           >
@@ -123,7 +126,7 @@ const FAQSection = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         <p
           className="mx-auto mt-6 max-w-md text-center font-body text-sm leading-relaxed text-gray-700 lg:hidden"

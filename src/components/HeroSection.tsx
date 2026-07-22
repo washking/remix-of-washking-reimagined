@@ -4,6 +4,7 @@ import {
   CalendarCheck2,
   ChevronLeft,
   ChevronRight,
+  Crown,
   MapPinned,
   Pause,
   Play,
@@ -295,7 +296,8 @@ const HeroSection = () => {
             />
 
             <div className="flex flex-col items-center text-center">
-            <p className="font-body text-xs font-extrabold text-washking-yellow sm:text-sm">
+            <Crown className="mb-2 h-7 w-7 rotate-[-8deg] text-washking-yellow" aria-hidden="true" />
+            <p className="bg-wood inline-block -rotate-1 rounded-md border border-white/25 px-3.5 py-1.5 font-body text-xs font-extrabold text-white shadow-sm sm:text-sm">
               Family-owned across New Jersey
             </p>
 

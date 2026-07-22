@@ -28,7 +28,11 @@ const KingdomHeading = ({
         </span>
         <span className={`h-px w-8 ${inverse ? "bg-white/35" : "bg-washking-brown/25"}`} aria-hidden="true" />
       </div>
-      <p className={`font-body text-xs font-extrabold sm:text-sm ${inverse ? "text-washking-yellow" : "text-washking-sky"}`}>
+      <p
+        className={`bg-wood inline-block -rotate-1 rounded-md border px-3.5 py-1.5 font-body text-xs font-extrabold text-white shadow-sm sm:text-sm ${
+          inverse ? "border-white/25" : "border-washking-brown/30"
+        }`}
+      >
         {eyebrow}
       </p>
       <h2 className={`mt-2 font-display text-3xl sm:text-4xl ${inverse ? "text-white" : "text-washking-brown"}`}>

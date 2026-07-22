@@ -213,6 +213,29 @@
     @apply font-bold text-washking-sky underline underline-offset-2;
   }
 
+  /* Wooden-sign motif: wood photo texture under a brown overlay strong enough
+     to keep white text AA on any part of the grain. */
+  .bg-wood {
+    background-image:
+      linear-gradient(hsl(var(--washking-brown) / 0.6), hsl(var(--washking-brown) / 0.6)),
+      url("./assets/wood-texture.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Scroll-reveal (see Reveal). SSR markup never carries these classes; they
+     are added client-side only for elements still below the viewport. */
+  .reveal-pending {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  .reveal-pending.reveal-shown {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 550ms ease-out, transform 550ms ease-out;
+  }
+
   /* Decorative soap bubbles (see BubbleField). Bubbles drift up and fade; the
      field is purely visual and disappears entirely under reduced motion. */
   .bubble-field span {

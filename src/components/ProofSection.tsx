@@ -5,6 +5,7 @@ import lionCar from "@/assets/lion-car-mark.png";
 import lionCarAvif from "@/assets/lion-car-mark.avif";
 import OptimizedImage from "@/components/OptimizedImage";
 import KingdomHeading from "@/components/KingdomHeading";
+import Reveal from "@/components/decor/Reveal";
 
 const proofPoints = [
   {
@@ -49,7 +50,7 @@ const ProofSection = () => (
           </Link>
         </div>
 
-        <div className="grid gap-7 border-t-2 border-washking-brown/15 pt-8 md:grid-cols-3">
+        <Reveal className="grid gap-7 border-t-2 border-washking-brown/15 pt-8 md:grid-cols-3">
           {proofPoints.map((point) => (
             <div key={point.title} className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border-2 border-washking-brown/15 bg-washking-yellow text-washking-brown">
@@ -63,7 +64,7 @@ const ProofSection = () => (
               </div>
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </div>
   </section>

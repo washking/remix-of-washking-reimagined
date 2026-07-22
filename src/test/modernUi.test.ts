@@ -149,7 +149,10 @@ describe("modern UI guardrails", () => {
 
     expect(locations).toContain("grid-cols-1 gap-8");
     expect(locations).toContain("border-2 border-washking-brown/35 border-t-[6px]");
-    expect(locations).toContain("bg-washking-yellow p-5");
+    // POC refresh: the card keeps its yellow surface, but padding moved to an
+    // inner body div so the media header can bleed to the card edges.
+    expect(locations).toContain("bg-washking-yellow");
+    expect(locations).toContain('"flex flex-1 flex-col p-5 lg:p-6"');
     expect(plans).toContain("max-w-7xl gap-10");
     expect(plans).toContain("border-2 border-t-[8px]");
     expect(plans).toContain("getPackagesByMonthlyPriceDescending(location)");
