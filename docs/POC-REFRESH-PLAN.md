@@ -274,7 +274,10 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
       NOTE: the 2px "horizontal scroll" at 375px in the in-app browser is a pane
       scrollbar artifact (innerWidth 377 vs clientWidth 375) hitting the header's
       pre-existing `-mr-2` hamburger — not a real-device overflow.)
-- [ ] **S5** Home hero (LCP rule: no entry-opacity above fold).
+- [x] **S5** Home hero. (Headline to lg:text-5xl, quick facts restyled as white/10
+      pill chips, lion-car mark gets animate-float — transform-only so LCP text
+      stays visible, killed by the global reduced-motion block. No new entry
+      animations; CTA hierarchy kept location-first by design.)
 - [ ] **S6** Home LocationsSection (open-now chips, hydration-safe).
 - [ ] **S7** Home PackagesSection (break-even line, tier clarity).
 - [ ] **S8** Home Proof + TrustStats + FAQ.
@@ -322,15 +325,13 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S5 (Home hero) — next up.
-- **Exact next action:** Read `src/components/HeroSection.tsx` fully first. Polish
-  copy hierarchy + CTA prominence only (btn-secondary for primary CTA, keep both
-  CTAs), keep ALL above-the-fold content visible in prerendered HTML (no new
-  opacity-0/entry animations there; `hero-media-enter` on the media image is the
-  existing sanctioned exception). Optionally add BubbleField ONLY if it sits behind
-  non-LCP decorative areas. Verify with `npm run build` + view-source that hero
-  text is in the static HTML. Typecheck/lint/test, screenshots desktop+375px,
-  commit.
+- **Step in progress:** S6 (Home LocationsSection) — next up.
+- **Exact next action:** Read `src/components/LocationsSection.tsx`. Add an
+  open-now chip per open-location card using `getLocationOpenStatus` — IMPORTANT:
+  compute it inside a client-only effect (useState null on server, set after
+  mount) so prerendered HTML/hydration match; SSR shows the static
+  `getHoursSummary` text it already shows. Add `card-lift` to cards. No data
+  changes. Verify all cards at desktop/375px, typecheck/lint/test, commit.
   Notes for the builder: tailwind already ships `animate-float`/`animate-bounce-slow`;
   browser-tool clicks can silently miss — verify state via JS/read_page rather than
   one screenshot; React re-renders are async so check DOM state in a second JS call.
