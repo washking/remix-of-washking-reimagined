@@ -1,10 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { submitWebsiteForm } from "@/lib/formSubmission";
 
-// These tests cover the real delivery pipeline; the POC stub path is covered in
-// pocModeStub.test.ts.
-vi.mock("@/lib/pocMode", () => ({ POC_MODE: false }));
-
 afterEach(() => {
   vi.useRealTimers();
   vi.restoreAllMocks();

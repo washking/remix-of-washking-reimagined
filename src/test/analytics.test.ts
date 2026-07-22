@@ -1,10 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { track } from "@/lib/analytics";
 
-// These tests cover the real transport; the POC no-op path is covered in
-// pocModeStub.test.ts.
-vi.mock("@/lib/pocMode", () => ({ POC_MODE: false }));
-
 describe("analytics transport", () => {
   beforeEach(() => {
     localStorage.clear();
