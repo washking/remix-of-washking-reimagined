@@ -386,7 +386,13 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** BUILD COMPLETE — S0-S22 all done (Phase 1 + Phase 2).
+- **Step in progress:** PROMOTED TO PRODUCTION (owner approved 2026-07-22).
+  This branch is no longer preview-only: POC_MODE stubs were removed (real form
+  delivery + analytics restored, 54 tests green) and the branch was merged to
+  main. Favicon fix included: favicon.png/ico had the lion's mane cropped off at
+  the bottom edge; both were rebuilt from the clean icon-512 lion-car art
+  (multi-size 16/32/48 ICO + 512 PNG) with ?v=2 cache-busting so search engines
+  refetch. Release gates: build budget 118.3/150 kB gzip, document audit passed.
 - **Exact next action (if resuming):** Push the branch to get its Vercel preview
   URL: `git push -u origin poc/refresh-v2` (pushing is allowed; merging/promoting
   is NOT). Then share the preview URL with the owner. Optional follow-ups the
