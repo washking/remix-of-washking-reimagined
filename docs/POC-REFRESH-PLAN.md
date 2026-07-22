@@ -307,9 +307,26 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 - [x] **S15** AboutPage + PrivacyPage — ALREADY DONE UPSTREAM (About: kingdom hero
       + values grid; Privacy: icon-sectioned plain-language layout, better than a
       generic prose pass). They inherit the hero bubbles; no other changes.
-- [ ] **S16** Full test matrix (§7) end-to-end: build + preview, prerender audit of
-      every route, responsive/keyboard/contrast/reduced-motion passes, content
-      parity vs `locations.ts`. Fix fallout. Final Handoff update.
+- [x] **S16** Full test matrix (§7) — executed against the production build
+      (`npm run build` + `vite preview` on :4173):
+      · typecheck / lint / vitest (57) / build: all green.
+      · All 13 dist HTML files prerendered with real content (grep audit).
+      · Hero H1 present in static index.html (visible pre-hydration).
+      · Console: zero errors on / and /location/vineland (prod bundle).
+      · Forms: contact (dev) + customer survey (PROD bundle) submitted end-to-end
+        → success UX → /thank-you, ZERO requests matching
+        formspree|supabase|ingest|webchily; employment shares the same stubbed
+        `submitWebsiteForm` path (unit-tested in pocModeStub.test.ts).
+      · Inline zod validation confirmed working (rating error surfaced).
+      · Skip-link is first Tab stop on prod bundle; focus rings are the existing
+        global style.
+      · Reduced motion: `bubble-field{display:none}` + global animation kill
+        verified present in the shipped CSS.
+      · Content parity: Vineland 19.99/31.99/34.99/59.99, Landisville "Open 24
+        hours", Somerset "8:00 AM to 7:00 PM" all match locations.ts; no phone
+        number or tel: anywhere in dist; break-even lines present.
+      · 375px sweep on About/Contact/Footer/menu during S3-S4; the only
+        "overflow" is a 2px in-app-browser scrollbar artifact (see S4 note).
 
 ---
 
@@ -343,14 +360,16 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S16 (full test matrix) — next up.
-- **Exact next action:** Run the §7 matrix end-to-end: `npm run build`, then
-  `npm run preview` (or serve dist/) and check every route's prerendered HTML has
-  real content; verify hero text visible without JS; submit all 3 forms watching
-  the network filter `formspree|supabase|ingest` (expect zero); 375px + desktop
-  sweep; keyboard/skip-link; reduced-motion (bubble fields must vanish); console
-  clean on / and /location/vineland; content parity vs locations.ts. Fix fallout,
-  tick S16, finalize this Handoff, commit.
+- **Step in progress:** BUILD COMPLETE — S0-S16 all done.
+- **Exact next action (if resuming):** Push the branch to get its Vercel preview
+  URL: `git push -u origin poc/refresh-v2` (pushing is allowed; merging/promoting
+  is NOT). Then share the preview URL with the owner. Optional follow-ups the
+  owner may request: employment form browser walk-through, real-device 375px
+  check, Lighthouse pass on the preview URL, and — only if the owner supplies
+  real 5-star reviews — a reviews block in ProofSection.
+- **Owner decisions still open:** real reviews (none supplied → none shown);
+  response-time promise on form heroes (not added — no such claim exists on the
+  site today).
   Notes for the builder: tailwind already ships `animate-float`/`animate-bounce-slow`;
   browser-tool clicks can silently miss — verify state via JS/read_page rather than
   one screenshot; React re-renders are async so check DOM state in a second JS call.
