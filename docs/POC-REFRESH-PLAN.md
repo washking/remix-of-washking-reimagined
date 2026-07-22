@@ -287,9 +287,15 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 - [x] **S8** Home Proof/TrustStats/FAQ — light touch only: `card-lift` on the four
       at-a-glance stat cards. Proof + FAQ already on-brand upstream (accordion with
       rotating plus, mascot, truthful copy); left unchanged.
-- [ ] **S9** LocationPage hero + #wash-plans cards (verify all 5 slugs incl.
-      cherry-hill coming-soon variant).
-- [ ] **S10** LocationPage CTA band + visit section + gallery.
+- [x] **S9** LocationPage hero + #wash-plans cards. (Added hydration-safe
+      OpenNowChip under Hours in the hero info card + `card-lift` on plan cards.
+      Everything else — break-even lines, plan callouts, portal guidance, sticky
+      mobile CTA bar — already existed upstream. Verified /location/vineland
+      (chip: green "Open now") and /location/cherry-hill (coming-soon variant,
+      no chip).)
+- [x] **S10** LocationPage CTA band + visit section + gallery — ALREADY DONE
+      UPSTREAM (yellow benefits band, green hours card, map w/ overlay CTA,
+      LocationGallery). No changes needed.
 - [ ] **S11** ContactPage form UX (verify stubbed success → thank-you).
 - [ ] **S12** CustomerSurveyPage form UX.
 - [ ] **S13** EmploymentPage form UX.
@@ -331,14 +337,15 @@ affected route(s) on the dev server, tick the box, update §8 Handoff, commit.
 
 - **Branch:** `poc/refresh-v2` (off `main` @ `3565e4c`)
 - **Last commit:** (this plan commit — see `git log -1`)
-- **Step in progress:** S9 (LocationPage hero + wash-plans) — next up.
-- **Exact next action:** Read `src/pages/LocationPage.tsx` in full (648 lines)
-  BEFORE editing — main's kingdom refresh already improved it, so verify what's
-  actually missing rather than assuming the plan's spec. Candidate deltas: an
-  open-now chip in the hero (pattern: client-only `currentTime` state exactly like
-  LocationsSection's OpenStatus), "pays for itself in N washes" line on plan cards
-  via `getBreakEvenVisits` (already exported in locations.ts), `card-lift` on plan
-  cards. Verify ALL 5 slugs incl. cherry-hill's coming-soon variant.
+- **Step in progress:** S11-S13 (form pages) — next up.
+- **Exact next action:** Read `src/components/FormPageHero.tsx` (13 lines) and
+  skim the three form pages. Candidate light-touch deltas: BubbleField behind the
+  FormPageHero sky band (decorative, aria-hidden), confirm submit buttons show a
+  pending state while the POC stub's 600ms delay runs, and confirm each page's
+  success UX (Contact + Survey navigate to /thank-you; check Employment). Do NOT
+  restructure the forms — they're already well-built with RHF + zod. Then S14:
+  ThankYouPage gets BubbleField density="lively" (celebration), NotFound gets the
+  lost-lion treatment if not already present (check first!).
   IMPORTANT DISCOVERY for the whole build: main already merged the big kingdom
   visual refresh (PR-17), so most pages are far closer to "done" than this plan
   originally assumed. For every remaining step, read the target file first and do
